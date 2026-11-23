@@ -8,6 +8,8 @@ Outputs (default folder: out/<repo name>/):
   summary.json   counts, origins, container / CI inventory  (columns 1-2)
   findings.json  vulnerabilities + anomalies with evidence  (columns 3-5)
   report.md      human-readable evidence report             (column 5)
+  report.html    the same report as a standalone web page   (column 5)
+  report.pdf     the same report as an A4 PDF               (column 5)
 """
 from __future__ import annotations
 
@@ -17,7 +19,7 @@ import sys
 import tempfile
 from pathlib import Path
 
-from . import __version__, cache, diff, findings, report, vulns
+from . import __version__, cache, diff, findings, report, report_export, vulns
 from .discover import discover
 from .export import export_html, export_json, export_mermaid
 from .graph import compute_depth, summarize, view, why
@@ -76,7 +78,9 @@ def scan(args):
     s["findings"] = doc["counts"]
     (out / "summary.json").write_text(json.dumps(s, indent=2), encoding="utf-8")
     (out / "findings.json").write_text(json.dumps(doc, indent=1, default=str), encoding="utf-8")
-    (out / "report.md").write_text(report.render(doc, s), encoding="utf-8")
+    md = report.render(doc, s)
+    (out / "report.md").write_text(md, encoding="utf-8")
+    report_files = report_export.write_all(md, out)
 
     c = doc["counts"]
     print(f"\n=== Guardian scan: {repo.name} ===")
@@ -104,8 +108,8 @@ def scan(args):
                 print("     " + " -> ".join(p))
     for n in dg.notes:
         print("  note:", n)
-    print(f"\nwrote {out}: sbom.cdx.json, graph.json, graph.html, summary.json, findings.json, report.md"
-          + (", graph.mmd" if has_mmd else ""))
+    print(f"\nwrote {out}: sbom.cdx.json, graph.json, graph.html, summary.json, findings.json, report.md, "
+          + ", ".join(report_files) + (", graph.mmd" if has_mmd else ""))
 
 
 def main(argv=None):

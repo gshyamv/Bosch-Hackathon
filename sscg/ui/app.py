@@ -21,10 +21,22 @@ sys.path.insert(0, str(ROOT))
 from sscg.export import DEP_COLOR, render_html  # noqa: E402
 from sscg.model import NON_LIBRARY  # noqa: E402
 from sscg.report import _ev as evidence_text  # noqa: E402
+from sscg.report_export import to_html as report_html, to_pdf as report_pdf  # noqa: E402
 
 GRAPH_VIEWS = ["Direct vs transitive (by level)", "Direct dependencies only",
                "One direct dependency's transitive tree", "Full graph (ecosystems & risk)"]
 LAYERED_MAX = 300
+
+
+@st.cache_data(show_spinner=False)
+def report_bytes(md_path: str, mtime: float, fmt: str) -> bytes:
+    """report.html / report.pdf from the scan folder; rendered from report.md when missing or older
+    (folders scanned before these formats existed)."""
+    md, f = Path(md_path), Path(md_path).with_suffix("." + fmt)
+    if f.exists() and f.stat().st_mtime >= mtime:
+        return f.read_bytes()
+    text = md.read_text(encoding="utf-8")
+    return report_html(text).encode("utf-8") if fmt == "html" else report_pdf(text)
 
 
 @st.cache_resource(show_spinner=False)
@@ -448,12 +460,20 @@ sel = next((f for f in sel_rows if pick.startswith(f["finding_id"] + " ")), None
 if sel:
     with st.container(border=True):
         finding_card(sel)
-d1, d2 = st.columns(2)
+d1, d2, d3, d4 = st.columns(4)
 d1.download_button("Download findings.json", (out / "findings.json").read_bytes(), file_name=f"{name}.findings.json",
                    mime="application/json")
 if (out / "report.md").exists():
-    d2.download_button("Download report.md", (out / "report.md").read_bytes(), file_name=f"{name}.report.md",
+    rmd = out / "report.md"
+    d2.download_button("Download report.md", rmd.read_bytes(), file_name=f"{name}.report.md",
                        mime="text/markdown")
+    d3.download_button("Download report.html", report_bytes(str(rmd), rmd.stat().st_mtime, "html"),
+                       file_name=f"{name}.report.html", mime="text/html")
+    try:
+        d4.download_button("Download report.pdf", report_bytes(str(rmd), rmd.stat().st_mtime, "pdf"),
+                           file_name=f"{name}.report.pdf", mime="application/pdf")
+    except Exception as e:  # noqa: BLE001  (e.g. reportlab not installed)
+        d4.caption(f"PDF unavailable: {type(e).__name__}: {e}")
     with st.expander("Show the full evidence report"):
         st.markdown((out / "report.md").read_text(encoding="utf-8"))
 

@@ -1340,11 +1340,11 @@
     },
     "by_rule": {
       "VULN": 139,
-      "R03_INSTALL_SCRIPT": 4,
       "R16_CI_EXCESSIVE_PERMISSIONS": 4,
+      "R03_INSTALL_SCRIPT": 4,
       "R13_CONTAINER_HARDENING": 3,
-      "R09_UNPINNED_DEPENDENCY": 2,
-      "R15_CI_UNPINNED_ACTION": 2
+      "R15_CI_UNPINNED_ACTION": 2,
+      "R09_UNPINNED_DEPENDENCY": 2
     },
     "advisories": 315
   }

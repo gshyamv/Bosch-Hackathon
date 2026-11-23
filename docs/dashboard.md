@@ -53,7 +53,7 @@ The dashboard does **not** scan anything itself. It is a viewer on top of the co
  python -m sscg scan <repo> --out out/<repo name> [--base X | --no-diff] [--no-vulns] [--offline] [--focus X]
          │      (runs in the background, in the sscg/ folder)
          ▼
- out/<repo name>/  summary.json · graph.json · graph.html · sbom.cdx.json · findings.json · report.md
+ out/<repo name>/  summary.json · graph.json · graph.html · sbom.cdx.json · findings.json · report.md · report.html · report.pdf
          │
          ▼
  the page reads these files and draws everything below the button
@@ -284,7 +284,7 @@ The 19 rules behind it (R01–R19) are listed in the main README §8.2. Examples
 
 **How the initial risk is computed:** start from the highest CVSS score (vulnerabilities) or the rule's level (anomalies: Critical 9.5, High 8.0, Medium 5.5, Low 3.0), add **+1.0 if new in the latest change**, cap at 10. Level: ≥ 9 Critical, ≥ 7 High, ≥ 4 Medium, ≥ 2 Low, else Info. Exploitability and reachability come on Day 2.
 
-**Downloads:** `findings.json` (machine-readable, all findings) and `report.md` (human-readable). **Show the full evidence report** renders `report.md` inline.
+**Downloads:** `findings.json` (machine-readable, all findings) and the evidence report as `report.md`, `report.html` (standalone web page) or `report.pdf` (A4). For scan folders made before HTML/PDF existed, the dashboard renders them from `report.md` on the fly. **Show the full evidence report** renders `report.md` inline.
 
 ---
 

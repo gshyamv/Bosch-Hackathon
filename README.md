@@ -79,7 +79,7 @@ pip install -r requirements.txt
 python -m sscg scan ..\targets\sscg-demo-target
 
 # 4. look at the results
-start out\sscg-demo-target\report.md  # evidence report
+start out\sscg-demo-target\report.md  # evidence report (also report.html, report.pdf)
 start out\sscg-demo-target\graph.html # interactive graph
 streamlit run ui/app.py               # dashboard at http://localhost:8501
 ```
@@ -211,6 +211,7 @@ Every scan writes to `out/<repo name>/`:
 | `summary.json` | 1–2 | Counts, depth, origins, duplicates, blast radius, container and CI inventory, finding counts |
 | `findings.json` | 3–5 | **All findings** with evidence, severity, fixes, paths and risk, plus the "what changed" comparison |
 | `report.md` | 5 | **Human-readable evidence report**: what is in it, what changed, what appears risky, evidence per finding |
+| `report.html` · `report.pdf` | 5 | The same report as a standalone web page (offline, light/dark) and an A4 PDF, rendered from `report.md` by `report_export.py` |
 | `graph.mmd` | 2 | Mermaid diagram (graphs ≤ 80 nodes) |
 
 ---
@@ -371,7 +372,7 @@ streamlit run ui/app.py
 | **②** Supply chain view | **direct vs transitive**: level chart + 3 graph views (by level, direct only with "+N transitive", one direct dependency's tree) next to the full graph; "Why is this package here?"; SBOM (download); container images & CI/CD; origins |
 | **③** Vulnerabilities | counts by severity, filterable table (CVEs, CVSS, fix, introduced via, risk), **trace a component**: paths + advisory table with links |
 | **④** Suspicious changes | **what changed** (commit, author, first-time flag, files, components added/removed/changed) + anomaly table |
-| **⑤** Evidence | all findings filterable by level / category / new; **open a finding** for its full evidence card; download `findings.json` and `report.md`; full report inline |
+| **⑤** Evidence | all findings filterable by level / category / new; **open a finding** for its full evidence card; download `findings.json` and the report as `.md`, `.html` or `.pdf`; full report inline |
 
 ---
 

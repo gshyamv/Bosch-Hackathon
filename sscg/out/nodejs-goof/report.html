@@ -1,0 +1,2497 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="sscg report_export">
+<title>Guardian evidence report: nodejs-goof</title>
+<style>
+:root{--bg:#fcfcfb;--fg:#1b1b19;--muted:#5f5e58;--line:#dedcd4;--head:#f1f0ec;--zebra:#f7f6f3;
+--code:#f1f0ec;--link:#1f5fbf;--accent:#2a78d6}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161615;--fg:#ecebe6;--muted:#a3a19a;
+--line:#3a3935;--head:#22221f;--zebra:#1c1c1a;--code:#2a2a27;--link:#7fb0f5;--accent:#6aa6ef}}
+:root[data-theme="dark"]{--bg:#161615;--fg:#ecebe6;--muted:#a3a19a;--line:#3a3935;--head:#22221f;--zebra:#1c1c1a;
+--code:#2a2a27;--link:#7fb0f5;--accent:#6aa6ef}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);
+font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+main{max-width:1180px;margin:0 auto;padding:32px 16px 64px}
+h1{font-size:1.9rem;line-height:1.2;margin:0 0 .4rem}
+h2{font-size:1.35rem;margin:2.2rem 0 .8rem;padding-bottom:.3rem;border-bottom:2px solid var(--accent)}
+h3{font-size:1.05rem;margin:1.8rem 0 .5rem}
+p,li{max-width:110ch}
+em{color:var(--muted)}
+a{color:var(--link);overflow-wrap:anywhere}
+code{font:.86em/1.4 ui-monospace,SFMono-Regular,Consolas,"DejaVu Sans Mono",monospace;background:var(--code);
+padding:.1em .35em;border-radius:4px;overflow-wrap:anywhere}
+pre{background:var(--code);padding:12px;border-radius:6px;overflow-x:auto}
+pre code{padding:0;background:none}
+table{display:block;overflow-x:auto;border-collapse:collapse;margin:.8rem 0 1.2rem;font-size:13px;max-width:100%}
+th,td{border:1px solid var(--line);padding:5px 8px;text-align:left;vertical-align:top}
+th{background:var(--head);font-weight:600}
+tbody tr:nth-child(even){background:var(--zebra)}
+ul{padding-left:1.4rem}
+li{margin:.15rem 0}
+footer{margin-top:3rem;color:var(--muted);font-size:12px}
+@media print{:root{--bg:#fff;--fg:#000;--zebra:#f6f6f6}main{max-width:none;padding:0}
+table{display:table;font-size:10px}h2,h3{break-after:avoid}tr{break-inside:avoid}a{color:inherit}}
+</style>
+</head>
+<body>
+<main>
+<h1>Guardian evidence report: nodejs-goof</h1>
+<p><em>Scanned 2026-11-23T13:10:40+00:00 with sscg 0.1.0</em></p>
+<p><strong>Repository → SBOM → Dependency graph → Risk detection → Evidence</strong> ✔</p>
+<h2>1. What is in the application</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Components</td>
+<td>989 (github-actions 6, docker 3, npm 980)</td>
+</tr>
+<tr>
+<td>Libraries</td>
+<td>980: 35 direct, 945 transitive, max depth 10</td>
+</tr>
+<tr>
+<td>Container images</td>
+<td>3: mongo:3, mysql:5, node:18.13.0</td>
+</tr>
+<tr>
+<td>CI/CD</td>
+<td>4 workflow(s), 6 distinct actions</td>
+</tr>
+<tr>
+<td>SBOM</td>
+<td><code>sbom.cdx.json</code> (CycloneDX 1.5, 996 components)</td>
+</tr>
+</tbody>
+</table>
+<h2>2. What changed</h2>
+<p>Not analysed (no base commit available, e.g. a shallow clone). See notes.</p>
+<h2>3. What appears risky</h2>
+<p><strong>154 findings</strong>: 139 vulnerable components (315 advisories) and 15 supply-chain anomalies.</p>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Critical</th>
+<th>High</th>
+<th>Medium</th>
+<th>Low</th>
+<th>Info</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Findings</td>
+<td>24</td>
+<td>73</td>
+<td>37</td>
+<td>20</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p><em>Initial risk = Guardian initial risk (heuristic, 0-10); not a CVSS score. Official severity is shown separately for vulnerabilities.</em></p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Risk</th>
+<th>Type</th>
+<th>Finding</th>
+<th>Location</th>
+<th>New</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F-001</td>
+<td>🟥 Critical (10.0)</td>
+<td>Vulnerable direct dependency</td>
+<td>mongoose@4.2.4: 13 known vulnerabilities (highest CRITICAL, CVSS 10.0)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-002</td>
+<td>🟥 Critical (9.8)</td>
+<td>Vulnerable transitive dependency</td>
+<td>bson@0.4.23: 2 known vulnerabilities (highest CRITICAL, CVSS 9.8)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-003</td>
+<td>🟥 Critical (9.8)</td>
+<td>Vulnerable transitive dependency</td>
+<td>ejs@0.8.8: 5 known vulnerabilities (highest CRITICAL, CVSS 9.8)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-004</td>
+<td>🟥 Critical (9.8)</td>
+<td>Vulnerable direct dependency</td>
+<td>ejs@1.0.0: 5 known vulnerabilities (highest CRITICAL, CVSS 9.8)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-005</td>
+<td>🟥 Critical (9.8)</td>
+<td>Vulnerable direct dependency</td>
+<td>express-fileupload@0.0.5: 3 known vulnerabilities (highest CRITICAL, CVSS 9.8)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-006</td>
+<td>🟥 Critical (9.8)</td>
+<td>Vulnerable transitive dependency</td>
+<td>handlebars@4.0.11: 20 known vulnerabilities (highest CRITICAL, CVSS 9.8)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-007</td>
+<td>🟥 Critical (9.8)</td>
+<td>Vulnerable transitive dependency</td>
+<td>handlebars@4.0.14: 19 known vulnerabilities (highest CRITICAL, CVSS 9.8)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-008</td>
+<td>🟥 Critical (9.8)</td>
+<td>Vulnerable transitive dependency</td>
+<td>json-schema@0.2.3: 1 known vulnerability (highest CRITICAL, CVSS 9.8)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-009</td>
+<td>🟥 Critical (9.8)</td>
+<td>Vulnerable transitive dependency</td>
+<td>minimist@0.0.10: 2 known vulnerabilities (highest CRITICAL, CVSS 9.8)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-010</td>
+<td>🟥 Critical (9.8)</td>
+<td>Vulnerable transitive dependency</td>
+<td>minimist@0.0.8: 2 known vulnerabilities (highest CRITICAL, CVSS 9.8)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-011</td>
+<td>🟥 Critical (9.8)</td>
+<td>Vulnerable transitive dependency</td>
+<td>minimist@1.2.0: 2 known vulnerabilities (highest CRITICAL, CVSS 9.8)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-012</td>
+<td>🟥 Critical (9.8)</td>
+<td>Vulnerable transitive dependency</td>
+<td>minimist@1.2.5: 1 known vulnerability (highest CRITICAL, CVSS 9.8)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-013</td>
+<td>🟥 Critical (9.8)</td>
+<td>Vulnerable transitive dependency</td>
+<td>mixin-deep@1.3.1: 1 known vulnerability (highest CRITICAL, CVSS 9.8)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-014</td>
+<td>🟥 Critical (9.8)</td>
+<td>Vulnerable transitive dependency</td>
+<td>parse-url@5.0.1: 6 known vulnerabilities (highest CRITICAL, CVSS 9.8)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-015</td>
+<td>🟥 Critical (9.8)</td>
+<td>Vulnerable transitive dependency</td>
+<td>set-value@0.4.3: 2 known vulnerabilities (highest CRITICAL, CVSS 9.8)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-016</td>
+<td>🟥 Critical (9.8)</td>
+<td>Vulnerable transitive dependency</td>
+<td>set-value@2.0.0: 2 known vulnerabilities (highest CRITICAL, CVSS 9.8)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-017</td>
+<td>🟥 Critical (9.8)</td>
+<td>Vulnerable direct dependency</td>
+<td>typeorm@0.2.24: 5 known vulnerabilities (highest CRITICAL, CVSS 9.8)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-018</td>
+<td>🟥 Critical (9.8)</td>
+<td>Vulnerable transitive dependency</td>
+<td>underscore@1.9.1: 2 known vulnerabilities (highest CRITICAL, CVSS 9.8)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-019</td>
+<td>🟥 Critical (9.3)</td>
+<td>Vulnerable transitive dependency</td>
+<td>babel-traverse@6.26.0: 1 known vulnerability (highest CRITICAL, CVSS 9.3)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-020</td>
+<td>🟥 Critical (9.1)</td>
+<td>Vulnerable transitive dependency</td>
+<td>cipher-base@1.0.4: 1 known vulnerability (highest CRITICAL, CVSS 9.1)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-021</td>
+<td>🟥 Critical (9.1)</td>
+<td>Vulnerable transitive dependency</td>
+<td>lodash@4.17.10: 8 known vulnerabilities (highest CRITICAL, CVSS 9.1)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-022</td>
+<td>🟥 Critical (9.1)</td>
+<td>Vulnerable direct dependency</td>
+<td>lodash@4.17.4: 9 known vulnerabilities (highest CRITICAL, CVSS 9.1)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-023</td>
+<td>🟥 Critical (9.1)</td>
+<td>Vulnerable transitive dependency</td>
+<td>netmask@1.0.6: 1 known vulnerability (highest CRITICAL, CVSS 9.1)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-024</td>
+<td>🟥 Critical (9.1)</td>
+<td>Vulnerable transitive dependency</td>
+<td>sha.js@2.4.11: 1 known vulnerability (highest CRITICAL, CVSS 9.1)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-025</td>
+<td>🟧 High (8.8)</td>
+<td>Vulnerable direct dependency</td>
+<td>dustjs-linkedin@2.5.0: 1 known vulnerability (highest HIGH, CVSS 8.8)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-026</td>
+<td>🟧 High (8.8)</td>
+<td>Vulnerable direct dependency</td>
+<td>snyk@1.278.1: 4 known vulnerabilities (highest HIGH, CVSS 8.8)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-027</td>
+<td>🟧 High (8.2)</td>
+<td>Vulnerable transitive dependency</td>
+<td>toml@3.0.0: 6 known vulnerabilities (highest HIGH, CVSS 8.2)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-028</td>
+<td>🟧 High (8.1)</td>
+<td>Vulnerable transitive dependency</td>
+<td>degenerator@1.0.4: 1 known vulnerability (highest HIGH, CVSS 8.1)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-029</td>
+<td>🟧 High (8.1)</td>
+<td>Vulnerable transitive dependency</td>
+<td>ip@1.1.5: 2 known vulnerabilities (highest HIGH, CVSS 8.1)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-030</td>
+<td>🟧 High (8.1)</td>
+<td>Vulnerable transitive dependency</td>
+<td>lodash@4.17.15: 5 known vulnerabilities (highest HIGH, CVSS 8.1)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-031</td>
+<td>🟧 High (8.1)</td>
+<td>Vulnerable transitive dependency</td>
+<td>lodash@4.17.21: 2 known vulnerabilities (highest HIGH, CVSS 8.1)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-032</td>
+<td>🟧 High (8.1)</td>
+<td>Vulnerable transitive dependency</td>
+<td>pac-resolver@3.0.0: 1 known vulnerability (highest HIGH, CVSS 8.1)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-033</td>
+<td>🟧 High (8.1)</td>
+<td>Vulnerable transitive dependency</td>
+<td>shell-quote@1.6.1: 2 known vulnerabilities (highest HIGH, CVSS 8.1)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-034</td>
+<td>🟧 High (8.0)</td>
+<td>Unsafe CI/CD component</td>
+<td>.github/workflows/snyk-code.yml: third-party action 'snyk/actions/setup@master' is not pinned to a commit SHA</td>
+<td><code>.github/workflows/snyk-code.yml:8</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-035</td>
+<td>🟧 High (8.0)</td>
+<td>Unsafe CI/CD component</td>
+<td>.github/workflows/snyk-test-sarif.yml: third-party action 'snyk/actions/setup@master' is not pinned to a commit SHA</td>
+<td><code>.github/workflows/snyk-test-sarif.yml:8</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-036</td>
+<td>🟧 High (8.0)</td>
+<td>Vulnerable transitive dependency</td>
+<td>diff@1.4.0: 2 known vulnerabilities (highest HIGH)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-037</td>
+<td>🟧 High (8.0)</td>
+<td>Vulnerable transitive dependency</td>
+<td>figlet@1.5.0: 1 known vulnerability (highest HIGH)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-038</td>
+<td>🟧 High (8.0)</td>
+<td>Vulnerable transitive dependency</td>
+<td>mongodb@2.0.46: 1 known vulnerability (highest HIGH)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-039</td>
+<td>🟧 High (8.0)</td>
+<td>Vulnerable transitive dependency</td>
+<td>negotiator@0.2.8: 1 known vulnerability (highest HIGH)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-040</td>
+<td>🟧 High (8.0)</td>
+<td>Vulnerable transitive dependency</td>
+<td>negotiator@0.4.9: 1 known vulnerability (highest HIGH)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-041</td>
+<td>🟧 High (8.0)</td>
+<td>Vulnerable transitive dependency</td>
+<td>negotiator@0.5.3: 1 known vulnerability (highest HIGH)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-042</td>
+<td>🟧 High (7.8)</td>
+<td>Vulnerable transitive dependency</td>
+<td>async@2.6.3: 1 known vulnerability (highest HIGH, CVSS 7.8)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-043</td>
+<td>🟧 High (7.8)</td>
+<td>Vulnerable transitive dependency</td>
+<td>kerberos@0.0.24: 1 known vulnerability (highest HIGH, CVSS 7.8)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-044</td>
+<td>🟧 High (7.8)</td>
+<td>Vulnerable transitive dependency</td>
+<td>snyk-go-plugin@1.11.1: 1 known vulnerability (highest HIGH, CVSS 7.8)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-045</td>
+<td>🟧 High (7.7)</td>
+<td>Vulnerable transitive dependency</td>
+<td>elliptic@6.4.1: 9 known vulnerabilities (highest CRITICAL, CVSS 7.7)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-046</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable direct dependency</td>
+<td>adm-zip@0.4.7: 8 known vulnerabilities (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-047</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>ansi-regex@3.0.0: 1 known vulnerability (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-048</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>ansi-regex@4.1.0: 1 known vulnerability (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-049</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>ansi-regex@5.0.0: 1 known vulnerability (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-050</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable direct dependency</td>
+<td>body-parser@1.9.0: 3 known vulnerabilities (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-051</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>brace-expansion@1.1.11: 8 known vulnerabilities (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-052</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>braces@2.3.2: 1 known vulnerability (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-053</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>braces@3.0.2: 1 known vulnerability (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-054</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>browserify-sign@4.0.4: 1 known vulnerability (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-055</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>cross-spawn@4.0.2: 1 known vulnerability (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-056</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>cross-spawn@5.1.0: 1 known vulnerability (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-057</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>cross-spawn@6.0.5: 1 known vulnerability (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-058</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>debug@2.2.0: 2 known vulnerabilities (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-059</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>decode-uri-component@0.2.0: 3 known vulnerabilities (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-060</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>dicer@0.3.0: 1 known vulnerability (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-061</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>form-data@2.3.3: 2 known vulnerabilities (highest CRITICAL, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-062</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>fresh@0.2.4: 1 known vulnerability (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-063</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>http-cache-semantics@4.1.0: 1 known vulnerability (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-064</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>js-yaml@3.13.1: 5 known vulnerabilities (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-065</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>kind-of@6.0.2: 1 known vulnerability (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-066</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable direct dependency</td>
+<td>marked@0.3.5: 6 known vulnerabilities (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-067</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>mime@1.2.11: 1 known vulnerability (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-068</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>mime@1.3.4: 1 known vulnerability (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-069</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>minimatch@3.0.4: 4 known vulnerabilities (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-070</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable direct dependency</td>
+<td>moment@2.15.1: 2 known vulnerabilities (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-071</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>mpath@0.1.1: 2 known vulnerabilities (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-072</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>ms@0.6.2: 2 known vulnerabilities (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-073</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>path-to-regexp@0.1.3: 2 known vulnerabilities (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-074</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>picomatch@2.3.0: 2 known vulnerabilities (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-075</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>qs@2.2.4: 3 known vulnerabilities (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-076</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>qs@2.4.2: 4 known vulnerabilities (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-077</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>qs@6.5.2: 3 known vulnerabilities (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-078</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>semver@1.1.4: 1 known vulnerability (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-079</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>semver@5.5.0: 1 known vulnerability (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-080</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>semver@5.7.0: 1 known vulnerability (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-081</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>semver@5.7.1: 1 known vulnerability (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-082</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>semver@6.3.0: 1 known vulnerability (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-083</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>snyk-gradle-plugin@3.2.2: 2 known vulnerabilities (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-084</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>snyk-php-plugin@1.7.0: 1 known vulnerability (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-085</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable direct dependency</td>
+<td>st@0.2.4: 2 known vulnerabilities (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-086</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>uuid@3.3.2: 1 known vulnerability (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-087</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable direct dependency</td>
+<td>validator@13.5.2: 4 known vulnerabilities (highest HIGH, CVSS 7.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-088</td>
+<td>🟧 High (7.4)</td>
+<td>Vulnerable transitive dependency</td>
+<td>lodash.set@4.3.2: 1 known vulnerability (highest HIGH, CVSS 7.4)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-089</td>
+<td>🟧 High (7.3)</td>
+<td>Vulnerable transitive dependency</td>
+<td>cached-path-relative@1.0.2: 1 known vulnerability (highest HIGH, CVSS 7.3)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-090</td>
+<td>🟧 High (7.3)</td>
+<td>Vulnerable transitive dependency</td>
+<td>dot-prop@4.2.0: 1 known vulnerability (highest HIGH, CVSS 7.3)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-091</td>
+<td>🟧 High (7.3)</td>
+<td>Vulnerable transitive dependency</td>
+<td>ini@1.1.0: 1 known vulnerability (highest HIGH, CVSS 7.3)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-092</td>
+<td>🟧 High (7.3)</td>
+<td>Vulnerable transitive dependency</td>
+<td>ini@1.3.5: 1 known vulnerability (highest HIGH, CVSS 7.3)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-093</td>
+<td>🟧 High (7.3)</td>
+<td>Vulnerable transitive dependency</td>
+<td>jszip@3.2.2: 2 known vulnerabilities (highest HIGH, CVSS 7.3)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-094</td>
+<td>🟧 High (7.3)</td>
+<td>Vulnerable transitive dependency</td>
+<td>nconf@0.10.0: 1 known vulnerability (highest HIGH, CVSS 7.3)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-095</td>
+<td>🟧 High (7.3)</td>
+<td>Vulnerable transitive dependency</td>
+<td>parse-path@4.0.1: 1 known vulnerability (highest HIGH, CVSS 7.3)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-096</td>
+<td>🟧 High (7.3)</td>
+<td>Vulnerable transitive dependency</td>
+<td>y18n@3.2.1: 1 known vulnerability (highest HIGH, CVSS 7.3)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-097</td>
+<td>🟧 High (7.3)</td>
+<td>Vulnerable transitive dependency</td>
+<td>y18n@4.0.0: 1 known vulnerability (highest HIGH, CVSS 7.3)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-098</td>
+<td>🟨 Medium (6.9)</td>
+<td>Vulnerable direct dependency</td>
+<td>jquery@2.2.4: 4 known vulnerabilities (highest MEDIUM, CVSS 6.9)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-099</td>
+<td>🟨 Medium (6.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>bl@2.2.0: 1 known vulnerability (highest MEDIUM, CVSS 6.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-100</td>
+<td>🟨 Medium (6.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>bl@3.0.0: 1 known vulnerability (highest MEDIUM, CVSS 6.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-101</td>
+<td>🟨 Medium (6.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>tough-cookie@2.4.3: 1 known vulnerability (highest MEDIUM, CVSS 6.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-102</td>
+<td>🟨 Medium (6.3)</td>
+<td>Vulnerable transitive dependency</td>
+<td>@snyk/snyk-cocoapods-plugin@2.0.1: 1 known vulnerability (highest MEDIUM, CVSS 6.3)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-103</td>
+<td>🟨 Medium (6.3)</td>
+<td>Vulnerable transitive dependency</td>
+<td>snyk-docker-plugin@1.33.1: 1 known vulnerability (highest MEDIUM, CVSS 6.3)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-104</td>
+<td>🟨 Medium (6.3)</td>
+<td>Vulnerable transitive dependency</td>
+<td>snyk-mvn-plugin@2.7.0: 1 known vulnerability (highest MEDIUM, CVSS 6.3)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-105</td>
+<td>🟨 Medium (6.3)</td>
+<td>Vulnerable transitive dependency</td>
+<td>snyk-python-plugin@1.16.0: 1 known vulnerability (highest MEDIUM, CVSS 6.3)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-106</td>
+<td>🟨 Medium (6.3)</td>
+<td>Vulnerable transitive dependency</td>
+<td>snyk-sbt-plugin@2.11.0: 1 known vulnerability (highest MEDIUM, CVSS 6.3)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-107</td>
+<td>🟨 Medium (6.1)</td>
+<td>Vulnerable direct dependency</td>
+<td>express@4.12.4: 2 known vulnerabilities (highest MEDIUM, CVSS 6.1)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-108</td>
+<td>🟨 Medium (6.1)</td>
+<td>Vulnerable transitive dependency</td>
+<td>request@2.88.0: 1 known vulnerability (highest MEDIUM, CVSS 6.1)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-109</td>
+<td>🟨 Medium (5.8)</td>
+<td>Vulnerable transitive dependency</td>
+<td>highlight.js@9.18.1: 2 known vulnerabilities (highest MEDIUM, CVSS 5.8)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-110</td>
+<td>🟨 Medium (5.6)</td>
+<td>Vulnerable transitive dependency</td>
+<td>ajv@6.10.2: 2 known vulnerabilities (highest MEDIUM, CVSS 5.6)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-111</td>
+<td>🟨 Medium (5.5)</td>
+<td>Untrusted image</td>
+<td>Dockerfile runs 'npm install' with install scripts enabled</td>
+<td><code>Dockerfile:10</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-112</td>
+<td>🟨 Medium (5.5)</td>
+<td>Untrusted image</td>
+<td>Dockerfile runs 'npm update' with install scripts enabled</td>
+<td><code>Dockerfile:9</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-113</td>
+<td>🟨 Medium (5.5)</td>
+<td>Vulnerable direct dependency</td>
+<td>npmconf@0.0.24: 1 known vulnerability (highest MEDIUM)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-114</td>
+<td>🟨 Medium (5.3)</td>
+<td>Vulnerable transitive dependency</td>
+<td>bn.js@4.11.8: 1 known vulnerability (highest MEDIUM, CVSS 5.3)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-115</td>
+<td>🟨 Medium (5.3)</td>
+<td>Vulnerable transitive dependency</td>
+<td>got@6.7.1: 1 known vulnerability (highest MEDIUM, CVSS 5.3)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-116</td>
+<td>🟨 Medium (5.3)</td>
+<td>Vulnerable transitive dependency</td>
+<td>got@9.6.0: 1 known vulnerability (highest MEDIUM, CVSS 5.3)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-117</td>
+<td>🟨 Medium (5.3)</td>
+<td>Vulnerable transitive dependency</td>
+<td>hosted-git-info@2.6.0: 1 known vulnerability (highest MEDIUM, CVSS 5.3)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-118</td>
+<td>🟨 Medium (5.3)</td>
+<td>Vulnerable transitive dependency</td>
+<td>hosted-git-info@2.8.5: 1 known vulnerability (highest MEDIUM, CVSS 5.3)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-119</td>
+<td>🟨 Medium (5.3)</td>
+<td>Vulnerable transitive dependency</td>
+<td>micromatch@3.1.10: 1 known vulnerability (highest MEDIUM, CVSS 5.3)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-120</td>
+<td>🟨 Medium (5.3)</td>
+<td>Vulnerable direct dependency</td>
+<td>morgan@1.10.0: 3 known vulnerabilities (highest MEDIUM, CVSS 5.3)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-121</td>
+<td>🟨 Medium (5.3)</td>
+<td>Vulnerable transitive dependency</td>
+<td>mquery@1.6.3: 1 known vulnerability (highest MEDIUM, CVSS 5.3)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-122</td>
+<td>🟨 Medium (5.3)</td>
+<td>Vulnerable transitive dependency</td>
+<td>ms@0.7.1: 1 known vulnerability (highest MEDIUM, CVSS 5.3)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-123</td>
+<td>🟨 Medium (5.3)</td>
+<td>Vulnerable direct dependency</td>
+<td>ms@0.7.3: 1 known vulnerability (highest MEDIUM, CVSS 5.3)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-124</td>
+<td>🟨 Medium (5.3)</td>
+<td>Vulnerable transitive dependency</td>
+<td>path-parse@1.0.5: 1 known vulnerability (highest MEDIUM, CVSS 5.3)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-125</td>
+<td>🟨 Medium (5.3)</td>
+<td>Vulnerable transitive dependency</td>
+<td>path-parse@1.0.6: 1 known vulnerability (highest MEDIUM, CVSS 5.3)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-126</td>
+<td>🟨 Medium (5.3)</td>
+<td>Vulnerable transitive dependency</td>
+<td>word-wrap@1.2.3: 1 known vulnerability (highest MEDIUM, CVSS 5.3)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-127</td>
+<td>🟨 Medium (5.3)</td>
+<td>Vulnerable transitive dependency</td>
+<td>xml2js@0.4.19: 1 known vulnerability (highest MEDIUM, CVSS 5.3)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-128</td>
+<td>🟨 Medium (5.3)</td>
+<td>Vulnerable transitive dependency</td>
+<td>xml2js@0.4.23: 1 known vulnerability (highest MEDIUM, CVSS 5.3)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-129</td>
+<td>🟨 Medium (5.3)</td>
+<td>Vulnerable transitive dependency</td>
+<td>yargs-parser@8.1.0: 1 known vulnerability (highest MEDIUM, CVSS 5.3)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-130</td>
+<td>🟨 Medium (5.3)</td>
+<td>Vulnerable transitive dependency</td>
+<td>yargs-parser@9.0.2: 1 known vulnerability (highest MEDIUM, CVSS 5.3)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-131</td>
+<td>🟨 Medium (5.1)</td>
+<td>Vulnerable transitive dependency</td>
+<td>mem@1.1.0: 1 known vulnerability (highest MEDIUM, CVSS 5.1)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-132</td>
+<td>🟨 Medium (5.0)</td>
+<td>Vulnerable transitive dependency</td>
+<td>send@0.12.3: 1 known vulnerability (highest MEDIUM, CVSS 5.0)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-133</td>
+<td>🟨 Medium (5.0)</td>
+<td>Vulnerable transitive dependency</td>
+<td>serve-static@1.9.3: 1 known vulnerability (highest MEDIUM, CVSS 5.0)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-134</td>
+<td>🟨 Medium (4.0)</td>
+<td>Vulnerable direct dependency</td>
+<td>hbs@4.0.4: 1 known vulnerability (highest MEDIUM, CVSS 4.0)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-135</td>
+<td>🟦 Low (3.7)</td>
+<td>Vulnerable transitive dependency</td>
+<td>debug@3.2.6: 1 known vulnerability (highest LOW, CVSS 3.7)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-136</td>
+<td>🟦 Low (3.7)</td>
+<td>Vulnerable transitive dependency</td>
+<td>debug@4.1.1: 1 known vulnerability (highest LOW, CVSS 3.7)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-137</td>
+<td>🟦 Low (3.7)</td>
+<td>Vulnerable transitive dependency</td>
+<td>pbkdf2@3.0.17: 3 known vulnerabilities (highest CRITICAL, CVSS 3.7)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-138</td>
+<td>🟦 Low (3.4)</td>
+<td>Vulnerable transitive dependency</td>
+<td>on-headers@1.0.2: 1 known vulnerability (highest LOW, CVSS 3.4)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-139</td>
+<td>🟦 Low (3.0)</td>
+<td>Suspicious package update</td>
+<td>'method-override' is requested as 'latest' in package.json</td>
+<td><code>package.json:36</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-140</td>
+<td>🟦 Low (3.0)</td>
+<td>Suspicious package update</td>
+<td>'morgan' is requested as 'latest' in package.json</td>
+<td><code>package.json:40</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-141</td>
+<td>🟦 Low (3.0)</td>
+<td>Unsafe CI/CD component</td>
+<td>.github/workflows/codeql-analysis.yml: no top-level 'permissions:' (token gets the repository default, often read/write)</td>
+<td><code>.github/workflows/codeql-analysis.yml</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-142</td>
+<td>🟦 Low (3.0)</td>
+<td>Unsafe CI/CD component</td>
+<td>.github/workflows/snyk-code-manual.yml: no top-level 'permissions:' (token gets the repository default, often read/write)</td>
+<td><code>.github/workflows/snyk-code-manual.yml</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-143</td>
+<td>🟦 Low (3.0)</td>
+<td>Unsafe CI/CD component</td>
+<td>.github/workflows/snyk-code.yml: no top-level 'permissions:' (token gets the repository default, often read/write)</td>
+<td><code>.github/workflows/snyk-code.yml</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-144</td>
+<td>🟦 Low (3.0)</td>
+<td>Unsafe CI/CD component</td>
+<td>.github/workflows/snyk-test-sarif.yml: no top-level 'permissions:' (token gets the repository default, often read/write)</td>
+<td><code>.github/workflows/snyk-test-sarif.yml</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-145</td>
+<td>🟦 Low (3.0)</td>
+<td>Untrusted image</td>
+<td>Dockerfile sets no USER: the container runs as the base image's default user (usually root)</td>
+<td><code>Dockerfile</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-146</td>
+<td>🟦 Low (3.0)</td>
+<td>Unsafe install script</td>
+<td>core-js@3.6.4 runs an install script (code not inspected)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-147</td>
+<td>🟦 Low (3.0)</td>
+<td>Unsafe install script</td>
+<td>fsevents@2.3.2 runs an install script (code not inspected)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-148</td>
+<td>🟦 Low (3.0)</td>
+<td>Unsafe install script</td>
+<td>kerberos@0.0.24 runs an install script (code not inspected)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-149</td>
+<td>🟦 Low (3.0)</td>
+<td>Unsafe install script</td>
+<td>nodemon@2.0.7 runs an install script (code not inspected)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-150</td>
+<td>🟦 Low (3.0)</td>
+<td>Vulnerable transitive dependency</td>
+<td>cookie@0.1.2: 1 known vulnerability (highest LOW)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-151</td>
+<td>🟦 Low (3.0)</td>
+<td>Vulnerable transitive dependency</td>
+<td>cookie@0.4.1: 1 known vulnerability (highest LOW)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-152</td>
+<td>🟦 Low (3.0)</td>
+<td>Vulnerable transitive dependency</td>
+<td>diff@4.0.2: 1 known vulnerability (highest LOW)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-153</td>
+<td>🟦 Low (2.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>tmp@0.0.33: 2 known vulnerabilities (highest HIGH, CVSS 2.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-154</td>
+<td>🟦 Low (2.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>tmp@0.1.0: 2 known vulnerabilities (highest HIGH, CVSS 2.5)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>4. Evidence per finding</h2>
+<h3>F-001 · 🟥 Critical (10.0) · Vulnerable direct dependency</h3>
+<ul>
+<li><strong>What:</strong> mongoose@4.2.4: 13 known vulnerabilities (highest CRITICAL, CVSS 10.0)</li>
+<li><strong>Component:</strong> <code>mongoose@4.2.4</code> (npm, scope prod, direct), purl <code>pkg:npm/mongoose@4.2.4</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → mongoose@4.2.4</li>
+<li><strong>Official severity:</strong> CRITICAL, CVSS 10.0 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 6.13.12</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-9m93-w8w6-76hh">GHSA-9m93-w8w6-76hh</a> (CVE-2023-3696): CRITICAL, CVSS 10.0, fixed in 5.13.20. Mongoose Prototype Pollution vulnerability</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-h8hf-x3f4-xwgp">GHSA-h8hf-x3f4-xwgp</a> (CVE-2022-24304): CRITICAL, CVSS 9.8, fixed in 5.13.15. Mongoose Vulnerable to Prototype Pollution in Schema Object</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-m7xq-9374-9rvx">GHSA-m7xq-9374-9rvx</a> (CVE-2024-53900): CRITICAL, CVSS 9.8, fixed in 5.13.23. Mongoose search injection vulnerability</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-pcrw-h46h-c93h">GHSA-pcrw-h46h-c93h</a> (CVE-2026-125120): CRITICAL, CVSS 9.8, fixed in 6.13.11. Mongoose: sanitizeFilter not applied on countDocuments</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-8687-vv9j-hgph">GHSA-8687-vv9j-hgph</a> (CVE-2019-17426): CRITICAL, CVSS 9.1, fixed in 4.13.21. Improper Input Validation in Automattic Mongoose</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-vg7j-7cwx-8wgw">GHSA-vg7j-7cwx-8wgw</a> (CVE-2025-23061): CRITICAL, CVSS 9.0, fixed in 6.13.6. Mongoose search injection vulnerability</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-8332-j7wj-wjw4">GHSA-8332-j7wj-wjw4</a> (CVE-2026-125117): HIGH, CVSS 8.2, fixed in 6.13.12. Mongoose walks into inherited properties when hydrating, setting, and merging, allowing overwrites of built-in functions (denial of service) and shared schema state</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-wpg9-53fq-2r8h">GHSA-wpg9-53fq-2r8h</a> (CVE-2026-42334): HIGH, CVSS 7.5, fixed in 6.13.9. Mongoose's Improper Sanitization of $nor in sanitizeFilter May Allow NoSQL Injection</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-f825-f98c-gj3g">GHSA-f825-f98c-gj3g</a> (CVE-2022-2564): HIGH, CVSS 7.0, fixed in 5.13.15. automattic/mongoose vulnerable to Prototype pollution via Schema.path</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-664h-wqgq-64gw">GHSA-664h-wqgq-64gw</a> (CVE-2026-73562): MEDIUM, CVSS 6.5, fixed in 6.13.10. Mongoose: Prototype pollution in mongoose update casting via <strong>proto</strong>-prefixed dotted path (Schema._getSchema/path getter)</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-6972-9mcm-vhwj">GHSA-6972-9mcm-vhwj</a> (CVE-2026-125118): MEDIUM, CVSS 6.5, fixed in 6.13.12. Mongoose: Prototype pollution via Schema.prototype.virtual()</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-r5xw-q988-826m">GHSA-r5xw-q988-826m</a>: MEDIUM, CVSS 5.1, fixed in 4.3.6. Remote Memory Exposure in mongoose</li>
+<li>… 1 more in findings.json</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (10.0): highest advisory severity CRITICAL (CVSS 10.0)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-002 · 🟥 Critical (9.8) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> bson@0.4.23: 2 known vulnerabilities (highest CRITICAL, CVSS 9.8)</li>
+<li><strong>Component:</strong> <code>bson@0.4.23</code> (npm, scope prod, transitive), purl <code>pkg:npm/bson@0.4.23</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → mongoose@4.2.4 → bson@0.4.23 ; goof@1.0.1 → mongoose@4.2.4 → mongodb@2.0.46 → mongodb-core@1.2.19 → bson@0.4.23</li>
+<li><strong>Official severity:</strong> CRITICAL, CVSS 9.8 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 1.1.4</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-v8w9-2789-6hhr">GHSA-v8w9-2789-6hhr</a> (CVE-2020-7610): CRITICAL, CVSS 9.8, fixed in 1.1.4. Deserialization of Untrusted Data in bson</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-4jwp-vfvf-657p">GHSA-4jwp-vfvf-657p</a> (CVE-2019-2391): MEDIUM, CVSS 5.4, fixed in 1.1.4. Deserialization of Untrusted Data in bson</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (9.8): highest advisory severity CRITICAL (CVSS 9.8)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-003 · 🟥 Critical (9.8) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> ejs@0.8.8: 5 known vulnerabilities (highest CRITICAL, CVSS 9.8)</li>
+<li><strong>Component:</strong> <code>ejs@0.8.8</code> (npm, scope prod, transitive), purl <code>pkg:npm/ejs@0.8.8</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → ejs-locals@1.0.2 → ejs@0.8.8</li>
+<li><strong>Official severity:</strong> CRITICAL, CVSS 9.8 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 3.1.10</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-3w5v-p54c-f74x">GHSA-3w5v-p54c-f74x</a> (CVE-2017-1000228): CRITICAL, CVSS 9.8, fixed in 2.5.5. ejs is vulnerable to remote code execution due to weak input validation</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-phwq-j96m-2c2q">GHSA-phwq-j96m-2c2q</a> (CVE-2022-29078): CRITICAL, CVSS 9.8, fixed in 3.1.7. ejs template injection vulnerability</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-6x77-rpqf-j6mw">GHSA-6x77-rpqf-j6mw</a> (CVE-2017-1000189): HIGH, CVSS 7.5, fixed in 2.5.5. ejs vulnerable to DoS due to weak input validation</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-hwcf-pp87-7x6p">GHSA-hwcf-pp87-7x6p</a> (CVE-2017-1000188): MEDIUM, CVSS 6.1, fixed in 2.5.5. mde ejs vulnerable to XSS</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-ghr5-ch3p-vcr6">GHSA-ghr5-ch3p-vcr6</a> (CVE-2024-33883): MEDIUM, CVSS 4.0, fixed in 3.1.10. ejs lacks certain pollution protection</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (9.8): highest advisory severity CRITICAL (CVSS 9.8)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-004 · 🟥 Critical (9.8) · Vulnerable direct dependency</h3>
+<ul>
+<li><strong>What:</strong> ejs@1.0.0: 5 known vulnerabilities (highest CRITICAL, CVSS 9.8)</li>
+<li><strong>Component:</strong> <code>ejs@1.0.0</code> (npm, scope prod, direct), purl <code>pkg:npm/ejs@1.0.0</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → ejs@1.0.0</li>
+<li><strong>Official severity:</strong> CRITICAL, CVSS 9.8 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 3.1.10</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-3w5v-p54c-f74x">GHSA-3w5v-p54c-f74x</a> (CVE-2017-1000228): CRITICAL, CVSS 9.8, fixed in 2.5.5. ejs is vulnerable to remote code execution due to weak input validation</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-phwq-j96m-2c2q">GHSA-phwq-j96m-2c2q</a> (CVE-2022-29078): CRITICAL, CVSS 9.8, fixed in 3.1.7. ejs template injection vulnerability</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-6x77-rpqf-j6mw">GHSA-6x77-rpqf-j6mw</a> (CVE-2017-1000189): HIGH, CVSS 7.5, fixed in 2.5.5. ejs vulnerable to DoS due to weak input validation</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-hwcf-pp87-7x6p">GHSA-hwcf-pp87-7x6p</a> (CVE-2017-1000188): MEDIUM, CVSS 6.1, fixed in 2.5.5. mde ejs vulnerable to XSS</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-ghr5-ch3p-vcr6">GHSA-ghr5-ch3p-vcr6</a> (CVE-2024-33883): MEDIUM, CVSS 4.0, fixed in 3.1.10. ejs lacks certain pollution protection</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (9.8): highest advisory severity CRITICAL (CVSS 9.8)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-005 · 🟥 Critical (9.8) · Vulnerable direct dependency</h3>
+<ul>
+<li><strong>What:</strong> express-fileupload@0.0.5: 3 known vulnerabilities (highest CRITICAL, CVSS 9.8)</li>
+<li><strong>Component:</strong> <code>express-fileupload@0.0.5</code> (npm, scope prod, direct), purl <code>pkg:npm/express-fileupload@0.0.5</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → express-fileupload@0.0.5</li>
+<li><strong>Official severity:</strong> CRITICAL, CVSS 9.8 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 1.1.9; no fix for GHSA-w4m6-x6c2-j5c9</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-9wcg-jrwf-8gg7">GHSA-9wcg-jrwf-8gg7</a> (CVE-2020-7699): CRITICAL, CVSS 9.8, fixed in 1.1.9. Prototype Pollution in express-fileupload</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-w4m6-x6c2-j5c9">GHSA-w4m6-x6c2-j5c9</a> (CVE-2022-27261): HIGH, CVSS 7.5, no fix published. Express-FileUpload Arbitrary File Overwrite</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-q3w9-g74q-vp5f">GHSA-q3w9-g74q-vp5f</a>: LOW, fixed in 1.1.6-alpha.6. Denial of Service in express-fileupload</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (9.8): highest advisory severity CRITICAL (CVSS 9.8); 1 advisory(ies) without a published fix</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-006 · 🟥 Critical (9.8) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> handlebars@4.0.11: 20 known vulnerabilities (highest CRITICAL, CVSS 9.8)</li>
+<li><strong>Component:</strong> <code>handlebars@4.0.11</code> (npm, scope prod, transitive), purl <code>pkg:npm/handlebars@4.0.11</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → tap@11.1.5 → nyc@11.9.0 → istanbul-reports@1.4.0 → handlebars@4.0.11</li>
+<li><strong>Official severity:</strong> CRITICAL, CVSS 9.8 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 4.7.10</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-2w6w-674q-4c4q">GHSA-2w6w-674q-4c4q</a> (CVE-2026-33937): CRITICAL, CVSS 9.8, fixed in 4.7.9. Handlebars.js has JavaScript Injection via AST Type Confusion</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-765h-qjxv-5f44">GHSA-765h-qjxv-5f44</a> (CVE-2021-23383): CRITICAL, CVSS 9.8, fixed in 4.7.7. Prototype Pollution in handlebars</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-8r5x-fm3f-whwj">GHSA-8r5x-fm3f-whwj</a> (CVE-2026-106446): CRITICAL, CVSS 9.8, fixed in 4.7.10. Handlebars: JavaScript Injection via AST Type Confusion in compile (bypass of CVE-2026-33937)</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-f2jv-r9rf-7988">GHSA-f2jv-r9rf-7988</a> (CVE-2021-23369): CRITICAL, CVSS 9.8, fixed in 4.7.7. Remote code execution in handlebars when compiling templates</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-w457-6q6x-cgp9">GHSA-w457-6q6x-cgp9</a> (CVE-2019-19919): CRITICAL, CVSS 9.8, fixed in 4.3.0. Prototype Pollution in handlebars</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-p8wg-vrv2-v86f">GHSA-p8wg-vrv2-v86f</a> (CVE-2026-106445): CRITICAL, fixed in 4.7.10. Handlebars: JavaScript Injection via Own Property Check Bypass</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-xjpj-3mr7-gcpf">GHSA-xjpj-3mr7-gcpf</a> (CVE-2026-33941): HIGH, CVSS 8.2, fixed in 4.7.9. Handlebars.js has JavaScript Injection in CLI Precompiler via Unescaped Names and Options</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-3cqr-58rm-57f8">GHSA-3cqr-58rm-57f8</a> (CVE-2019-20920): HIGH, CVSS 8.1, fixed in 4.5.3. Arbitrary Code Execution in Handlebars</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-3mfm-83xf-c92r">GHSA-3mfm-83xf-c92r</a> (CVE-2026-33938): HIGH, CVSS 8.1, fixed in 4.7.9. Handlebars.js has JavaScript Injection via AST Type Confusion by tampering @partial-block</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-xhpv-hc6g-r9c6">GHSA-xhpv-hc6g-r9c6</a> (CVE-2026-33940): HIGH, CVSS 8.1, fixed in 4.7.9. Handlebars.js has JavaScript Injection via AST Type Confusion when passing an object as dynamic partial</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-g9r4-xpmj-mj65">GHSA-g9r4-xpmj-mj65</a>: HIGH, fixed in 4.5.3. Prototype Pollution in handlebars</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-q2c6-c6pm-g3gh">GHSA-q2c6-c6pm-g3gh</a>: HIGH, fixed in 4.5.3. Arbitrary Code Execution in handlebars</li>
+<li>… 8 more in findings.json</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (9.8): highest advisory severity CRITICAL (CVSS 9.8)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-007 · 🟥 Critical (9.8) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> handlebars@4.0.14: 19 known vulnerabilities (highest CRITICAL, CVSS 9.8)</li>
+<li><strong>Component:</strong> <code>handlebars@4.0.14</code> (npm, scope prod, transitive), purl <code>pkg:npm/handlebars@4.0.14</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → hbs@4.0.4 → handlebars@4.0.14</li>
+<li><strong>Official severity:</strong> CRITICAL, CVSS 9.8 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 4.7.10</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-2w6w-674q-4c4q">GHSA-2w6w-674q-4c4q</a> (CVE-2026-33937): CRITICAL, CVSS 9.8, fixed in 4.7.9. Handlebars.js has JavaScript Injection via AST Type Confusion</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-765h-qjxv-5f44">GHSA-765h-qjxv-5f44</a> (CVE-2021-23383): CRITICAL, CVSS 9.8, fixed in 4.7.7. Prototype Pollution in handlebars</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-8r5x-fm3f-whwj">GHSA-8r5x-fm3f-whwj</a> (CVE-2026-106446): CRITICAL, CVSS 9.8, fixed in 4.7.10. Handlebars: JavaScript Injection via AST Type Confusion in compile (bypass of CVE-2026-33937)</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-f2jv-r9rf-7988">GHSA-f2jv-r9rf-7988</a> (CVE-2021-23369): CRITICAL, CVSS 9.8, fixed in 4.7.7. Remote code execution in handlebars when compiling templates</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-w457-6q6x-cgp9">GHSA-w457-6q6x-cgp9</a> (CVE-2019-19919): CRITICAL, CVSS 9.8, fixed in 4.3.0. Prototype Pollution in handlebars</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-p8wg-vrv2-v86f">GHSA-p8wg-vrv2-v86f</a> (CVE-2026-106445): CRITICAL, fixed in 4.7.10. Handlebars: JavaScript Injection via Own Property Check Bypass</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-xjpj-3mr7-gcpf">GHSA-xjpj-3mr7-gcpf</a> (CVE-2026-33941): HIGH, CVSS 8.2, fixed in 4.7.9. Handlebars.js has JavaScript Injection in CLI Precompiler via Unescaped Names and Options</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-3cqr-58rm-57f8">GHSA-3cqr-58rm-57f8</a> (CVE-2019-20920): HIGH, CVSS 8.1, fixed in 4.5.3. Arbitrary Code Execution in Handlebars</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-3mfm-83xf-c92r">GHSA-3mfm-83xf-c92r</a> (CVE-2026-33938): HIGH, CVSS 8.1, fixed in 4.7.9. Handlebars.js has JavaScript Injection via AST Type Confusion by tampering @partial-block</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-xhpv-hc6g-r9c6">GHSA-xhpv-hc6g-r9c6</a> (CVE-2026-33940): HIGH, CVSS 8.1, fixed in 4.7.9. Handlebars.js has JavaScript Injection via AST Type Confusion when passing an object as dynamic partial</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-g9r4-xpmj-mj65">GHSA-g9r4-xpmj-mj65</a>: HIGH, fixed in 4.5.3. Prototype Pollution in handlebars</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-q2c6-c6pm-g3gh">GHSA-q2c6-c6pm-g3gh</a>: HIGH, fixed in 4.5.3. Arbitrary Code Execution in handlebars</li>
+<li>… 7 more in findings.json</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (9.8): highest advisory severity CRITICAL (CVSS 9.8)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-008 · 🟥 Critical (9.8) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> json-schema@0.2.3: 1 known vulnerability (highest CRITICAL, CVSS 9.8)</li>
+<li><strong>Component:</strong> <code>json-schema@0.2.3</code> (npm, scope prod, transitive), purl <code>pkg:npm/json-schema@0.2.3</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → tap@11.1.5 → coveralls@3.0.9 → request@2.88.0 → http-signature@1.2.0 → jsprim@1.4.1 → json-schema@0.2.3</li>
+<li><strong>Official severity:</strong> CRITICAL, CVSS 9.8 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 0.4.0</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-896r-f27r-55mw">GHSA-896r-f27r-55mw</a> (CVE-2021-3918): CRITICAL, CVSS 9.8, fixed in 0.4.0. json-schema is vulnerable to Prototype Pollution</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (9.8): highest advisory severity CRITICAL (CVSS 9.8)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-009 · 🟥 Critical (9.8) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> minimist@0.0.10: 2 known vulnerabilities (highest CRITICAL, CVSS 9.8)</li>
+<li><strong>Component:</strong> <code>minimist@0.0.10</code> (npm, scope prod, transitive), purl <code>pkg:npm/minimist@0.0.10</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → hbs@4.0.4 → handlebars@4.0.14 → optimist@0.6.1 → minimist@0.0.10 ; goof@1.0.1 → tap@11.1.5 → nyc@11.9.0 → istanbul-reports@1.4.0 → handlebars@4.0.11 → optimist@0.6.1 → minimist@0.0.10</li>
+<li><strong>Official severity:</strong> CRITICAL, CVSS 9.8 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 0.2.4</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-xvch-5gv4-984h">GHSA-xvch-5gv4-984h</a> (CVE-2021-44906): CRITICAL, CVSS 9.8, fixed in 0.2.4. Prototype Pollution in minimist</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-vh95-rmgr-6w4m">GHSA-vh95-rmgr-6w4m</a> (CVE-2020-7598): MEDIUM, CVSS 5.6, fixed in 0.2.1. Prototype Pollution in minimist</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (9.8): highest advisory severity CRITICAL (CVSS 9.8)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-010 · 🟥 Critical (9.8) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> minimist@0.0.8: 2 known vulnerabilities (highest CRITICAL, CVSS 9.8)</li>
+<li><strong>Component:</strong> <code>minimist@0.0.8</code> (npm, scope prod, transitive), purl <code>pkg:npm/minimist@0.0.8</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → tap@11.1.5 → mkdirp@0.5.1 → minimist@0.0.8 ; goof@1.0.1 → hbs@4.0.4 → handlebars@4.0.14 → optimist@0.6.1 → minimist@0.0.8 ; goof@1.0.1 → tap@11.1.5 → nyc@11.9.0 → mkdirp@0.5.1 → minimist@0.0.8</li>
+<li><strong>Official severity:</strong> CRITICAL, CVSS 9.8 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 0.2.4</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-xvch-5gv4-984h">GHSA-xvch-5gv4-984h</a> (CVE-2021-44906): CRITICAL, CVSS 9.8, fixed in 0.2.4. Prototype Pollution in minimist</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-vh95-rmgr-6w4m">GHSA-vh95-rmgr-6w4m</a> (CVE-2020-7598): MEDIUM, CVSS 5.6, fixed in 0.2.1. Prototype Pollution in minimist</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (9.8): highest advisory severity CRITICAL (CVSS 9.8)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-011 · 🟥 Critical (9.8) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> minimist@1.2.0: 2 known vulnerabilities (highest CRITICAL, CVSS 9.8)</li>
+<li><strong>Component:</strong> <code>minimist@1.2.0</code> (npm, scope prod, transitive), purl <code>pkg:npm/minimist@1.2.0</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → tap@11.1.5 → coveralls@3.0.9 → minimist@1.2.0 ; goof@1.0.1 → browserify@13.3.0 → subarg@1.0.0 → minimist@1.2.0 ; goof@1.0.1 → browserify@13.3.0 → deps-sort@2.0.0 → subarg@1.0.0 → minimist@1.2.0</li>
+<li><strong>Official severity:</strong> CRITICAL, CVSS 9.8 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 1.2.6</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-xvch-5gv4-984h">GHSA-xvch-5gv4-984h</a> (CVE-2021-44906): CRITICAL, CVSS 9.8, fixed in 1.2.6. Prototype Pollution in minimist</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-vh95-rmgr-6w4m">GHSA-vh95-rmgr-6w4m</a> (CVE-2020-7598): MEDIUM, CVSS 5.6, fixed in 1.2.3. Prototype Pollution in minimist</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (9.8): highest advisory severity CRITICAL (CVSS 9.8)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-012 · 🟥 Critical (9.8) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> minimist@1.2.5: 1 known vulnerability (highest CRITICAL, CVSS 9.8)</li>
+<li><strong>Component:</strong> <code>minimist@1.2.5</code> (npm, scope prod, transitive), purl <code>pkg:npm/minimist@1.2.5</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → typeorm@0.2.24 → mkdirp@0.5.5 → minimist@1.2.5</li>
+<li><strong>Official severity:</strong> CRITICAL, CVSS 9.8 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 1.2.6</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-xvch-5gv4-984h">GHSA-xvch-5gv4-984h</a> (CVE-2021-44906): CRITICAL, CVSS 9.8, fixed in 1.2.6. Prototype Pollution in minimist</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (9.8): highest advisory severity CRITICAL (CVSS 9.8)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-013 · 🟥 Critical (9.8) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> mixin-deep@1.3.1: 1 known vulnerability (highest CRITICAL, CVSS 9.8)</li>
+<li><strong>Component:</strong> <code>mixin-deep@1.3.1</code> (npm, scope prod, transitive), purl <code>pkg:npm/mixin-deep@1.3.1</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → tap@11.1.5 → nyc@11.9.0 → micromatch@3.1.10 → snapdragon@0.8.2 → base@0.11.2 → mixin-deep@1.3.1 ; goof@1.0.1 → tap@11.1.5 → nyc@11.9.0 → test-exclude@4.2.1 → micromatch@3.1.10 → snapdragon@0.8.2 → base@0.11.2 → mixin-deep@1.3.1 ; goof@1.0.1 → tap@11.1.5 → nyc@11.9.0 → micromatch@3.1.10 → braces@2.3.2 → snapdragon@0.8.2 → base@0.11.2 → mixin-deep@1.3.1</li>
+<li><strong>Official severity:</strong> CRITICAL, CVSS 9.8 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 1.3.2</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-fhjf-83wg-r2j9">GHSA-fhjf-83wg-r2j9</a> (CVE-2019-10746): CRITICAL, CVSS 9.8, fixed in 1.3.2. Prototype Pollution in mixin-deep</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (9.8): highest advisory severity CRITICAL (CVSS 9.8)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-014 · 🟥 Critical (9.8) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> parse-url@5.0.1: 6 known vulnerabilities (highest CRITICAL, CVSS 9.8)</li>
+<li><strong>Component:</strong> <code>parse-url@5.0.1</code> (npm, scope dev, transitive), purl <code>pkg:npm/parse-url@5.0.1</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → snyk@1.278.1 → git-url-parse@11.1.2 → git-up@4.0.1 → parse-url@5.0.1</li>
+<li><strong>Official severity:</strong> CRITICAL, CVSS 9.8 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 8.1.0</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-7f3x-x4pr-wqhj">GHSA-7f3x-x4pr-wqhj</a> (CVE-2022-2216): CRITICAL, CVSS 9.8, fixed in 6.0.1. Server-Side Request Forgery in parse-url</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-j9fq-vwqv-2fm2">GHSA-j9fq-vwqv-2fm2</a> (CVE-2022-2900): CRITICAL, CVSS 9.1, fixed in 8.1.0. Server-Side Request Forgery (SSRF) in GitHub repository ionicabizau/parse-url</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-4p35-cfcx-8653">GHSA-4p35-cfcx-8653</a> (CVE-2022-0722): HIGH, CVSS 7.5, fixed in 6.0.1. Hostname confusion in parse-url</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-jpp7-7chh-cf67">GHSA-jpp7-7chh-cf67</a> (CVE-2022-2218): MEDIUM, CVSS 6.1, fixed in 6.0.1. Cross site scripting in parse-url</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-pqw5-jmp5-px4v">GHSA-pqw5-jmp5-px4v</a> (CVE-2022-3224): MEDIUM, CVSS 6.1, fixed in 8.1.0. parse-url parses http URLs incorrectly, making it vulnerable to host name spoofing</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-q6wq-5p59-983w">GHSA-q6wq-5p59-983w</a> (CVE-2022-2217): MEDIUM, CVSS 6.1, fixed in 6.0.1. Cross site scripting in parse-url</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (9.8): highest advisory severity CRITICAL (CVSS 9.8)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-015 · 🟥 Critical (9.8) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> set-value@0.4.3: 2 known vulnerabilities (highest CRITICAL, CVSS 9.8)</li>
+<li><strong>Component:</strong> <code>set-value@0.4.3</code> (npm, scope prod, transitive), purl <code>pkg:npm/set-value@0.4.3</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → tap@11.1.5 → nyc@11.9.0 → micromatch@3.1.10 → snapdragon@0.8.2 → base@0.11.2 → cache-base@1.0.1 → union-value@1.0.0 → set-value@0.4.3 ; goof@1.0.1 → tap@11.1.5 → nyc@11.9.0 → test-exclude@4.2.1 → micromatch@3.1.10 → snapdragon@0.8.2 → base@0.11.2 → cache-base@1.0.1 → union-value@1.0.0 → set-value@0.4.3 ; goof@1.0.1 → tap@11.1.5 → nyc@11.9.0 → micromatch@3.1.10 → braces@2.3.2 → snapdragon@0.8.2 → base@0.11.2 → cache-base@1.0.1 → union-value@1.0.0 → set-value@0.4.3</li>
+<li><strong>Official severity:</strong> CRITICAL, CVSS 9.8 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 2.0.1</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-4g88-fppr-53pp">GHSA-4g88-fppr-53pp</a> (CVE-2019-10747): CRITICAL, CVSS 9.8, fixed in 2.0.1. Prototype Pollution in set-value</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-4jqc-8m5r-9rpr">GHSA-4jqc-8m5r-9rpr</a> (CVE-2021-23440): HIGH, CVSS 7.3, fixed in 2.0.1. Prototype Pollution in set-value</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (9.8): highest advisory severity CRITICAL (CVSS 9.8)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-016 · 🟥 Critical (9.8) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> set-value@2.0.0: 2 known vulnerabilities (highest CRITICAL, CVSS 9.8)</li>
+<li><strong>Component:</strong> <code>set-value@2.0.0</code> (npm, scope prod, transitive), purl <code>pkg:npm/set-value@2.0.0</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → tap@11.1.5 → nyc@11.9.0 → micromatch@3.1.10 → snapdragon@0.8.2 → base@0.11.2 → cache-base@1.0.1 → set-value@2.0.0 ; goof@1.0.1 → tap@11.1.5 → nyc@11.9.0 → test-exclude@4.2.1 → micromatch@3.1.10 → snapdragon@0.8.2 → base@0.11.2 → cache-base@1.0.1 → set-value@2.0.0 ; goof@1.0.1 → tap@11.1.5 → nyc@11.9.0 → micromatch@3.1.10 → braces@2.3.2 → snapdragon@0.8.2 → base@0.11.2 → cache-base@1.0.1 → set-value@2.0.0</li>
+<li><strong>Official severity:</strong> CRITICAL, CVSS 9.8 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 2.0.1</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-4g88-fppr-53pp">GHSA-4g88-fppr-53pp</a> (CVE-2019-10747): CRITICAL, CVSS 9.8, fixed in 2.0.1. Prototype Pollution in set-value</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-4jqc-8m5r-9rpr">GHSA-4jqc-8m5r-9rpr</a> (CVE-2021-23440): HIGH, CVSS 7.3, fixed in 2.0.1. Prototype Pollution in set-value</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (9.8): highest advisory severity CRITICAL (CVSS 9.8)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-017 · 🟥 Critical (9.8) · Vulnerable direct dependency</h3>
+<ul>
+<li><strong>What:</strong> typeorm@0.2.24: 5 known vulnerabilities (highest CRITICAL, CVSS 9.8)</li>
+<li><strong>Component:</strong> <code>typeorm@0.2.24</code> (npm, scope prod, direct), purl <code>pkg:npm/typeorm@0.2.24</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → typeorm@0.2.24</li>
+<li><strong>Official severity:</strong> CRITICAL, CVSS 9.8 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 0.3.31</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-fx4w-v43j-vc45">GHSA-fx4w-v43j-vc45</a> (CVE-2022-33171): CRITICAL, CVSS 9.8, fixed in 0.3.0. SQL injection in typeORM</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-pf2j-9qmp-jqr2">GHSA-pf2j-9qmp-jqr2</a> (CVE-2020-8158): CRITICAL, CVSS 9.8, fixed in 0.2.25. TypeORM vulnerable to MAID and Prototype Pollution</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-q2pj-6v73-8rgj">GHSA-q2pj-6v73-8rgj</a> (CVE-2025-60542): MEDIUM, CVSS 6.5, fixed in 0.3.26. TypeORM vulnerable to SQL injection via crafted request to repository.save or repository.update</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-9ggv-8w38-r7pm">GHSA-9ggv-8w38-r7pm</a>: MEDIUM, CVSS 5.9, fixed in 0.3.29. TypeORM: SQL Injection in UpdateQueryBuilder/SoftDeleteQueryBuilder orderBy (MySQL/MariaDB)</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-2rp8-mm9q-fp49">GHSA-2rp8-mm9q-fp49</a> (CVE-2026-73651): MEDIUM, CVSS 5.7, fixed in 0.3.31.  TypeORM: migration:generate template-literal code injection</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (9.8): highest advisory severity CRITICAL (CVSS 9.8)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-018 · 🟥 Critical (9.8) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> underscore@1.9.1: 2 known vulnerabilities (highest CRITICAL, CVSS 9.8)</li>
+<li><strong>Component:</strong> <code>underscore@1.9.1</code> (npm, scope prod, transitive), purl <code>pkg:npm/underscore@1.9.1</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → cfenv@1.2.2 → underscore@1.9.1</li>
+<li><strong>Official severity:</strong> CRITICAL, CVSS 9.8 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 1.13.8</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-cf4h-3jhx-xvhq">GHSA-cf4h-3jhx-xvhq</a> (CVE-2021-23358): CRITICAL, CVSS 9.8, fixed in 1.12.1. Arbitrary Code Execution in underscore</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-qpx9-hpmf-5gmw">GHSA-qpx9-hpmf-5gmw</a> (CVE-2026-27601): MEDIUM, CVSS 5.9, fixed in 1.13.8. Underscore has unlimited recursion in _.flatten and _.isEqual, potential for DoS attack</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (9.8): highest advisory severity CRITICAL (CVSS 9.8)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-019 · 🟥 Critical (9.3) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> babel-traverse@6.26.0: 1 known vulnerability (highest CRITICAL, CVSS 9.3)</li>
+<li><strong>Component:</strong> <code>babel-traverse@6.26.0</code> (npm, scope prod, transitive), purl <code>pkg:npm/babel-traverse@6.26.0</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → tap@11.1.5 → nyc@11.9.0 → istanbul-lib-instrument@1.10.1 → babel-traverse@6.26.0 ; goof@1.0.1 → tap@11.1.5 → nyc@11.9.0 → istanbul-lib-instrument@1.10.1 → babel-template@6.26.0 → babel-traverse@6.26.0</li>
+<li><strong>Official severity:</strong> CRITICAL, CVSS 9.3 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> no fixed version published</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-67hx-6x53-jw92">GHSA-67hx-6x53-jw92</a> (CVE-2023-45133): CRITICAL, CVSS 9.3, no fix published. Babel vulnerable to arbitrary code execution when compiling specifically crafted malicious code</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (9.3): highest advisory severity CRITICAL (CVSS 9.3); 1 advisory(ies) without a published fix</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-020 · 🟥 Critical (9.1) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> cipher-base@1.0.4: 1 known vulnerability (highest CRITICAL, CVSS 9.1)</li>
+<li><strong>Component:</strong> <code>cipher-base@1.0.4</code> (npm, scope dev, transitive), purl <code>pkg:npm/cipher-base@1.0.4</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → browserify@13.3.0 → crypto-browserify@3.12.0 → create-hash@1.2.0 → cipher-base@1.0.4 ; goof@1.0.1 → browserify@13.3.0 → crypto-browserify@3.12.0 → create-hmac@1.1.7 → cipher-base@1.0.4 ; goof@1.0.1 → browserify@13.3.0 → crypto-browserify@3.12.0 → browserify-cipher@1.0.1 → browserify-aes@1.2.0 → cipher-base@1.0.4</li>
+<li><strong>Official severity:</strong> CRITICAL, CVSS 9.1 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 1.0.5</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-cpq7-6gpm-g9rc">GHSA-cpq7-6gpm-g9rc</a> (CVE-2025-9287): CRITICAL, CVSS 9.1, fixed in 1.0.5. cipher-base is missing type checks, leading to hash rewind and passing on crafted data</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (9.1): highest advisory severity CRITICAL (CVSS 9.1)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-021 · 🟥 Critical (9.1) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> lodash@4.17.10: 8 known vulnerabilities (highest CRITICAL, CVSS 9.1)</li>
+<li><strong>Component:</strong> <code>lodash@4.17.10</code> (npm, scope prod, transitive), purl <code>pkg:npm/lodash@4.17.10</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → tap@11.1.5 → nyc@11.9.0 → istanbul-lib-instrument@1.10.1 → babel-generator@6.26.1 → lodash@4.17.10 ; goof@1.0.1 → tap@11.1.5 → nyc@11.9.0 → istanbul-lib-instrument@1.10.1 → babel-template@6.26.0 → lodash@4.17.10 ; goof@1.0.1 → tap@11.1.5 → nyc@11.9.0 → istanbul-lib-instrument@1.10.1 → babel-traverse@6.26.0 → lodash@4.17.10</li>
+<li><strong>Official severity:</strong> CRITICAL, CVSS 9.1 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 4.18.0</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-jf85-cpcp-j695">GHSA-jf85-cpcp-j695</a> (CVE-2019-10744): CRITICAL, CVSS 9.1, fixed in 4.17.12. Prototype Pollution in lodash</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-r5fr-rjxr-66jc">GHSA-r5fr-rjxr-66jc</a> (CVE-2026-4800): HIGH, CVSS 8.1, fixed in 4.18.0. lodash vulnerable to Code Injection via <code>_.template</code> imports key names</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-4xc9-xhrj-v574">GHSA-4xc9-xhrj-v574</a> (CVE-2018-16487): HIGH, fixed in 4.17.11. Prototype Pollution in lodash</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-p6mc-m468-83gw">GHSA-p6mc-m468-83gw</a> (CVE-2020-8203): HIGH, CVSS 7.4, fixed in 4.17.19. Prototype Pollution in lodash</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-35jh-r3h4-6jhm">GHSA-35jh-r3h4-6jhm</a> (CVE-2021-23337): HIGH, CVSS 7.2, fixed in 4.17.21. Command Injection in lodash</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-x5rq-j2xg-h7qm">GHSA-x5rq-j2xg-h7qm</a> (CVE-2019-1010266): MEDIUM, CVSS 6.5, fixed in 4.17.11. Regular Expression Denial of Service (ReDoS) in lodash</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-xxjr-mmjv-4gpg">GHSA-xxjr-mmjv-4gpg</a> (CVE-2025-13465): MEDIUM, CVSS 6.5, fixed in 4.17.23. Lodash has Prototype Pollution Vulnerability in <code>_.unset</code>, <code>_.omit</code>, and <code>_.pullAt</code> functions</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-29mw-wpgm-hmr9">GHSA-29mw-wpgm-hmr9</a> (CVE-2020-28500): MEDIUM, CVSS 5.3, fixed in 4.17.21. Regular Expression Denial of Service (ReDoS) in lodash</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (9.1): highest advisory severity CRITICAL (CVSS 9.1)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-022 · 🟥 Critical (9.1) · Vulnerable direct dependency</h3>
+<ul>
+<li><strong>What:</strong> lodash@4.17.4: 9 known vulnerabilities (highest CRITICAL, CVSS 9.1)</li>
+<li><strong>Component:</strong> <code>lodash@4.17.4</code> (npm, scope prod, direct), purl <code>pkg:npm/lodash@4.17.4</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → lodash@4.17.4 ; goof@1.0.1 → snyk@1.278.1 → @snyk/dep-graph@1.13.1 → lodash@4.17.4 ; goof@1.0.1 → snyk@1.278.1 → @snyk/snyk-cocoapods-plugin@2.0.1 → @snyk/dep-graph@1.13.1 → lodash@4.17.4</li>
+<li><strong>Official severity:</strong> CRITICAL, CVSS 9.1 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 4.18.0</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-jf85-cpcp-j695">GHSA-jf85-cpcp-j695</a> (CVE-2019-10744): CRITICAL, CVSS 9.1, fixed in 4.17.12. Prototype Pollution in lodash</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-r5fr-rjxr-66jc">GHSA-r5fr-rjxr-66jc</a> (CVE-2026-4800): HIGH, CVSS 8.1, fixed in 4.18.0. lodash vulnerable to Code Injection via <code>_.template</code> imports key names</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-4xc9-xhrj-v574">GHSA-4xc9-xhrj-v574</a> (CVE-2018-16487): HIGH, fixed in 4.17.11. Prototype Pollution in lodash</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-p6mc-m468-83gw">GHSA-p6mc-m468-83gw</a> (CVE-2020-8203): HIGH, CVSS 7.4, fixed in 4.17.19. Prototype Pollution in lodash</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-35jh-r3h4-6jhm">GHSA-35jh-r3h4-6jhm</a> (CVE-2021-23337): HIGH, CVSS 7.2, fixed in 4.17.21. Command Injection in lodash</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-fvqr-27wr-82fm">GHSA-fvqr-27wr-82fm</a> (CVE-2018-3721): MEDIUM, CVSS 6.5, fixed in 4.17.5. Prototype Pollution in lodash</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-x5rq-j2xg-h7qm">GHSA-x5rq-j2xg-h7qm</a> (CVE-2019-1010266): MEDIUM, CVSS 6.5, fixed in 4.17.11. Regular Expression Denial of Service (ReDoS) in lodash</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-xxjr-mmjv-4gpg">GHSA-xxjr-mmjv-4gpg</a> (CVE-2025-13465): MEDIUM, CVSS 6.5, fixed in 4.17.23. Lodash has Prototype Pollution Vulnerability in <code>_.unset</code>, <code>_.omit</code>, and <code>_.pullAt</code> functions</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-29mw-wpgm-hmr9">GHSA-29mw-wpgm-hmr9</a> (CVE-2020-28500): MEDIUM, CVSS 5.3, fixed in 4.17.21. Regular Expression Denial of Service (ReDoS) in lodash</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (9.1): highest advisory severity CRITICAL (CVSS 9.1)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-023 · 🟥 Critical (9.1) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> netmask@1.0.6: 1 known vulnerability (highest CRITICAL, CVSS 9.1)</li>
+<li><strong>Component:</strong> <code>netmask@1.0.6</code> (npm, scope dev, transitive), purl <code>pkg:npm/netmask@1.0.6</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → snyk@1.278.1 → proxy-agent@3.1.1 → pac-proxy-agent@3.0.1 → pac-resolver@3.0.0 → netmask@1.0.6</li>
+<li><strong>Official severity:</strong> CRITICAL, CVSS 9.1 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 1.1.0</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-4c7m-wxvm-r7gc">GHSA-4c7m-wxvm-r7gc</a> (CVE-2021-28918, CVE-2021-29418): CRITICAL, CVSS 9.1, fixed in 1.1.0. Improper parsing of octal bytes in netmask</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (9.1): highest advisory severity CRITICAL (CVSS 9.1)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-024 · 🟥 Critical (9.1) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> sha.js@2.4.11: 1 known vulnerability (highest CRITICAL, CVSS 9.1)</li>
+<li><strong>Component:</strong> <code>sha.js@2.4.11</code> (npm, scope prod, transitive), purl <code>pkg:npm/sha.js@2.4.11</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → typeorm@0.2.24 → sha.js@2.4.11 ; goof@1.0.1 → browserify@13.3.0 → shasum@1.0.2 → sha.js@2.4.11 ; goof@1.0.1 → browserify@13.3.0 → crypto-browserify@3.12.0 → create-hash@1.2.0 → sha.js@2.4.11</li>
+<li><strong>Official severity:</strong> CRITICAL, CVSS 9.1 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 2.4.12</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-95m3-7q98-8xr5">GHSA-95m3-7q98-8xr5</a> (CVE-2025-9288): CRITICAL, CVSS 9.1, fixed in 2.4.12. sha.js is missing type checks leading to hash rewind and passing on crafted data</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (9.1): highest advisory severity CRITICAL (CVSS 9.1)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-025 · 🟧 High (8.8) · Vulnerable direct dependency</h3>
+<ul>
+<li><strong>What:</strong> dustjs-linkedin@2.5.0: 1 known vulnerability (highest HIGH, CVSS 8.8)</li>
+<li><strong>Component:</strong> <code>dustjs-linkedin@2.5.0</code> (npm, scope prod, direct), purl <code>pkg:npm/dustjs-linkedin@2.5.0</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → dustjs-linkedin@2.5.0</li>
+<li><strong>Official severity:</strong> HIGH, CVSS 8.8 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 3.0.0</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-c6rp-wrp9-qr4q">GHSA-c6rp-wrp9-qr4q</a> (CVE-2021-4264): HIGH, CVSS 8.8, fixed in 3.0.0. dustjs-linkedin vulnerable to Prototype Pollution</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (8.8): highest advisory severity HIGH (CVSS 8.8)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-026 · 🟧 High (8.8) · Vulnerable direct dependency</h3>
+<ul>
+<li><strong>What:</strong> snyk@1.278.1: 4 known vulnerabilities (highest HIGH, CVSS 8.8)</li>
+<li><strong>Component:</strong> <code>snyk@1.278.1</code> (npm, scope dev, direct), purl <code>pkg:npm/snyk@1.278.1</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → snyk@1.278.1</li>
+<li><strong>Official severity:</strong> HIGH, CVSS 8.8 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 1.1297.3</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-4vrv-93c7-m92j">GHSA-4vrv-93c7-m92j</a> (CVE-2022-24441): HIGH, CVSS 8.8, fixed in 1.1064.0. snyk Code Injection vulnerability</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-hpqj-7cj6-hfj8">GHSA-hpqj-7cj6-hfj8</a> (CVE-2022-40764): HIGH, CVSS 7.8, fixed in 1.996.0. Snyk CLI affected by Command Injection vulnerability</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-6hwc-9h8r-3vmf">GHSA-6hwc-9h8r-3vmf</a> (CVE-2025-6624): HIGH, CVSS 7.2, fixed in 1.1297.3. Snyk CLI Insertion of Sensitive Information into Log File allowed in DEBUG or DEBUG/TRACE mode</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-4x6g-3cmx-w76r">GHSA-4x6g-3cmx-w76r</a> (CVE-2022-22984): MEDIUM, CVSS 6.3, fixed in 1.1064.0. Snyk plugins vulnerable to Command Injection</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (8.8): highest advisory severity HIGH (CVSS 8.8)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-027 · 🟧 High (8.2) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> toml@3.0.0: 6 known vulnerabilities (highest HIGH, CVSS 8.2)</li>
+<li><strong>Component:</strong> <code>toml@3.0.0</code> (npm, scope dev, transitive), purl <code>pkg:npm/toml@3.0.0</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → snyk@1.278.1 → snyk-go-plugin@1.11.1 → snyk-go-parser@1.3.1 → toml@3.0.0</li>
+<li><strong>Official severity:</strong> HIGH, CVSS 8.2 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 5.0.1</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-v5mp-jgw5-2x6j">GHSA-v5mp-jgw5-2x6j</a> (CVE-2026-63376): HIGH, CVSS 8.2, fixed in 4.1.2. toml-node: Prototype Pollution Leads to <code>Object.prototype</code> Corruption via <code>__proto__</code> Key-Path Desynchronization</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-4qx8-w7c3-pj3p">GHSA-4qx8-w7c3-pj3p</a> (CVE-2026-114141): HIGH, fixed in 5.0.1. toml-node: Quadratic-complexity DoS via many array-of-tables headers in toml.parse()</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-9j65-hcg3-gc64">GHSA-9j65-hcg3-gc64</a> (CVE-2026-114143): HIGH, fixed in 5.0.1. toml-node: Quadratic-complexity DoS via long dotted keys or table paths in toml.parse()</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-h895-cgqg-jf52">GHSA-h895-cgqg-jf52</a> (CVE-2026-114142): HIGH, fixed in 5.0.1. toml-node: Prototype pollution: parsing a TOML document can write to Object.prototype</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-82x6-q7mm-w9cf">GHSA-82x6-q7mm-w9cf</a> (CVE-2026-77465): HIGH, CVSS 7.5, fixed in 4.2.0. toml-node: Uncontrolled Recursion</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-9qmh-m7c6-f92p">GHSA-9qmh-m7c6-f92p</a> (CVE-2026-114144): HIGH, CVSS 7.5, fixed in 5.0.1. toml-node: Uncontrolled resource consumption (CPU DoS) via unbounded-length integer literals in toml.parse()</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (8.2): highest advisory severity HIGH (CVSS 8.2)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-028 · 🟧 High (8.1) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> degenerator@1.0.4: 1 known vulnerability (highest HIGH, CVSS 8.1)</li>
+<li><strong>Component:</strong> <code>degenerator@1.0.4</code> (npm, scope dev, transitive), purl <code>pkg:npm/degenerator@1.0.4</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → snyk@1.278.1 → proxy-agent@3.1.1 → pac-proxy-agent@3.0.1 → pac-resolver@3.0.0 → degenerator@1.0.4</li>
+<li><strong>Official severity:</strong> HIGH, CVSS 8.1 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 3.0.1</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-9j49-mfvp-vmhm">GHSA-9j49-mfvp-vmhm</a> (CVE-2021-23406): HIGH, CVSS 8.1, fixed in 3.0.1. Code Injection in pac-resolver</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (8.1): highest advisory severity HIGH (CVSS 8.1)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-029 · 🟧 High (8.1) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> ip@1.1.5: 2 known vulnerabilities (highest HIGH, CVSS 8.1)</li>
+<li><strong>Component:</strong> <code>ip@1.1.5</code> (npm, scope dev, transitive), purl <code>pkg:npm/ip@1.1.5</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → snyk@1.278.1 → proxy-agent@3.1.1 → pac-proxy-agent@3.0.1 → pac-resolver@3.0.0 → ip@1.1.5 ; goof@1.0.1 → snyk@1.278.1 → proxy-agent@3.1.1 → socks-proxy-agent@4.0.2 → socks@2.3.3 → ip@1.1.5 ; goof@1.0.1 → snyk@1.278.1 → proxy-agent@3.1.1 → pac-proxy-agent@3.0.1 → socks-proxy-agent@4.0.2 → socks@2.3.3 → ip@1.1.5</li>
+<li><strong>Official severity:</strong> HIGH, CVSS 8.1 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 1.1.9; no fix for GHSA-2p57-rm9w-gvfp</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-2p57-rm9w-gvfp">GHSA-2p57-rm9w-gvfp</a> (CVE-2024-29415): HIGH, CVSS 8.1, no fix published. ip SSRF improper categorization in isPublic</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-78xj-cgh5-2h22">GHSA-78xj-cgh5-2h22</a> (CVE-2023-42282): LOW, fixed in 1.1.9. NPM IP package incorrectly identifies some private IP addresses as public</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (8.1): highest advisory severity HIGH (CVSS 8.1); 1 advisory(ies) without a published fix</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-030 · 🟧 High (8.1) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> lodash@4.17.15: 5 known vulnerabilities (highest HIGH, CVSS 8.1)</li>
+<li><strong>Component:</strong> <code>lodash@4.17.15</code> (npm, scope dev, transitive), purl <code>pkg:npm/lodash@4.17.15</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → snyk@1.278.1 → lodash@4.17.15 ; goof@1.0.1 → snyk@1.278.1 → inquirer@6.5.2 → lodash@4.17.15 ; goof@1.0.1 → snyk@1.278.1 → snyk-config@2.2.3 → lodash@4.17.15</li>
+<li><strong>Official severity:</strong> HIGH, CVSS 8.1 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 4.18.0</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-r5fr-rjxr-66jc">GHSA-r5fr-rjxr-66jc</a> (CVE-2026-4800): HIGH, CVSS 8.1, fixed in 4.18.0. lodash vulnerable to Code Injection via <code>_.template</code> imports key names</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-p6mc-m468-83gw">GHSA-p6mc-m468-83gw</a> (CVE-2020-8203): HIGH, CVSS 7.4, fixed in 4.17.19. Prototype Pollution in lodash</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-35jh-r3h4-6jhm">GHSA-35jh-r3h4-6jhm</a> (CVE-2021-23337): HIGH, CVSS 7.2, fixed in 4.17.21. Command Injection in lodash</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-xxjr-mmjv-4gpg">GHSA-xxjr-mmjv-4gpg</a> (CVE-2025-13465): MEDIUM, CVSS 6.5, fixed in 4.17.23. Lodash has Prototype Pollution Vulnerability in <code>_.unset</code>, <code>_.omit</code>, and <code>_.pullAt</code> functions</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-29mw-wpgm-hmr9">GHSA-29mw-wpgm-hmr9</a> (CVE-2020-28500): MEDIUM, CVSS 5.3, fixed in 4.17.21. Regular Expression Denial of Service (ReDoS) in lodash</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (8.1): highest advisory severity HIGH (CVSS 8.1)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-031 · 🟧 High (8.1) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> lodash@4.17.21: 2 known vulnerabilities (highest HIGH, CVSS 8.1)</li>
+<li><strong>Component:</strong> <code>lodash@4.17.21</code> (npm, scope prod, transitive), purl <code>pkg:npm/lodash@4.17.21</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → hbs@4.0.4 → handlebars@4.0.14 → async@2.6.3 → lodash@4.17.21</li>
+<li><strong>Official severity:</strong> HIGH, CVSS 8.1 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 4.18.0</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-r5fr-rjxr-66jc">GHSA-r5fr-rjxr-66jc</a> (CVE-2026-4800): HIGH, CVSS 8.1, fixed in 4.18.0. lodash vulnerable to Code Injection via <code>_.template</code> imports key names</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-xxjr-mmjv-4gpg">GHSA-xxjr-mmjv-4gpg</a> (CVE-2025-13465): MEDIUM, CVSS 6.5, fixed in 4.17.23. Lodash has Prototype Pollution Vulnerability in <code>_.unset</code>, <code>_.omit</code>, and <code>_.pullAt</code> functions</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (8.1): highest advisory severity HIGH (CVSS 8.1)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-032 · 🟧 High (8.1) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> pac-resolver@3.0.0: 1 known vulnerability (highest HIGH, CVSS 8.1)</li>
+<li><strong>Component:</strong> <code>pac-resolver@3.0.0</code> (npm, scope dev, transitive), purl <code>pkg:npm/pac-resolver@3.0.0</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → snyk@1.278.1 → proxy-agent@3.1.1 → pac-proxy-agent@3.0.1 → pac-resolver@3.0.0</li>
+<li><strong>Official severity:</strong> HIGH, CVSS 8.1 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 5.0.0</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-9j49-mfvp-vmhm">GHSA-9j49-mfvp-vmhm</a> (CVE-2021-23406): HIGH, CVSS 8.1, fixed in 5.0.0. Code Injection in pac-resolver</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (8.1): highest advisory severity HIGH (CVSS 8.1)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-033 · 🟧 High (8.1) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> shell-quote@1.6.1: 2 known vulnerabilities (highest HIGH, CVSS 8.1)</li>
+<li><strong>Component:</strong> <code>shell-quote@1.6.1</code> (npm, scope dev, transitive), purl <code>pkg:npm/shell-quote@1.6.1</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → browserify@13.3.0 → shell-quote@1.6.1</li>
+<li><strong>Official severity:</strong> HIGH, CVSS 8.1 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 1.9.0</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-w7jw-789q-3m8p">GHSA-w7jw-789q-3m8p</a> (CVE-2026-9277): HIGH, CVSS 8.1, fixed in 1.8.4. shell-quote quote() does not escape newlines in object .op values</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-395f-4hp3-45gv">GHSA-395f-4hp3-45gv</a> (CVE-2026-13311): HIGH, CVSS 7.5, fixed in 1.9.0. shell-quote: Quadratic-complexity Denial of Service in <code>parse()</code> (CWE-407)</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (8.1): highest advisory severity HIGH (CVSS 8.1)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-034 · 🟧 High (8.0) · Unsafe CI/CD component</h3>
+<ul>
+<li><strong>What:</strong> .github/workflows/snyk-code.yml: third-party action 'snyk/actions/setup@master' is not pinned to a commit SHA</li>
+<li><strong>Component:</strong> <code>snyk/actions/setup@master</code> (github-actions, scope ci, direct), purl <code>pkg:github/snyk/actions@master#setup</code></li>
+<li><strong>Where:</strong> <code>.github/workflows/snyk-code.yml:8</code></li>
+<li><strong>Dependency path:</strong> snyk code test → snyk/actions/setup@master ; snyk test → snyk/actions/setup@master</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><code>.github/workflows/snyk-code.yml:8</code>: <code>- uses: snyk/actions/setup@master</code></li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (8.0): R15_CI_UNPINNED_ACTION default level High</li>
+<li><strong>Why it matters:</strong> A third-party action referenced by tag/branch can be changed by its owner at any time.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-035 · 🟧 High (8.0) · Unsafe CI/CD component</h3>
+<ul>
+<li><strong>What:</strong> .github/workflows/snyk-test-sarif.yml: third-party action 'snyk/actions/setup@master' is not pinned to a commit SHA</li>
+<li><strong>Component:</strong> <code>snyk/actions/setup@master</code> (github-actions, scope ci, direct), purl <code>pkg:github/snyk/actions@master#setup</code></li>
+<li><strong>Where:</strong> <code>.github/workflows/snyk-test-sarif.yml:8</code></li>
+<li><strong>Dependency path:</strong> snyk code test → snyk/actions/setup@master ; snyk test → snyk/actions/setup@master</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><code>.github/workflows/snyk-test-sarif.yml:8</code>: <code>- uses: snyk/actions/setup@master</code></li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (8.0): R15_CI_UNPINNED_ACTION default level High</li>
+<li><strong>Why it matters:</strong> A third-party action referenced by tag/branch can be changed by its owner at any time.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-036 · 🟧 High (8.0) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> diff@1.4.0: 2 known vulnerabilities (highest HIGH)</li>
+<li><strong>Component:</strong> <code>diff@1.4.0</code> (npm, scope prod, transitive), purl <code>pkg:npm/diff@1.4.0</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → tap@11.1.5 → tap-mocha-reporter@3.0.9 → diff@1.4.0</li>
+<li><strong>Official severity:</strong> HIGH (advisory severity label (OSV))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 3.5.1</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-h6ch-v84p-w6p9">GHSA-h6ch-v84p-w6p9</a>: HIGH, fixed in 3.5.0. Regular Expression Denial of Service (ReDoS)</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-73rr-hh4g-fpgx">GHSA-73rr-hh4g-fpgx</a> (CVE-2026-24001): LOW, fixed in 3.5.1. jsdiff has a Denial of Service vulnerability in parsePatch and applyPatch</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (8.0): highest advisory severity HIGH</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-037 · 🟧 High (8.0) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> figlet@1.5.0: 1 known vulnerability (highest HIGH)</li>
+<li><strong>Component:</strong> <code>figlet@1.5.0</code> (npm, scope prod, transitive), purl <code>pkg:npm/figlet@1.5.0</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → typeorm@0.2.24 → yargonaut@1.1.4 → figlet@1.5.0</li>
+<li><strong>Official severity:</strong> HIGH (advisory severity label (OSV))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 1.11.3</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-62ch-8vmq-8xm7">GHSA-62ch-8vmq-8xm7</a> (CVE-2026-96780): HIGH, fixed in 1.11.3. figlet is vulnerable to denial of service via unbounded loop when whitespaceBreak is used with a small width</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (8.0): highest advisory severity HIGH</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-038 · 🟧 High (8.0) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> mongodb@2.0.46: 1 known vulnerability (highest HIGH)</li>
+<li><strong>Component:</strong> <code>mongodb@2.0.46</code> (npm, scope prod, transitive), purl <code>pkg:npm/mongodb@2.0.46</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → mongoose@4.2.4 → mongodb@2.0.46</li>
+<li><strong>Official severity:</strong> HIGH (advisory severity label (OSV))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 3.1.13</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-mh5c-679w-hh4r">GHSA-mh5c-679w-hh4r</a>: HIGH, fixed in 3.1.13. Denial of Service in mongodb</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (8.0): highest advisory severity HIGH</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-039 · 🟧 High (8.0) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> negotiator@0.2.8: 1 known vulnerability (highest HIGH)</li>
+<li><strong>Component:</strong> <code>negotiator@0.2.8</code> (npm, scope prod, transitive), purl <code>pkg:npm/negotiator@0.2.8</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → st@0.2.4 → negotiator@0.2.8</li>
+<li><strong>Official severity:</strong> HIGH (advisory severity label (OSV))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 0.6.1</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-7mc5-chhp-fmc3">GHSA-7mc5-chhp-fmc3</a> (CVE-2016-10539): HIGH, fixed in 0.6.1. Regular Expression Denial of Service in negotiator</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (8.0): highest advisory severity HIGH</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-040 · 🟧 High (8.0) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> negotiator@0.4.9: 1 known vulnerability (highest HIGH)</li>
+<li><strong>Component:</strong> <code>negotiator@0.4.9</code> (npm, scope prod, transitive), purl <code>pkg:npm/negotiator@0.4.9</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → errorhandler@1.2.0 → accepts@1.1.4 → negotiator@0.4.9</li>
+<li><strong>Official severity:</strong> HIGH (advisory severity label (OSV))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 0.6.1</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-7mc5-chhp-fmc3">GHSA-7mc5-chhp-fmc3</a> (CVE-2016-10539): HIGH, fixed in 0.6.1. Regular Expression Denial of Service in negotiator</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (8.0): highest advisory severity HIGH</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-041 · 🟧 High (8.0) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> negotiator@0.5.3: 1 known vulnerability (highest HIGH)</li>
+<li><strong>Component:</strong> <code>negotiator@0.5.3</code> (npm, scope prod, transitive), purl <code>pkg:npm/negotiator@0.5.3</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → express@4.12.4 → accepts@1.2.13 → negotiator@0.5.3</li>
+<li><strong>Official severity:</strong> HIGH (advisory severity label (OSV))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 0.6.1</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-7mc5-chhp-fmc3">GHSA-7mc5-chhp-fmc3</a> (CVE-2016-10539): HIGH, fixed in 0.6.1. Regular Expression Denial of Service in negotiator</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (8.0): highest advisory severity HIGH</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-042 · 🟧 High (7.8) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> async@2.6.3: 1 known vulnerability (highest HIGH, CVSS 7.8)</li>
+<li><strong>Component:</strong> <code>async@2.6.3</code> (npm, scope prod, transitive), purl <code>pkg:npm/async@2.6.3</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → hbs@4.0.4 → handlebars@4.0.14 → async@2.6.3</li>
+<li><strong>Official severity:</strong> HIGH, CVSS 7.8 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 2.6.4</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-fwr7-v2mv-hh25">GHSA-fwr7-v2mv-hh25</a> (CVE-2021-43138): HIGH, CVSS 7.8, fixed in 2.6.4. Prototype Pollution in async</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (7.8): highest advisory severity HIGH (CVSS 7.8)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-043 · 🟧 High (7.8) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> kerberos@0.0.24: 1 known vulnerability (highest HIGH, CVSS 7.8)</li>
+<li><strong>Component:</strong> <code>kerberos@0.0.24</code> (npm, scope optional, transitive), purl <code>pkg:npm/kerberos@0.0.24</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → mongoose@4.2.4 → mongodb@2.0.46 → mongodb-core@1.2.19 → kerberos@0.0.24</li>
+<li><strong>Official severity:</strong> HIGH, CVSS 7.8 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 1.0.0</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-m2mx-rfpw-jghv">GHSA-m2mx-rfpw-jghv</a> (CVE-2020-13110): HIGH, CVSS 7.8, fixed in 1.0.0. DLL Injection in kerberos</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (7.8): highest advisory severity HIGH (CVSS 7.8)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-044 · 🟧 High (7.8) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> snyk-go-plugin@1.11.1: 1 known vulnerability (highest HIGH, CVSS 7.8)</li>
+<li><strong>Component:</strong> <code>snyk-go-plugin@1.11.1</code> (npm, scope dev, transitive), purl <code>pkg:npm/snyk-go-plugin@1.11.1</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → snyk@1.278.1 → snyk-go-plugin@1.11.1</li>
+<li><strong>Official severity:</strong> HIGH, CVSS 7.8 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 1.19.1</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-hpqj-7cj6-hfj8">GHSA-hpqj-7cj6-hfj8</a> (CVE-2022-40764): HIGH, CVSS 7.8, fixed in 1.19.1. Snyk CLI affected by Command Injection vulnerability</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (7.8): highest advisory severity HIGH (CVSS 7.8)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-045 · 🟧 High (7.7) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> elliptic@6.4.1: 9 known vulnerabilities (highest CRITICAL, CVSS 7.7)</li>
+<li><strong>Component:</strong> <code>elliptic@6.4.1</code> (npm, scope dev, transitive), purl <code>pkg:npm/elliptic@6.4.1</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → browserify@13.3.0 → crypto-browserify@3.12.0 → browserify-sign@4.0.4 → elliptic@6.4.1 ; goof@1.0.1 → browserify@13.3.0 → crypto-browserify@3.12.0 → create-ecdh@4.0.3 → elliptic@6.4.1</li>
+<li><strong>Official severity:</strong> CRITICAL, CVSS 7.7 (advisory severity label (OSV))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 6.6.1; no fix for GHSA-848j-6mx2-7j84</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-vjh7-7g9h-fjfh">GHSA-vjh7-7g9h-fjfh</a>: CRITICAL, fixed in 6.6.1. Elliptic's private key extraction in ECDSA upon signing a malformed input (e.g. a string)</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-vh7m-p724-62c2">GHSA-vh7m-p724-62c2</a> (CVE-2020-13822): HIGH, CVSS 7.7, fixed in 6.5.3. Signature Malleabillity in elliptic</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-r9p9-mrjm-926w">GHSA-r9p9-mrjm-926w</a> (CVE-2020-28498): MEDIUM, CVSS 6.8, fixed in 6.5.4. Elliptic Uses a Broken or Risky Cryptographic Algorithm</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-848j-6mx2-7j84">GHSA-848j-6mx2-7j84</a> (CVE-2025-14505): MEDIUM, CVSS 5.6, no fix published. Elliptic Uses a Cryptographic Primitive with a Risky Implementation</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-434g-2637-qmqr">GHSA-434g-2637-qmqr</a> (CVE-2024-48949): MEDIUM, CVSS 5.3, fixed in 6.5.6. Elliptic's verify function omits uniqueness validation</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-49q7-c7j4-3p7m">GHSA-49q7-c7j4-3p7m</a> (CVE-2024-42461): MEDIUM, CVSS 5.3, fixed in 6.5.7. Elliptic allows BER-encoded signatures</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-977x-g7h5-7qgw">GHSA-977x-g7h5-7qgw</a> (CVE-2024-42460): MEDIUM, CVSS 5.3, fixed in 6.5.7. Elliptic's ECDSA missing check for whether leading bit of r and s is zero</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-f7q4-pwc6-w24p">GHSA-f7q4-pwc6-w24p</a> (CVE-2024-42459): MEDIUM, CVSS 5.3, fixed in 6.5.7. Elliptic's EDDSA missing signature length check</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-fc9h-whq2-v747">GHSA-fc9h-whq2-v747</a> (CVE-2024-48948): MEDIUM, CVSS 4.8, fixed in 6.6.0. Valid ECDSA signatures erroneously rejected in Elliptic</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (7.7): highest advisory severity CRITICAL (CVSS 7.7); 1 advisory(ies) without a published fix</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-046 · 🟧 High (7.5) · Vulnerable direct dependency</h3>
+<ul>
+<li><strong>What:</strong> adm-zip@0.4.7: 8 known vulnerabilities (highest HIGH, CVSS 7.5)</li>
+<li><strong>Component:</strong> <code>adm-zip@0.4.7</code> (npm, scope prod, direct), purl <code>pkg:npm/adm-zip@0.4.7</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → adm-zip@0.4.7</li>
+<li><strong>Official severity:</strong> HIGH, CVSS 7.5 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 0.6.1</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-7q85-xj36-vmfc">GHSA-7q85-xj36-vmfc</a> (CVE-2026-77301): HIGH, CVSS 7.5, fixed in 0.6.1. adm-zip: Uncontrolled memory allocation via the declared uncompressed size (DoS)</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-8238-w5pm-2374">GHSA-8238-w5pm-2374</a> (CVE-2026-114102): HIGH, CVSS 7.5, fixed in 0.6.1. adm-zip: Unhandled error event in async DEFLATE decompression crashes Node.js process (DoS)</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-rcw4-f5rp-g42v">GHSA-rcw4-f5rp-g42v</a> (CVE-2026-92000): HIGH, CVSS 7.5, fixed in 0.6.1. adm-zip: Decompression-bomb protection (fix for CVE-2026-39244) can be bypassed by declaring uncompressed size as 0</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-xcpc-8h2w-3j85">GHSA-xcpc-8h2w-3j85</a> (CVE-2026-39244): HIGH, CVSS 7.5, fixed in 0.6.0. adm-zip: Crafted ZIP file triggers 4GB memory allocation</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-j5f4-cc29-5x44">GHSA-j5f4-cc29-5x44</a> (CVE-2026-102282): HIGH, CVSS 7.1, fixed in 0.6.1. adm-zip extraction preserves SUID/SGID bits from untrusted ZIPs -&gt; local privilege escalation</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-p634-w6r4-rjp2">GHSA-p634-w6r4-rjp2</a> (CVE-2026-114104): MEDIUM, CVSS 5.9, fixed in 0.6.1. adm-zip: Duplicate ZIP entry names: getEntry() and extractAllTo() resolve to different content</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-3v6h-hqm4-2rg6">GHSA-3v6h-hqm4-2rg6</a> (CVE-2018-1002204): MEDIUM, CVSS 5.5, fixed in 0.4.11. Arbitrary File Write in adm-zip</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-c6fg-446q-cg94">GHSA-c6fg-446q-cg94</a> (CVE-2026-114103): MEDIUM, CVSS 5.3, fixed in 0.6.1. adm-zip: getDataAsync() bypasses the maxOutputLength size guard enforced by the synchronous getData() path</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (7.5): highest advisory severity HIGH (CVSS 7.5)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-047 · 🟧 High (7.5) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> ansi-regex@3.0.0: 1 known vulnerability (highest HIGH, CVSS 7.5)</li>
+<li><strong>Component:</strong> <code>ansi-regex@3.0.0</code> (npm, scope prod, transitive), purl <code>pkg:npm/ansi-regex@3.0.0</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → snyk@1.278.1 → inquirer@6.5.2 → string-width@2.1.1 → strip-ansi@4.0.0 → ansi-regex@3.0.0 ; goof@1.0.1 → tap@11.1.5 → nyc@11.9.0 → yargs@11.1.0 → string-width@2.1.1 → strip-ansi@4.0.0 → ansi-regex@3.0.0 ; goof@1.0.1 → snyk@1.278.1 → update-notifier@2.5.0 → boxen@1.3.0 → string-width@2.1.1 → strip-ansi@4.0.0 → ansi-regex@3.0.0</li>
+<li><strong>Official severity:</strong> HIGH, CVSS 7.5 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 3.0.1</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-93q8-gq69-wqmw">GHSA-93q8-gq69-wqmw</a> (CVE-2021-3807): HIGH, CVSS 7.5, fixed in 3.0.1. Inefficient Regular Expression Complexity in chalk/ansi-regex</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (7.5): highest advisory severity HIGH (CVSS 7.5)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-048 · 🟧 High (7.5) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> ansi-regex@4.1.0: 1 known vulnerability (highest HIGH, CVSS 7.5)</li>
+<li><strong>Component:</strong> <code>ansi-regex@4.1.0</code> (npm, scope prod, transitive), purl <code>pkg:npm/ansi-regex@4.1.0</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → snyk@1.278.1 → strip-ansi@5.2.0 → ansi-regex@4.1.0 ; goof@1.0.1 → snyk@1.278.1 → inquirer@6.5.2 → strip-ansi@5.2.0 → ansi-regex@4.1.0 ; goof@1.0.1 → snyk@1.278.1 → wrap-ansi@5.1.0 → strip-ansi@5.2.0 → ansi-regex@4.1.0</li>
+<li><strong>Official severity:</strong> HIGH, CVSS 7.5 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 4.1.1</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-93q8-gq69-wqmw">GHSA-93q8-gq69-wqmw</a> (CVE-2021-3807): HIGH, CVSS 7.5, fixed in 4.1.1. Inefficient Regular Expression Complexity in chalk/ansi-regex</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (7.5): highest advisory severity HIGH (CVSS 7.5)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-049 · 🟧 High (7.5) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> ansi-regex@5.0.0: 1 known vulnerability (highest HIGH, CVSS 7.5)</li>
+<li><strong>Component:</strong> <code>ansi-regex@5.0.0</code> (npm, scope prod, transitive), purl <code>pkg:npm/ansi-regex@5.0.0</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → typeorm@0.2.24 → cli-highlight@2.1.4 → yargs@15.4.1 → cliui@6.0.0 → strip-ansi@6.0.0 → ansi-regex@5.0.0 ; goof@1.0.1 → nodemon@2.0.7 → update-notifier@4.1.3 → boxen@4.2.0 → string-width@4.2.2 → strip-ansi@6.0.0 → ansi-regex@5.0.0 ; goof@1.0.1 → typeorm@0.2.24 → cli-highlight@2.1.4 → yargs@15.4.1 → string-width@4.2.0 → strip-ansi@6.0.0 → ansi-regex@5.0.0</li>
+<li><strong>Official severity:</strong> HIGH, CVSS 7.5 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 5.0.1</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-93q8-gq69-wqmw">GHSA-93q8-gq69-wqmw</a> (CVE-2021-3807): HIGH, CVSS 7.5, fixed in 5.0.1. Inefficient Regular Expression Complexity in chalk/ansi-regex</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (7.5): highest advisory severity HIGH (CVSS 7.5)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-050 · 🟧 High (7.5) · Vulnerable direct dependency</h3>
+<ul>
+<li><strong>What:</strong> body-parser@1.9.0: 3 known vulnerabilities (highest HIGH, CVSS 7.5)</li>
+<li><strong>Component:</strong> <code>body-parser@1.9.0</code> (npm, scope prod, direct), purl <code>pkg:npm/body-parser@1.9.0</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → body-parser@1.9.0</li>
+<li><strong>Official severity:</strong> HIGH, CVSS 7.5 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 1.20.9</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-27r3-jxmh-p828">GHSA-27r3-jxmh-p828</a> (CVE-2026-111181): HIGH, CVSS 7.5, fixed in 1.20.9. body-parser vulnerable to Denial of Service via trailing bytes after a compressed request body</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-qwcr-r2fm-qrc7">GHSA-qwcr-r2fm-qrc7</a> (CVE-2024-45590): HIGH, CVSS 7.5, fixed in 1.20.3. body-parser vulnerable to denial of service when url encoding is enabled</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-v422-hmwv-36x6">GHSA-v422-hmwv-36x6</a> (CVE-2026-12590): LOW, CVSS 3.7, fixed in 1.20.6. body-parser vulnerable to denial of service when invalid limit value silently disables size enforcement</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (7.5): highest advisory severity HIGH (CVSS 7.5)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-051 · 🟧 High (7.5) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> brace-expansion@1.1.11: 8 known vulnerabilities (highest HIGH, CVSS 7.5)</li>
+<li><strong>Component:</strong> <code>brace-expansion@1.1.11</code> (npm, scope prod, transitive), purl <code>pkg:npm/brace-expansion@1.1.11</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → nodemon@2.0.7 → minimatch@3.0.4 → brace-expansion@1.1.11 ; goof@1.0.1 → browserify@13.3.0 → glob@7.1.3 → minimatch@3.0.4 → brace-expansion@1.1.11 ; goof@1.0.1 → snyk@1.278.1 → glob@7.1.3 → minimatch@3.0.4 → brace-expansion@1.1.11</li>
+<li><strong>Official severity:</strong> HIGH, CVSS 7.5 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 1.1.21</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-6j4f-fj2g-mc7p">GHSA-6j4f-fj2g-mc7p</a> (CVE-2026-102276): HIGH, CVSS 7.5, fixed in 1.1.19. brace-expansion: DoS via uncontrolled recursion in parseCommaParts causing stack exhaustion</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-mh99-v99m-4gvg">GHSA-mh99-v99m-4gvg</a> (CVE-2026-14257): HIGH, CVSS 7.5, fixed in 1.1.17. brace-expansion: DoS via unbounded expansion length causing an out-of-memory process crash</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-qhr7-859c-m2p7">GHSA-qhr7-859c-m2p7</a> (CVE-2026-102278): HIGH, CVSS 7.5, fixed in 1.1.20. brace-expansion: DoS via uncontrolled recursion on nested brace groups causing stack exhaustion</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-rgw5-rvv9-x895">GHSA-rgw5-rvv9-x895</a> (CVE-2026-69152): HIGH, CVSS 7.5, fixed in 1.1.18. brace-expansion: DoS via unbounded intermediate arrays, bypassing the CVE-2026-14257 mitigation</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-f886-m6hf-6m8v">GHSA-f886-m6hf-6m8v</a> (CVE-2026-33750): MEDIUM, CVSS 6.5, fixed in 1.1.13. brace-expansion: Zero-step sequence causes process hang and memory exhaustion</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-3jxr-9vmj-r5cp">GHSA-3jxr-9vmj-r5cp</a> (CVE-2026-13149): MEDIUM, CVSS 5.3, fixed in 1.1.16. brace-expansion: DoS via exponential-time expansion of consecutive non-expanding {} groups</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-q2hr-2g5m-vwhr">GHSA-q2hr-2g5m-vwhr</a> (CVE-2026-102277): MEDIUM, CVSS 5.3, fixed in 1.1.21. brace-expansion: Quadratic-time expansion of the <code>{a},b}</code> rewrite causes CPU denial of service</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-v6h2-p8h4-qcjw">GHSA-v6h2-p8h4-qcjw</a> (CVE-2025-5889): LOW, CVSS 3.1, fixed in 1.1.12. brace-expansion Regular Expression Denial of Service vulnerability</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (7.5): highest advisory severity HIGH (CVSS 7.5)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-052 · 🟧 High (7.5) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> braces@2.3.2: 1 known vulnerability (highest HIGH, CVSS 7.5)</li>
+<li><strong>Component:</strong> <code>braces@2.3.2</code> (npm, scope prod, transitive), purl <code>pkg:npm/braces@2.3.2</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → tap@11.1.5 → nyc@11.9.0 → micromatch@3.1.10 → braces@2.3.2 ; goof@1.0.1 → tap@11.1.5 → nyc@11.9.0 → test-exclude@4.2.1 → micromatch@3.1.10 → braces@2.3.2</li>
+<li><strong>Official severity:</strong> HIGH, CVSS 7.5 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 3.0.3</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-grv7-fg5c-xmjg">GHSA-grv7-fg5c-xmjg</a> (CVE-2024-4068): HIGH, CVSS 7.5, fixed in 3.0.3. Uncontrolled resource consumption in braces</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (7.5): highest advisory severity HIGH (CVSS 7.5)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-053 · 🟧 High (7.5) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> braces@3.0.2: 1 known vulnerability (highest HIGH, CVSS 7.5)</li>
+<li><strong>Component:</strong> <code>braces@3.0.2</code> (npm, scope dev, transitive), purl <code>pkg:npm/braces@3.0.2</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → nodemon@2.0.7 → chokidar@3.5.1 → braces@3.0.2</li>
+<li><strong>Official severity:</strong> HIGH, CVSS 7.5 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 3.0.3</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-grv7-fg5c-xmjg">GHSA-grv7-fg5c-xmjg</a> (CVE-2024-4068): HIGH, CVSS 7.5, fixed in 3.0.3. Uncontrolled resource consumption in braces</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (7.5): highest advisory severity HIGH (CVSS 7.5)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-054 · 🟧 High (7.5) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> browserify-sign@4.0.4: 1 known vulnerability (highest HIGH, CVSS 7.5)</li>
+<li><strong>Component:</strong> <code>browserify-sign@4.0.4</code> (npm, scope dev, transitive), purl <code>pkg:npm/browserify-sign@4.0.4</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → browserify@13.3.0 → crypto-browserify@3.12.0 → browserify-sign@4.0.4</li>
+<li><strong>Official severity:</strong> HIGH, CVSS 7.5 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 4.2.2</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-x9w5-v3q2-3rhw">GHSA-x9w5-v3q2-3rhw</a> (CVE-2023-46234): HIGH, CVSS 7.5, fixed in 4.2.2. browserify-sign upper bound check issue in <code>dsaVerify</code> leads to a signature forgery attack</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (7.5): highest advisory severity HIGH (CVSS 7.5)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-055 · 🟧 High (7.5) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> cross-spawn@4.0.2: 1 known vulnerability (highest HIGH, CVSS 7.5)</li>
+<li><strong>Component:</strong> <code>cross-spawn@4.0.2</code> (npm, scope prod, transitive), purl <code>pkg:npm/cross-spawn@4.0.2</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → tap@11.1.5 → foreground-child@1.5.6 → cross-spawn@4.0.2 ; goof@1.0.1 → tap@11.1.5 → nyc@11.9.0 → foreground-child@1.5.6 → cross-spawn@4.0.2 ; goof@1.0.1 → tap@11.1.5 → nyc@11.9.0 → spawn-wrap@1.4.2 → foreground-child@1.5.6 → cross-spawn@4.0.2</li>
+<li><strong>Official severity:</strong> HIGH, CVSS 7.5 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 6.0.6</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-3xgq-45jj-v275">GHSA-3xgq-45jj-v275</a> (CVE-2024-21538): HIGH, CVSS 7.5, fixed in 6.0.6. Regular Expression Denial of Service (ReDoS) in cross-spawn</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (7.5): highest advisory severity HIGH (CVSS 7.5)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-056 · 🟧 High (7.5) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> cross-spawn@5.1.0: 1 known vulnerability (highest HIGH, CVSS 7.5)</li>
+<li><strong>Component:</strong> <code>cross-spawn@5.1.0</code> (npm, scope prod, transitive), purl <code>pkg:npm/cross-spawn@5.1.0</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → tap@11.1.5 → nyc@11.9.0 → yargs@11.1.0 → os-locale@2.1.0 → execa@0.7.0 → cross-spawn@5.1.0 ; goof@1.0.1 → snyk@1.278.1 → update-notifier@2.5.0 → boxen@1.3.0 → term-size@1.2.0 → execa@0.7.0 → cross-spawn@5.1.0</li>
+<li><strong>Official severity:</strong> HIGH, CVSS 7.5 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 6.0.6</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-3xgq-45jj-v275">GHSA-3xgq-45jj-v275</a> (CVE-2024-21538): HIGH, CVSS 7.5, fixed in 6.0.6. Regular Expression Denial of Service (ReDoS) in cross-spawn</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (7.5): highest advisory severity HIGH (CVSS 7.5)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-057 · 🟧 High (7.5) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> cross-spawn@6.0.5: 1 known vulnerability (highest HIGH, CVSS 7.5)</li>
+<li><strong>Component:</strong> <code>cross-spawn@6.0.5</code> (npm, scope dev, transitive), purl <code>pkg:npm/cross-spawn@6.0.5</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → snyk@1.278.1 → os-name@3.1.0 → windows-release@3.2.0 → execa@1.0.0 → cross-spawn@6.0.5</li>
+<li><strong>Official severity:</strong> HIGH, CVSS 7.5 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 6.0.6</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-3xgq-45jj-v275">GHSA-3xgq-45jj-v275</a> (CVE-2024-21538): HIGH, CVSS 7.5, fixed in 6.0.6. Regular Expression Denial of Service (ReDoS) in cross-spawn</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (7.5): highest advisory severity HIGH (CVSS 7.5)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-058 · 🟧 High (7.5) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> debug@2.2.0: 2 known vulnerabilities (highest HIGH, CVSS 7.5)</li>
+<li><strong>Component:</strong> <code>debug@2.2.0</code> (npm, scope prod, transitive), purl <code>pkg:npm/debug@2.2.0</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → express@4.12.4 → debug@2.2.0 ; goof@1.0.1 → mongoose@4.2.4 → mquery@1.6.3 → debug@2.2.0 ; goof@1.0.1 → express@4.12.4 → finalhandler@0.3.6 → debug@2.2.0</li>
+<li><strong>Official severity:</strong> HIGH, CVSS 7.5 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 2.6.9</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-9vvw-cc9w-f27h">GHSA-9vvw-cc9w-f27h</a> (CVE-2017-20165): HIGH, CVSS 7.5, fixed in 2.6.9. debug Inefficient Regular Expression Complexity vulnerability</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-gxpj-cx7g-858c">GHSA-gxpj-cx7g-858c</a> (CVE-2017-16137): LOW, CVSS 3.7, fixed in 2.6.9. Regular Expression Denial of Service in debug</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (7.5): highest advisory severity HIGH (CVSS 7.5)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-059 · 🟧 High (7.5) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> decode-uri-component@0.2.0: 3 known vulnerabilities (highest HIGH, CVSS 7.5)</li>
+<li><strong>Component:</strong> <code>decode-uri-component@0.2.0</code> (npm, scope prod, transitive), purl <code>pkg:npm/decode-uri-component@0.2.0</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → tap@11.1.5 → nyc@11.9.0 → micromatch@3.1.10 → snapdragon@0.8.2 → source-map-resolve@0.5.1 → decode-uri-component@0.2.0 ; goof@1.0.1 → tap@11.1.5 → nyc@11.9.0 → test-exclude@4.2.1 → micromatch@3.1.10 → snapdragon@0.8.2 → source-map-resolve@0.5.1 → decode-uri-component@0.2.0 ; goof@1.0.1 → tap@11.1.5 → nyc@11.9.0 → micromatch@3.1.10 → braces@2.3.2 → snapdragon@0.8.2 → source-map-resolve@0.5.1 → decode-uri-component@0.2.0</li>
+<li><strong>Official severity:</strong> HIGH, CVSS 7.5 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 0.5.1</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-qr28-fpjm-wq7f">GHSA-qr28-fpjm-wq7f</a> (CVE-2026-118664): HIGH, fixed in 0.5.1. decode-uri-component vulnerable to denial of service via quadratic replacement of percent-encoded runs</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-w573-4hg7-7wgq">GHSA-w573-4hg7-7wgq</a> (CVE-2022-38900): HIGH, CVSS 7.5, fixed in 0.2.1. decode-uri-component vulnerable to Denial of Service (DoS)</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-vcc3-ghjq-m6fr">GHSA-vcc3-ghjq-m6fr</a> (CVE-2026-45822): MEDIUM, fixed in 0.5.0. decode-uri-component: Denial of service via exponential decoding of malformed percent-encoded input</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (7.5): highest advisory severity HIGH (CVSS 7.5)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-060 · 🟧 High (7.5) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> dicer@0.3.0: 1 known vulnerability (highest HIGH, CVSS 7.5)</li>
+<li><strong>Component:</strong> <code>dicer@0.3.0</code> (npm, scope prod, transitive), purl <code>pkg:npm/dicer@0.3.0</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> goof@1.0.1 → express-fileupload@0.0.5 → connect-busboy@0.0.2 → busboy@0.3.1 → dicer@0.3.0</li>
+<li><strong>Official severity:</strong> HIGH, CVSS 7.5 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> no fixed version published</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-wm7h-9275-46v2">GHSA-wm7h-9275-46v2</a> (CVE-2022-24434): HIGH, CVSS 7.5, no fix published. Crash in HeaderParser in dicer</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (7.5): highest advisory severity HIGH (CVSS 7.5); 1 advisory(ies) without a published fix</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<p><em>94 more findings: full evidence in <code>findings.json</code>.</em></p>
+<h2>5. Notes and limits</h2>
+<ul>
+<li>what changed: base revision 'HEAD~1' not found (shallow clone or first commit), change analysis skipped</li>
+<li>graph.html limited to depth 2 + vulnerable paths (997 nodes); use --focus/--max-depth</li>
+<li>Day 1 scope: visibility and detection. Reachability, exploitability (KEV/EPSS) and remediation are Day 2.</li>
+<li>Typosquat results are heuristic (name similarity) and need human review.</li>
+</ul>
+<footer>Generated from report.md by sscg. All findings with full evidence are in findings.json.</footer>
+</main>
+</body>
+</html>

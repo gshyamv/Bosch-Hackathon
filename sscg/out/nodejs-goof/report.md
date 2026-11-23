@@ -1,6 +1,6 @@
 # Guardian evidence report: nodejs-goof
 
-*Scanned 2026-11-23T12:29:18+00:00 with sscg 0.1.0*
+*Scanned 2026-11-23T13:10:40+00:00 with sscg 0.1.0*
 
 **Repository → SBOM → Dependency graph → Risk detection → Evidence** ✔
 

