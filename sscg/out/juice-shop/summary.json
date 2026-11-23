@@ -49,8 +49,8 @@
   },
   "by_scope": {
     "ci": 28,
-    "build": 3,
-    "prod": 1113,
+    "build": 2,
+    "prod": 1114,
     "dev": 646
   },
   "resolution": {
@@ -1605,7 +1605,7 @@
       "digest": null,
       "pinned_by_digest": false,
       "official_image": true,
-      "scope": "build",
+      "scope": "prod",
       "used_in": [
         "infrastructure/Dockerfile:1"
       ]
@@ -2222,6 +2222,7 @@
   "notes": [
     "frontend/package.json: no lockfile -> transitive deps resolved via deps.dev (approximate)",
     "package.json: no lockfile -> transitive deps resolved via deps.dev (approximate)",
+    "what changed: base revision 'HEAD~1' not found (shallow clone or first commit), change analysis skipped",
     "graph.html limited to depth 2 + vulnerable paths (1814 nodes); use --focus/--max-depth"
   ],
   "sbom": {
@@ -2230,5 +2231,38 @@
     "components": 1813,
     "dependency_entries": 1814
   },
-  "why": {}
+  "why": {},
+  "findings": {
+    "total": 83,
+    "vulnerabilities": 55,
+    "anomalies": 28,
+    "new_in_change": 0,
+    "by_level": {
+      "Critical": 7,
+      "High": 29,
+      "Medium": 27,
+      "Low": 20,
+      "Info": 0
+    },
+    "by_type": {
+      "Vulnerable transitive dependency": 35,
+      "Vulnerable direct dependency": 20,
+      "Unsafe CI/CD component": 18,
+      "Untrusted image": 6,
+      "Suspicious package update": 2,
+      "Unsafe install script": 2
+    },
+    "by_rule": {
+      "VULN": 55,
+      "R16_CI_EXCESSIVE_PERMISSIONS": 13,
+      "R13_CONTAINER_HARDENING": 4,
+      "R15_CI_UNPINNED_ACTION": 3,
+      "R11_MUTABLE_IMAGE_TAG": 2,
+      "R17_CI_SECRET_EXPOSURE": 2,
+      "R09_UNPINNED_DEPENDENCY": 2,
+      "R03_INSTALL_SCRIPT": 1,
+      "R12_REMOTE_SCRIPT_EXEC": 1
+    },
+    "advisories": 139
+  }
 }

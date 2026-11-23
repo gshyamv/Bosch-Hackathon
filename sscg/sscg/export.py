@@ -46,8 +46,10 @@ def export_html(H: nx.DiGraph, path: Path):
             f"source: {a.get('source')}", "INSTALL SCRIPT" if a.get("install_script") else "",
             "UNTRUSTED ORIGIN" if untrusted else "",
             *[f"{k}: {a[k]}" for k in FACT_KEYS if a.get(k) not in (None, "")],
-            f"{len(a['vulns'])} advisories: {', '.join(a['vulns'][:6])}" if a.get("vulns") else ""]))
-        shape = "diamond" if (untrusted or a.get("install_script")) else ECO_SHAPE.get(a["ecosystem"], "dot")
+            f"{len(a['vulns'])} advisories: {', '.join(a['vulns'][:6])}" if a.get("vulns") else "",
+            f"findings: {', '.join(a['findings'])}" if a.get("findings") else ""]))
+        shape = "diamond" if (untrusted or a.get("install_script") or a.get("suspicious")) \
+            else ECO_SHAPE.get(a["ecosystem"], "dot")
         net.add_node(num[n], label=a["label"], title=tip, color=color, size=20 if a.get("direct") else 10,
                      shape=shape, borderWidth=3 if a.get("direct") else 1)
     for u, v, e in H.edges(data=True):

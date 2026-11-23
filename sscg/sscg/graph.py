@@ -128,7 +128,7 @@ def view(dg: DepGraph, focus: str | None, max_depth: int | None, limit: int = 60
     if max_depth is None:
         return G
     keep = {n for n, a in G.nodes(data=True) if a["kind"] != "package" or (a.get("depth") or 99) <= max_depth}
-    for n, a in G.nodes(data=True):  # always keep vulnerable nodes and their path
-        if a.get("vulns") and nx.has_path(G, dg.top, n):
+    for n, a in G.nodes(data=True):  # always keep vulnerable / suspicious nodes and their path
+        if (a.get("vulns") or a.get("suspicious")) and nx.has_path(G, dg.top, n):
             keep |= set(nx.shortest_path(G, dg.top, n))
     return G.subgraph(keep).copy()

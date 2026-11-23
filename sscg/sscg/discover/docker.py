@@ -74,7 +74,8 @@ def add_image(dg, parent: str, ref: str, scope: str, source: str, spec: str, res
         short = short[len("library/"):]
     elif im["registry"] != "docker.io":
         short = f"{im['registry']}/{short}"
-    label = short + f":{im['tag'] or 'latest'}" + (f"@{im['digest'][:19]}" if im["digest"] else "")
+    label = short + (f":{im['tag']}" if im["tag"] else "" if im["digest"] else ":latest") + \
+        (f"@{im['digest'][:19]}" if im["digest"] else "")
     dg.pkg("docker", f"{im['registry']}/{im['repository']}", version, nid=nid, label=label,
            scope=scope, source=source, resolution=resolution,
            resolved=f"docker://{im['registry']}/{im['repository']}",
@@ -144,15 +145,24 @@ def scan_dockerfile(dg, repo: Path, path: Path):
             stages[-1]["fetches"] += [(u, line_no, kw) for u in URL_RE.findall(rest)]
 
     aliases = {s["alias"] for s in stages if s["alias"]}
+    # The final stage ships, and so does every stage it is built on (FROM base AS production -> base).
+    idx_by_alias = {s["alias"]: i for i, s in enumerate(stages) if s["alias"]}
+    shipped, chain, j = set(), [], len(stages) - 1
+    while j is not None and j >= 0 and j not in shipped:
+        shipped.add(j)
+        chain.append(j)  # final stage first, then the stage it builds on, ...
+        j = idx_by_alias.get(stages[j]["ref"].lower())
     for i, st in enumerate(stages):
         final = i == len(stages) - 1
-        scope = "prod" if final else "build"
-        name = f"stage {i + 1}" + (f" '{st['alias']}'" if st["alias"] else "") + (" (final)" if final else "")
+        scope = "prod" if i in shipped else "build"
+        name = f"stage {i + 1}" + (f" '{st['alias']}'" if st["alias"] else "") + \
+            (" (final)" if final else " (base of final stage)" if i in shipped else "")
         if st["ref"].lower() not in aliases and st["ref"].lower() != "scratch":
             add_image(dg, rid, st["ref"], scope, f"{rel}:{st['line']}", f"FROM, {name}", "dockerfile")
         for url, ln, kw in st["fetches"]:
             add_artifact(dg, rid, url, scope, f"{rel}:{ln}", f"{kw} download, {name}", "dockerfile")
-    user = stages[-1]["user"] if stages else None
+    # USER is inherited along the stage chain: the last USER set in the final stage or the stages it builds on.
+    user = next((stages[k]["user"] for k in chain if stages[k]["user"]), None)
     dg.G.nodes[rid].update(stages=len(stages),
                            runs_as=user or "not set (inherits the base image default)")
 

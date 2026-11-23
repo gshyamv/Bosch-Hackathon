@@ -1,0 +1,26 @@
+{
+  "_about": "Seed list of publicly documented malicious packages (R02). OSV MAL-* advisories are the primary source; this list is a backup for offline use. versions '*' = every version.",
+  "packages": [
+    {"ecosystem": "npm", "name": "crossenv", "versions": "*", "impersonates": "cross-env",
+     "reference": "npm typosquatting campaign, Aug 2017: credential-stealing packages published by user 'hacktask', removed by npm"},
+    {"ecosystem": "npm", "name": "cross-env.js", "versions": "*", "impersonates": "cross-env", "reference": "same campaign, Aug 2017"},
+    {"ecosystem": "npm", "name": "babelcli", "versions": "*", "impersonates": "babel-cli", "reference": "same campaign, Aug 2017"},
+    {"ecosystem": "npm", "name": "d3.js", "versions": "*", "impersonates": "d3", "reference": "same campaign, Aug 2017"},
+    {"ecosystem": "npm", "name": "jquery.js", "versions": "*", "impersonates": "jquery", "reference": "same campaign, Aug 2017"},
+    {"ecosystem": "npm", "name": "mongose", "versions": "*", "impersonates": "mongoose", "reference": "same campaign, Aug 2017"},
+    {"ecosystem": "npm", "name": "nodesass", "versions": "*", "impersonates": "node-sass", "reference": "same campaign, Aug 2017"},
+    {"ecosystem": "npm", "name": "noderequest", "versions": "*", "impersonates": "request", "reference": "same campaign, Aug 2017"},
+    {"ecosystem": "npm", "name": "flatmap-stream", "versions": ["0.1.1"], "impersonates": null,
+     "reference": "event-stream incident, Nov 2018: malicious dependency added to event-stream@3.3.6"},
+    {"ecosystem": "npm", "name": "event-stream", "versions": ["3.3.6"], "impersonates": null,
+     "reference": "event-stream incident, Nov 2018: version 3.3.6 pulled in malicious flatmap-stream"},
+    {"ecosystem": "npm", "name": "ua-parser-js", "versions": ["0.7.29", "0.8.0", "1.0.0"], "impersonates": null,
+     "reference": "account takeover, Oct 2021: hijacked versions installed cryptominer / password stealer"},
+    {"ecosystem": "pypi", "name": "python3-dateutil", "versions": "*", "impersonates": "python-dateutil",
+     "reference": "PyPI typosquat, Dec 2019: imported jeIlyfish, which stole SSH/GPG keys"},
+    {"ecosystem": "pypi", "name": "jeilyfish", "versions": "*", "impersonates": "jellyfish",
+     "reference": "PyPI typosquat (capital I for l), Dec 2019"},
+    {"ecosystem": "pypi", "name": "colourama", "versions": "*", "impersonates": "colorama",
+     "reference": "PyPI typosquat, Oct 2018: clipboard cryptocurrency-address hijacker"}
+  ]
+}

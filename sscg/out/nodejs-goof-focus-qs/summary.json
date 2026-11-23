@@ -1307,12 +1307,44 @@
     }
   ],
   "remote_artifacts": [],
-  "notes": [],
+  "notes": [
+    "what changed: base revision 'HEAD~1' not found (shallow clone or first commit), change analysis skipped"
+  ],
   "sbom": {
     "file": "sbom.cdx.json",
     "format": "CycloneDX 1.5 JSON",
     "components": 996,
     "dependency_entries": 997
   },
-  "why": {}
+  "why": {},
+  "findings": {
+    "total": 154,
+    "vulnerabilities": 139,
+    "anomalies": 15,
+    "new_in_change": 0,
+    "by_level": {
+      "Critical": 24,
+      "High": 73,
+      "Medium": 37,
+      "Low": 20,
+      "Info": 0
+    },
+    "by_type": {
+      "Vulnerable transitive dependency": 120,
+      "Vulnerable direct dependency": 19,
+      "Unsafe CI/CD component": 6,
+      "Unsafe install script": 4,
+      "Untrusted image": 3,
+      "Suspicious package update": 2
+    },
+    "by_rule": {
+      "VULN": 139,
+      "R16_CI_EXCESSIVE_PERMISSIONS": 4,
+      "R03_INSTALL_SCRIPT": 4,
+      "R13_CONTAINER_HARDENING": 3,
+      "R09_UNPINNED_DEPENDENCY": 2,
+      "R15_CI_UNPINNED_ACTION": 2
+    },
+    "advisories": 315
+  }
 }

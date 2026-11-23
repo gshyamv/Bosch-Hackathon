@@ -1,0 +1,6518 @@
+{
+ "scan": {
+  "application": "juice-shop",
+  "tool": "sscg 0.1.0",
+  "scanned_at": "2026-11-23T11:50:20+00:00",
+  "head": null,
+  "base": null,
+  "risk_label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+ },
+ "counts": {
+  "total": 83,
+  "vulnerabilities": 55,
+  "anomalies": 28,
+  "new_in_change": 0,
+  "by_level": {
+   "Critical": 7,
+   "High": 29,
+   "Medium": 27,
+   "Low": 20,
+   "Info": 0
+  },
+  "by_type": {
+   "Vulnerable transitive dependency": 35,
+   "Vulnerable direct dependency": 20,
+   "Unsafe CI/CD component": 18,
+   "Untrusted image": 6,
+   "Suspicious package update": 2,
+   "Unsafe install script": 2
+  },
+  "by_rule": {
+   "VULN": 55,
+   "R16_CI_EXCESSIVE_PERMISSIONS": 13,
+   "R13_CONTAINER_HARDENING": 4,
+   "R15_CI_UNPINNED_ACTION": 3,
+   "R11_MUTABLE_IMAGE_TAG": 2,
+   "R17_CI_SECRET_EXPOSURE": 2,
+   "R09_UNPINNED_DEPENDENCY": 2,
+   "R03_INSTALL_SCRIPT": 1,
+   "R12_REMOTE_SCRIPT_EXEC": 1
+  },
+  "advisories": 139
+ },
+ "change": null,
+ "findings": [
+  {
+   "finding_id": "F-001",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "handlebars@4.7.7: 11 known vulnerabilities (highest CRITICAL, CVSS 9.8)",
+   "component": {
+    "id": "pkg:npm/handlebars@4.7.7",
+    "purl": "pkg:npm/handlebars@4.7.7",
+    "name": "handlebars",
+    "version": "4.7.7",
+    "ecosystem": "npm",
+    "label": "handlebars@4.7.7",
+    "scope": "prod",
+    "direct": false,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "package.json",
+   "dependency_paths": [
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "hbs@4.2.0",
+     "handlebars@4.7.7"
+    ]
+   ],
+   "introduced_by": [
+    "hbs@4.2.0"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-2w6w-674q-4c4q",
+     "cves": [
+      "CVE-2026-33937"
+     ],
+     "severity": "CRITICAL",
+     "cvss_score": 9.8,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+     "fixed_in": "4.7.9",
+     "summary": "Handlebars.js has JavaScript Injection via AST Type Confusion",
+     "url": "https://osv.dev/vulnerability/GHSA-2w6w-674q-4c4q"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-8r5x-fm3f-whwj",
+     "cves": [
+      "CVE-2026-106446"
+     ],
+     "severity": "CRITICAL",
+     "cvss_score": 9.8,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+     "fixed_in": "4.7.10",
+     "summary": "Handlebars: JavaScript Injection via AST Type Confusion in compile (bypass of CVE-2026-33937)",
+     "url": "https://osv.dev/vulnerability/GHSA-8r5x-fm3f-whwj"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-p8wg-vrv2-v86f",
+     "cves": [
+      "CVE-2026-106445"
+     ],
+     "severity": "CRITICAL",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+     "fixed_in": "4.7.10",
+     "summary": "Handlebars: JavaScript Injection via Own Property Check Bypass",
+     "url": "https://osv.dev/vulnerability/GHSA-p8wg-vrv2-v86f"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-xjpj-3mr7-gcpf",
+     "cves": [
+      "CVE-2026-33941"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 8.2,
+     "cvss_vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:R/S:C/C:H/I:H/A:H",
+     "fixed_in": "4.7.9",
+     "summary": "Handlebars.js has JavaScript Injection in CLI Precompiler via Unescaped Names and Options",
+     "url": "https://osv.dev/vulnerability/GHSA-xjpj-3mr7-gcpf"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-3mfm-83xf-c92r",
+     "cves": [
+      "CVE-2026-33938"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 8.1,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+     "fixed_in": "4.7.9",
+     "summary": "Handlebars.js has JavaScript Injection via AST Type Confusion by tampering @partial-block",
+     "url": "https://osv.dev/vulnerability/GHSA-3mfm-83xf-c92r"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-xhpv-hc6g-r9c6",
+     "cves": [
+      "CVE-2026-33940"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 8.1,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+     "fixed_in": "4.7.9",
+     "summary": "Handlebars.js has JavaScript Injection via AST Type Confusion when passing an object as dynamic partial",
+     "url": "https://osv.dev/vulnerability/GHSA-xhpv-hc6g-r9c6"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-9cx6-37pm-9jff",
+     "cves": [
+      "CVE-2026-33939"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "4.7.9",
+     "summary": "Handlebars.js has Denial of Service via Malformed Decorator Syntax in Template Compilation",
+     "url": "https://osv.dev/vulnerability/GHSA-9cx6-37pm-9jff"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-7rx3-28cr-v5wh",
+     "cves": [],
+     "severity": "MEDIUM",
+     "cvss_score": 4.8,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:N",
+     "fixed_in": "4.7.9",
+     "summary": "Handlebars.js has a Prototype Method Access Control Gap via Missing __lookupSetter__ Blocklist Entry",
+     "url": "https://osv.dev/vulnerability/GHSA-7rx3-28cr-v5wh"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-2qvq-rjwj-gvw9",
+     "cves": [
+      "CVE-2026-33916"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 4.7,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:L/I:L/A:N",
+     "fixed_in": "4.7.9",
+     "summary": "Handlebars.js has Prototype Pollution Leading to XSS through Partial Template Injection",
+     "url": "https://osv.dev/vulnerability/GHSA-2qvq-rjwj-gvw9"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-xw65-4hp5-5hc7",
+     "cves": [
+      "CVE-2026-106444"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 4.7,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:L/I:L/A:N",
+     "fixed_in": "4.7.10",
+     "summary": "Handlebars: JavaScript Injection via Unsafe Inline Embedding of Precompiled Templates",
+     "url": "https://osv.dev/vulnerability/GHSA-xw65-4hp5-5hc7"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-442j-39wm-28r2",
+     "cves": [],
+     "severity": "LOW",
+     "cvss_score": 3.7,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N",
+     "fixed_in": "4.7.9",
+     "summary": "Handlebars.js has a Property Access Validation Bypass in container.lookup",
+     "url": "https://osv.dev/vulnerability/GHSA-442j-39wm-28r2"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "CRITICAL",
+    "cvss": 9.8,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-2qvq-rjwj-gvw9": "4.7.9",
+     "GHSA-2w6w-674q-4c4q": "4.7.9",
+     "GHSA-3mfm-83xf-c92r": "4.7.9",
+     "GHSA-442j-39wm-28r2": "4.7.9",
+     "GHSA-7rx3-28cr-v5wh": "4.7.9",
+     "GHSA-8r5x-fm3f-whwj": "4.7.10",
+     "GHSA-9cx6-37pm-9jff": "4.7.9",
+     "GHSA-xhpv-hc6g-r9c6": "4.7.9",
+     "GHSA-xjpj-3mr7-gcpf": "4.7.9",
+     "GHSA-xw65-4hp5-5hc7": "4.7.10",
+     "GHSA-p8wg-vrv2-v86f": "4.7.10"
+    },
+    "upgrade_to_at_least": "4.7.10",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 9.8,
+    "level": "Critical",
+    "factors": {
+     "severity": 9.8
+    },
+    "reasons": [
+     "highest advisory severity CRITICAL (CVSS 9.8)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-002",
+   "category": "vulnerability",
+   "type": "Vulnerable direct dependency",
+   "rule": "VULN",
+   "title": "sequelize@6.37.3: 2 known vulnerabilities (highest CRITICAL, CVSS 9.8)",
+   "component": {
+    "id": "pkg:npm/sequelize@6.37.3",
+    "purl": "pkg:npm/sequelize@6.37.3",
+    "name": "sequelize",
+    "version": "6.37.3",
+    "ecosystem": "npm",
+    "label": "sequelize@6.37.3",
+    "scope": "prod",
+    "direct": true,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": true,
+   "location": "package.json",
+   "dependency_paths": [
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "sequelize@6.37.3"
+    ]
+   ],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-v8fg-2rw7-q452",
+     "cves": [
+      "CVE-2026-69240"
+     ],
+     "severity": "CRITICAL",
+     "cvss_score": 9.8,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+     "fixed_in": "6.37.4",
+     "summary": "Sequelize: SQL Injection (Oracle DB)",
+     "url": "https://osv.dev/vulnerability/GHSA-v8fg-2rw7-q452"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-6457-6jrx-69cr",
+     "cves": [
+      "CVE-2026-30951"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+     "fixed_in": "6.37.8",
+     "summary": "Sequelize v6 Vulnerable to SQL Injection via JSON Column Cast Type",
+     "url": "https://osv.dev/vulnerability/GHSA-6457-6jrx-69cr"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "CRITICAL",
+    "cvss": 9.8,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-6457-6jrx-69cr": "6.37.8",
+     "GHSA-v8fg-2rw7-q452": "6.37.4"
+    },
+    "upgrade_to_at_least": "6.37.8",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 9.8,
+    "level": "Critical",
+    "factors": {
+     "severity": 9.8
+    },
+    "reasons": [
+     "highest advisory severity CRITICAL (CVSS 9.8)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-003",
+   "category": "anomaly",
+   "type": "Unsafe CI/CD component",
+   "rule": "R17_CI_SECRET_EXPOSURE",
+   "title": ".github/workflows/ci.yml: secret(s) GITHUB_TOKEN are passed to the unpinned action 'coverallsapp/github-action@v2'",
+   "component": null,
+   "is_direct": null,
+   "location": ".github/workflows/ci.yml:200",
+   "dependency_paths": [],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "file",
+     "path": ".github/workflows/ci.yml",
+     "line": 200,
+     "snippet": "github-token: ${{ secrets.GITHUB_TOKEN }}"
+    }
+   ],
+   "why_it_matters": "A secret is handed to code that was downloaded at run time or comes from a mutable third-party action.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": false,
+   "introduced_in": null,
+   "risk": {
+    "score": 9.5,
+    "level": "Critical",
+    "factors": {
+     "rule_level": "Critical"
+    },
+    "reasons": [
+     "R17_CI_SECRET_EXPOSURE default level Critical"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-004",
+   "category": "anomaly",
+   "type": "Unsafe CI/CD component",
+   "rule": "R17_CI_SECRET_EXPOSURE",
+   "title": ".github/workflows/image_actions.yml: secret(s) GITHUB_TOKEN are passed to the unpinned action 'calibreapp/image-actions@main'",
+   "component": null,
+   "is_direct": null,
+   "location": ".github/workflows/image_actions.yml:35",
+   "dependency_paths": [],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "file",
+     "path": ".github/workflows/image_actions.yml",
+     "line": 35,
+     "snippet": "githubToken: ${{ secrets.GITHUB_TOKEN }}"
+    }
+   ],
+   "why_it_matters": "A secret is handed to code that was downloaded at run time or comes from a mutable third-party action.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": false,
+   "introduced_in": null,
+   "risk": {
+    "score": 9.5,
+    "level": "Critical",
+    "factors": {
+     "rule_level": "Critical"
+    },
+    "reasons": [
+     "R17_CI_SECRET_EXPOSURE default level Critical"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-005",
+   "category": "vulnerability",
+   "type": "Vulnerable direct dependency",
+   "rule": "VULN",
+   "title": "marsdb@0.6.11: 1 known vulnerability (highest CRITICAL)",
+   "component": {
+    "id": "pkg:npm/marsdb@0.6.11",
+    "purl": "pkg:npm/marsdb@0.6.11",
+    "name": "marsdb",
+    "version": "0.6.11",
+    "ecosystem": "npm",
+    "label": "marsdb@0.6.11",
+    "scope": "prod",
+    "direct": true,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": true,
+   "location": "package.json",
+   "dependency_paths": [
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "marsdb@0.6.11"
+    ]
+   ],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-5mrr-rgp6-x4gr",
+     "cves": [],
+     "severity": "CRITICAL",
+     "cvss_score": null,
+     "cvss_vector": null,
+     "fixed_in": null,
+     "summary": "Command Injection in marsdb",
+     "url": "https://osv.dev/vulnerability/GHSA-5mrr-rgp6-x4gr"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "CRITICAL",
+    "cvss": null,
+    "source": "advisory severity label (OSV)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-5mrr-rgp6-x4gr": null
+    },
+    "upgrade_to_at_least": null,
+    "advisories_without_fix": [
+     "GHSA-5mrr-rgp6-x4gr"
+    ]
+   },
+   "risk": {
+    "score": 9.5,
+    "level": "Critical",
+    "factors": {
+     "severity": 9.5
+    },
+    "reasons": [
+     "highest advisory severity CRITICAL",
+     "1 advisory(ies) without a published fix",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-006",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "crypto-js@3.3.0: 2 known vulnerabilities (highest CRITICAL, CVSS 9.1)",
+   "component": {
+    "id": "pkg:npm/crypto-js@3.3.0",
+    "purl": "pkg:npm/crypto-js@3.3.0",
+    "name": "crypto-js",
+    "version": "3.3.0",
+    "ecosystem": "npm",
+    "label": "crypto-js@3.3.0",
+    "scope": "prod",
+    "direct": false,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "package.json",
+   "dependency_paths": [
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "pdfkit@0.11.0",
+     "crypto-js@3.3.0"
+    ]
+   ],
+   "introduced_by": [
+    "pdfkit@0.11.0"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-xwcq-pm8m-c4vf",
+     "cves": [
+      "CVE-2023-46233"
+     ],
+     "severity": "CRITICAL",
+     "cvss_score": 9.1,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+     "fixed_in": "4.2.0",
+     "summary": "crypto-js PBKDF2 1,000 times weaker than specified in 1993 and 1.3M times weaker than current standard",
+     "url": "https://osv.dev/vulnerability/GHSA-xwcq-pm8m-c4vf"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-rg76-677x-56q9",
+     "cves": [
+      "CVE-2026-71851"
+     ],
+     "severity": "CRITICAL",
+     "cvss_score": 9.0,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:H",
+     "fixed_in": "4.0.0",
+     "summary": "crypto-js: Insufficient Entropy in Cryptographic Secret Generation via Vulnerable CryptoJS Dependency Chain",
+     "url": "https://osv.dev/vulnerability/GHSA-rg76-677x-56q9"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "CRITICAL",
+    "cvss": 9.1,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-rg76-677x-56q9": "4.0.0",
+     "GHSA-xwcq-pm8m-c4vf": "4.2.0"
+    },
+    "upgrade_to_at_least": "4.2.0",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 9.1,
+    "level": "Critical",
+    "factors": {
+     "severity": 9.1
+    },
+    "reasons": [
+     "highest advisory severity CRITICAL (CVSS 9.1)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-007",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "lodash@2.4.2: 4 known vulnerabilities (highest CRITICAL, CVSS 9.1)",
+   "component": {
+    "id": "pkg:npm/lodash@2.4.2",
+    "purl": "pkg:npm/lodash@2.4.2",
+    "name": "lodash",
+    "version": "2.4.2",
+    "ecosystem": "npm",
+    "label": "lodash@2.4.2",
+    "scope": "prod",
+    "direct": false,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "package.json",
+   "dependency_paths": [
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "sanitize-html@1.4.2",
+     "lodash@2.4.2"
+    ]
+   ],
+   "introduced_by": [
+    "sanitize-html@1.4.2"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-jf85-cpcp-j695",
+     "cves": [
+      "CVE-2019-10744"
+     ],
+     "severity": "CRITICAL",
+     "cvss_score": 9.1,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:H",
+     "fixed_in": "4.17.12",
+     "summary": "Prototype Pollution in lodash",
+     "url": "https://osv.dev/vulnerability/GHSA-jf85-cpcp-j695"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-4xc9-xhrj-v574",
+     "cves": [
+      "CVE-2018-16487"
+     ],
+     "severity": "HIGH",
+     "cvss_score": null,
+     "cvss_vector": null,
+     "fixed_in": "4.17.11",
+     "summary": "Prototype Pollution in lodash",
+     "url": "https://osv.dev/vulnerability/GHSA-4xc9-xhrj-v574"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-35jh-r3h4-6jhm",
+     "cves": [
+      "CVE-2021-23337"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 7.2,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H",
+     "fixed_in": "4.17.21",
+     "summary": "Command Injection in lodash",
+     "url": "https://osv.dev/vulnerability/GHSA-35jh-r3h4-6jhm"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-fvqr-27wr-82fm",
+     "cves": [
+      "CVE-2018-3721"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 6.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N",
+     "fixed_in": "4.17.5",
+     "summary": "Prototype Pollution in lodash",
+     "url": "https://osv.dev/vulnerability/GHSA-fvqr-27wr-82fm"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "CRITICAL",
+    "cvss": 9.1,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-35jh-r3h4-6jhm": "4.17.21",
+     "GHSA-fvqr-27wr-82fm": "4.17.5",
+     "GHSA-jf85-cpcp-j695": "4.17.12",
+     "GHSA-4xc9-xhrj-v574": "4.17.11"
+    },
+    "upgrade_to_at_least": "4.17.21",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 9.1,
+    "level": "Critical",
+    "factors": {
+     "severity": 9.1
+    },
+    "reasons": [
+     "highest advisory severity CRITICAL (CVSS 9.1)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-008",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "tar@6.2.1: 12 known vulnerabilities (highest HIGH, CVSS 8.8)",
+   "component": {
+    "id": "pkg:npm/tar@6.2.1",
+    "purl": "pkg:npm/tar@6.2.1",
+    "name": "tar",
+    "version": "6.2.1",
+    "ecosystem": "npm",
+    "label": "tar@6.2.1",
+    "scope": "prod",
+    "direct": false,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "package.json",
+   "dependency_paths": [
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "sqlite3@5.1.7",
+     "tar@6.2.1"
+    ],
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "sqlite3@5.1.7",
+     "node-gyp@8.4.1",
+     "tar@6.2.1"
+    ],
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "@cyclonedx/cyclonedx-npm@2.0.0",
+     "@cyclonedx/cyclonedx-library@7.1.0",
+     "libxmljs2@0.35.0",
+     "node-gyp@10.3.1",
+     "tar@6.2.1"
+    ]
+   ],
+   "introduced_by": [
+    "@cyclonedx/cyclonedx-npm@2.0.0",
+    "sqlite3@5.1.7"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-r6q2-hw4h-h46w",
+     "cves": [
+      "CVE-2026-23950"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 8.8,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:H/A:L",
+     "fixed_in": "7.5.4",
+     "summary": "Race Condition in node-tar Path Reservations via Unicode Ligature Collisions on macOS APFS",
+     "url": "https://osv.dev/vulnerability/GHSA-r6q2-hw4h-h46w"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-34x7-hfp2-rc4v",
+     "cves": [
+      "CVE-2026-24842"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 8.2,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:L/A:N",
+     "fixed_in": "7.5.7",
+     "summary": "node-tar Vulnerable to Arbitrary File Creation/Overwrite via Hardlink Path Traversal",
+     "url": "https://osv.dev/vulnerability/GHSA-34x7-hfp2-rc4v"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-8qq5-rm4j-mr97",
+     "cves": [
+      "CVE-2026-23745"
+     ],
+     "severity": "HIGH",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:A/VC:H/VI:L/VA:N/SC:H/SI:L/SA:N",
+     "fixed_in": "7.5.3",
+     "summary": "node-tar is Vulnerable to Arbitrary File Overwrite and Symlink Poisoning via Insufficient Path Sanitization",
+     "url": "https://osv.dev/vulnerability/GHSA-8qq5-rm4j-mr97"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-9ppj-qmqm-q256",
+     "cves": [
+      "CVE-2026-31802"
+     ],
+     "severity": "HIGH",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:N/SC:N/SI:H/SA:N",
+     "fixed_in": "7.5.11",
+     "summary": "node-tar Symlink Path Traversal via Drive-Relative Linkpath",
+     "url": "https://osv.dev/vulnerability/GHSA-9ppj-qmqm-q256"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-qffp-2rhf-9h96",
+     "cves": [
+      "CVE-2026-29786"
+     ],
+     "severity": "HIGH",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:N/VI:H/VA:L/SC:N/SI:H/SA:L",
+     "fixed_in": "7.5.10",
+     "summary": "tar has Hardlink Path Traversal via Drive-Relative Linkpath",
+     "url": "https://osv.dev/vulnerability/GHSA-qffp-2rhf-9h96"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-23hp-3jrh-7fpw",
+     "cves": [
+      "CVE-2026-59873"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "7.5.19",
+     "summary": "node-tar: Decompression/parse DoS via unlimited input",
+     "url": "https://osv.dev/vulnerability/GHSA-23hp-3jrh-7fpw"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-8x88-c5mf-7j5w",
+     "cves": [
+      "CVE-2026-59874"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "7.5.18",
+     "summary": "node-tar: Negative tar entry size causes infinite loop in archive replace",
+     "url": "https://osv.dev/vulnerability/GHSA-8x88-c5mf-7j5w"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-r292-9mhp-454m",
+     "cves": [
+      "CVE-2026-73566"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "7.5.21",
+     "summary": "node-tar: Uncontrolled recursion in mapHas/filesFilter allows uncatchable stack-overflow DoS via crafted long-path tar with member selection",
+     "url": "https://osv.dev/vulnerability/GHSA-r292-9mhp-454m"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-83g3-92jg-28cx",
+     "cves": [
+      "CVE-2026-26960"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 7.1,
+     "cvss_vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:N",
+     "fixed_in": "7.5.8",
+     "summary": "Arbitrary File Read/Write via Hardlink Target Escape Through Symlink Chain in node-tar Extraction",
+     "url": "https://osv.dev/vulnerability/GHSA-83g3-92jg-28cx"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-vmf3-w455-68vh",
+     "cves": [
+      "CVE-2026-53655"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N",
+     "fixed_in": "7.5.16",
+     "summary": "node-tar applies PAX size override to intermediary GNU long-name/long-link headers, causing tar parser interpretation differential (file smuggling)",
+     "url": "https://osv.dev/vulnerability/GHSA-vmf3-w455-68vh"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-gvwx-54wh-qm9j",
+     "cves": [
+      "CVE-2026-59875"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+     "fixed_in": "7.5.17",
+     "summary": "node-tar: Uncaught Exception DoS via NUL byte in PAX path/linkpath records",
+     "url": "https://osv.dev/vulnerability/GHSA-gvwx-54wh-qm9j"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-w8wr-v893-vjvp",
+     "cves": [
+      "CVE-2026-59871"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+     "fixed_in": "7.5.18",
+     "summary": "node-tar: Process crash via PAX numeric path type confusion",
+     "url": "https://osv.dev/vulnerability/GHSA-w8wr-v893-vjvp"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "HIGH",
+    "cvss": 8.8,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-23hp-3jrh-7fpw": "7.5.19",
+     "GHSA-34x7-hfp2-rc4v": "7.5.7",
+     "GHSA-83g3-92jg-28cx": "7.5.8",
+     "GHSA-8x88-c5mf-7j5w": "7.5.18",
+     "GHSA-gvwx-54wh-qm9j": "7.5.17",
+     "GHSA-r292-9mhp-454m": "7.5.21",
+     "GHSA-r6q2-hw4h-h46w": "7.5.4",
+     "GHSA-w8wr-v893-vjvp": "7.5.18",
+     "GHSA-8qq5-rm4j-mr97": "7.5.3",
+     "GHSA-9ppj-qmqm-q256": "7.5.11",
+     "GHSA-qffp-2rhf-9h96": "7.5.10",
+     "GHSA-vmf3-w455-68vh": "7.5.16"
+    },
+    "upgrade_to_at_least": "7.5.21",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 8.8,
+    "level": "High",
+    "factors": {
+     "severity": 8.8
+    },
+    "reasons": [
+     "highest advisory severity HIGH (CVSS 8.8)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-009",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "jws@0.2.6: 2 known vulnerabilities (highest HIGH, CVSS 8.7)",
+   "component": {
+    "id": "pkg:npm/jws@0.2.6",
+    "purl": "pkg:npm/jws@0.2.6",
+    "name": "jws",
+    "version": "0.2.6",
+    "ecosystem": "npm",
+    "label": "jws@0.2.6",
+    "scope": "prod",
+    "direct": false,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "package.json",
+   "dependency_paths": [
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "jsonwebtoken@0.4.0",
+     "jws@0.2.6"
+    ],
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "express-jwt@0.1.3",
+     "jsonwebtoken@0.1.0",
+     "jws@0.2.6"
+    ]
+   ],
+   "introduced_by": [
+    "express-jwt@0.1.3",
+    "jsonwebtoken@0.4.0"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-gjcw-v447-2w7q",
+     "cves": [
+      "CVE-2016-1000223"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 8.7,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:N",
+     "fixed_in": "3.0.0",
+     "summary": "Forgeable Public/Private Tokens in jws",
+     "url": "https://osv.dev/vulnerability/GHSA-gjcw-v447-2w7q"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-869p-cjfg-cm3x",
+     "cves": [
+      "CVE-2025-65945"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+     "fixed_in": "3.2.3",
+     "summary": "auth0/node-jws Improperly Verifies HMAC Signature",
+     "url": "https://osv.dev/vulnerability/GHSA-869p-cjfg-cm3x"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "HIGH",
+    "cvss": 8.7,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-869p-cjfg-cm3x": "3.2.3",
+     "GHSA-gjcw-v447-2w7q": "3.0.0"
+    },
+    "upgrade_to_at_least": "3.2.3",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 8.7,
+    "level": "High",
+    "factors": {
+     "severity": 8.7
+    },
+    "reasons": [
+     "highest advisory severity HIGH (CVSS 8.7)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-010",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "@modelcontextprotocol/sdk@1.29.0: 6 known vulnerabilities (highest HIGH, CVSS 8.6)",
+   "component": {
+    "id": "pkg:npm/%40modelcontextprotocol/sdk@1.29.0",
+    "purl": "pkg:npm/%40modelcontextprotocol/sdk@1.29.0",
+    "name": "@modelcontextprotocol/sdk",
+    "version": "1.29.0",
+    "ecosystem": "npm",
+    "label": "@modelcontextprotocol/sdk@1.29.0",
+    "scope": "prod",
+    "direct": false,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "frontend/package.json",
+   "dependency_paths": [
+    [
+     "frontend@20.4.0-SNAPSHOT",
+     "@angular/cli@22.0.1",
+     "@modelcontextprotocol/sdk@1.29.0"
+    ]
+   ],
+   "introduced_by": [
+    "@angular/cli@22.0.1"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-22jm-h49p-29qw",
+     "cves": [
+      "CVE-2026-111767"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 8.6,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:L/A:L",
+     "fixed_in": "1.32.0",
+     "summary": "MCP TypeScript SDK: Experimental tasks were not tied to the session that created them",
+     "url": "https://osv.dev/vulnerability/GHSA-22jm-h49p-29qw"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-46jr-4wx8-v453",
+     "cves": [
+      "CVE-2026-111768"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "1.32.0",
+     "summary": "MCP TypeScript SDK: One HTTP request within the default size limit could exhaust server memory during validation",
+     "url": "https://osv.dev/vulnerability/GHSA-46jr-4wx8-v453"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-6qxp-vccf-f47h",
+     "cves": [
+      "CVE-2026-104850"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+     "fixed_in": "1.31.0",
+     "summary": "MCP TypeScript SDK: OAuth client could send credentials to an authorization server chosen by the MCP server",
+     "url": "https://osv.dev/vulnerability/GHSA-6qxp-vccf-f47h"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-f897-62hf-6gxq",
+     "cves": [],
+     "severity": "HIGH",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "1.30.1",
+     "summary": "MCP TypeScript SDK: HTTP server transports and handlers did not limit request body size or JSON-RPC batch length",
+     "url": "https://osv.dev/vulnerability/GHSA-f897-62hf-6gxq"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-rvq5-wwqv-78pq",
+     "cves": [
+      "CVE-2026-111771"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 6.8,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:N",
+     "fixed_in": "1.32.0",
+     "summary": "MCP TypeScript SDK: Server bearer authentication accepted tokens issued for another service",
+     "url": "https://osv.dev/vulnerability/GHSA-rvq5-wwqv-78pq"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-6prh-2h8m-c8cw",
+     "cves": [
+      "CVE-2026-111769"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 6.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:L/A:N",
+     "fixed_in": "1.32.0",
+     "summary": "MCP TypeScript client SDK: HTTP client transports and OAuth requests followed cross-origin redirects and re-sent custom headers and request bodies",
+     "url": "https://osv.dev/vulnerability/GHSA-6prh-2h8m-c8cw"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "HIGH",
+    "cvss": 8.6,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-22jm-h49p-29qw": "1.32.0",
+     "GHSA-46jr-4wx8-v453": "1.32.0",
+     "GHSA-6prh-2h8m-c8cw": "1.32.0",
+     "GHSA-6qxp-vccf-f47h": "1.31.0",
+     "GHSA-f897-62hf-6gxq": "1.30.1",
+     "GHSA-rvq5-wwqv-78pq": "1.32.0"
+    },
+    "upgrade_to_at_least": "1.32.0",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 8.6,
+    "level": "High",
+    "factors": {
+     "severity": 8.6
+    },
+    "reasons": [
+     "highest advisory severity HIGH (CVSS 8.6)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-011",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "ip@2.0.1: 1 known vulnerability (highest HIGH, CVSS 8.1)",
+   "component": {
+    "id": "pkg:npm/ip@2.0.1",
+    "purl": "pkg:npm/ip@2.0.1",
+    "name": "ip",
+    "version": "2.0.1",
+    "ecosystem": "npm",
+    "label": "ip@2.0.1",
+    "scope": "prod",
+    "direct": false,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "package.json",
+   "dependency_paths": [
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "express-ipfilter@1.3.2",
+     "ip@2.0.1"
+    ]
+   ],
+   "introduced_by": [
+    "express-ipfilter@1.3.2"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-2p57-rm9w-gvfp",
+     "cves": [
+      "CVE-2024-29415"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 8.1,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+     "fixed_in": null,
+     "summary": "ip SSRF improper categorization in isPublic",
+     "url": "https://osv.dev/vulnerability/GHSA-2p57-rm9w-gvfp"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "HIGH",
+    "cvss": 8.1,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-2p57-rm9w-gvfp": null
+    },
+    "upgrade_to_at_least": null,
+    "advisories_without_fix": [
+     "GHSA-2p57-rm9w-gvfp"
+    ]
+   },
+   "risk": {
+    "score": 8.1,
+    "level": "High",
+    "factors": {
+     "severity": 8.1
+    },
+    "reasons": [
+     "highest advisory severity HIGH (CVSS 8.1)",
+     "1 advisory(ies) without a published fix",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-012",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "jsonwebtoken@0.1.0: 4 known vulnerabilities (highest CRITICAL, CVSS 8.1)",
+   "component": {
+    "id": "pkg:npm/jsonwebtoken@0.1.0",
+    "purl": "pkg:npm/jsonwebtoken@0.1.0",
+    "name": "jsonwebtoken",
+    "version": "0.1.0",
+    "ecosystem": "npm",
+    "label": "jsonwebtoken@0.1.0",
+    "scope": "prod",
+    "direct": false,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "package.json",
+   "dependency_paths": [
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "express-jwt@0.1.3",
+     "jsonwebtoken@0.1.0"
+    ]
+   ],
+   "introduced_by": [
+    "express-jwt@0.1.3"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-c7hr-j4mj-j2w6",
+     "cves": [
+      "CVE-2015-9235"
+     ],
+     "severity": "CRITICAL",
+     "cvss_score": null,
+     "cvss_vector": null,
+     "fixed_in": "4.2.2",
+     "summary": "Verification Bypass in jsonwebtoken",
+     "url": "https://osv.dev/vulnerability/GHSA-c7hr-j4mj-j2w6"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-8cf7-32gw-wr33",
+     "cves": [
+      "CVE-2022-23539"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 8.1,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:N",
+     "fixed_in": "9.0.0",
+     "summary": "jsonwebtoken unrestricted key type could lead to legacy keys usage ",
+     "url": "https://osv.dev/vulnerability/GHSA-8cf7-32gw-wr33"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-qwph-4952-7xr6",
+     "cves": [
+      "CVE-2022-23540"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 6.4,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:H/A:L",
+     "fixed_in": "9.0.0",
+     "summary": "jsonwebtoken vulnerable to signature validation bypass due to insecure default algorithm in jwt.verify()",
+     "url": "https://osv.dev/vulnerability/GHSA-qwph-4952-7xr6"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-hjrf-2m68-5959",
+     "cves": [
+      "CVE-2022-23541"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 5.0,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:L",
+     "fixed_in": "9.0.0",
+     "summary": "jsonwebtoken's insecure implementation of key retrieval function could lead to Forgeable Public/Private Tokens from RSA to HMAC",
+     "url": "https://osv.dev/vulnerability/GHSA-hjrf-2m68-5959"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "CRITICAL",
+    "cvss": 8.1,
+    "source": "advisory severity label (OSV)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-8cf7-32gw-wr33": "9.0.0",
+     "GHSA-hjrf-2m68-5959": "9.0.0",
+     "GHSA-qwph-4952-7xr6": "9.0.0",
+     "GHSA-c7hr-j4mj-j2w6": "4.2.2"
+    },
+    "upgrade_to_at_least": "9.0.0",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 8.1,
+    "level": "High",
+    "factors": {
+     "severity": 8.1
+    },
+    "reasons": [
+     "highest advisory severity CRITICAL (CVSS 8.1)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-013",
+   "category": "vulnerability",
+   "type": "Vulnerable direct dependency",
+   "rule": "VULN",
+   "title": "jsonwebtoken@0.4.0: 4 known vulnerabilities (highest CRITICAL, CVSS 8.1)",
+   "component": {
+    "id": "pkg:npm/jsonwebtoken@0.4.0",
+    "purl": "pkg:npm/jsonwebtoken@0.4.0",
+    "name": "jsonwebtoken",
+    "version": "0.4.0",
+    "ecosystem": "npm",
+    "label": "jsonwebtoken@0.4.0",
+    "scope": "prod",
+    "direct": true,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": true,
+   "location": "package.json",
+   "dependency_paths": [
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "jsonwebtoken@0.4.0"
+    ]
+   ],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-c7hr-j4mj-j2w6",
+     "cves": [
+      "CVE-2015-9235"
+     ],
+     "severity": "CRITICAL",
+     "cvss_score": null,
+     "cvss_vector": null,
+     "fixed_in": "4.2.2",
+     "summary": "Verification Bypass in jsonwebtoken",
+     "url": "https://osv.dev/vulnerability/GHSA-c7hr-j4mj-j2w6"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-8cf7-32gw-wr33",
+     "cves": [
+      "CVE-2022-23539"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 8.1,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:N",
+     "fixed_in": "9.0.0",
+     "summary": "jsonwebtoken unrestricted key type could lead to legacy keys usage ",
+     "url": "https://osv.dev/vulnerability/GHSA-8cf7-32gw-wr33"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-qwph-4952-7xr6",
+     "cves": [
+      "CVE-2022-23540"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 6.4,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:H/A:L",
+     "fixed_in": "9.0.0",
+     "summary": "jsonwebtoken vulnerable to signature validation bypass due to insecure default algorithm in jwt.verify()",
+     "url": "https://osv.dev/vulnerability/GHSA-qwph-4952-7xr6"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-hjrf-2m68-5959",
+     "cves": [
+      "CVE-2022-23541"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 5.0,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:L",
+     "fixed_in": "9.0.0",
+     "summary": "jsonwebtoken's insecure implementation of key retrieval function could lead to Forgeable Public/Private Tokens from RSA to HMAC",
+     "url": "https://osv.dev/vulnerability/GHSA-hjrf-2m68-5959"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "CRITICAL",
+    "cvss": 8.1,
+    "source": "advisory severity label (OSV)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-8cf7-32gw-wr33": "9.0.0",
+     "GHSA-hjrf-2m68-5959": "9.0.0",
+     "GHSA-qwph-4952-7xr6": "9.0.0",
+     "GHSA-c7hr-j4mj-j2w6": "4.2.2"
+    },
+    "upgrade_to_at_least": "9.0.0",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 8.1,
+    "level": "High",
+    "factors": {
+     "severity": 8.1
+    },
+    "reasons": [
+     "highest advisory severity CRITICAL (CVSS 8.1)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-014",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "libxmljs2@0.35.0: 1 known vulnerability (highest HIGH, CVSS 8.1)",
+   "component": {
+    "id": "pkg:npm/libxmljs2@0.35.0",
+    "purl": "pkg:npm/libxmljs2@0.35.0",
+    "name": "libxmljs2",
+    "version": "0.35.0",
+    "ecosystem": "npm",
+    "label": "libxmljs2@0.35.0",
+    "scope": "dev",
+    "direct": false,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "package.json",
+   "dependency_paths": [
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "@cyclonedx/cyclonedx-npm@2.0.0",
+     "@cyclonedx/cyclonedx-library@7.1.0",
+     "libxmljs2@0.35.0"
+    ]
+   ],
+   "introduced_by": [
+    "@cyclonedx/cyclonedx-npm@2.0.0"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-78h3-pg4x-j8cv",
+     "cves": [
+      "CVE-2024-34394"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 8.1,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+     "fixed_in": null,
+     "summary": "libxmljs2 vulnerable to type confusion when parsing specially crafted XML",
+     "url": "https://osv.dev/vulnerability/GHSA-78h3-pg4x-j8cv"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "HIGH",
+    "cvss": 8.1,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-78h3-pg4x-j8cv": null
+    },
+    "upgrade_to_at_least": null,
+    "advisories_without_fix": [
+     "GHSA-78h3-pg4x-j8cv"
+    ]
+   },
+   "risk": {
+    "score": 8.1,
+    "level": "High",
+    "factors": {
+     "severity": 8.1
+    },
+    "reasons": [
+     "highest advisory severity HIGH (CVSS 8.1)",
+     "1 advisory(ies) without a published fix",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-015",
+   "category": "vulnerability",
+   "type": "Vulnerable direct dependency",
+   "rule": "VULN",
+   "title": "lodash-es@4.17.21: 2 known vulnerabilities (highest HIGH, CVSS 8.1)",
+   "component": {
+    "id": "pkg:npm/lodash-es@4.17.21",
+    "purl": "pkg:npm/lodash-es@4.17.21",
+    "name": "lodash-es",
+    "version": "4.17.21",
+    "ecosystem": "npm",
+    "label": "lodash-es@4.17.21",
+    "scope": "prod",
+    "direct": true,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": true,
+   "location": "frontend/package.json",
+   "dependency_paths": [
+    [
+     "frontend@20.4.0-SNAPSHOT",
+     "lodash-es@4.17.21"
+    ]
+   ],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-r5fr-rjxr-66jc",
+     "cves": [
+      "CVE-2026-4800"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 8.1,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+     "fixed_in": "4.18.0",
+     "summary": "lodash vulnerable to Code Injection via `_.template` imports key names",
+     "url": "https://osv.dev/vulnerability/GHSA-r5fr-rjxr-66jc"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-xxjr-mmjv-4gpg",
+     "cves": [
+      "CVE-2025-13465"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 6.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L",
+     "fixed_in": "4.17.23",
+     "summary": "Lodash has Prototype Pollution Vulnerability in `_.unset`, `_.omit`, and `_.pullAt` functions",
+     "url": "https://osv.dev/vulnerability/GHSA-xxjr-mmjv-4gpg"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "HIGH",
+    "cvss": 8.1,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-r5fr-rjxr-66jc": "4.18.0",
+     "GHSA-xxjr-mmjv-4gpg": "4.17.23"
+    },
+    "upgrade_to_at_least": "4.18.0",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 8.1,
+    "level": "High",
+    "factors": {
+     "severity": 8.1
+    },
+    "reasons": [
+     "highest advisory severity HIGH (CVSS 8.1)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-016",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "piscina@5.1.4: 2 known vulnerabilities (highest CRITICAL, CVSS 8.1)",
+   "component": {
+    "id": "pkg:npm/piscina@5.1.4",
+    "purl": "pkg:npm/piscina@5.1.4",
+    "name": "piscina",
+    "version": "5.1.4",
+    "ecosystem": "npm",
+    "label": "piscina@5.1.4",
+    "scope": "prod",
+    "direct": false,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "frontend/package.json",
+   "dependency_paths": [
+    [
+     "frontend@20.4.0-SNAPSHOT",
+     "@angular/build@22.0.1",
+     "piscina@5.1.4"
+    ]
+   ],
+   "introduced_by": [
+    "@angular/build@22.0.1"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-67c8-pqhq-4rmx",
+     "cves": [
+      "CVE-2026-102992"
+     ],
+     "severity": "CRITICAL",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:H/AT:P/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+     "fixed_in": "5.3.2",
+     "summary": "piscina: Prototype-pollution gadget in ThreadPool.options allows RCE via execArgv / loadBalancer / env",
+     "url": "https://osv.dev/vulnerability/GHSA-67c8-pqhq-4rmx"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-x9g3-xrwr-cwfg",
+     "cves": [
+      "CVE-2026-55388"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 8.1,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+     "fixed_in": "5.2.0",
+     "summary": "piscina: Prototype Pollution Gadget \u2192 RCE via inherited options.filename",
+     "url": "https://osv.dev/vulnerability/GHSA-x9g3-xrwr-cwfg"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "CRITICAL",
+    "cvss": 8.1,
+    "source": "advisory severity label (OSV)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-x9g3-xrwr-cwfg": "5.2.0",
+     "GHSA-67c8-pqhq-4rmx": "5.3.2"
+    },
+    "upgrade_to_at_least": "5.3.2",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 8.1,
+    "level": "High",
+    "factors": {
+     "severity": 8.1
+    },
+    "reasons": [
+     "highest advisory severity CRITICAL (CVSS 8.1)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-017",
+   "category": "anomaly",
+   "type": "Unsafe install script",
+   "rule": "R12_REMOTE_SCRIPT_EXEC",
+   "title": ".github/workflows/ci.yml: job 'heroku' downloads a script and pipes it into a shell",
+   "component": null,
+   "is_direct": null,
+   "location": ".github/workflows/ci.yml:353",
+   "dependency_paths": [],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "file",
+     "path": ".github/workflows/ci.yml",
+     "line": 353,
+     "snippet": "run: curl https://cli-assets.heroku.com/install.sh | sh"
+    }
+   ],
+   "why_it_matters": "A script is downloaded and executed without any integrity check.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": false,
+   "introduced_in": null,
+   "risk": {
+    "score": 8.0,
+    "level": "High",
+    "factors": {
+     "rule_level": "High"
+    },
+    "reasons": [
+     "R12_REMOTE_SCRIPT_EXEC default level High"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-018",
+   "category": "anomaly",
+   "type": "Unsafe CI/CD component",
+   "rule": "R15_CI_UNPINNED_ACTION",
+   "title": ".github/workflows/ci.yml: third-party action 'coverallsapp/github-action@v2' is not pinned to a commit SHA",
+   "component": {
+    "id": "pkg:github/coverallsapp/github-action@v2",
+    "purl": "pkg:github/coverallsapp/github-action@v2",
+    "name": "coverallsapp/github-action",
+    "version": "v2",
+    "ecosystem": "github-actions",
+    "label": "coverallsapp/github-action@v2",
+    "scope": "ci",
+    "direct": true,
+    "resolution": "workflow",
+    "origin": "https://github.com/coverallsapp/github-action"
+   },
+   "is_direct": true,
+   "location": ".github/workflows/ci.yml:198",
+   "dependency_paths": [
+    [
+     "CI/CD Pipeline",
+     "coverallsapp/github-action@v2"
+    ]
+   ],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "file",
+     "path": ".github/workflows/ci.yml",
+     "line": 198,
+     "snippet": "uses: coverallsapp/github-action@v2"
+    }
+   ],
+   "why_it_matters": "A third-party action referenced by tag/branch can be changed by its owner at any time.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": false,
+   "introduced_in": null,
+   "risk": {
+    "score": 8.0,
+    "level": "High",
+    "factors": {
+     "rule_level": "High"
+    },
+    "reasons": [
+     "R15_CI_UNPINNED_ACTION default level High"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-019",
+   "category": "anomaly",
+   "type": "Unsafe CI/CD component",
+   "rule": "R15_CI_UNPINNED_ACTION",
+   "title": ".github/workflows/image_actions.yml: third-party action 'calibreapp/image-actions@main' is not pinned to a commit SHA",
+   "component": {
+    "id": "pkg:github/calibreapp/image-actions@main",
+    "purl": "pkg:github/calibreapp/image-actions@main",
+    "name": "calibreapp/image-actions",
+    "version": "main",
+    "ecosystem": "github-actions",
+    "label": "calibreapp/image-actions@main",
+    "scope": "ci",
+    "direct": true,
+    "resolution": "workflow",
+    "origin": "https://github.com/calibreapp/image-actions"
+   },
+   "is_direct": true,
+   "location": ".github/workflows/image_actions.yml:33",
+   "dependency_paths": [
+    [
+     "Compress images",
+     "calibreapp/image-actions@main"
+    ]
+   ],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "file",
+     "path": ".github/workflows/image_actions.yml",
+     "line": 33,
+     "snippet": "uses: calibreapp/image-actions@main"
+    }
+   ],
+   "why_it_matters": "A third-party action referenced by tag/branch can be changed by its owner at any time.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": false,
+   "introduced_in": null,
+   "risk": {
+    "score": 8.0,
+    "level": "High",
+    "factors": {
+     "rule_level": "High"
+    },
+    "reasons": [
+     "R15_CI_UNPINNED_ACTION default level High"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-020",
+   "category": "anomaly",
+   "type": "Unsafe CI/CD component",
+   "rule": "R15_CI_UNPINNED_ACTION",
+   "title": ".github/workflows/image_actions.yml: third-party action 'peter-evans/create-pull-request@v8' is not pinned to a commit SHA",
+   "component": {
+    "id": "pkg:github/peter-evans/create-pull-request@v8",
+    "purl": "pkg:github/peter-evans/create-pull-request@v8",
+    "name": "peter-evans/create-pull-request",
+    "version": "v8",
+    "ecosystem": "github-actions",
+    "label": "peter-evans/create-pull-request@v8",
+    "scope": "ci",
+    "direct": true,
+    "resolution": "workflow",
+    "origin": "https://github.com/peter-evans/create-pull-request"
+   },
+   "is_direct": true,
+   "location": ".github/workflows/image_actions.yml:42",
+   "dependency_paths": [
+    [
+     "Compress images",
+     "peter-evans/create-pull-request@v8"
+    ]
+   ],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "file",
+     "path": ".github/workflows/image_actions.yml",
+     "line": 42,
+     "snippet": "uses: peter-evans/create-pull-request@v8"
+    }
+   ],
+   "why_it_matters": "A third-party action referenced by tag/branch can be changed by its owner at any time.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": false,
+   "introduced_in": null,
+   "risk": {
+    "score": 8.0,
+    "level": "High",
+    "factors": {
+     "rule_level": "High"
+    },
+    "reasons": [
+     "R15_CI_UNPINNED_ACTION default level High"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-021",
+   "category": "vulnerability",
+   "type": "Vulnerable direct dependency",
+   "rule": "VULN",
+   "title": "@angular/router@22.0.1: 3 known vulnerabilities (highest HIGH)",
+   "component": {
+    "id": "pkg:npm/%40angular/router@22.0.1",
+    "purl": "pkg:npm/%40angular/router@22.0.1",
+    "name": "@angular/router",
+    "version": "22.0.1",
+    "ecosystem": "npm",
+    "label": "@angular/router@22.0.1",
+    "scope": "prod",
+    "direct": true,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": true,
+   "location": "frontend/package.json",
+   "dependency_paths": [
+    [
+     "frontend@20.4.0-SNAPSHOT",
+     "@angular/router@22.0.1"
+    ]
+   ],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-57xq-rjx2-v5xh",
+     "cves": [
+      "CVE-2026-111751"
+     ],
+     "severity": "HIGH",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+     "fixed_in": "22.2.1",
+     "summary": "@angular/router: Denial of Service via RouterLink Query Parameter Retention in Server-Side Rendering (SSR)",
+     "url": "https://osv.dev/vulnerability/GHSA-57xq-rjx2-v5xh"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-62vg-58rm-qff7",
+     "cves": [
+      "CVE-2026-111752"
+     ],
+     "severity": "HIGH",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+     "fixed_in": "22.2.1",
+     "summary": "@angular/router: Denial of Service via Unmatched Empty-Path Outlet Route Matching in Server-Side Rendering (SSR)",
+     "url": "https://osv.dev/vulnerability/GHSA-62vg-58rm-qff7"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-ff3f-86qr-9cv3",
+     "cves": [
+      "CVE-2026-101896"
+     ],
+     "severity": "HIGH",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+     "fixed_in": "22.2.0",
+     "summary": "Angular Server-Side Rendering (SSR): Denial of Service via Numeric URL Matrix Parameters",
+     "url": "https://osv.dev/vulnerability/GHSA-ff3f-86qr-9cv3"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "HIGH",
+    "cvss": null,
+    "source": "advisory severity label (OSV)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-57xq-rjx2-v5xh": "22.2.1",
+     "GHSA-62vg-58rm-qff7": "22.2.1",
+     "GHSA-ff3f-86qr-9cv3": "22.2.0"
+    },
+    "upgrade_to_at_least": "22.2.1",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 8.0,
+    "level": "High",
+    "factors": {
+     "severity": 8.0
+    },
+    "reasons": [
+     "highest advisory severity HIGH",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-022",
+   "category": "vulnerability",
+   "type": "Vulnerable direct dependency",
+   "rule": "VULN",
+   "title": "@cyclonedx/cyclonedx-npm@2.0.0: 1 known vulnerability (highest HIGH)",
+   "component": {
+    "id": "pkg:npm/%40cyclonedx/cyclonedx-npm@2.0.0",
+    "purl": "pkg:npm/%40cyclonedx/cyclonedx-npm@2.0.0",
+    "name": "@cyclonedx/cyclonedx-npm",
+    "version": "2.0.0",
+    "ecosystem": "npm",
+    "label": "@cyclonedx/cyclonedx-npm@2.0.0",
+    "scope": "dev",
+    "direct": true,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": true,
+   "location": "package.json",
+   "dependency_paths": [
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "@cyclonedx/cyclonedx-npm@2.0.0"
+    ]
+   ],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-q69g-4hcv-6jg4",
+     "cves": [
+      "CVE-2026-71538"
+     ],
+     "severity": "HIGH",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+     "fixed_in": "6.0.0",
+     "summary": "@cyclonedx/cyclonedx-npm: Shell Injection via Unsanitized --workspace Argument on Windows",
+     "url": "https://osv.dev/vulnerability/GHSA-q69g-4hcv-6jg4"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "HIGH",
+    "cvss": null,
+    "source": "advisory severity label (OSV)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-q69g-4hcv-6jg4": "6.0.0"
+    },
+    "upgrade_to_at_least": "6.0.0",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 8.0,
+    "level": "High",
+    "factors": {
+     "severity": 8.0
+    },
+    "reasons": [
+     "highest advisory severity HIGH",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-023",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "vite@7.3.2: 7 known vulnerabilities (highest HIGH)",
+   "component": {
+    "id": "pkg:npm/vite@7.3.2",
+    "purl": "pkg:npm/vite@7.3.2",
+    "name": "vite",
+    "version": "7.3.2",
+    "ecosystem": "npm",
+    "label": "vite@7.3.2",
+    "scope": "prod",
+    "direct": false,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "frontend/package.json",
+   "dependency_paths": [
+    [
+     "frontend@20.4.0-SNAPSHOT",
+     "@angular/build@22.0.1",
+     "vite@7.3.2"
+    ]
+   ],
+   "introduced_by": [
+    "@angular/build@22.0.1"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-587h-7wmj-h5pm",
+     "cves": [
+      "CVE-2026-112942"
+     ],
+     "severity": "HIGH",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:A/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+     "fixed_in": "7.3.7",
+     "summary": "launch-editor: `fs.existsSync()` existence check can be bypassed on Windows",
+     "url": "https://osv.dev/vulnerability/GHSA-587h-7wmj-h5pm"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-698v-4r3x-3vcv",
+     "cves": [
+      "CVE-2026-112943"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N",
+     "fixed_in": "7.3.7",
+     "summary": "launch-editor: escapeCmdArgs() omits % escaping on Windows",
+     "url": "https://osv.dev/vulnerability/GHSA-698v-4r3x-3vcv"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-fx2h-pf6j-xcff",
+     "cves": [
+      "CVE-2026-53571"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:L/VI:N/VA:N/SC:H/SI:N/SA:N",
+     "fixed_in": "7.3.5",
+     "summary": "vite: `server.fs.deny` bypass on Windows alternate paths",
+     "url": "https://osv.dev/vulnerability/GHSA-fx2h-pf6j-xcff"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-r825-w8mm-5pxw",
+     "cves": [
+      "CVE-2026-112944"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N",
+     "fixed_in": "7.3.7",
+     "summary": "launch-editor: Editor CLI flag misinterpretation causing arbitrary command execution for some editors",
+     "url": "https://osv.dev/vulnerability/GHSA-r825-w8mm-5pxw"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-rq7h-c2jc-7f22",
+     "cves": [
+      "CVE-2026-112946"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N",
+     "fixed_in": "7.3.7",
+     "summary": "Vite: Files outside `server.fs.allow` could be served when project paths match system paths on non-Windows machine",
+     "url": "https://osv.dev/vulnerability/GHSA-rq7h-c2jc-7f22"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-v6wh-96g9-6wx3",
+     "cves": [
+      "CVE-2026-53632"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:H/AT:N/PR:N/UI:A/VC:N/VI:N/VA:N/SC:H/SI:H/SA:H",
+     "fixed_in": "7.3.5",
+     "summary": "launch-editor: NTLMv2 hash disclosure via UNC path handling on Windows",
+     "url": "https://osv.dev/vulnerability/GHSA-v6wh-96g9-6wx3"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-9jrq-w75r-8gcw",
+     "cves": [
+      "CVE-2026-112945"
+     ],
+     "severity": "LOW",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:A/VC:L/VI:L/VA:N/SC:N/SI:N/SA:N",
+     "fixed_in": "7.3.7",
+     "summary": "Vite: Cross origin script execution through Vite custom middleware",
+     "url": "https://osv.dev/vulnerability/GHSA-9jrq-w75r-8gcw"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "HIGH",
+    "cvss": null,
+    "source": "advisory severity label (OSV)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-587h-7wmj-h5pm": "7.3.7",
+     "GHSA-698v-4r3x-3vcv": "7.3.7",
+     "GHSA-9jrq-w75r-8gcw": "7.3.7",
+     "GHSA-fx2h-pf6j-xcff": "7.3.5",
+     "GHSA-r825-w8mm-5pxw": "7.3.7",
+     "GHSA-rq7h-c2jc-7f22": "7.3.7",
+     "GHSA-v6wh-96g9-6wx3": "7.3.5"
+    },
+    "upgrade_to_at_least": "7.3.7",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 8.0,
+    "level": "High",
+    "factors": {
+     "severity": 8.0
+    },
+    "reasons": [
+     "highest advisory severity HIGH",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-024",
+   "category": "vulnerability",
+   "type": "Vulnerable direct dependency",
+   "rule": "VULN",
+   "title": "express-jwt@0.1.3: 1 known vulnerability (highest HIGH, CVSS 7.7)",
+   "component": {
+    "id": "pkg:npm/express-jwt@0.1.3",
+    "purl": "pkg:npm/express-jwt@0.1.3",
+    "name": "express-jwt",
+    "version": "0.1.3",
+    "ecosystem": "npm",
+    "label": "express-jwt@0.1.3",
+    "scope": "prod",
+    "direct": true,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": true,
+   "location": "package.json",
+   "dependency_paths": [
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "express-jwt@0.1.3"
+    ]
+   ],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-6g6m-m6h5-w9gf",
+     "cves": [
+      "CVE-2020-15084"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 7.7,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:R/S:C/C:H/I:H/A:N",
+     "fixed_in": "6.0.0",
+     "summary": "Authorization bypass in express-jwt",
+     "url": "https://osv.dev/vulnerability/GHSA-6g6m-m6h5-w9gf"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "HIGH",
+    "cvss": 7.7,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-6g6m-m6h5-w9gf": "6.0.0"
+    },
+    "upgrade_to_at_least": "6.0.0",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 7.7,
+    "level": "High",
+    "factors": {
+     "severity": 7.7
+    },
+    "reasons": [
+     "highest advisory severity HIGH (CVSS 7.7)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-025",
+   "category": "vulnerability",
+   "type": "Vulnerable direct dependency",
+   "rule": "VULN",
+   "title": "compression@1.8.1: 1 known vulnerability (highest HIGH, CVSS 7.5)",
+   "component": {
+    "id": "pkg:npm/compression@1.8.1",
+    "purl": "pkg:npm/compression@1.8.1",
+    "name": "compression",
+    "version": "1.8.1",
+    "ecosystem": "npm",
+    "label": "compression@1.8.1",
+    "scope": "prod",
+    "direct": true,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": true,
+   "location": "package.json",
+   "dependency_paths": [
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "compression@1.8.1"
+    ]
+   ],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-vc2v-76pw-4v95",
+     "cves": [
+      "CVE-2026-87776"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "1.8.2",
+     "summary": "compression vulnerable to Denial of Service via memory leak on premature response close",
+     "url": "https://osv.dev/vulnerability/GHSA-vc2v-76pw-4v95"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "HIGH",
+    "cvss": 7.5,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-vc2v-76pw-4v95": "1.8.2"
+    },
+    "upgrade_to_at_least": "1.8.2",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 7.5,
+    "level": "High",
+    "factors": {
+     "severity": 7.5
+    },
+    "reasons": [
+     "highest advisory severity HIGH (CVSS 7.5)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-026",
+   "category": "vulnerability",
+   "type": "Vulnerable direct dependency",
+   "rule": "VULN",
+   "title": "js-yaml@3.14.0: 5 known vulnerabilities (highest HIGH, CVSS 7.5)",
+   "component": {
+    "id": "pkg:npm/js-yaml@3.14.0",
+    "purl": "pkg:npm/js-yaml@3.14.0",
+    "name": "js-yaml",
+    "version": "3.14.0",
+    "ecosystem": "npm",
+    "label": "js-yaml@3.14.0",
+    "scope": "prod",
+    "direct": true,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": true,
+   "location": "package.json",
+   "dependency_paths": [
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "js-yaml@3.14.0"
+    ]
+   ],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-2883-xcg3-v3hh",
+     "cves": [
+      "CVE-2026-84375"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "3.15.2",
+     "summary": "js-yaml: maxTotalMergeKeys does not limit CPU use for empty merge sources",
+     "url": "https://osv.dev/vulnerability/GHSA-2883-xcg3-v3hh"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-52cp-r559-cp3m",
+     "cves": [
+      "CVE-2026-59869"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "3.15.0",
+     "summary": "js-yaml: YAML merge-key chains can force quadratic CPU consumption",
+     "url": "https://osv.dev/vulnerability/GHSA-52cp-r559-cp3m"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-5p4m-2wfm-xmqj",
+     "cves": [],
+     "severity": "HIGH",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "3.15.1",
+     "summary": "JS-YAML: Quadratic CPU consumption in !!omap resolution (3.x and 4.x) \u2014 CVE-2026-59870 fix not backported",
+     "url": "https://osv.dev/vulnerability/GHSA-5p4m-2wfm-xmqj"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-h67p-54hq-rp68",
+     "cves": [
+      "CVE-2026-53550"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+     "fixed_in": "3.15.0",
+     "summary": "JS-YAML: Quadratic-complexity DoS in merge key handling via repeated aliases",
+     "url": "https://osv.dev/vulnerability/GHSA-h67p-54hq-rp68"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-mh29-5h37-fv8m",
+     "cves": [
+      "CVE-2025-64718"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+     "fixed_in": "3.14.2",
+     "summary": "js-yaml has prototype pollution in merge (<<)",
+     "url": "https://osv.dev/vulnerability/GHSA-mh29-5h37-fv8m"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "HIGH",
+    "cvss": 7.5,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-2883-xcg3-v3hh": "3.15.2",
+     "GHSA-52cp-r559-cp3m": "3.15.0",
+     "GHSA-5p4m-2wfm-xmqj": "3.15.1",
+     "GHSA-h67p-54hq-rp68": "3.15.0",
+     "GHSA-mh29-5h37-fv8m": "3.14.2"
+    },
+    "upgrade_to_at_least": "3.15.2",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 7.5,
+    "level": "High",
+    "factors": {
+     "severity": 7.5
+    },
+    "reasons": [
+     "highest advisory severity HIGH (CVSS 7.5)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-027",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "js-yaml@3.14.1: 5 known vulnerabilities (highest HIGH, CVSS 7.5)",
+   "component": {
+    "id": "pkg:npm/js-yaml@3.14.1",
+    "purl": "pkg:npm/js-yaml@3.14.1",
+    "name": "js-yaml",
+    "version": "3.14.1",
+    "ecosystem": "npm",
+    "label": "js-yaml@3.14.1",
+    "scope": "dev",
+    "direct": false,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "package.json",
+   "dependency_paths": [
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "@cyclonedx/cyclonedx-npm@2.0.0",
+     "xmlbuilder2@3.1.1",
+     "js-yaml@3.14.1"
+    ],
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "@cyclonedx/cyclonedx-npm@2.0.0",
+     "@cyclonedx/cyclonedx-library@7.1.0",
+     "xmlbuilder2@3.1.1",
+     "js-yaml@3.14.1"
+    ]
+   ],
+   "introduced_by": [
+    "@cyclonedx/cyclonedx-npm@2.0.0"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-2883-xcg3-v3hh",
+     "cves": [
+      "CVE-2026-84375"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "3.15.2",
+     "summary": "js-yaml: maxTotalMergeKeys does not limit CPU use for empty merge sources",
+     "url": "https://osv.dev/vulnerability/GHSA-2883-xcg3-v3hh"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-52cp-r559-cp3m",
+     "cves": [
+      "CVE-2026-59869"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "3.15.0",
+     "summary": "js-yaml: YAML merge-key chains can force quadratic CPU consumption",
+     "url": "https://osv.dev/vulnerability/GHSA-52cp-r559-cp3m"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-5p4m-2wfm-xmqj",
+     "cves": [],
+     "severity": "HIGH",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "3.15.1",
+     "summary": "JS-YAML: Quadratic CPU consumption in !!omap resolution (3.x and 4.x) \u2014 CVE-2026-59870 fix not backported",
+     "url": "https://osv.dev/vulnerability/GHSA-5p4m-2wfm-xmqj"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-h67p-54hq-rp68",
+     "cves": [
+      "CVE-2026-53550"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+     "fixed_in": "3.15.0",
+     "summary": "JS-YAML: Quadratic-complexity DoS in merge key handling via repeated aliases",
+     "url": "https://osv.dev/vulnerability/GHSA-h67p-54hq-rp68"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-mh29-5h37-fv8m",
+     "cves": [
+      "CVE-2025-64718"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+     "fixed_in": "3.14.2",
+     "summary": "js-yaml has prototype pollution in merge (<<)",
+     "url": "https://osv.dev/vulnerability/GHSA-mh29-5h37-fv8m"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "HIGH",
+    "cvss": 7.5,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-2883-xcg3-v3hh": "3.15.2",
+     "GHSA-52cp-r559-cp3m": "3.15.0",
+     "GHSA-5p4m-2wfm-xmqj": "3.15.1",
+     "GHSA-h67p-54hq-rp68": "3.15.0",
+     "GHSA-mh29-5h37-fv8m": "3.14.2"
+    },
+    "upgrade_to_at_least": "3.15.2",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 7.5,
+    "level": "High",
+    "factors": {
+     "severity": 7.5
+    },
+    "reasons": [
+     "highest advisory severity HIGH (CVSS 7.5)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-028",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "moment@2.0.0: 3 known vulnerabilities (highest HIGH, CVSS 7.5)",
+   "component": {
+    "id": "pkg:npm/moment@2.0.0",
+    "purl": "pkg:npm/moment@2.0.0",
+    "name": "moment",
+    "version": "2.0.0",
+    "ecosystem": "npm",
+    "label": "moment@2.0.0",
+    "scope": "prod",
+    "direct": false,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "package.json",
+   "dependency_paths": [
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "express-jwt@0.1.3",
+     "jsonwebtoken@0.1.0",
+     "moment@2.0.0"
+    ]
+   ],
+   "introduced_by": [
+    "express-jwt@0.1.3"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-446m-mv8f-q348",
+     "cves": [
+      "CVE-2017-18214"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "2.19.3",
+     "summary": "Regular Expression Denial of Service in moment",
+     "url": "https://osv.dev/vulnerability/GHSA-446m-mv8f-q348"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-8hfj-j24r-96c4",
+     "cves": [
+      "CVE-2022-24785"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+     "fixed_in": "2.29.2",
+     "summary": "Path Traversal: 'dir/../../filename' in moment.locale",
+     "url": "https://osv.dev/vulnerability/GHSA-8hfj-j24r-96c4"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-87vv-r9j6-g5qv",
+     "cves": [
+      "CVE-2016-4055"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 6.5,
+     "cvss_vector": "CVSS:3.0/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "2.11.2",
+     "summary": "Regular Expression Denial of Service in moment",
+     "url": "https://osv.dev/vulnerability/GHSA-87vv-r9j6-g5qv"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "HIGH",
+    "cvss": 7.5,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-446m-mv8f-q348": "2.19.3",
+     "GHSA-87vv-r9j6-g5qv": "2.11.2",
+     "GHSA-8hfj-j24r-96c4": "2.29.2"
+    },
+    "upgrade_to_at_least": "2.29.2",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 7.5,
+    "level": "High",
+    "factors": {
+     "severity": 7.5
+    },
+    "reasons": [
+     "highest advisory severity HIGH (CVSS 7.5)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-029",
+   "category": "vulnerability",
+   "type": "Vulnerable direct dependency",
+   "rule": "VULN",
+   "title": "multer@2.4.0: 1 known vulnerability (highest HIGH, CVSS 7.5)",
+   "component": {
+    "id": "pkg:npm/multer@2.4.0",
+    "purl": "pkg:npm/multer@2.4.0",
+    "name": "multer",
+    "version": "2.4.0",
+    "ecosystem": "npm",
+    "label": "multer@2.4.0",
+    "scope": "prod",
+    "direct": true,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": true,
+   "location": "package.json",
+   "dependency_paths": [
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "multer@2.4.0"
+    ]
+   ],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-q7qp-rjg7-q26m",
+     "cves": [
+      "CVE-2026-113872"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "2.5.0",
+     "summary": "multer vulnerable to Denial of Service via a pending asynchronous fileFilter after request teardown",
+     "url": "https://osv.dev/vulnerability/GHSA-q7qp-rjg7-q26m"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "HIGH",
+    "cvss": 7.5,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-q7qp-rjg7-q26m": "2.5.0"
+    },
+    "upgrade_to_at_least": "2.5.0",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 7.5,
+    "level": "High",
+    "factors": {
+     "severity": 7.5
+    },
+    "reasons": [
+     "highest advisory severity HIGH (CVSS 7.5)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-030",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "pacote@21.5.0: 1 known vulnerability (highest HIGH, CVSS 7.5)",
+   "component": {
+    "id": "pkg:npm/pacote@21.5.0",
+    "purl": "pkg:npm/pacote@21.5.0",
+    "name": "pacote",
+    "version": "21.5.0",
+    "ecosystem": "npm",
+    "label": "pacote@21.5.0",
+    "scope": "prod",
+    "direct": false,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "frontend/package.json",
+   "dependency_paths": [
+    [
+     "frontend@20.4.0-SNAPSHOT",
+     "@angular/cli@22.0.1",
+     "pacote@21.5.0"
+    ]
+   ],
+   "introduced_by": [
+    "@angular/cli@22.0.1"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-w4pp-8pjf-rmxw",
+     "cves": [
+      "CVE-2026-9496"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "21.5.1",
+     "summary": "pacote is vulnerable to Denial of Service (DoS) via the addGitSha function",
+     "url": "https://osv.dev/vulnerability/GHSA-w4pp-8pjf-rmxw"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "HIGH",
+    "cvss": 7.5,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-w4pp-8pjf-rmxw": "21.5.1"
+    },
+    "upgrade_to_at_least": "21.5.1",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 7.5,
+    "level": "High",
+    "factors": {
+     "severity": 7.5
+    },
+    "reasons": [
+     "highest advisory severity HIGH (CVSS 7.5)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-031",
+   "category": "vulnerability",
+   "type": "Vulnerable direct dependency",
+   "rule": "VULN",
+   "title": "sanitize-html@1.4.2: 10 known vulnerabilities (highest HIGH, CVSS 7.5)",
+   "component": {
+    "id": "pkg:npm/sanitize-html@1.4.2",
+    "purl": "pkg:npm/sanitize-html@1.4.2",
+    "name": "sanitize-html",
+    "version": "1.4.2",
+    "ecosystem": "npm",
+    "label": "sanitize-html@1.4.2",
+    "scope": "prod",
+    "direct": true,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": true,
+   "location": "package.json",
+   "dependency_paths": [
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "sanitize-html@1.4.2"
+    ]
+   ],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-cgfm-xwp7-2cvr",
+     "cves": [
+      "CVE-2022-25887"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "2.7.1",
+     "summary": "Sanitize-html Vulnerable To REDoS Attacks",
+     "url": "https://osv.dev/vulnerability/GHSA-cgfm-xwp7-2cvr"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-3j7m-hmh3-9jmp",
+     "cves": [
+      "CVE-2016-1000237"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 6.1,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+     "fixed_in": "1.4.3",
+     "summary": "Cross-Site Scripting in sanitize-html",
+     "url": "https://osv.dev/vulnerability/GHSA-3j7m-hmh3-9jmp"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-jxwj-j7wr-gfrw",
+     "cves": [
+      "CVE-2026-63670"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 6.1,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+     "fixed_in": "2.17.6",
+     "summary": "ApostropheCMS: Mutation-XSS / allowedTags bypass via literal `</textarea/>` solidus close",
+     "url": "https://osv.dev/vulnerability/GHSA-jxwj-j7wr-gfrw"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-qhxp-v273-g94h",
+     "cves": [
+      "CVE-2019-25225"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 6.1,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+     "fixed_in": "2.0.0-beta",
+     "summary": "sanitize-html is vulnerable to XSS through incomprehensive sanitization",
+     "url": "https://osv.dev/vulnerability/GHSA-qhxp-v273-g94h"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-x3q4-9hxx-gx8m",
+     "cves": [
+      "CVE-2026-113654"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:N/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N",
+     "fixed_in": "2.18.0",
+     "summary": "ApostropheCMS sanitize-html: nonTextTags discard region ends early on an implied close, letting <noscript> content render",
+     "url": "https://osv.dev/vulnerability/GHSA-x3q4-9hxx-gx8m"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-xc6g-ggrc-qq4r",
+     "cves": [
+      "CVE-2017-16016"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": null,
+     "cvss_vector": null,
+     "fixed_in": "1.11.4",
+     "summary": "Cross-Site Scripting in sanitize-html",
+     "url": "https://osv.dev/vulnerability/GHSA-xc6g-ggrc-qq4r"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-cv27-6wvh-8x7j",
+     "cves": [
+      "CVE-2026-113661"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 5.4,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:C/C:L/I:L/A:N",
+     "fixed_in": "2.18.0",
+     "summary": "ApostropheCMS: Incomplete CVE-2026-53606: `meta http-equiv=refresh` `content` still ships `javascript:` / `data:` URLs",
+     "url": "https://osv.dev/vulnerability/GHSA-cv27-6wvh-8x7j"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-mjxr-4v3x-q3m4",
+     "cves": [
+      "CVE-2021-26540"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+     "fixed_in": "2.3.2",
+     "summary": "Improper Input Validation in sanitize-html",
+     "url": "https://osv.dev/vulnerability/GHSA-mjxr-4v3x-q3m4"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-rjqq-98f6-6j3r",
+     "cves": [
+      "CVE-2021-26539"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+     "fixed_in": "2.3.1",
+     "summary": "Improper Input Validation in sanitize-html",
+     "url": "https://osv.dev/vulnerability/GHSA-rjqq-98f6-6j3r"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-rm97-x556-q36h",
+     "cves": [
+      "CVE-2024-21501"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+     "fixed_in": "2.12.1",
+     "summary": "sanitize-html Information Exposure vulnerability",
+     "url": "https://osv.dev/vulnerability/GHSA-rm97-x556-q36h"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "HIGH",
+    "cvss": 7.5,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-3j7m-hmh3-9jmp": "1.4.3",
+     "GHSA-cgfm-xwp7-2cvr": "2.7.1",
+     "GHSA-cv27-6wvh-8x7j": "2.18.0",
+     "GHSA-jxwj-j7wr-gfrw": "2.17.6",
+     "GHSA-mjxr-4v3x-q3m4": "2.3.2",
+     "GHSA-qhxp-v273-g94h": "2.0.0-beta",
+     "GHSA-rjqq-98f6-6j3r": "2.3.1",
+     "GHSA-rm97-x556-q36h": "2.12.1",
+     "GHSA-x3q4-9hxx-gx8m": "2.18.0",
+     "GHSA-xc6g-ggrc-qq4r": "1.11.4"
+    },
+    "upgrade_to_at_least": "2.18.0",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 7.5,
+    "level": "High",
+    "factors": {
+     "severity": 7.5
+    },
+    "reasons": [
+     "highest advisory severity HIGH (CVSS 7.5)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-032",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "uuid@8.3.2: 1 known vulnerability (highest HIGH, CVSS 7.5)",
+   "component": {
+    "id": "pkg:npm/uuid@8.3.2",
+    "purl": "pkg:npm/uuid@8.3.2",
+    "name": "uuid",
+    "version": "8.3.2",
+    "ecosystem": "npm",
+    "label": "uuid@8.3.2",
+    "scope": "prod",
+    "direct": false,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "package.json",
+   "dependency_paths": [
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "sequelize@6.37.3",
+     "uuid@8.3.2"
+    ],
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "nyc@15.1.0",
+     "istanbul-lib-processinfo@2.0.3",
+     "uuid@8.3.2"
+    ]
+   ],
+   "introduced_by": [
+    "nyc@15.1.0",
+    "sequelize@6.37.3"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-w5hq-g745-h8pq",
+     "cves": [
+      "CVE-2026-41907",
+      "CVE-2026-41988"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+     "fixed_in": "11.1.1",
+     "summary": "uuid: Missing buffer bounds check in v3/v5/v6 when buf is provided",
+     "url": "https://osv.dev/vulnerability/GHSA-w5hq-g745-h8pq"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "HIGH",
+    "cvss": 7.5,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-w5hq-g745-h8pq": "11.1.1"
+    },
+    "upgrade_to_at_least": "11.1.1",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 7.5,
+    "level": "High",
+    "factors": {
+     "severity": 7.5
+    },
+    "reasons": [
+     "highest advisory severity HIGH (CVSS 7.5)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-033",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "ws@7.4.6: 2 known vulnerabilities (highest HIGH, CVSS 7.5)",
+   "component": {
+    "id": "pkg:npm/ws@7.4.6",
+    "purl": "pkg:npm/ws@7.4.6",
+    "name": "ws",
+    "version": "7.4.6",
+    "ecosystem": "npm",
+    "label": "ws@7.4.6",
+    "scope": "prod",
+    "direct": false,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "frontend/package.json",
+   "dependency_paths": [
+    [
+     "frontend@20.4.0-SNAPSHOT",
+     "ethers@5.7.2",
+     "@ethersproject/providers@5.7.2",
+     "ws@7.4.6"
+    ]
+   ],
+   "introduced_by": [
+    "ethers@5.7.2"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-3h5v-q93c-6h6q",
+     "cves": [
+      "CVE-2024-37890"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "7.5.10",
+     "summary": "ws affected by a DoS when handling a request with many HTTP headers",
+     "url": "https://osv.dev/vulnerability/GHSA-3h5v-q93c-6h6q"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-96hv-2xvq-fx4p",
+     "cves": [
+      "CVE-2026-48779"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "7.5.11",
+     "summary": "ws: Memory exhaustion DoS from tiny fragments and data chunks",
+     "url": "https://osv.dev/vulnerability/GHSA-96hv-2xvq-fx4p"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "HIGH",
+    "cvss": 7.5,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-3h5v-q93c-6h6q": "7.5.10",
+     "GHSA-96hv-2xvq-fx4p": "7.5.11"
+    },
+    "upgrade_to_at_least": "7.5.11",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 7.5,
+    "level": "High",
+    "factors": {
+     "severity": 7.5
+    },
+    "reasons": [
+     "highest advisory severity HIGH (CVSS 7.5)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-034",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "ws@8.17.1: 2 known vulnerabilities (highest HIGH, CVSS 7.5)",
+   "component": {
+    "id": "pkg:npm/ws@8.17.1",
+    "purl": "pkg:npm/ws@8.17.1",
+    "name": "ws",
+    "version": "8.17.1",
+    "ecosystem": "npm",
+    "label": "ws@8.17.1",
+    "scope": "prod",
+    "direct": false,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "package.json",
+   "dependency_paths": [
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "ethers@6.16.0",
+     "ws@8.17.1"
+    ]
+   ],
+   "introduced_by": [
+    "ethers@6.16.0"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-96hv-2xvq-fx4p",
+     "cves": [
+      "CVE-2026-48779"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "8.21.0",
+     "summary": "ws: Memory exhaustion DoS from tiny fragments and data chunks",
+     "url": "https://osv.dev/vulnerability/GHSA-96hv-2xvq-fx4p"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-58qx-3vcg-4xpx",
+     "cves": [
+      "CVE-2026-45736"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 4.4,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:H/UI:N/S:U/C:H/I:N/A:N",
+     "fixed_in": "8.20.1",
+     "summary": "ws: Uninitialized memory disclosure",
+     "url": "https://osv.dev/vulnerability/GHSA-58qx-3vcg-4xpx"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "HIGH",
+    "cvss": 7.5,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-58qx-3vcg-4xpx": "8.20.1",
+     "GHSA-96hv-2xvq-fx4p": "8.21.0"
+    },
+    "upgrade_to_at_least": "8.21.0",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 7.5,
+    "level": "High",
+    "factors": {
+     "severity": 7.5
+    },
+    "reasons": [
+     "highest advisory severity HIGH (CVSS 7.5)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-035",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "zod@4.4.2: 1 known vulnerability (highest HIGH, CVSS 7.5)",
+   "component": {
+    "id": "pkg:npm/zod@4.4.2",
+    "purl": "pkg:npm/zod@4.4.2",
+    "name": "zod",
+    "version": "4.4.2",
+    "ecosystem": "npm",
+    "label": "zod@4.4.2",
+    "scope": "prod",
+    "direct": false,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "frontend/package.json",
+   "dependency_paths": [
+    [
+     "frontend@20.4.0-SNAPSHOT",
+     "@angular/cli@22.0.1",
+     "zod@4.4.2"
+    ],
+    [
+     "frontend@20.4.0-SNAPSHOT",
+     "@angular/cli@22.0.1",
+     "@modelcontextprotocol/sdk@1.29.0",
+     "zod@4.4.2"
+    ]
+   ],
+   "introduced_by": [
+    "@angular/cli@22.0.1"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-mrhx-c7xc-m3w5",
+     "cves": [
+      "CVE-2023-54404"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "4.6.6",
+     "summary": "Zod can exhaust memory while validating oversized constrained collections",
+     "url": "https://osv.dev/vulnerability/GHSA-mrhx-c7xc-m3w5"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "HIGH",
+    "cvss": 7.5,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-mrhx-c7xc-m3w5": "4.6.6"
+    },
+    "upgrade_to_at_least": "4.6.6",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 7.5,
+    "level": "High",
+    "factors": {
+     "severity": 7.5
+    },
+    "reasons": [
+     "highest advisory severity HIGH (CVSS 7.5)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-036",
+   "category": "vulnerability",
+   "type": "Vulnerable direct dependency",
+   "rule": "VULN",
+   "title": "zod@4.4.3: 1 known vulnerability (highest HIGH, CVSS 7.5)",
+   "component": {
+    "id": "pkg:npm/zod@4.4.3",
+    "purl": "pkg:npm/zod@4.4.3",
+    "name": "zod",
+    "version": "4.4.3",
+    "ecosystem": "npm",
+    "label": "zod@4.4.3",
+    "scope": "prod",
+    "direct": true,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": true,
+   "location": "package.json",
+   "dependency_paths": [
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "zod@4.4.3"
+    ]
+   ],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-mrhx-c7xc-m3w5",
+     "cves": [
+      "CVE-2023-54404"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "4.6.6",
+     "summary": "Zod can exhaust memory while validating oversized constrained collections",
+     "url": "https://osv.dev/vulnerability/GHSA-mrhx-c7xc-m3w5"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "HIGH",
+    "cvss": 7.5,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-mrhx-c7xc-m3w5": "4.6.6"
+    },
+    "upgrade_to_at_least": "4.6.6",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 7.5,
+    "level": "High",
+    "factors": {
+     "severity": 7.5
+    },
+    "reasons": [
+     "highest advisory severity HIGH (CVSS 7.5)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-037",
+   "category": "vulnerability",
+   "type": "Vulnerable direct dependency",
+   "rule": "VULN",
+   "title": "notevil@1.3.3: 1 known vulnerability (highest MEDIUM, CVSS 6.5)",
+   "component": {
+    "id": "pkg:npm/notevil@1.3.3",
+    "purl": "pkg:npm/notevil@1.3.3",
+    "name": "notevil",
+    "version": "1.3.3",
+    "ecosystem": "npm",
+    "label": "notevil@1.3.3",
+    "scope": "prod",
+    "direct": true,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": true,
+   "location": "package.json",
+   "dependency_paths": [
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "notevil@1.3.3"
+    ]
+   ],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-8g4m-cjm2-96wq",
+     "cves": [
+      "CVE-2021-23771"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 6.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
+     "fixed_in": null,
+     "summary": "Sandbox escape in notevil and argencoders-notevil",
+     "url": "https://osv.dev/vulnerability/GHSA-8g4m-cjm2-96wq"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "MEDIUM",
+    "cvss": 6.5,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-8g4m-cjm2-96wq": null
+    },
+    "upgrade_to_at_least": null,
+    "advisories_without_fix": [
+     "GHSA-8g4m-cjm2-96wq"
+    ]
+   },
+   "risk": {
+    "score": 6.5,
+    "level": "Medium",
+    "factors": {
+     "severity": 6.5
+    },
+    "reasons": [
+     "highest advisory severity MEDIUM (CVSS 6.5)",
+     "1 advisory(ies) without a published fix",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-038",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "@vitest/mocker@4.1.1: 2 known vulnerabilities (highest MEDIUM, CVSS 5.9)",
+   "component": {
+    "id": "pkg:npm/%40vitest/mocker@4.1.1",
+    "purl": "pkg:npm/%40vitest/mocker@4.1.1",
+    "name": "@vitest/mocker",
+    "version": "4.1.1",
+    "ecosystem": "npm",
+    "label": "@vitest/mocker@4.1.1",
+    "scope": "dev",
+    "direct": false,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "frontend/package.json",
+   "dependency_paths": [
+    [
+     "frontend@20.4.0-SNAPSHOT",
+     "vitest@4.1.1",
+     "@vitest/mocker@4.1.1"
+    ]
+   ],
+   "introduced_by": [
+    "vitest@4.1.1"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-82fw-gwwq-j7x9",
+     "cves": [
+      "CVE-2026-84373"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 5.9,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N",
+     "fixed_in": "4.1.11",
+     "summary": "Vitest: Path Traversal / Arbitrary File Read via @vitest/mocker Redirect Mock",
+     "url": "https://osv.dev/vulnerability/GHSA-82fw-gwwq-j7x9"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-qxg6-89mg-rqv8",
+     "cves": [
+      "CVE-2026-112949"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 4.7,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:L/I:L/A:N",
+     "fixed_in": "4.1.12",
+     "summary": "Vitest: Code injection via unauthenticated manual mock registration",
+     "url": "https://osv.dev/vulnerability/GHSA-qxg6-89mg-rqv8"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "MEDIUM",
+    "cvss": 5.9,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-82fw-gwwq-j7x9": "4.1.11",
+     "GHSA-qxg6-89mg-rqv8": "4.1.12"
+    },
+    "upgrade_to_at_least": "4.1.12",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 5.9,
+    "level": "Medium",
+    "factors": {
+     "severity": 5.9
+    },
+    "reasons": [
+     "highest advisory severity MEDIUM (CVSS 5.9)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-039",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "basic-ftp@5.3.1: 3 known vulnerabilities (highest HIGH, CVSS 5.9)",
+   "component": {
+    "id": "pkg:npm/basic-ftp@5.3.1",
+    "purl": "pkg:npm/basic-ftp@5.3.1",
+    "name": "basic-ftp",
+    "version": "5.3.1",
+    "ecosystem": "npm",
+    "label": "basic-ftp@5.3.1",
+    "scope": "prod",
+    "direct": false,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "package.json",
+   "dependency_paths": [
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "proxy-agent@8.0.2",
+     "pac-proxy-agent@9.1.0",
+     "get-uri@8.0.1",
+     "basic-ftp@5.3.1"
+    ]
+   ],
+   "introduced_by": [
+    "proxy-agent@8.0.2"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-c475-qrg2-pj4r",
+     "cves": [
+      "CVE-2026-102990"
+     ],
+     "severity": "HIGH",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+     "fixed_in": "6.2.1",
+     "summary": "basic-ftp: Quadratic-time CPU denial of service in Client.list() Unix directory-listing parser (RE_LINE backtracking)",
+     "url": "https://osv.dev/vulnerability/GHSA-c475-qrg2-pj4r"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-r4jh-29pc-gfqr",
+     "cves": [
+      "CVE-2026-126346"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 5.9,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "6.2.3",
+     "summary": "basic-ftp: Uncaught exception crashes the Node.js process when a password (or resumed-download path) contains CR/LF",
+     "url": "https://osv.dev/vulnerability/GHSA-r4jh-29pc-gfqr"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-5pm8-86m8-9m6r",
+     "cves": [
+      "CVE-2026-126345"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+     "fixed_in": "6.2.4",
+     "summary": "basic-ftp: Uncaught TypeError in MLSD directory-listing parser via __proto__ fact name causes DoS in Client.list()",
+     "url": "https://osv.dev/vulnerability/GHSA-5pm8-86m8-9m6r"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "HIGH",
+    "cvss": 5.9,
+    "source": "advisory severity label (OSV)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-5pm8-86m8-9m6r": "6.2.4",
+     "GHSA-r4jh-29pc-gfqr": "6.2.3",
+     "GHSA-c475-qrg2-pj4r": "6.2.1"
+    },
+    "upgrade_to_at_least": "6.2.4",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 5.9,
+    "level": "Medium",
+    "factors": {
+     "severity": 5.9
+    },
+    "reasons": [
+     "highest advisory severity HIGH (CVSS 5.9)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-040",
+   "category": "vulnerability",
+   "type": "Vulnerable direct dependency",
+   "rule": "VULN",
+   "title": "vitest@4.1.1: 1 known vulnerability (highest MEDIUM, CVSS 5.9)",
+   "component": {
+    "id": "pkg:npm/vitest@4.1.1",
+    "purl": "pkg:npm/vitest@4.1.1",
+    "name": "vitest",
+    "version": "4.1.1",
+    "ecosystem": "npm",
+    "label": "vitest@4.1.1",
+    "scope": "dev",
+    "direct": true,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": true,
+   "location": "frontend/package.json",
+   "dependency_paths": [
+    [
+     "frontend@20.4.0-SNAPSHOT",
+     "vitest@4.1.1"
+    ]
+   ],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-82fw-gwwq-j7x9",
+     "cves": [
+      "CVE-2026-84373"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 5.9,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N",
+     "fixed_in": "4.1.11",
+     "summary": "Vitest: Path Traversal / Arbitrary File Read via @vitest/mocker Redirect Mock",
+     "url": "https://osv.dev/vulnerability/GHSA-82fw-gwwq-j7x9"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "MEDIUM",
+    "cvss": 5.9,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-82fw-gwwq-j7x9": "4.1.11"
+    },
+    "upgrade_to_at_least": "4.1.11",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 5.9,
+    "level": "Medium",
+    "factors": {
+     "severity": 5.9
+    },
+    "reasons": [
+     "highest advisory severity MEDIUM (CVSS 5.9)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-041",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "elliptic@6.5.4: 7 known vulnerabilities (highest CRITICAL, CVSS 5.6)",
+   "component": {
+    "id": "pkg:npm/elliptic@6.5.4",
+    "purl": "pkg:npm/elliptic@6.5.4",
+    "name": "elliptic",
+    "version": "6.5.4",
+    "ecosystem": "npm",
+    "label": "elliptic@6.5.4",
+    "scope": "prod",
+    "direct": false,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "frontend/package.json",
+   "dependency_paths": [
+    [
+     "frontend@20.4.0-SNAPSHOT",
+     "ethers@5.7.2",
+     "@ethersproject/signing-key@5.7.0",
+     "elliptic@6.5.4"
+    ],
+    [
+     "frontend@20.4.0-SNAPSHOT",
+     "ethers@5.7.2",
+     "@ethersproject/hdnode@5.7.0",
+     "@ethersproject/signing-key@5.7.0",
+     "elliptic@6.5.4"
+    ],
+    [
+     "frontend@20.4.0-SNAPSHOT",
+     "ethers@5.7.2",
+     "@ethersproject/transactions@5.7.0",
+     "@ethersproject/signing-key@5.7.0",
+     "elliptic@6.5.4"
+    ]
+   ],
+   "introduced_by": [
+    "ethers@5.7.2"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-vjh7-7g9h-fjfh",
+     "cves": [],
+     "severity": "CRITICAL",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:H/VI:N/VA:N/SC:H/SI:H/SA:N",
+     "fixed_in": "6.6.1",
+     "summary": "Elliptic's private key extraction in ECDSA upon signing a malformed input (e.g. a string)",
+     "url": "https://osv.dev/vulnerability/GHSA-vjh7-7g9h-fjfh"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-848j-6mx2-7j84",
+     "cves": [
+      "CVE-2025-14505"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 5.6,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:L",
+     "fixed_in": null,
+     "summary": "Elliptic Uses a Cryptographic Primitive with a Risky Implementation",
+     "url": "https://osv.dev/vulnerability/GHSA-848j-6mx2-7j84"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-434g-2637-qmqr",
+     "cves": [
+      "CVE-2024-48949"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+     "fixed_in": "6.5.6",
+     "summary": "Elliptic's verify function omits uniqueness validation",
+     "url": "https://osv.dev/vulnerability/GHSA-434g-2637-qmqr"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-49q7-c7j4-3p7m",
+     "cves": [
+      "CVE-2024-42461"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+     "fixed_in": "6.5.7",
+     "summary": "Elliptic allows BER-encoded signatures",
+     "url": "https://osv.dev/vulnerability/GHSA-49q7-c7j4-3p7m"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-977x-g7h5-7qgw",
+     "cves": [
+      "CVE-2024-42460"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+     "fixed_in": "6.5.7",
+     "summary": "Elliptic's ECDSA missing check for whether leading bit of r and s is zero",
+     "url": "https://osv.dev/vulnerability/GHSA-977x-g7h5-7qgw"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-f7q4-pwc6-w24p",
+     "cves": [
+      "CVE-2024-42459"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+     "fixed_in": "6.5.7",
+     "summary": "Elliptic's EDDSA missing signature length check",
+     "url": "https://osv.dev/vulnerability/GHSA-f7q4-pwc6-w24p"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-fc9h-whq2-v747",
+     "cves": [
+      "CVE-2024-48948"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 4.8,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:L",
+     "fixed_in": "6.6.0",
+     "summary": "Valid ECDSA signatures erroneously rejected in Elliptic",
+     "url": "https://osv.dev/vulnerability/GHSA-fc9h-whq2-v747"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "CRITICAL",
+    "cvss": 5.6,
+    "source": "advisory severity label (OSV)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-434g-2637-qmqr": "6.5.6",
+     "GHSA-49q7-c7j4-3p7m": "6.5.7",
+     "GHSA-977x-g7h5-7qgw": "6.5.7",
+     "GHSA-f7q4-pwc6-w24p": "6.5.7",
+     "GHSA-fc9h-whq2-v747": "6.6.0",
+     "GHSA-848j-6mx2-7j84": null,
+     "GHSA-vjh7-7g9h-fjfh": "6.6.1"
+    },
+    "upgrade_to_at_least": "6.6.1",
+    "advisories_without_fix": [
+     "GHSA-848j-6mx2-7j84"
+    ]
+   },
+   "risk": {
+    "score": 5.6,
+    "level": "Medium",
+    "factors": {
+     "severity": 5.6
+    },
+    "reasons": [
+     "highest advisory severity CRITICAL (CVSS 5.6)",
+     "1 advisory(ies) without a published fix",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-042",
+   "category": "anomaly",
+   "type": "Untrusted image",
+   "rule": "R13_CONTAINER_HARDENING",
+   "title": "Dockerfile runs 'npm install' with install scripts enabled",
+   "component": null,
+   "is_direct": null,
+   "location": "Dockerfile:4",
+   "dependency_paths": [],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "file",
+     "path": "Dockerfile",
+     "line": 4,
+     "snippet": "RUN npm install -g typescript@^6.0.3"
+    }
+   ],
+   "why_it_matters": "The container build or runtime is less isolated than it could be.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": false,
+   "introduced_in": null,
+   "risk": {
+    "score": 5.5,
+    "level": "Medium",
+    "factors": {
+     "rule_level": "Medium"
+    },
+    "reasons": [
+     "R13_CONTAINER_HARDENING default level Medium"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-043",
+   "category": "anomaly",
+   "type": "Untrusted image",
+   "rule": "R13_CONTAINER_HARDENING",
+   "title": "Dockerfile runs 'npm install' with install scripts enabled",
+   "component": null,
+   "is_direct": null,
+   "location": "Dockerfile:5",
+   "dependency_paths": [],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "file",
+     "path": "Dockerfile",
+     "line": 5,
+     "snippet": "RUN npm install --omit=dev"
+    }
+   ],
+   "why_it_matters": "The container build or runtime is less isolated than it could be.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": false,
+   "introduced_in": null,
+   "risk": {
+    "score": 5.5,
+    "level": "Medium",
+    "factors": {
+     "rule_level": "Medium"
+    },
+    "reasons": [
+     "R13_CONTAINER_HARDENING default level Medium"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-044",
+   "category": "anomaly",
+   "type": "Untrusted image",
+   "rule": "R13_CONTAINER_HARDENING",
+   "title": "Dockerfile runs 'npm install' with install scripts enabled",
+   "component": null,
+   "is_direct": null,
+   "location": "Dockerfile:19",
+   "dependency_paths": [],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "file",
+     "path": "Dockerfile",
+     "line": 19,
+     "snippet": "RUN npm install -g @cyclonedx/cyclonedx-npm@$CYCLONEDX_NPM_VERSION"
+    }
+   ],
+   "why_it_matters": "The container build or runtime is less isolated than it could be.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": false,
+   "introduced_in": null,
+   "risk": {
+    "score": 5.5,
+    "level": "Medium",
+    "factors": {
+     "rule_level": "Medium"
+    },
+    "reasons": [
+     "R13_CONTAINER_HARDENING default level Medium"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-045",
+   "category": "anomaly",
+   "type": "Suspicious package update",
+   "rule": "R09_UNPINNED_DEPENDENCY",
+   "title": "frontend/package.json has no lockfile: 61 dependencies use version ranges",
+   "component": null,
+   "is_direct": null,
+   "location": "frontend/package.json",
+   "dependency_paths": [],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "fact",
+     "detail": "no package-lock.json / yarn.lock next to frontend/package.json; ranged: @angular/animations, @angular/build, @angular/cdk, @angular/cli, @angular/common, @angular/compiler, @angular/compiler-cli, @angular/core, @angular/forms, @angular/material, @angular/platform-browser, @angular/router, @codemirror/lang-javascript, @codemirror/lang-json, @codemirror/lang-yaml ..."
+    }
+   ],
+   "why_it_matters": "Without an exact version, a future (possibly compromised) release is installed silently.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": false,
+   "introduced_in": null,
+   "risk": {
+    "score": 5.5,
+    "level": "Medium",
+    "factors": {
+     "rule_level": "Medium"
+    },
+    "reasons": [
+     "R09_UNPINNED_DEPENDENCY default level Medium"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-046",
+   "category": "anomaly",
+   "type": "Untrusted image",
+   "rule": "R11_MUTABLE_IMAGE_TAG",
+   "title": "image alpine:latest uses a mutable tag and no digest",
+   "component": {
+    "id": "pkg:docker/library/alpine@latest?repository_url=docker.io",
+    "purl": "pkg:docker/library/alpine@latest?repository_url=docker.io",
+    "name": "docker.io/library/alpine",
+    "version": "latest",
+    "ecosystem": "docker",
+    "label": "alpine:latest",
+    "scope": "prod",
+    "direct": true,
+    "resolution": "dockerfile",
+    "origin": "docker://docker.io/library/alpine"
+   },
+   "is_direct": true,
+   "location": "test/smoke/Dockerfile:1",
+   "dependency_paths": [
+    [
+     "test/smoke/Dockerfile",
+     "alpine:latest"
+    ]
+   ],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "file",
+     "path": "test/smoke/Dockerfile",
+     "line": 1,
+     "snippet": "FROM alpine"
+    }
+   ],
+   "why_it_matters": "A 'latest' / missing tag without a digest can point to different content tomorrow.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": false,
+   "introduced_in": null,
+   "risk": {
+    "score": 5.5,
+    "level": "Medium",
+    "factors": {
+     "rule_level": "Medium"
+    },
+    "reasons": [
+     "R11_MUTABLE_IMAGE_TAG default level Medium"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-047",
+   "category": "anomaly",
+   "type": "Untrusted image",
+   "rule": "R11_MUTABLE_IMAGE_TAG",
+   "title": "image gcr.io/distroless/nodejs24-debian13:latest uses a mutable tag and no digest",
+   "component": {
+    "id": "pkg:docker/distroless/nodejs24-debian13@latest?repository_url=gcr.io",
+    "purl": "pkg:docker/distroless/nodejs24-debian13@latest?repository_url=gcr.io",
+    "name": "gcr.io/distroless/nodejs24-debian13",
+    "version": "latest",
+    "ecosystem": "docker",
+    "label": "gcr.io/distroless/nodejs24-debian13:latest",
+    "scope": "prod",
+    "direct": true,
+    "resolution": "dockerfile",
+    "origin": "docker://gcr.io/distroless/nodejs24-debian13"
+   },
+   "is_direct": true,
+   "location": "Dockerfile:22",
+   "dependency_paths": [
+    [
+     "Dockerfile",
+     "gcr.io/distroless/nodejs24-debian13:latest"
+    ]
+   ],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "file",
+     "path": "Dockerfile",
+     "line": 22,
+     "snippet": "FROM gcr.io/distroless/nodejs24-debian13"
+    }
+   ],
+   "why_it_matters": "A 'latest' / missing tag without a digest can point to different content tomorrow.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": false,
+   "introduced_in": null,
+   "risk": {
+    "score": 5.5,
+    "level": "Medium",
+    "factors": {
+     "rule_level": "Medium"
+    },
+    "reasons": [
+     "R11_MUTABLE_IMAGE_TAG default level Medium"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-048",
+   "category": "anomaly",
+   "type": "Unsafe install script",
+   "rule": "R03_INSTALL_SCRIPT",
+   "title": "juice-shop@20.4.0-SNAPSHOT runs a 'postinstall' script on every install: cd frontend && npm install && cd .. && npm run build:frontend && (npm run --silent build:server || cd .)",
+   "component": null,
+   "is_direct": null,
+   "location": "package.json:56",
+   "dependency_paths": [],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "file",
+     "path": "package.json",
+     "line": 56,
+     "snippet": "\"postinstall\": \"cd frontend && npm install && cd .. && npm run build:frontend && (npm run --silent build:server || cd .)\","
+    }
+   ],
+   "why_it_matters": "Install scripts run arbitrary code on every machine that installs the package, including CI.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": false,
+   "introduced_in": null,
+   "risk": {
+    "score": 5.5,
+    "level": "Medium",
+    "factors": {
+     "rule_level": "Medium"
+    },
+    "reasons": [
+     "R03_INSTALL_SCRIPT default level Medium"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-049",
+   "category": "anomaly",
+   "type": "Suspicious package update",
+   "rule": "R09_UNPINNED_DEPENDENCY",
+   "title": "package.json has no lockfile: 95 dependencies use version ranges",
+   "component": null,
+   "is_direct": null,
+   "location": "package.json",
+   "dependency_paths": [],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "fact",
+     "detail": "no package-lock.json / yarn.lock next to package.json; ranged: @ai-sdk/openai-compatible, @fontsource/roboto, @simplewebauthn/server, ai, beercss, clarinet, compression, config, cookie-parser, cookieconsent, cors, errorhandler, ethers, express, express-ipfilter ..."
+    }
+   ],
+   "why_it_matters": "Without an exact version, a future (possibly compromised) release is installed silently.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": false,
+   "introduced_in": null,
+   "risk": {
+    "score": 5.5,
+    "level": "Medium",
+    "factors": {
+     "rule_level": "Medium"
+    },
+    "reasons": [
+     "R09_UNPINNED_DEPENDENCY default level Medium"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-050",
+   "category": "vulnerability",
+   "type": "Vulnerable direct dependency",
+   "rule": "VULN",
+   "title": "@angular/compiler@22.0.1: 1 known vulnerability (highest MEDIUM)",
+   "component": {
+    "id": "pkg:npm/%40angular/compiler@22.0.1",
+    "purl": "pkg:npm/%40angular/compiler@22.0.1",
+    "name": "@angular/compiler",
+    "version": "22.0.1",
+    "ecosystem": "npm",
+    "label": "@angular/compiler@22.0.1",
+    "scope": "prod",
+    "direct": true,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": true,
+   "location": "frontend/package.json",
+   "dependency_paths": [
+    [
+     "frontend@20.4.0-SNAPSHOT",
+     "@angular/compiler@22.0.1"
+    ]
+   ],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-hh8m-fm6v-7cvg",
+     "cves": [
+      "CVE-2026-88057"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:N/VI:N/VA:N/SC:L/SI:L/SA:N",
+     "fixed_in": "22.1.0",
+     "summary": "Angular: Sanitization bypass via directive host bindings on concrete host elements in @angular/core and @angular/compiler",
+     "url": "https://osv.dev/vulnerability/GHSA-hh8m-fm6v-7cvg"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "MEDIUM",
+    "cvss": null,
+    "source": "advisory severity label (OSV)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-hh8m-fm6v-7cvg": "22.1.0"
+    },
+    "upgrade_to_at_least": "22.1.0",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 5.5,
+    "level": "Medium",
+    "factors": {
+     "severity": 5.5
+    },
+    "reasons": [
+     "highest advisory severity MEDIUM",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-051",
+   "category": "vulnerability",
+   "type": "Vulnerable direct dependency",
+   "rule": "VULN",
+   "title": "@angular/core@22.0.1: 1 known vulnerability (highest MEDIUM)",
+   "component": {
+    "id": "pkg:npm/%40angular/core@22.0.1",
+    "purl": "pkg:npm/%40angular/core@22.0.1",
+    "name": "@angular/core",
+    "version": "22.0.1",
+    "ecosystem": "npm",
+    "label": "@angular/core@22.0.1",
+    "scope": "prod",
+    "direct": true,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": true,
+   "location": "frontend/package.json",
+   "dependency_paths": [
+    [
+     "frontend@20.4.0-SNAPSHOT",
+     "@angular/core@22.0.1"
+    ]
+   ],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-hh8m-fm6v-7cvg",
+     "cves": [
+      "CVE-2026-88057"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:N/VI:N/VA:N/SC:L/SI:L/SA:N",
+     "fixed_in": "22.1.0",
+     "summary": "Angular: Sanitization bypass via directive host bindings on concrete host elements in @angular/core and @angular/compiler",
+     "url": "https://osv.dev/vulnerability/GHSA-hh8m-fm6v-7cvg"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "MEDIUM",
+    "cvss": null,
+    "source": "advisory severity label (OSV)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-hh8m-fm6v-7cvg": "22.1.0"
+    },
+    "upgrade_to_at_least": "22.1.0",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 5.5,
+    "level": "Medium",
+    "factors": {
+     "severity": 5.5
+    },
+    "reasons": [
+     "highest advisory severity MEDIUM",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-052",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "base64url@0.0.6: 1 known vulnerability (highest MEDIUM)",
+   "component": {
+    "id": "pkg:npm/base64url@0.0.6",
+    "purl": "pkg:npm/base64url@0.0.6",
+    "name": "base64url",
+    "version": "0.0.6",
+    "ecosystem": "npm",
+    "label": "base64url@0.0.6",
+    "scope": "prod",
+    "direct": false,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "package.json",
+   "dependency_paths": [
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "jsonwebtoken@0.4.0",
+     "jws@0.2.6",
+     "base64url@0.0.6"
+    ],
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "express-jwt@0.1.3",
+     "jsonwebtoken@0.1.0",
+     "jws@0.2.6",
+     "base64url@0.0.6"
+    ],
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "jsonwebtoken@0.4.0",
+     "jws@0.2.6",
+     "jwa@0.0.1",
+     "base64url@0.0.6"
+    ]
+   ],
+   "introduced_by": [
+    "express-jwt@0.1.3",
+    "jsonwebtoken@0.4.0"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-rvg8-pwq2-xj7q",
+     "cves": [],
+     "severity": "MEDIUM",
+     "cvss_score": null,
+     "cvss_vector": null,
+     "fixed_in": "3.0.0",
+     "summary": "Out-of-bounds Read in base64url",
+     "url": "https://osv.dev/vulnerability/GHSA-rvg8-pwq2-xj7q"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "MEDIUM",
+    "cvss": null,
+    "source": "advisory severity label (OSV)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-rvg8-pwq2-xj7q": "3.0.0"
+    },
+    "upgrade_to_at_least": "3.0.0",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 5.5,
+    "level": "Medium",
+    "factors": {
+     "severity": 5.5
+    },
+    "reasons": [
+     "highest advisory severity MEDIUM",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-053",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "glob@10.5.0: 1 known vulnerability (highest MEDIUM)",
+   "component": {
+    "id": "pkg:npm/glob@10.5.0",
+    "purl": "pkg:npm/glob@10.5.0",
+    "name": "glob",
+    "version": "10.5.0",
+    "ecosystem": "npm",
+    "label": "glob@10.5.0",
+    "scope": "dev",
+    "direct": false,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "package.json",
+   "dependency_paths": [
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "@cyclonedx/cyclonedx-npm@2.0.0",
+     "@cyclonedx/cyclonedx-library@7.1.0",
+     "libxmljs2@0.35.0",
+     "node-gyp@10.3.1",
+     "glob@10.5.0"
+    ],
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "@cyclonedx/cyclonedx-npm@2.0.0",
+     "@cyclonedx/cyclonedx-library@7.1.0",
+     "libxmljs2@0.35.0",
+     "node-gyp@10.3.1",
+     "make-fetch-happen@13.0.1",
+     "cacache@18.0.4",
+     "glob@10.5.0"
+    ]
+   ],
+   "introduced_by": [
+    "@cyclonedx/cyclonedx-npm@2.0.0"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-3g3m-2fjr-6pw4",
+     "cves": [
+      "CVE-2026-118773"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N",
+     "fixed_in": "14.0.2",
+     "summary": "Glob: AbortSignal cancellation bypass allows post-timeout filesystem traversal",
+     "url": "https://osv.dev/vulnerability/GHSA-3g3m-2fjr-6pw4"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "MEDIUM",
+    "cvss": null,
+    "source": "advisory severity label (OSV)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-3g3m-2fjr-6pw4": "14.0.2"
+    },
+    "upgrade_to_at_least": "14.0.2",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 5.5,
+    "level": "Medium",
+    "factors": {
+     "severity": 5.5
+    },
+    "reasons": [
+     "highest advisory severity MEDIUM",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-054",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "glob@13.0.7: 1 known vulnerability (highest MEDIUM)",
+   "component": {
+    "id": "pkg:npm/glob@13.0.7",
+    "purl": "pkg:npm/glob@13.0.7",
+    "name": "glob",
+    "version": "13.0.7",
+    "ecosystem": "npm",
+    "label": "glob@13.0.7",
+    "scope": "prod",
+    "direct": false,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "frontend/package.json",
+   "dependency_paths": [
+    [
+     "frontend@20.4.0-SNAPSHOT",
+     "@angular/cli@22.0.1",
+     "pacote@21.5.0",
+     "@npmcli/package-json@7.0.5",
+     "glob@13.0.7"
+    ],
+    [
+     "frontend@20.4.0-SNAPSHOT",
+     "@angular/cli@22.0.1",
+     "pacote@21.5.0",
+     "cacache@20.0.4",
+     "glob@13.0.7"
+    ],
+    [
+     "frontend@20.4.0-SNAPSHOT",
+     "@angular/cli@22.0.1",
+     "pacote@21.5.0",
+     "@npmcli/run-script@10.0.4",
+     "@npmcli/package-json@7.0.5",
+     "glob@13.0.7"
+    ]
+   ],
+   "introduced_by": [
+    "@angular/cli@22.0.1"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-3g3m-2fjr-6pw4",
+     "cves": [
+      "CVE-2026-118773"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N",
+     "fixed_in": "14.0.2",
+     "summary": "Glob: AbortSignal cancellation bypass allows post-timeout filesystem traversal",
+     "url": "https://osv.dev/vulnerability/GHSA-3g3m-2fjr-6pw4"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "MEDIUM",
+    "cvss": null,
+    "source": "advisory severity label (OSV)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-3g3m-2fjr-6pw4": "14.0.2"
+    },
+    "upgrade_to_at_least": "14.0.2",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 5.5,
+    "level": "Medium",
+    "factors": {
+     "severity": 5.5
+    },
+    "reasons": [
+     "highest advisory severity MEDIUM",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-055",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "minimatch@10.2.6: 1 known vulnerability (highest MEDIUM)",
+   "component": {
+    "id": "pkg:npm/minimatch@10.2.6",
+    "purl": "pkg:npm/minimatch@10.2.6",
+    "name": "minimatch",
+    "version": "10.2.6",
+    "ecosystem": "npm",
+    "label": "minimatch@10.2.6",
+    "scope": "prod",
+    "direct": false,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "frontend/package.json",
+   "dependency_paths": [
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "typescript-eslint@8.57.1",
+     "@typescript-eslint/typescript-estree@8.57.1",
+     "minimatch@10.2.6"
+    ],
+    [
+     "frontend@20.4.0-SNAPSHOT",
+     "angular-eslint@22.0.0",
+     "@typescript-eslint/utils@8.72.2",
+     "@typescript-eslint/typescript-estree@8.72.2",
+     "minimatch@10.2.6"
+    ],
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "neostandard@0.13.0",
+     "typescript-eslint@8.72.2",
+     "@typescript-eslint/typescript-estree@8.72.2",
+     "minimatch@10.2.6"
+    ]
+   ],
+   "introduced_by": [
+    "angular-eslint@22.0.0",
+    "neostandard@0.13.0",
+    "typescript-eslint@8.57.1"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-g3hv-75wg-m249",
+     "cves": [
+      "CVE-2026-118764"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N",
+     "fixed_in": "11.0.1",
+     "summary": "minimatch has potential denial of service via globparts amplification",
+     "url": "https://osv.dev/vulnerability/GHSA-g3hv-75wg-m249"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "MEDIUM",
+    "cvss": null,
+    "source": "advisory severity label (OSV)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-g3hv-75wg-m249": "11.0.1"
+    },
+    "upgrade_to_at_least": "11.0.1",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 5.5,
+    "level": "Medium",
+    "factors": {
+     "severity": 5.5
+    },
+    "reasons": [
+     "highest advisory severity MEDIUM",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-056",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "minimatch@9.0.9: 1 known vulnerability (highest MEDIUM)",
+   "component": {
+    "id": "pkg:npm/minimatch@9.0.9",
+    "purl": "pkg:npm/minimatch@9.0.9",
+    "name": "minimatch",
+    "version": "9.0.9",
+    "ecosystem": "npm",
+    "label": "minimatch@9.0.9",
+    "scope": "dev",
+    "direct": false,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "frontend/package.json",
+   "dependency_paths": [
+    [
+     "frontend@20.4.0-SNAPSHOT",
+     "typescript-eslint@8.42.0",
+     "@typescript-eslint/typescript-estree@8.42.0",
+     "minimatch@9.0.9"
+    ],
+    [
+     "frontend@20.4.0-SNAPSHOT",
+     "typescript-eslint@8.42.0",
+     "@typescript-eslint/parser@8.42.0",
+     "@typescript-eslint/typescript-estree@8.42.0",
+     "minimatch@9.0.9"
+    ],
+    [
+     "frontend@20.4.0-SNAPSHOT",
+     "typescript-eslint@8.42.0",
+     "@typescript-eslint/utils@8.42.0",
+     "@typescript-eslint/typescript-estree@8.42.0",
+     "minimatch@9.0.9"
+    ]
+   ],
+   "introduced_by": [
+    "typescript-eslint@8.42.0"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-g3hv-75wg-m249",
+     "cves": [
+      "CVE-2026-118764"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N",
+     "fixed_in": "11.0.1",
+     "summary": "minimatch has potential denial of service via globparts amplification",
+     "url": "https://osv.dev/vulnerability/GHSA-g3hv-75wg-m249"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "MEDIUM",
+    "cvss": null,
+    "source": "advisory severity label (OSV)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-g3hv-75wg-m249": "11.0.1"
+    },
+    "upgrade_to_at_least": "11.0.1",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 5.5,
+    "level": "Medium",
+    "factors": {
+     "severity": 5.5
+    },
+    "reasons": [
+     "highest advisory severity MEDIUM",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-057",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "@hono/node-server@1.19.18: 1 known vulnerability (highest MEDIUM, CVSS 5.3)",
+   "component": {
+    "id": "pkg:npm/%40hono/node-server@1.19.18",
+    "purl": "pkg:npm/%40hono/node-server@1.19.18",
+    "name": "@hono/node-server",
+    "version": "1.19.18",
+    "ecosystem": "npm",
+    "label": "@hono/node-server@1.19.18",
+    "scope": "prod",
+    "direct": false,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "frontend/package.json",
+   "dependency_paths": [
+    [
+     "frontend@20.4.0-SNAPSHOT",
+     "@angular/cli@22.0.1",
+     "@modelcontextprotocol/sdk@1.29.0",
+     "@hono/node-server@1.19.18"
+    ]
+   ],
+   "introduced_by": [
+    "@angular/cli@22.0.1"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-rmxm-3fg6-px4f",
+     "cves": [
+      "CVE-2026-118663"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+     "fixed_in": "2.1.3",
+     "summary": "@hono/node-server: `serveStatic` decodes the request path a second time, leading to bypass of middleware on static paths",
+     "url": "https://osv.dev/vulnerability/GHSA-rmxm-3fg6-px4f"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "MEDIUM",
+    "cvss": 5.3,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-rmxm-3fg6-px4f": "2.1.3"
+    },
+    "upgrade_to_at_least": "2.1.3",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 5.3,
+    "level": "Medium",
+    "factors": {
+     "severity": 5.3
+    },
+    "reasons": [
+     "highest advisory severity MEDIUM (CVSS 5.3)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-058",
+   "category": "vulnerability",
+   "type": "Vulnerable direct dependency",
+   "rule": "VULN",
+   "title": "file-type@16.5.4: 1 known vulnerability (highest MEDIUM, CVSS 5.3)",
+   "component": {
+    "id": "pkg:npm/file-type@16.5.4",
+    "purl": "pkg:npm/file-type@16.5.4",
+    "name": "file-type",
+    "version": "16.5.4",
+    "ecosystem": "npm",
+    "label": "file-type@16.5.4",
+    "scope": "prod",
+    "direct": true,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": true,
+   "location": "package.json",
+   "dependency_paths": [
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "file-type@16.5.4"
+    ]
+   ],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-5v7r-6r5c-r473",
+     "cves": [
+      "CVE-2026-31808"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+     "fixed_in": "21.3.1",
+     "summary": "file-type affected by infinite loop in ASF parser on malformed input with zero-size sub-header",
+     "url": "https://osv.dev/vulnerability/GHSA-5v7r-6r5c-r473"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "MEDIUM",
+    "cvss": 5.3,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-5v7r-6r5c-r473": "21.3.1"
+    },
+    "upgrade_to_at_least": "21.3.1",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 5.3,
+    "level": "Medium",
+    "factors": {
+     "severity": 5.3
+    },
+    "reasons": [
+     "highest advisory severity MEDIUM (CVSS 5.3)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-059",
+   "category": "vulnerability",
+   "type": "Vulnerable direct dependency",
+   "rule": "VULN",
+   "title": "morgan@1.10.0: 3 known vulnerabilities (highest MEDIUM, CVSS 5.3)",
+   "component": {
+    "id": "pkg:npm/morgan@1.10.0",
+    "purl": "pkg:npm/morgan@1.10.0",
+    "name": "morgan",
+    "version": "1.10.0",
+    "ecosystem": "npm",
+    "label": "morgan@1.10.0",
+    "scope": "prod",
+    "direct": true,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": true,
+   "location": "package.json",
+   "dependency_paths": [
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "morgan@1.10.0"
+    ]
+   ],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-4vj7-5mj6-jm8m",
+     "cves": [
+      "CVE-2026-5078"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+     "fixed_in": "1.11.0",
+     "summary": "morgan vulnerable to Log Forging via unneutralized control characters in :remote-user",
+     "url": "https://osv.dev/vulnerability/GHSA-4vj7-5mj6-jm8m"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-9f6g-j8ch-79g4",
+     "cves": [
+      "CVE-2026-87859"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+     "fixed_in": "1.12.1",
+     "summary": "morgan vulnerable to Log Injection via unescaped double quote in quoted log fields",
+     "url": "https://osv.dev/vulnerability/GHSA-9f6g-j8ch-79g4"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-jxfw-x594-9x9m",
+     "cves": [
+      "CVE-2026-15603"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+     "fixed_in": "1.12.0",
+     "summary": "morgan vulnerable to Log Forging via unescaped Unicode line separators",
+     "url": "https://osv.dev/vulnerability/GHSA-jxfw-x594-9x9m"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "MEDIUM",
+    "cvss": 5.3,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-4vj7-5mj6-jm8m": "1.11.0",
+     "GHSA-9f6g-j8ch-79g4": "1.12.1",
+     "GHSA-jxfw-x594-9x9m": "1.12.0"
+    },
+    "upgrade_to_at_least": "1.12.1",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 5.3,
+    "level": "Medium",
+    "factors": {
+     "severity": 5.3
+    },
+    "reasons": [
+     "highest advisory severity MEDIUM (CVSS 5.3)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-060",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "qs@6.14.3: 4 known vulnerabilities (highest MEDIUM, CVSS 5.3)",
+   "component": {
+    "id": "pkg:npm/qs@6.14.3",
+    "purl": "pkg:npm/qs@6.14.3",
+    "name": "qs",
+    "version": "6.14.3",
+    "ecosystem": "npm",
+    "label": "qs@6.14.3",
+    "scope": "prod",
+    "direct": false,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "package.json",
+   "dependency_paths": [
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "express@4.22.1",
+     "qs@6.14.3"
+    ]
+   ],
+   "introduced_by": [
+    "express@4.22.1"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-4mjr-xmp4-gh2g",
+     "cves": [
+      "CVE-2026-82417"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+     "fixed_in": "6.16.0",
+     "summary": "qs: Denial of Service via Attacker Controlled isBuffer",
+     "url": "https://osv.dev/vulnerability/GHSA-4mjr-xmp4-gh2g"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-6pq8-jhm2-2vcw",
+     "cves": [
+      "CVE-2026-110816"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+     "fixed_in": "6.16.1",
+     "summary": "qs : qs.stringify with arrayFormat 'comma' throws an uncaught TypeError on array elements carrying a non-callable own toString (DoS)",
+     "url": "https://osv.dev/vulnerability/GHSA-6pq8-jhm2-2vcw"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-q8mj-m7cp-5q26",
+     "cves": [
+      "CVE-2026-8723"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+     "fixed_in": "6.15.2",
+     "summary": "qs has a remotely triggerable DoS: qs.stringify crashes with TypeError on null/undefined entries in comma-format arrays when encodeValuesOnly is set",
+     "url": "https://osv.dev/vulnerability/GHSA-q8mj-m7cp-5q26"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-x5fp-wj9c-mxmx",
+     "cves": [
+      "CVE-2026-82562"
+     ],
+     "severity": "LOW",
+     "cvss_score": 3.7,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L",
+     "fixed_in": "6.16.0",
+     "summary": "qs array-limit bypass via bracket-key comma parsing",
+     "url": "https://osv.dev/vulnerability/GHSA-x5fp-wj9c-mxmx"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "MEDIUM",
+    "cvss": 5.3,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-4mjr-xmp4-gh2g": "6.16.0",
+     "GHSA-6pq8-jhm2-2vcw": "6.16.1",
+     "GHSA-q8mj-m7cp-5q26": "6.15.2",
+     "GHSA-x5fp-wj9c-mxmx": "6.16.0"
+    },
+    "upgrade_to_at_least": "6.16.1",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 5.3,
+    "level": "Medium",
+    "factors": {
+     "severity": 5.3
+    },
+    "reasons": [
+     "highest advisory severity MEDIUM (CVSS 5.3)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-061",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "@ai-sdk/provider-utils@4.0.19: 1 known vulnerability (highest MEDIUM, CVSS 4.3)",
+   "component": {
+    "id": "pkg:npm/%40ai-sdk/provider-utils@4.0.19",
+    "purl": "pkg:npm/%40ai-sdk/provider-utils@4.0.19",
+    "name": "@ai-sdk/provider-utils",
+    "version": "4.0.19",
+    "ecosystem": "npm",
+    "label": "@ai-sdk/provider-utils@4.0.19",
+    "scope": "prod",
+    "direct": false,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "package.json",
+   "dependency_paths": [
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "@ai-sdk/openai-compatible@2.0.35",
+     "@ai-sdk/provider-utils@4.0.19"
+    ],
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "ai@6.0.116",
+     "@ai-sdk/provider-utils@4.0.19"
+    ],
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "ai@6.0.116",
+     "@ai-sdk/gateway@3.0.66",
+     "@ai-sdk/provider-utils@4.0.19"
+    ]
+   ],
+   "introduced_by": [
+    "@ai-sdk/openai-compatible@2.0.35",
+    "ai@6.0.116"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-866g-f22w-33x8",
+     "cves": [
+      "CVE-2026-8769"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 4.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:L",
+     "fixed_in": "4.0.33",
+     "summary": "@ai-sdk/provider-utils has an Uncontrolled Resource Consumption issue",
+     "url": "https://osv.dev/vulnerability/GHSA-866g-f22w-33x8"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "MEDIUM",
+    "cvss": 4.3,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-866g-f22w-33x8": "4.0.33"
+    },
+    "upgrade_to_at_least": "4.0.33",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 4.3,
+    "level": "Medium",
+    "factors": {
+     "severity": 4.3
+    },
+    "reasons": [
+     "highest advisory severity MEDIUM (CVSS 4.3)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-062",
+   "category": "vulnerability",
+   "type": "Vulnerable direct dependency",
+   "rule": "VULN",
+   "title": "@angular/common@22.0.1: 2 known vulnerabilities (highest HIGH, CVSS 4.0)",
+   "component": {
+    "id": "pkg:npm/%40angular/common@22.0.1",
+    "purl": "pkg:npm/%40angular/common@22.0.1",
+    "name": "@angular/common",
+    "version": "22.0.1",
+    "ecosystem": "npm",
+    "label": "@angular/common@22.0.1",
+    "scope": "prod",
+    "direct": true,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": true,
+   "location": "frontend/package.json",
+   "dependency_paths": [
+    [
+     "frontend@20.4.0-SNAPSHOT",
+     "@angular/common@22.0.1"
+    ]
+   ],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-jhpw-976m-542j",
+     "cves": [
+      "CVE-2026-68945"
+     ],
+     "severity": "HIGH",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:L/VA:N/SC:N/SI:N/SA:N",
+     "fixed_in": "22.0.2",
+     "summary": "Angular: Cache-Key Ambiguity in HttpTransferCache Leading to Cross-Request Response Reuse and State Poisoning",
+     "url": "https://osv.dev/vulnerability/GHSA-jhpw-976m-542j"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-p297-fm68-3q8c",
+     "cves": [
+      "CVE-2026-88059"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 4.0,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:L/I:N/A:N",
+     "fixed_in": "22.1.1",
+     "summary": "Angular: Information Leak via `HttpTransferCache` Bypass When Using `withRequestsMadeViaParent`",
+     "url": "https://osv.dev/vulnerability/GHSA-p297-fm68-3q8c"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "HIGH",
+    "cvss": 4.0,
+    "source": "advisory severity label (OSV)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-p297-fm68-3q8c": "22.1.1",
+     "GHSA-jhpw-976m-542j": "22.0.2"
+    },
+    "upgrade_to_at_least": "22.1.1",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 4.0,
+    "level": "Medium",
+    "factors": {
+     "severity": 4.0
+    },
+    "reasons": [
+     "highest advisory severity HIGH (CVSS 4.0)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-063",
+   "category": "vulnerability",
+   "type": "Vulnerable direct dependency",
+   "rule": "VULN",
+   "title": "hbs@4.2.0: 1 known vulnerability (highest MEDIUM, CVSS 4.0)",
+   "component": {
+    "id": "pkg:npm/hbs@4.2.0",
+    "purl": "pkg:npm/hbs@4.2.0",
+    "name": "hbs",
+    "version": "4.2.0",
+    "ecosystem": "npm",
+    "label": "hbs@4.2.0",
+    "scope": "prod",
+    "direct": true,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": true,
+   "location": "package.json",
+   "dependency_paths": [
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "hbs@4.2.0"
+    ]
+   ],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-7f5c-rpf4-86p8",
+     "cves": [
+      "CVE-2021-32822"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 4.0,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:L/I:N/A:N",
+     "fixed_in": null,
+     "summary": "hbs: Insertion of Sensitive Information into Externally-Accessible File or Directory and Exposure of Sensitive Information to an Unauthorized Actor",
+     "url": "https://osv.dev/vulnerability/GHSA-7f5c-rpf4-86p8"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "MEDIUM",
+    "cvss": 4.0,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-7f5c-rpf4-86p8": null
+    },
+    "upgrade_to_at_least": null,
+    "advisories_without_fix": [
+     "GHSA-7f5c-rpf4-86p8"
+    ]
+   },
+   "risk": {
+    "score": 4.0,
+    "level": "Medium",
+    "factors": {
+     "severity": 4.0
+    },
+    "reasons": [
+     "highest advisory severity MEDIUM (CVSS 4.0)",
+     "1 advisory(ies) without a published fix",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-064",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "on-headers@1.0.2: 1 known vulnerability (highest LOW, CVSS 3.4)",
+   "component": {
+    "id": "pkg:npm/on-headers@1.0.2",
+    "purl": "pkg:npm/on-headers@1.0.2",
+    "name": "on-headers",
+    "version": "1.0.2",
+    "ecosystem": "npm",
+    "label": "on-headers@1.0.2",
+    "scope": "prod",
+    "direct": false,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "package.json",
+   "dependency_paths": [
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "morgan@1.10.0",
+     "on-headers@1.0.2"
+    ]
+   ],
+   "introduced_by": [
+    "morgan@1.10.0"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-76c9-3jph-rj3q",
+     "cves": [
+      "CVE-2025-7339"
+     ],
+     "severity": "LOW",
+     "cvss_score": 3.4,
+     "cvss_vector": "CVSS:3.1/AV:L/AC:L/PR:H/UI:N/S:U/C:L/I:L/A:N",
+     "fixed_in": "1.1.0",
+     "summary": "on-headers is vulnerable to http response header manipulation",
+     "url": "https://osv.dev/vulnerability/GHSA-76c9-3jph-rj3q"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "LOW",
+    "cvss": 3.4,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-76c9-3jph-rj3q": "1.1.0"
+    },
+    "upgrade_to_at_least": "1.1.0",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 3.4,
+    "level": "Low",
+    "factors": {
+     "severity": 3.4
+    },
+    "reasons": [
+     "highest advisory severity LOW (CVSS 3.4)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-065",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "@tootallnate/once@1.1.2: 1 known vulnerability (highest LOW, CVSS 3.3)",
+   "component": {
+    "id": "pkg:npm/%40tootallnate/once@1.1.2",
+    "purl": "pkg:npm/%40tootallnate/once@1.1.2",
+    "name": "@tootallnate/once",
+    "version": "1.1.2",
+    "ecosystem": "npm",
+    "label": "@tootallnate/once@1.1.2",
+    "scope": "prod",
+    "direct": false,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "package.json",
+   "dependency_paths": [
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "sqlite3@5.1.7",
+     "node-gyp@8.4.1",
+     "make-fetch-happen@9.1.0",
+     "http-proxy-agent@4.0.1",
+     "@tootallnate/once@1.1.2"
+    ]
+   ],
+   "introduced_by": [
+    "sqlite3@5.1.7"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-vpq2-c234-7xj6",
+     "cves": [
+      "CVE-2026-3449"
+     ],
+     "severity": "LOW",
+     "cvss_score": 3.3,
+     "cvss_vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:L",
+     "fixed_in": "2.0.1",
+     "summary": "@tootallnate/once vulnerable to Incorrect Control Flow Scoping",
+     "url": "https://osv.dev/vulnerability/GHSA-vpq2-c234-7xj6"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "LOW",
+    "cvss": 3.3,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-vpq2-c234-7xj6": "2.0.1"
+    },
+    "upgrade_to_at_least": "2.0.1",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 3.3,
+    "level": "Low",
+    "factors": {
+     "severity": 3.3
+    },
+    "reasons": [
+     "highest advisory severity LOW (CVSS 3.3)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-066",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "@babel/core@7.29.0: 1 known vulnerability (highest LOW, CVSS 3.2)",
+   "component": {
+    "id": "pkg:npm/%40babel/core@7.29.0",
+    "purl": "pkg:npm/%40babel/core@7.29.0",
+    "name": "@babel/core",
+    "version": "7.29.0",
+    "ecosystem": "npm",
+    "label": "@babel/core@7.29.0",
+    "scope": "prod",
+    "direct": false,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "frontend/package.json",
+   "dependency_paths": [
+    [
+     "frontend@20.4.0-SNAPSHOT",
+     "@angular/build@22.0.1",
+     "@babel/core@7.29.0"
+    ],
+    [
+     "frontend@20.4.0-SNAPSHOT",
+     "@angular/compiler-cli@22.0.1",
+     "@babel/core@7.29.0"
+    ]
+   ],
+   "introduced_by": [
+    "@angular/build@22.0.1",
+    "@angular/compiler-cli@22.0.1"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-4x5r-pxfx-6jf8",
+     "cves": [
+      "CVE-2026-49356"
+     ],
+     "severity": "LOW",
+     "cvss_score": 3.2,
+     "cvss_vector": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:C/C:L/I:N/A:N",
+     "fixed_in": "7.29.6",
+     "summary": "@babel/core: Arbitrary File Read via sourceMappingURL Comment",
+     "url": "https://osv.dev/vulnerability/GHSA-4x5r-pxfx-6jf8"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "LOW",
+    "cvss": 3.2,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-4x5r-pxfx-6jf8": "7.29.6"
+    },
+    "upgrade_to_at_least": "7.29.6",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 3.2,
+    "level": "Low",
+    "factors": {
+     "severity": 3.2
+    },
+    "reasons": [
+     "highest advisory severity LOW (CVSS 3.2)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-067",
+   "category": "anomaly",
+   "type": "Unsafe CI/CD component",
+   "rule": "R16_CI_EXCESSIVE_PERMISSIONS",
+   "title": ".github/workflows/ci.yml: no top-level 'permissions:' (token gets the repository default, often read/write)",
+   "component": null,
+   "is_direct": null,
+   "location": ".github/workflows/ci.yml",
+   "dependency_paths": [],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "fact",
+     "detail": ".github/workflows/ci.yml has no top-level permissions block"
+    }
+   ],
+   "why_it_matters": "The workflow token can write to the repository, so any compromised step can too.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": false,
+   "introduced_in": null,
+   "risk": {
+    "score": 3.0,
+    "level": "Low",
+    "factors": {
+     "rule_level": "Low"
+    },
+    "reasons": [
+     "R16_CI_EXCESSIVE_PERMISSIONS default level Low"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-068",
+   "category": "anomaly",
+   "type": "Unsafe CI/CD component",
+   "rule": "R16_CI_EXCESSIVE_PERMISSIONS",
+   "title": ".github/workflows/codeql-analysis.yml: no top-level 'permissions:' (token gets the repository default, often read/write)",
+   "component": null,
+   "is_direct": null,
+   "location": ".github/workflows/codeql-analysis.yml",
+   "dependency_paths": [],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "fact",
+     "detail": ".github/workflows/codeql-analysis.yml has no top-level permissions block"
+    }
+   ],
+   "why_it_matters": "The workflow token can write to the repository, so any compromised step can too.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": false,
+   "introduced_in": null,
+   "risk": {
+    "score": 3.0,
+    "level": "Low",
+    "factors": {
+     "rule_level": "Low"
+    },
+    "reasons": [
+     "R16_CI_EXCESSIVE_PERMISSIONS default level Low"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-069",
+   "category": "anomaly",
+   "type": "Unsafe CI/CD component",
+   "rule": "R16_CI_EXCESSIVE_PERMISSIONS",
+   "title": ".github/workflows/frontend-bundle-analysis.yml: no top-level 'permissions:' (token gets the repository default, often read/write)",
+   "component": null,
+   "is_direct": null,
+   "location": ".github/workflows/frontend-bundle-analysis.yml",
+   "dependency_paths": [],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "fact",
+     "detail": ".github/workflows/frontend-bundle-analysis.yml has no top-level permissions block"
+    }
+   ],
+   "why_it_matters": "The workflow token can write to the repository, so any compromised step can too.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": false,
+   "introduced_in": null,
+   "risk": {
+    "score": 3.0,
+    "level": "Low",
+    "factors": {
+     "rule_level": "Low"
+    },
+    "reasons": [
+     "R16_CI_EXCESSIVE_PERMISSIONS default level Low"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-070",
+   "category": "anomaly",
+   "type": "Unsafe CI/CD component",
+   "rule": "R16_CI_EXCESSIVE_PERMISSIONS",
+   "title": ".github/workflows/image_actions.yml: no top-level 'permissions:' (token gets the repository default, often read/write)",
+   "component": null,
+   "is_direct": null,
+   "location": ".github/workflows/image_actions.yml",
+   "dependency_paths": [],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "fact",
+     "detail": ".github/workflows/image_actions.yml has no top-level permissions block"
+    }
+   ],
+   "why_it_matters": "The workflow token can write to the repository, so any compromised step can too.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": false,
+   "introduced_in": null,
+   "risk": {
+    "score": 3.0,
+    "level": "Low",
+    "factors": {
+     "rule_level": "Low"
+    },
+    "reasons": [
+     "R16_CI_EXCESSIVE_PERMISSIONS default level Low"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-071",
+   "category": "anomaly",
+   "type": "Unsafe CI/CD component",
+   "rule": "R16_CI_EXCESSIVE_PERMISSIONS",
+   "title": ".github/workflows/lint-fixer.yml: no top-level 'permissions:' (token gets the repository default, often read/write)",
+   "component": null,
+   "is_direct": null,
+   "location": ".github/workflows/lint-fixer.yml",
+   "dependency_paths": [],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "fact",
+     "detail": ".github/workflows/lint-fixer.yml has no top-level permissions block"
+    }
+   ],
+   "why_it_matters": "The workflow token can write to the repository, so any compromised step can too.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": false,
+   "introduced_in": null,
+   "risk": {
+    "score": 3.0,
+    "level": "Low",
+    "factors": {
+     "rule_level": "Low"
+    },
+    "reasons": [
+     "R16_CI_EXCESSIVE_PERMISSIONS default level Low"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-072",
+   "category": "anomaly",
+   "type": "Unsafe CI/CD component",
+   "rule": "R16_CI_EXCESSIVE_PERMISSIONS",
+   "title": ".github/workflows/rebase.yml: no top-level 'permissions:' (token gets the repository default, often read/write)",
+   "component": null,
+   "is_direct": null,
+   "location": ".github/workflows/rebase.yml",
+   "dependency_paths": [],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "fact",
+     "detail": ".github/workflows/rebase.yml has no top-level permissions block"
+    }
+   ],
+   "why_it_matters": "The workflow token can write to the repository, so any compromised step can too.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": false,
+   "introduced_in": null,
+   "risk": {
+    "score": 3.0,
+    "level": "Low",
+    "factors": {
+     "rule_level": "Low"
+    },
+    "reasons": [
+     "R16_CI_EXCESSIVE_PERMISSIONS default level Low"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-073",
+   "category": "anomaly",
+   "type": "Unsafe CI/CD component",
+   "rule": "R16_CI_EXCESSIVE_PERMISSIONS",
+   "title": ".github/workflows/release.yml: no top-level 'permissions:' (token gets the repository default, often read/write)",
+   "component": null,
+   "is_direct": null,
+   "location": ".github/workflows/release.yml",
+   "dependency_paths": [],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "fact",
+     "detail": ".github/workflows/release.yml has no top-level permissions block"
+    }
+   ],
+   "why_it_matters": "The workflow token can write to the repository, so any compromised step can too.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": false,
+   "introduced_in": null,
+   "risk": {
+    "score": 3.0,
+    "level": "Low",
+    "factors": {
+     "rule_level": "Low"
+    },
+    "reasons": [
+     "R16_CI_EXCESSIVE_PERMISSIONS default level Low"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-074",
+   "category": "anomaly",
+   "type": "Unsafe CI/CD component",
+   "rule": "R16_CI_EXCESSIVE_PERMISSIONS",
+   "title": ".github/workflows/stale.yml: no top-level 'permissions:' (token gets the repository default, often read/write)",
+   "component": null,
+   "is_direct": null,
+   "location": ".github/workflows/stale.yml",
+   "dependency_paths": [],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "fact",
+     "detail": ".github/workflows/stale.yml has no top-level permissions block"
+    }
+   ],
+   "why_it_matters": "The workflow token can write to the repository, so any compromised step can too.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": false,
+   "introduced_in": null,
+   "risk": {
+    "score": 3.0,
+    "level": "Low",
+    "factors": {
+     "rule_level": "Low"
+    },
+    "reasons": [
+     "R16_CI_EXCESSIVE_PERMISSIONS default level Low"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-075",
+   "category": "anomaly",
+   "type": "Unsafe CI/CD component",
+   "rule": "R16_CI_EXCESSIVE_PERMISSIONS",
+   "title": ".github/workflows/update-challenges-ebook.yml: no top-level 'permissions:' (token gets the repository default, often read/write)",
+   "component": null,
+   "is_direct": null,
+   "location": ".github/workflows/update-challenges-ebook.yml",
+   "dependency_paths": [],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "fact",
+     "detail": ".github/workflows/update-challenges-ebook.yml has no top-level permissions block"
+    }
+   ],
+   "why_it_matters": "The workflow token can write to the repository, so any compromised step can too.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": false,
+   "introduced_in": null,
+   "risk": {
+    "score": 3.0,
+    "level": "Low",
+    "factors": {
+     "rule_level": "Low"
+    },
+    "reasons": [
+     "R16_CI_EXCESSIVE_PERMISSIONS default level Low"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-076",
+   "category": "anomaly",
+   "type": "Unsafe CI/CD component",
+   "rule": "R16_CI_EXCESSIVE_PERMISSIONS",
+   "title": ".github/workflows/update-challenges-www-legacy.yml: no top-level 'permissions:' (token gets the repository default, often read/write)",
+   "component": null,
+   "is_direct": null,
+   "location": ".github/workflows/update-challenges-www-legacy.yml",
+   "dependency_paths": [],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "fact",
+     "detail": ".github/workflows/update-challenges-www-legacy.yml has no top-level permissions block"
+    }
+   ],
+   "why_it_matters": "The workflow token can write to the repository, so any compromised step can too.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": false,
+   "introduced_in": null,
+   "risk": {
+    "score": 3.0,
+    "level": "Low",
+    "factors": {
+     "rule_level": "Low"
+    },
+    "reasons": [
+     "R16_CI_EXCESSIVE_PERMISSIONS default level Low"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-077",
+   "category": "anomaly",
+   "type": "Unsafe CI/CD component",
+   "rule": "R16_CI_EXCESSIVE_PERMISSIONS",
+   "title": ".github/workflows/update-challenges-www.yml: no top-level 'permissions:' (token gets the repository default, often read/write)",
+   "component": null,
+   "is_direct": null,
+   "location": ".github/workflows/update-challenges-www.yml",
+   "dependency_paths": [],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "fact",
+     "detail": ".github/workflows/update-challenges-www.yml has no top-level permissions block"
+    }
+   ],
+   "why_it_matters": "The workflow token can write to the repository, so any compromised step can too.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": false,
+   "introduced_in": null,
+   "risk": {
+    "score": 3.0,
+    "level": "Low",
+    "factors": {
+     "rule_level": "Low"
+    },
+    "reasons": [
+     "R16_CI_EXCESSIVE_PERMISSIONS default level Low"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-078",
+   "category": "anomaly",
+   "type": "Unsafe CI/CD component",
+   "rule": "R16_CI_EXCESSIVE_PERMISSIONS",
+   "title": ".github/workflows/update-news-www-legacy.yml: no top-level 'permissions:' (token gets the repository default, often read/write)",
+   "component": null,
+   "is_direct": null,
+   "location": ".github/workflows/update-news-www-legacy.yml",
+   "dependency_paths": [],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "fact",
+     "detail": ".github/workflows/update-news-www-legacy.yml has no top-level permissions block"
+    }
+   ],
+   "why_it_matters": "The workflow token can write to the repository, so any compromised step can too.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": false,
+   "introduced_in": null,
+   "risk": {
+    "score": 3.0,
+    "level": "Low",
+    "factors": {
+     "rule_level": "Low"
+    },
+    "reasons": [
+     "R16_CI_EXCESSIVE_PERMISSIONS default level Low"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-079",
+   "category": "anomaly",
+   "type": "Unsafe CI/CD component",
+   "rule": "R16_CI_EXCESSIVE_PERMISSIONS",
+   "title": ".github/workflows/update-news-www.yml: no top-level 'permissions:' (token gets the repository default, often read/write)",
+   "component": null,
+   "is_direct": null,
+   "location": ".github/workflows/update-news-www.yml",
+   "dependency_paths": [],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "fact",
+     "detail": ".github/workflows/update-news-www.yml has no top-level permissions block"
+    }
+   ],
+   "why_it_matters": "The workflow token can write to the repository, so any compromised step can too.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": false,
+   "introduced_in": null,
+   "risk": {
+    "score": 3.0,
+    "level": "Low",
+    "factors": {
+     "rule_level": "Low"
+    },
+    "reasons": [
+     "R16_CI_EXCESSIVE_PERMISSIONS default level Low"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-080",
+   "category": "anomaly",
+   "type": "Untrusted image",
+   "rule": "R13_CONTAINER_HARDENING",
+   "title": "test/smoke/Dockerfile sets no USER: the container runs as the base image's default user (usually root)",
+   "component": null,
+   "is_direct": null,
+   "location": "test/smoke/Dockerfile",
+   "dependency_paths": [],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "fact",
+     "detail": "no USER instruction in the final stage chain of test/smoke/Dockerfile"
+    }
+   ],
+   "why_it_matters": "The container build or runtime is less isolated than it could be.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": false,
+   "introduced_in": null,
+   "risk": {
+    "score": 3.0,
+    "level": "Low",
+    "factors": {
+     "rule_level": "Low"
+    },
+    "reasons": [
+     "R13_CONTAINER_HARDENING default level Low"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-081",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "messageformat@2.3.0: 1 known vulnerability (highest LOW)",
+   "component": {
+    "id": "pkg:npm/messageformat@2.3.0",
+    "purl": "pkg:npm/messageformat@2.3.0",
+    "name": "messageformat",
+    "version": "2.3.0",
+    "ecosystem": "npm",
+    "label": "messageformat@2.3.0",
+    "scope": "prod",
+    "direct": false,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "package.json",
+   "dependency_paths": [
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "i18n@0.11.1",
+     "messageformat@2.3.0"
+    ]
+   ],
+   "introduced_by": [
+    "i18n@0.11.1"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-xfqm-j7pc-xrfc",
+     "cves": [
+      "CVE-2025-57349"
+     ],
+     "severity": "LOW",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:H/AT:N/PR:N/UI:N/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N/E:U",
+     "fixed_in": "3.0.0-beta.0",
+     "summary": "messageformat has a prototype pollution vulnerability",
+     "url": "https://osv.dev/vulnerability/GHSA-xfqm-j7pc-xrfc"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "LOW",
+    "cvss": null,
+    "source": "advisory severity label (OSV)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-xfqm-j7pc-xrfc": "3.0.0-beta.0"
+    },
+    "upgrade_to_at_least": "3.0.0-beta.0",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 3.0,
+    "level": "Low",
+    "factors": {
+     "severity": 3.0
+    },
+    "reasons": [
+     "highest advisory severity LOW",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-082",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "esbuild@0.27.7: 1 known vulnerability (highest LOW, CVSS 2.5)",
+   "component": {
+    "id": "pkg:npm/esbuild@0.27.7",
+    "purl": "pkg:npm/esbuild@0.27.7",
+    "name": "esbuild",
+    "version": "0.27.7",
+    "ecosystem": "npm",
+    "label": "esbuild@0.27.7",
+    "scope": "prod",
+    "direct": false,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "frontend/package.json",
+   "dependency_paths": [
+    [
+     "juice-shop@20.4.0-SNAPSHOT",
+     "tsx@4.21.0",
+     "esbuild@0.27.7"
+    ],
+    [
+     "frontend@20.4.0-SNAPSHOT",
+     "@angular/build@22.0.1",
+     "vite@7.3.2",
+     "esbuild@0.27.7"
+    ]
+   ],
+   "introduced_by": [
+    "@angular/build@22.0.1",
+    "tsx@4.21.0"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-g7r4-m6w7-qqqr",
+     "cves": [],
+     "severity": "LOW",
+     "cvss_score": 2.5,
+     "cvss_vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:N/I:L/A:N",
+     "fixed_in": "0.28.1",
+     "summary": "esbuild allows arbitrary file read when running the development server on Windows",
+     "url": "https://osv.dev/vulnerability/GHSA-g7r4-m6w7-qqqr"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "LOW",
+    "cvss": 2.5,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-g7r4-m6w7-qqqr": "0.28.1"
+    },
+    "upgrade_to_at_least": "0.28.1",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 2.5,
+    "level": "Low",
+    "factors": {
+     "severity": 2.5
+    },
+    "reasons": [
+     "highest advisory severity LOW (CVSS 2.5)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-083",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "esbuild@0.28.0: 1 known vulnerability (highest LOW, CVSS 2.5)",
+   "component": {
+    "id": "pkg:npm/esbuild@0.28.0",
+    "purl": "pkg:npm/esbuild@0.28.0",
+    "name": "esbuild",
+    "version": "0.28.0",
+    "ecosystem": "npm",
+    "label": "esbuild@0.28.0",
+    "scope": "prod",
+    "direct": false,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "frontend/package.json",
+   "dependency_paths": [
+    [
+     "frontend@20.4.0-SNAPSHOT",
+     "@angular/build@22.0.1",
+     "esbuild@0.28.0"
+    ]
+   ],
+   "introduced_by": [
+    "@angular/build@22.0.1"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-g7r4-m6w7-qqqr",
+     "cves": [],
+     "severity": "LOW",
+     "cvss_score": 2.5,
+     "cvss_vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:N/I:L/A:N",
+     "fixed_in": "0.28.1",
+     "summary": "esbuild allows arbitrary file read when running the development server on Windows",
+     "url": "https://osv.dev/vulnerability/GHSA-g7r4-m6w7-qqqr"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "medium",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "LOW",
+    "cvss": 2.5,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-g7r4-m6w7-qqqr": "0.28.1"
+    },
+    "upgrade_to_at_least": "0.28.1",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 2.5,
+    "level": "Low",
+    "factors": {
+     "severity": 2.5
+    },
+    "reasons": [
+     "highest advisory severity LOW (CVSS 2.5)",
+     "version estimated without a lockfile (deps.dev)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  }
+ ],
+ "notes": [
+  "frontend/package.json: no lockfile -> transitive deps resolved via deps.dev (approximate)",
+  "package.json: no lockfile -> transitive deps resolved via deps.dev (approximate)",
+  "what changed: base revision 'HEAD~1' not found (shallow clone or first commit), change analysis skipped",
+  "graph.html limited to depth 2 + vulnerable paths (1814 nodes); use --focus/--max-depth"
+ ]
+}

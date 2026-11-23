@@ -324,5 +324,51 @@
     "components": 36,
     "dependency_entries": 37
   },
-  "why": {}
+  "why": {},
+  "findings": {
+    "total": 41,
+    "vulnerabilities": 16,
+    "anomalies": 25,
+    "new_in_change": 25,
+    "by_level": {
+      "Critical": 21,
+      "High": 8,
+      "Medium": 12,
+      "Low": 0,
+      "Info": 0
+    },
+    "by_type": {
+      "Vulnerable direct dependency": 9,
+      "Vulnerable transitive dependency": 7,
+      "Unsafe install script": 5,
+      "Typosquatted package": 4,
+      "Unsafe CI/CD component": 4,
+      "Untrusted image": 4,
+      "Unexpected dependency": 3,
+      "Modified lockfile": 3,
+      "Suspicious package update": 2
+    },
+    "by_rule": {
+      "VULN": 16,
+      "R08_UNEXPECTED_DEPENDENCY": 3,
+      "R02_KNOWN_MALICIOUS": 2,
+      "R13_CONTAINER_HARDENING": 2,
+      "R12_REMOTE_SCRIPT_EXEC": 2,
+      "R03_INSTALL_SCRIPT": 2,
+      "R01_TYPOSQUAT": 2,
+      "R16_CI_EXCESSIVE_PERMISSIONS": 1,
+      "R10_UNTRUSTED_BASE_IMAGE": 1,
+      "R05_LOCKFILE_UNTRUSTED_SOURCE": 1,
+      "R06_LOCKFILE_INTEGRITY_CHANGED": 1,
+      "R09_UNPINNED_DEPENDENCY": 1,
+      "R14_CI_PWN_REQUEST": 1,
+      "R04_INSTALL_SCRIPT_CONTENT": 1,
+      "R07_LOCKFILE_DRIFT": 1,
+      "R15_CI_UNPINNED_ACTION": 1,
+      "R18_NEW_AUTHOR_SENSITIVE_CHANGE": 1,
+      "R17_CI_SECRET_EXPOSURE": 1,
+      "R11_MUTABLE_IMAGE_TAG": 1
+    },
+    "advisories": 141
+  }
 }

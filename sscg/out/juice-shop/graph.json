@@ -132,7 +132,11 @@
    "ref": "v2",
    "pinned_to_sha": false,
    "depth": 1,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-018"
+   ],
+   "suspicious": true
   },
   {
    "id": "pkg:github/cypress-io/github-action@c541a95ea92d9239347a2355f2e895cd4b3f8060",
@@ -418,7 +422,11 @@
    "ref": "main",
    "pinned_to_sha": false,
    "depth": 1,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-019"
+   ],
+   "suspicious": true
   },
   {
    "id": "pkg:github/peter-evans/create-pull-request@v8",
@@ -437,7 +445,11 @@
    "ref": "v8",
    "pinned_to_sha": false,
    "depth": 1,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-020"
+   ],
+   "suspicious": true
   },
   {
    "id": "app:.github/workflows/issue-compliance.yml",
@@ -807,7 +819,11 @@
    "pinned_by_digest": false,
    "official_image": false,
    "depth": 1,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-047"
+   ],
+   "suspicious": true
   },
   {
    "id": "app:frontend/package.json",
@@ -2064,8 +2080,36 @@
    "vulns": [
     "GHSA-g3hv-75wg-m249"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-g3hv-75wg-m249",
+     "aliases": [
+      "CVE-2026-118764"
+     ],
+     "cves": [
+      "CVE-2026-118764"
+     ],
+     "summary": "minimatch has potential denial of service via globparts amplification",
+     "published": "2026-10-30T23:09:55Z",
+     "modified": "2026-11-04T17:01:25.850114200Z",
+     "severity": "MEDIUM",
+     "severity_source": "GHSA severity label (OSV)",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N",
+     "fixed_in": "11.0.1",
+     "fixed_versions": [
+      "11.0.1"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-g3hv-75wg-m249"
+    }
+   ],
    "depth": 3,
-   "dependents": 5
+   "dependents": 5,
+   "findings": [
+    "F-055"
+   ]
   },
   {
    "id": "pkg:npm/ms@2.1.3",
@@ -5455,8 +5499,36 @@
    "vulns": [
     "GHSA-g3hv-75wg-m249"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-g3hv-75wg-m249",
+     "aliases": [
+      "CVE-2026-118764"
+     ],
+     "cves": [
+      "CVE-2026-118764"
+     ],
+     "summary": "minimatch has potential denial of service via globparts amplification",
+     "published": "2026-10-30T23:09:55Z",
+     "modified": "2026-11-04T17:01:25.850114200Z",
+     "severity": "MEDIUM",
+     "severity_source": "GHSA severity label (OSV)",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N",
+     "fixed_in": "11.0.1",
+     "fixed_versions": [
+      "11.0.1"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-g3hv-75wg-m249"
+    }
+   ],
    "depth": 3,
-   "dependents": 2
+   "dependents": 2,
+   "findings": [
+    "F-056"
+   ]
   },
   {
    "id": "pkg:npm/vitest@4.1.1",
@@ -5472,8 +5544,37 @@
    "vulns": [
     "GHSA-82fw-gwwq-j7x9"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-82fw-gwwq-j7x9",
+     "aliases": [
+      "CVE-2026-84373"
+     ],
+     "cves": [
+      "CVE-2026-84373"
+     ],
+     "summary": "Vitest: Path Traversal / Arbitrary File Read via @vitest/mocker Redirect Mock",
+     "published": "2026-09-08T20:46:45Z",
+     "modified": "2026-09-08T21:00:07.248611070Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 5.9,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N",
+     "fixed_in": "4.1.11",
+     "fixed_versions": [
+      "4.1.11",
+      "5.0.0-rc.2"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-82fw-gwwq-j7x9"
+    }
+   ],
    "depth": 1,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-040"
+   ]
   },
   {
    "id": "pkg:npm/%40oxc-project/types@0.156.0",
@@ -5784,8 +5885,61 @@
     "GHSA-82fw-gwwq-j7x9",
     "GHSA-qxg6-89mg-rqv8"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-82fw-gwwq-j7x9",
+     "aliases": [
+      "CVE-2026-84373"
+     ],
+     "cves": [
+      "CVE-2026-84373"
+     ],
+     "summary": "Vitest: Path Traversal / Arbitrary File Read via @vitest/mocker Redirect Mock",
+     "published": "2026-09-08T20:46:45Z",
+     "modified": "2026-09-08T21:00:07.248611070Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 5.9,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N",
+     "fixed_in": "4.1.11",
+     "fixed_versions": [
+      "4.1.11",
+      "5.0.0-rc.2"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-82fw-gwwq-j7x9"
+    },
+    {
+     "id": "GHSA-qxg6-89mg-rqv8",
+     "aliases": [
+      "CVE-2026-112949"
+     ],
+     "cves": [
+      "CVE-2026-112949"
+     ],
+     "summary": "Vitest: Code injection via unauthenticated manual mock registration",
+     "published": "2026-10-21T19:54:26Z",
+     "modified": "2026-10-21T20:01:39.911013327Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 4.7,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:L/I:L/A:N",
+     "fixed_in": "4.1.12",
+     "fixed_versions": [
+      "4.1.12",
+      "5.0.3"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-qxg6-89mg-rqv8"
+    }
+   ],
    "depth": 2,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-038"
+   ]
   },
   {
    "id": "pkg:npm/%40vitest/pretty-format@4.1.1",
@@ -6305,8 +6459,37 @@
    "vulns": [
     "GHSA-4x5r-pxfx-6jf8"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-4x5r-pxfx-6jf8",
+     "aliases": [
+      "CVE-2026-49356"
+     ],
+     "cves": [
+      "CVE-2026-49356"
+     ],
+     "summary": "@babel/core: Arbitrary File Read via sourceMappingURL Comment",
+     "published": "2026-06-15T17:14:14Z",
+     "modified": "2026-09-10T03:50:48.280629201Z",
+     "severity": "LOW",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 3.2,
+     "cvss_vector": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:C/C:L/I:N/A:N",
+     "fixed_in": "7.29.6",
+     "fixed_versions": [
+      "7.29.6",
+      "8.0.0-rc.6"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-4x5r-pxfx-6jf8"
+    }
+   ],
    "depth": 2,
-   "dependents": 2
+   "dependents": 2,
+   "findings": [
+    "F-066"
+   ]
   },
   {
    "id": "pkg:npm/%40babel/helper-annotate-as-pure@7.27.3",
@@ -6406,8 +6589,32 @@
    "vulns": [
     "GHSA-g7r4-m6w7-qqqr"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-g7r4-m6w7-qqqr",
+     "aliases": [],
+     "cves": [],
+     "summary": "esbuild allows arbitrary file read when running the development server on Windows",
+     "published": "2026-06-12T20:08:53Z",
+     "modified": "2026-09-10T03:50:49.427692265Z",
+     "severity": "LOW",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 2.5,
+     "cvss_vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:N/I:L/A:N",
+     "fixed_in": "0.28.1",
+     "fixed_versions": [
+      "0.28.1"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-g7r4-m6w7-qqqr"
+    }
+   ],
    "depth": 2,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-083"
+   ]
   },
   {
    "id": "pkg:npm/https-proxy-agent@9.0.0",
@@ -6508,8 +6715,63 @@
     "GHSA-67c8-pqhq-4rmx",
     "GHSA-x9g3-xrwr-cwfg"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-x9g3-xrwr-cwfg",
+     "aliases": [
+      "CVE-2026-55388"
+     ],
+     "cves": [
+      "CVE-2026-55388"
+     ],
+     "summary": "piscina: Prototype Pollution Gadget \u2192 RCE via inherited options.filename",
+     "published": "2026-06-18T13:05:11Z",
+     "modified": "2026-09-10T03:50:12.257395202Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 8.1,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+     "fixed_in": "5.2.0",
+     "fixed_versions": [
+      "4.9.3",
+      "5.2.0",
+      "6.0.0-rc.2"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-x9g3-xrwr-cwfg"
+    },
+    {
+     "id": "GHSA-67c8-pqhq-4rmx",
+     "aliases": [
+      "CVE-2026-102992"
+     ],
+     "cves": [
+      "CVE-2026-102992"
+     ],
+     "summary": "piscina: Prototype-pollution gadget in ThreadPool.options allows RCE via execArgv / loadBalancer / env",
+     "published": "2026-10-01T15:03:33Z",
+     "modified": "2026-10-01T15:15:09.198862052Z",
+     "severity": "CRITICAL",
+     "severity_source": "GHSA severity label (OSV)",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:H/AT:P/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+     "fixed_in": "5.3.2",
+     "fixed_versions": [
+      "4.9.4",
+      "5.3.2",
+      "6.0.0-rc.5"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-67c8-pqhq-4rmx"
+    }
+   ],
    "depth": 2,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-016"
+   ]
   },
   {
    "id": "pkg:npm/rollup@4.60.2",
@@ -6601,8 +6863,198 @@
     "GHSA-rq7h-c2jc-7f22",
     "GHSA-v6wh-96g9-6wx3"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-587h-7wmj-h5pm",
+     "aliases": [
+      "CVE-2026-112942"
+     ],
+     "cves": [
+      "CVE-2026-112942"
+     ],
+     "summary": "launch-editor: `fs.existsSync()` existence check can be bypassed on Windows",
+     "published": "2026-10-20T19:48:25Z",
+     "modified": "2026-10-20T20:00:04.608979840Z",
+     "severity": "HIGH",
+     "severity_source": "GHSA severity label (OSV)",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:A/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+     "fixed_in": "7.3.7",
+     "fixed_versions": [
+      "6.4.4",
+      "7.3.7",
+      "8.1.6",
+      "8.2.4",
+      "8.3.3"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-587h-7wmj-h5pm"
+    },
+    {
+     "id": "GHSA-698v-4r3x-3vcv",
+     "aliases": [
+      "CVE-2026-112943"
+     ],
+     "cves": [
+      "CVE-2026-112943"
+     ],
+     "summary": "launch-editor: escapeCmdArgs() omits % escaping on Windows",
+     "published": "2026-10-20T18:30:24Z",
+     "modified": "2026-10-20T18:45:09.467993691Z",
+     "severity": "MEDIUM",
+     "severity_source": "GHSA severity label (OSV)",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N",
+     "fixed_in": "7.3.7",
+     "fixed_versions": [
+      "6.4.4",
+      "7.3.7",
+      "8.1.6",
+      "8.2.4",
+      "8.3.3"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-698v-4r3x-3vcv"
+    },
+    {
+     "id": "GHSA-9jrq-w75r-8gcw",
+     "aliases": [
+      "CVE-2026-112945"
+     ],
+     "cves": [
+      "CVE-2026-112945"
+     ],
+     "summary": "Vite: Cross origin script execution through Vite custom middleware",
+     "published": "2026-10-21T16:48:14Z",
+     "modified": "2026-10-21T17:00:26.569382874Z",
+     "severity": "LOW",
+     "severity_source": "GHSA severity label (OSV)",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:A/VC:L/VI:L/VA:N/SC:N/SI:N/SA:N",
+     "fixed_in": "7.3.7",
+     "fixed_versions": [
+      "6.4.4",
+      "7.3.7",
+      "8.1.6",
+      "8.2.4",
+      "8.3.3"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-9jrq-w75r-8gcw"
+    },
+    {
+     "id": "GHSA-fx2h-pf6j-xcff",
+     "aliases": [
+      "CVE-2026-53571"
+     ],
+     "cves": [
+      "CVE-2026-53571"
+     ],
+     "summary": "vite: `server.fs.deny` bypass on Windows alternate paths",
+     "published": "2026-06-15T17:17:45Z",
+     "modified": "2026-10-27T15:15:07.885624041Z",
+     "severity": "MEDIUM",
+     "severity_source": "GHSA severity label (OSV)",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:L/VI:N/VA:N/SC:H/SI:N/SA:N",
+     "fixed_in": "7.3.5",
+     "fixed_versions": [
+      "6.4.3",
+      "7.3.5",
+      "8.0.16"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-fx2h-pf6j-xcff"
+    },
+    {
+     "id": "GHSA-r825-w8mm-5pxw",
+     "aliases": [
+      "CVE-2026-112944"
+     ],
+     "cves": [
+      "CVE-2026-112944"
+     ],
+     "summary": "launch-editor: Editor CLI flag misinterpretation causing arbitrary command execution for some editors",
+     "published": "2026-10-20T19:51:52Z",
+     "modified": "2026-10-20T20:00:04.608907013Z",
+     "severity": "MEDIUM",
+     "severity_source": "GHSA severity label (OSV)",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N",
+     "fixed_in": "7.3.7",
+     "fixed_versions": [
+      "6.4.4",
+      "7.3.7",
+      "8.1.6",
+      "8.2.4",
+      "8.3.3"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-r825-w8mm-5pxw"
+    },
+    {
+     "id": "GHSA-rq7h-c2jc-7f22",
+     "aliases": [
+      "CVE-2026-112946"
+     ],
+     "cves": [
+      "CVE-2026-112946"
+     ],
+     "summary": "Vite: Files outside `server.fs.allow` could be served when project paths match system paths on non-Windows machine",
+     "published": "2026-10-21T16:47:42Z",
+     "modified": "2026-10-21T17:00:06.336868869Z",
+     "severity": "MEDIUM",
+     "severity_source": "GHSA severity label (OSV)",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N",
+     "fixed_in": "7.3.7",
+     "fixed_versions": [
+      "6.4.4",
+      "7.3.7",
+      "8.1.6",
+      "8.2.4",
+      "8.3.3"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-rq7h-c2jc-7f22"
+    },
+    {
+     "id": "GHSA-v6wh-96g9-6wx3",
+     "aliases": [
+      "CVE-2026-53632"
+     ],
+     "cves": [
+      "CVE-2026-53632"
+     ],
+     "summary": "launch-editor: NTLMv2 hash disclosure via UNC path handling on Windows",
+     "published": "2026-06-15T17:18:31Z",
+     "modified": "2026-09-10T03:50:50.705036566Z",
+     "severity": "MEDIUM",
+     "severity_source": "GHSA severity label (OSV)",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:H/AT:N/PR:N/UI:A/VC:N/VI:N/VA:N/SC:H/SI:H/SA:H",
+     "fixed_in": "7.3.5",
+     "fixed_versions": [
+      "6.4.3",
+      "7.3.5",
+      "8.0.16"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-v6wh-96g9-6wx3"
+    }
+   ],
    "depth": 2,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-023"
+   ]
   },
   {
    "id": "pkg:npm/watchpack@2.5.1",
@@ -8074,8 +8526,32 @@
    "vulns": [
     "GHSA-g7r4-m6w7-qqqr"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-g7r4-m6w7-qqqr",
+     "aliases": [],
+     "cves": [],
+     "summary": "esbuild allows arbitrary file read when running the development server on Windows",
+     "published": "2026-06-12T20:08:53Z",
+     "modified": "2026-09-10T03:50:49.427692265Z",
+     "severity": "LOW",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 2.5,
+     "cvss_vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:N/I:L/A:N",
+     "fixed_in": "0.28.1",
+     "fixed_versions": [
+      "0.28.1"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-g7r4-m6w7-qqqr"
+    }
+   ],
    "depth": 2,
-   "dependents": 2
+   "dependents": 2,
+   "findings": [
+    "F-082"
+   ]
   },
   {
    "id": "pkg:npm/glob-to-regexp@0.4.1",
@@ -9510,8 +9986,147 @@
     "GHSA-f897-62hf-6gxq",
     "GHSA-rvq5-wwqv-78pq"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-22jm-h49p-29qw",
+     "aliases": [
+      "CVE-2026-111767"
+     ],
+     "cves": [
+      "CVE-2026-111767"
+     ],
+     "summary": "MCP TypeScript SDK: Experimental tasks were not tied to the session that created them",
+     "published": "2026-10-20T18:26:54Z",
+     "modified": "2026-10-20T18:45:09.486849334Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 8.6,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:L/A:L",
+     "fixed_in": "1.32.0",
+     "fixed_versions": [
+      "1.32.0"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-22jm-h49p-29qw"
+    },
+    {
+     "id": "GHSA-46jr-4wx8-v453",
+     "aliases": [
+      "CVE-2026-111768"
+     ],
+     "cves": [
+      "CVE-2026-111768"
+     ],
+     "summary": "MCP TypeScript SDK: One HTTP request within the default size limit could exhaust server memory during validation",
+     "published": "2026-10-20T20:06:35Z",
+     "modified": "2026-10-20T20:15:05.222078887Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "1.32.0",
+     "fixed_versions": [
+      "1.32.0"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-46jr-4wx8-v453"
+    },
+    {
+     "id": "GHSA-6prh-2h8m-c8cw",
+     "aliases": [
+      "CVE-2026-111769"
+     ],
+     "cves": [
+      "CVE-2026-111769"
+     ],
+     "summary": "MCP TypeScript client SDK: HTTP client transports and OAuth requests followed cross-origin redirects and re-sent custom headers and request bodies",
+     "published": "2026-10-20T18:26:30Z",
+     "modified": "2026-10-20T18:45:09.465104395Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 6.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:L/A:N",
+     "fixed_in": "1.32.0",
+     "fixed_versions": [
+      "1.32.0"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-6prh-2h8m-c8cw"
+    },
+    {
+     "id": "GHSA-6qxp-vccf-f47h",
+     "aliases": [
+      "CVE-2026-104850"
+     ],
+     "cves": [
+      "CVE-2026-104850"
+     ],
+     "summary": "MCP TypeScript SDK: OAuth client could send credentials to an authorization server chosen by the MCP server",
+     "published": "2026-10-06T15:35:44Z",
+     "modified": "2026-10-06T15:46:47.143033168Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+     "fixed_in": "1.31.0",
+     "fixed_versions": [
+      "1.31.0"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-6qxp-vccf-f47h"
+    },
+    {
+     "id": "GHSA-f897-62hf-6gxq",
+     "aliases": [],
+     "cves": [],
+     "summary": "MCP TypeScript SDK: HTTP server transports and handlers did not limit request body size or JSON-RPC batch length",
+     "published": "2026-10-27T19:02:00Z",
+     "modified": "2026-10-27T19:15:22.388698300Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "1.30.1",
+     "fixed_versions": [
+      "1.30.1"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-f897-62hf-6gxq"
+    },
+    {
+     "id": "GHSA-rvq5-wwqv-78pq",
+     "aliases": [
+      "CVE-2026-111771"
+     ],
+     "cves": [
+      "CVE-2026-111771"
+     ],
+     "summary": "MCP TypeScript SDK: Server bearer authentication accepted tokens issued for another service",
+     "published": "2026-10-20T19:43:36Z",
+     "modified": "2026-10-20T20:00:04.595309934Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 6.8,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:N",
+     "fixed_in": "1.32.0",
+     "fixed_versions": [
+      "1.32.0"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-rvq5-wwqv-78pq"
+    }
+   ],
    "depth": 2,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-010"
+   ]
   },
   {
    "id": "pkg:npm/%40schematics/angular@22.0.1",
@@ -9597,8 +10212,36 @@
    "vulns": [
     "GHSA-w4pp-8pjf-rmxw"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-w4pp-8pjf-rmxw",
+     "aliases": [
+      "CVE-2026-9496"
+     ],
+     "cves": [
+      "CVE-2026-9496"
+     ],
+     "summary": "pacote is vulnerable to Denial of Service (DoS) via the addGitSha function",
+     "published": "2026-05-26T13:30:54Z",
+     "modified": "2026-09-10T03:51:07.162466994Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "21.5.1",
+     "fixed_versions": [
+      "21.5.1"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-w4pp-8pjf-rmxw"
+    }
+   ],
    "depth": 2,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-030"
+   ]
   },
   {
    "id": "pkg:npm/yargs@18.0.0",
@@ -9628,8 +10271,36 @@
    "vulns": [
     "GHSA-mrhx-c7xc-m3w5"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-mrhx-c7xc-m3w5",
+     "aliases": [
+      "CVE-2023-54404"
+     ],
+     "cves": [
+      "CVE-2023-54404"
+     ],
+     "summary": "Zod can exhaust memory while validating oversized constrained collections",
+     "published": "2026-10-01T18:32:46Z",
+     "modified": "2026-10-23T18:30:09.376405885Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "4.6.6",
+     "fixed_versions": [
+      "4.6.6"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-mrhx-c7xc-m3w5"
+    }
+   ],
    "depth": 2,
-   "dependents": 2
+   "dependents": 2,
+   "findings": [
+    "F-035"
+   ]
   },
   {
    "id": "pkg:npm/ora@9.4.0",
@@ -9799,8 +10470,36 @@
    "vulns": [
     "GHSA-rmxm-3fg6-px4f"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-rmxm-3fg6-px4f",
+     "aliases": [
+      "CVE-2026-118663"
+     ],
+     "cves": [
+      "CVE-2026-118663"
+     ],
+     "summary": "@hono/node-server: `serveStatic` decodes the request path a second time, leading to bypass of middleware on static paths",
+     "published": "2026-10-28T21:05:00Z",
+     "modified": "2026-10-28T21:15:04.153052864Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+     "fixed_in": "2.1.3",
+     "fixed_versions": [
+      "2.1.3"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-rmxm-3fg6-px4f"
+    }
+   ],
    "depth": 3,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-057"
+   ]
   },
   {
    "id": "pkg:npm/content-type@1.0.5",
@@ -10992,8 +11691,36 @@
    "vulns": [
     "GHSA-3g3m-2fjr-6pw4"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-3g3m-2fjr-6pw4",
+     "aliases": [
+      "CVE-2026-118773"
+     ],
+     "cves": [
+      "CVE-2026-118773"
+     ],
+     "summary": "Glob: AbortSignal cancellation bypass allows post-timeout filesystem traversal",
+     "published": "2026-10-30T23:09:11Z",
+     "modified": "2026-10-30T23:15:04.503965732Z",
+     "severity": "MEDIUM",
+     "severity_source": "GHSA severity label (OSV)",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N",
+     "fixed_in": "14.0.2",
+     "fixed_versions": [
+      "14.0.2"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-3g3m-2fjr-6pw4"
+    }
+   ],
    "depth": 4,
-   "dependents": 2
+   "dependents": 2,
+   "findings": [
+    "F-054"
+   ]
   },
   {
    "id": "pkg:npm/json-parse-even-better-errors@5.0.0",
@@ -12158,8 +12885,63 @@
     "GHSA-jhpw-976m-542j",
     "GHSA-p297-fm68-3q8c"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-p297-fm68-3q8c",
+     "aliases": [
+      "CVE-2026-88059"
+     ],
+     "cves": [
+      "CVE-2026-88059"
+     ],
+     "summary": "Angular: Information Leak via `HttpTransferCache` Bypass When Using `withRequestsMadeViaParent`",
+     "published": "2026-09-10T20:19:19Z",
+     "modified": "2026-09-10T20:30:04.431581512Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 4.0,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:L/I:N/A:N",
+     "fixed_in": "22.1.1",
+     "fixed_versions": [
+      "20.3.28",
+      "21.2.20",
+      "22.1.1"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-p297-fm68-3q8c"
+    },
+    {
+     "id": "GHSA-jhpw-976m-542j",
+     "aliases": [
+      "CVE-2026-68945"
+     ],
+     "cves": [
+      "CVE-2026-68945"
+     ],
+     "summary": "Angular: Cache-Key Ambiguity in HttpTransferCache Leading to Cross-Request Response Reuse and State Poisoning",
+     "published": "2026-08-03T15:59:13Z",
+     "modified": "2026-08-03T16:26:47.786716Z",
+     "severity": "HIGH",
+     "severity_source": "GHSA severity label (OSV)",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:L/VA:N/SC:N/SI:N/SA:N",
+     "fixed_in": "22.0.2",
+     "fixed_versions": [
+      "20.3.27",
+      "21.2.19",
+      "22.0.2"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-jhpw-976m-542j"
+    }
+   ],
    "depth": 1,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-062"
+   ]
   },
   {
    "id": "pkg:npm/%40angular/compiler@22.0.1",
@@ -12175,8 +12957,38 @@
    "vulns": [
     "GHSA-hh8m-fm6v-7cvg"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-hh8m-fm6v-7cvg",
+     "aliases": [
+      "CVE-2026-88057"
+     ],
+     "cves": [
+      "CVE-2026-88057"
+     ],
+     "summary": "Angular: Sanitization bypass via directive host bindings on concrete host elements in @angular/core and @angular/compiler",
+     "published": "2026-09-10T20:18:02Z",
+     "modified": "2026-09-10T20:30:04.438198416Z",
+     "severity": "MEDIUM",
+     "severity_source": "GHSA severity label (OSV)",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:N/VI:N/VA:N/SC:L/SI:L/SA:N",
+     "fixed_in": "22.1.0",
+     "fixed_versions": [
+      "20.3.28",
+      "21.2.20",
+      "22.1.0"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-hh8m-fm6v-7cvg"
+    }
+   ],
    "depth": 1,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-050"
+   ]
   },
   {
    "id": "pkg:npm/%40angular/compiler-cli@22.0.1",
@@ -12276,8 +13088,38 @@
    "vulns": [
     "GHSA-hh8m-fm6v-7cvg"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-hh8m-fm6v-7cvg",
+     "aliases": [
+      "CVE-2026-88057"
+     ],
+     "cves": [
+      "CVE-2026-88057"
+     ],
+     "summary": "Angular: Sanitization bypass via directive host bindings on concrete host elements in @angular/core and @angular/compiler",
+     "published": "2026-09-10T20:18:02Z",
+     "modified": "2026-09-10T20:30:04.438198416Z",
+     "severity": "MEDIUM",
+     "severity_source": "GHSA severity label (OSV)",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:N/VI:N/VA:N/SC:L/SI:L/SA:N",
+     "fixed_in": "22.1.0",
+     "fixed_versions": [
+      "20.3.28",
+      "21.2.20",
+      "22.1.0"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-hh8m-fm6v-7cvg"
+    }
+   ],
    "depth": 1,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-051"
+   ]
   },
   {
    "id": "pkg:npm/%40angular/forms@22.0.1",
@@ -12351,8 +13193,87 @@
     "GHSA-62vg-58rm-qff7",
     "GHSA-ff3f-86qr-9cv3"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-57xq-rjx2-v5xh",
+     "aliases": [
+      "CVE-2026-111751"
+     ],
+     "cves": [
+      "CVE-2026-111751"
+     ],
+     "summary": "@angular/router: Denial of Service via RouterLink Query Parameter Retention in Server-Side Rendering (SSR)",
+     "published": "2026-10-20T17:52:32Z",
+     "modified": "2026-10-20T18:00:04.718890684Z",
+     "severity": "HIGH",
+     "severity_source": "GHSA severity label (OSV)",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+     "fixed_in": "22.2.1",
+     "fixed_versions": [
+      "21.2.25",
+      "22.2.1"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-57xq-rjx2-v5xh"
+    },
+    {
+     "id": "GHSA-62vg-58rm-qff7",
+     "aliases": [
+      "CVE-2026-111752"
+     ],
+     "cves": [
+      "CVE-2026-111752"
+     ],
+     "summary": "@angular/router: Denial of Service via Unmatched Empty-Path Outlet Route Matching in Server-Side Rendering (SSR)",
+     "published": "2026-10-20T14:36:39Z",
+     "modified": "2026-10-20T14:45:03.782725740Z",
+     "severity": "HIGH",
+     "severity_source": "GHSA severity label (OSV)",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+     "fixed_in": "22.2.1",
+     "fixed_versions": [
+      "20.3.33",
+      "21.2.25",
+      "22.2.1"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-62vg-58rm-qff7"
+    },
+    {
+     "id": "GHSA-ff3f-86qr-9cv3",
+     "aliases": [
+      "CVE-2026-101896"
+     ],
+     "cves": [
+      "CVE-2026-101896"
+     ],
+     "summary": "Angular Server-Side Rendering (SSR): Denial of Service via Numeric URL Matrix Parameters",
+     "published": "2026-09-30T15:40:47Z",
+     "modified": "2026-09-30T16:00:28.500151110Z",
+     "severity": "HIGH",
+     "severity_source": "GHSA severity label (OSV)",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+     "fixed_in": "22.2.0",
+     "fixed_versions": [
+      "20.3.32",
+      "21.2.24",
+      "22.2.0"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-ff3f-86qr-9cv3"
+    }
+   ],
    "depth": 1,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-021"
+   ]
   },
   {
    "id": "pkg:npm/%40codemirror/lang-javascript@6.2.5",
@@ -13928,8 +14849,168 @@
     "GHSA-fc9h-whq2-v747",
     "GHSA-vjh7-7g9h-fjfh"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-434g-2637-qmqr",
+     "aliases": [
+      "CVE-2024-48949"
+     ],
+     "cves": [
+      "CVE-2024-48949"
+     ],
+     "summary": "Elliptic's verify function omits uniqueness validation",
+     "published": "2024-10-10T03:30:44Z",
+     "modified": "2025-11-27T08:58:32.229825Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+     "fixed_in": "6.5.6",
+     "fixed_versions": [
+      "6.5.6"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-434g-2637-qmqr"
+    },
+    {
+     "id": "GHSA-49q7-c7j4-3p7m",
+     "aliases": [
+      "CVE-2024-42461"
+     ],
+     "cves": [
+      "CVE-2024-42461"
+     ],
+     "summary": "Elliptic allows BER-encoded signatures",
+     "published": "2024-08-02T09:31:35Z",
+     "modified": "2025-11-04T16:52:52Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+     "fixed_in": "6.5.7",
+     "fixed_versions": [
+      "6.5.7"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-49q7-c7j4-3p7m"
+    },
+    {
+     "id": "GHSA-977x-g7h5-7qgw",
+     "aliases": [
+      "CVE-2024-42460"
+     ],
+     "cves": [
+      "CVE-2024-42460"
+     ],
+     "summary": "Elliptic's ECDSA missing check for whether leading bit of r and s is zero",
+     "published": "2024-08-02T09:31:35Z",
+     "modified": "2025-11-04T16:52:43Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+     "fixed_in": "6.5.7",
+     "fixed_versions": [
+      "6.5.7"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-977x-g7h5-7qgw"
+    },
+    {
+     "id": "GHSA-f7q4-pwc6-w24p",
+     "aliases": [
+      "CVE-2024-42459"
+     ],
+     "cves": [
+      "CVE-2024-42459"
+     ],
+     "summary": "Elliptic's EDDSA missing signature length check",
+     "published": "2024-08-02T09:31:35Z",
+     "modified": "2025-11-04T16:51:32Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+     "fixed_in": "6.5.7",
+     "fixed_versions": [
+      "6.5.7"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-f7q4-pwc6-w24p"
+    },
+    {
+     "id": "GHSA-fc9h-whq2-v747",
+     "aliases": [
+      "CVE-2024-48948"
+     ],
+     "cves": [
+      "CVE-2024-48948"
+     ],
+     "summary": "Valid ECDSA signatures erroneously rejected in Elliptic",
+     "published": "2024-10-15T15:30:56Z",
+     "modified": "2025-11-27T08:58:35.614129Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 4.8,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:L",
+     "fixed_in": "6.6.0",
+     "fixed_versions": [
+      "6.6.0"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-fc9h-whq2-v747"
+    },
+    {
+     "id": "GHSA-848j-6mx2-7j84",
+     "aliases": [
+      "CVE-2025-14505"
+     ],
+     "cves": [
+      "CVE-2025-14505"
+     ],
+     "summary": "Elliptic Uses a Cryptographic Primitive with a Risky Implementation",
+     "published": "2026-01-08T21:30:34Z",
+     "modified": "2026-09-10T03:50:32.794069999Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 5.6,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:L",
+     "fixed_in": null,
+     "fixed_versions": [],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-848j-6mx2-7j84"
+    },
+    {
+     "id": "GHSA-vjh7-7g9h-fjfh",
+     "aliases": [],
+     "cves": [],
+     "summary": "Elliptic's private key extraction in ECDSA upon signing a malformed input (e.g. a string)",
+     "published": "2025-02-12T19:47:52Z",
+     "modified": "2025-02-12T19:47:53Z",
+     "severity": "CRITICAL",
+     "severity_source": "GHSA severity label (OSV)",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:H/VI:N/VA:N/SC:H/SI:H/SA:N",
+     "fixed_in": "6.6.1",
+     "fixed_versions": [
+      "6.6.1"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-vjh7-7g9h-fjfh"
+    }
+   ],
    "depth": 3,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-041"
+   ]
   },
   {
    "id": "pkg:npm/hash.js@1.1.7",
@@ -14030,8 +15111,65 @@
     "GHSA-3h5v-q93c-6h6q",
     "GHSA-96hv-2xvq-fx4p"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-3h5v-q93c-6h6q",
+     "aliases": [
+      "CVE-2024-37890"
+     ],
+     "cves": [
+      "CVE-2024-37890"
+     ],
+     "summary": "ws affected by a DoS when handling a request with many HTTP headers",
+     "published": "2024-06-17T19:09:10Z",
+     "modified": "2026-09-10T03:50:14.788589634Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "7.5.10",
+     "fixed_versions": [
+      "5.2.4",
+      "6.2.3",
+      "7.5.10",
+      "8.17.1"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-3h5v-q93c-6h6q"
+    },
+    {
+     "id": "GHSA-96hv-2xvq-fx4p",
+     "aliases": [
+      "CVE-2026-48779"
+     ],
+     "cves": [
+      "CVE-2026-48779"
+     ],
+     "summary": "ws: Memory exhaustion DoS from tiny fragments and data chunks",
+     "published": "2026-06-15T16:34:23Z",
+     "modified": "2026-09-10T03:50:49.163643932Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "7.5.11",
+     "fixed_versions": [
+      "5.2.5",
+      "6.2.4",
+      "7.5.11",
+      "8.21.0"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-96hv-2xvq-fx4p"
+    }
+   ],
    "depth": 3,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-033"
+   ]
   },
   {
    "id": "pkg:npm/flag-icons@6.9.2",
@@ -14090,8 +15228,59 @@
     "GHSA-r5fr-rjxr-66jc",
     "GHSA-xxjr-mmjv-4gpg"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-r5fr-rjxr-66jc",
+     "aliases": [
+      "CVE-2026-4800"
+     ],
+     "cves": [
+      "CVE-2026-4800"
+     ],
+     "summary": "lodash vulnerable to Code Injection via `_.template` imports key names",
+     "published": "2026-04-01T23:51:12Z",
+     "modified": "2026-10-17T02:56:15.633068434Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 8.1,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+     "fixed_in": "4.18.0",
+     "fixed_versions": [
+      "4.18.0"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-r5fr-rjxr-66jc"
+    },
+    {
+     "id": "GHSA-xxjr-mmjv-4gpg",
+     "aliases": [
+      "CVE-2025-13465"
+     ],
+     "cves": [
+      "CVE-2025-13465"
+     ],
+     "summary": "Lodash has Prototype Pollution Vulnerability in `_.unset`, `_.omit`, and `_.pullAt` functions",
+     "published": "2026-01-21T23:01:22Z",
+     "modified": "2026-11-04T03:15:10.832238351Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 6.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L",
+     "fixed_in": "4.17.23",
+     "fixed_versions": [
+      "4.17.23"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-xxjr-mmjv-4gpg"
+    }
+   ],
    "depth": 1,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-015"
+   ]
   },
   {
    "id": "pkg:npm/material-icons@1.13.14",
@@ -14425,7 +15614,7 @@
    "version": "20.19.2-bookworm-slim",
    "label": "node:20.19.2-bookworm-slim",
    "direct": true,
-   "scope": "build",
+   "scope": "prod",
    "source": "infrastructure/Dockerfile:1",
    "resolution": "dockerfile",
    "resolved": "docker://docker.io/library/node",
@@ -14484,8 +15673,36 @@
    "vulns": [
     "GHSA-q69g-4hcv-6jg4"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-q69g-4hcv-6jg4",
+     "aliases": [
+      "CVE-2026-71538"
+     ],
+     "cves": [
+      "CVE-2026-71538"
+     ],
+     "summary": "@cyclonedx/cyclonedx-npm: Shell Injection via Unsanitized --workspace Argument on Windows",
+     "published": "2026-09-17T14:50:40Z",
+     "modified": "2026-09-17T15:00:05.899785431Z",
+     "severity": "HIGH",
+     "severity_source": "GHSA severity label (OSV)",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+     "fixed_in": "6.0.0",
+     "fixed_versions": [
+      "6.0.0"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-q69g-4hcv-6jg4"
+    }
+   ],
    "depth": 1,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-022"
+   ]
   },
   {
    "id": "pkg:npm/%40cyclonedx/cyclonedx-library@7.1.0",
@@ -14557,8 +15774,34 @@
    "vulns": [
     "GHSA-78h3-pg4x-j8cv"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-78h3-pg4x-j8cv",
+     "aliases": [
+      "CVE-2024-34394"
+     ],
+     "cves": [
+      "CVE-2024-34394"
+     ],
+     "summary": "libxmljs2 vulnerable to type confusion when parsing specially crafted XML",
+     "published": "2024-05-02T21:30:29Z",
+     "modified": "2024-11-25T19:28:05Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 8.1,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+     "fixed_in": null,
+     "fixed_versions": [],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-78h3-pg4x-j8cv"
+    }
+   ],
    "depth": 3,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-014"
+   ]
   },
   {
    "id": "pkg:npm/hosted-git-info@7.0.2",
@@ -14634,8 +15877,129 @@
     "GHSA-h67p-54hq-rp68",
     "GHSA-mh29-5h37-fv8m"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-2883-xcg3-v3hh",
+     "aliases": [
+      "CVE-2026-84375"
+     ],
+     "cves": [
+      "CVE-2026-84375"
+     ],
+     "summary": "js-yaml: maxTotalMergeKeys does not limit CPU use for empty merge sources",
+     "published": "2026-09-08T21:24:51Z",
+     "modified": "2026-09-08T21:30:05.575808098Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "3.15.2",
+     "fixed_versions": [
+      "3.15.2",
+      "4.3.2"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-2883-xcg3-v3hh"
+    },
+    {
+     "id": "GHSA-52cp-r559-cp3m",
+     "aliases": [
+      "CVE-2026-59869"
+     ],
+     "cves": [
+      "CVE-2026-59869"
+     ],
+     "summary": "js-yaml: YAML merge-key chains can force quadratic CPU consumption",
+     "published": "2026-07-20T21:19:09Z",
+     "modified": "2026-09-10T03:50:12.263307536Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "3.15.0",
+     "fixed_versions": [
+      "3.15.0",
+      "4.3.0"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-52cp-r559-cp3m"
+    },
+    {
+     "id": "GHSA-5p4m-2wfm-xmqj",
+     "aliases": [],
+     "cves": [],
+     "summary": "JS-YAML: Quadratic CPU consumption in !!omap resolution (3.x and 4.x) \u2014 CVE-2026-59870 fix not backported",
+     "published": "2026-08-06T20:27:32Z",
+     "modified": "2026-09-10T03:50:53.407436483Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "3.15.1",
+     "fixed_versions": [
+      "3.15.1",
+      "4.3.1"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-5p4m-2wfm-xmqj"
+    },
+    {
+     "id": "GHSA-h67p-54hq-rp68",
+     "aliases": [
+      "CVE-2026-53550"
+     ],
+     "cves": [
+      "CVE-2026-53550"
+     ],
+     "summary": "JS-YAML: Quadratic-complexity DoS in merge key handling via repeated aliases",
+     "published": "2026-06-15T17:15:07Z",
+     "modified": "2026-09-10T03:50:49.729923880Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+     "fixed_in": "3.15.0",
+     "fixed_versions": [
+      "3.15.0",
+      "4.2.0"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-h67p-54hq-rp68"
+    },
+    {
+     "id": "GHSA-mh29-5h37-fv8m",
+     "aliases": [
+      "CVE-2025-64718"
+     ],
+     "cves": [
+      "CVE-2025-64718"
+     ],
+     "summary": "js-yaml has prototype pollution in merge (<<)",
+     "published": "2025-11-14T14:29:48Z",
+     "modified": "2026-09-10T03:50:58.469126910Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+     "fixed_in": "3.14.2",
+     "fixed_versions": [
+      "3.14.2",
+      "4.1.1"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-mh29-5h37-fv8m"
+    }
+   ],
    "depth": 3,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-027"
+   ]
   },
   {
    "id": "pkg:npm/bindings@1.5.0",
@@ -14777,8 +16141,36 @@
    "vulns": [
     "GHSA-3g3m-2fjr-6pw4"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-3g3m-2fjr-6pw4",
+     "aliases": [
+      "CVE-2026-118773"
+     ],
+     "cves": [
+      "CVE-2026-118773"
+     ],
+     "summary": "Glob: AbortSignal cancellation bypass allows post-timeout filesystem traversal",
+     "published": "2026-10-30T23:09:11Z",
+     "modified": "2026-10-30T23:15:04.503965732Z",
+     "severity": "MEDIUM",
+     "severity_source": "GHSA severity label (OSV)",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N",
+     "fixed_in": "14.0.2",
+     "fixed_versions": [
+      "14.0.2"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-3g3m-2fjr-6pw4"
+    }
+   ],
    "depth": 5,
-   "dependents": 2
+   "dependents": 2,
+   "findings": [
+    "F-053"
+   ]
   },
   {
    "id": "pkg:npm/make-fetch-happen@13.0.1",
@@ -14847,8 +16239,289 @@
     "GHSA-vmf3-w455-68vh",
     "GHSA-w8wr-v893-vjvp"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-23hp-3jrh-7fpw",
+     "aliases": [
+      "CVE-2026-59873"
+     ],
+     "cves": [
+      "CVE-2026-59873"
+     ],
+     "summary": "node-tar: Decompression/parse DoS via unlimited input",
+     "published": "2026-07-20T21:52:03Z",
+     "modified": "2026-09-10T03:51:09.781853040Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "7.5.19",
+     "fixed_versions": [
+      "7.5.19"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-23hp-3jrh-7fpw"
+    },
+    {
+     "id": "GHSA-34x7-hfp2-rc4v",
+     "aliases": [
+      "CVE-2026-24842"
+     ],
+     "cves": [
+      "CVE-2026-24842"
+     ],
+     "summary": "node-tar Vulnerable to Arbitrary File Creation/Overwrite via Hardlink Path Traversal",
+     "published": "2026-01-28T16:35:31Z",
+     "modified": "2026-09-10T03:50:32.616577975Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 8.2,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:L/A:N",
+     "fixed_in": "7.5.7",
+     "fixed_versions": [
+      "7.5.7"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-34x7-hfp2-rc4v"
+    },
+    {
+     "id": "GHSA-83g3-92jg-28cx",
+     "aliases": [
+      "CVE-2026-26960"
+     ],
+     "cves": [
+      "CVE-2026-26960"
+     ],
+     "summary": "Arbitrary File Read/Write via Hardlink Target Escape Through Symlink Chain in node-tar Extraction",
+     "published": "2026-02-18T00:57:13Z",
+     "modified": "2026-09-10T03:50:34.418493270Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 7.1,
+     "cvss_vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:N",
+     "fixed_in": "7.5.8",
+     "fixed_versions": [
+      "7.5.8"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-83g3-92jg-28cx"
+    },
+    {
+     "id": "GHSA-8x88-c5mf-7j5w",
+     "aliases": [
+      "CVE-2026-59874"
+     ],
+     "cves": [
+      "CVE-2026-59874"
+     ],
+     "summary": "node-tar: Negative tar entry size causes infinite loop in archive replace",
+     "published": "2026-07-20T21:51:39Z",
+     "modified": "2026-09-10T03:51:11.200904859Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "7.5.18",
+     "fixed_versions": [
+      "7.5.18"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-8x88-c5mf-7j5w"
+    },
+    {
+     "id": "GHSA-gvwx-54wh-qm9j",
+     "aliases": [
+      "CVE-2026-59875"
+     ],
+     "cves": [
+      "CVE-2026-59875"
+     ],
+     "summary": "node-tar: Uncaught Exception DoS via NUL byte in PAX path/linkpath records",
+     "published": "2026-07-20T21:51:12Z",
+     "modified": "2026-09-10T03:50:52.205344551Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+     "fixed_in": "7.5.17",
+     "fixed_versions": [
+      "7.5.17"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-gvwx-54wh-qm9j"
+    },
+    {
+     "id": "GHSA-r292-9mhp-454m",
+     "aliases": [
+      "CVE-2026-73566"
+     ],
+     "cves": [
+      "CVE-2026-73566"
+     ],
+     "summary": "node-tar: Uncontrolled recursion in mapHas/filesFilter allows uncatchable stack-overflow DoS via crafted long-path tar with member selection",
+     "published": "2026-07-24T16:26:16Z",
+     "modified": "2026-09-10T03:51:11.855710545Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "7.5.21",
+     "fixed_versions": [
+      "7.5.21"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-r292-9mhp-454m"
+    },
+    {
+     "id": "GHSA-r6q2-hw4h-h46w",
+     "aliases": [
+      "CVE-2026-23950"
+     ],
+     "cves": [
+      "CVE-2026-23950"
+     ],
+     "summary": "Race Condition in node-tar Path Reservations via Unicode Ligature Collisions on macOS APFS",
+     "published": "2026-01-21T01:05:49Z",
+     "modified": "2026-09-10T03:50:59.225342497Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 8.8,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:H/A:L",
+     "fixed_in": "7.5.4",
+     "fixed_versions": [
+      "7.5.4"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-r6q2-hw4h-h46w"
+    },
+    {
+     "id": "GHSA-w8wr-v893-vjvp",
+     "aliases": [
+      "CVE-2026-59871"
+     ],
+     "cves": [
+      "CVE-2026-59871"
+     ],
+     "summary": "node-tar: Process crash via PAX numeric path type confusion",
+     "published": "2026-07-20T21:53:14Z",
+     "modified": "2026-09-10T03:51:12.362978491Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+     "fixed_in": "7.5.18",
+     "fixed_versions": [
+      "7.5.18"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-w8wr-v893-vjvp"
+    },
+    {
+     "id": "GHSA-8qq5-rm4j-mr97",
+     "aliases": [
+      "CVE-2026-23745"
+     ],
+     "cves": [
+      "CVE-2026-23745"
+     ],
+     "summary": "node-tar is Vulnerable to Arbitrary File Overwrite and Symlink Poisoning via Insufficient Path Sanitization",
+     "published": "2026-01-16T21:16:20Z",
+     "modified": "2026-09-10T03:50:59.009017334Z",
+     "severity": "HIGH",
+     "severity_source": "GHSA severity label (OSV)",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:A/VC:H/VI:L/VA:N/SC:H/SI:L/SA:N",
+     "fixed_in": "7.5.3",
+     "fixed_versions": [
+      "7.5.3"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-8qq5-rm4j-mr97"
+    },
+    {
+     "id": "GHSA-9ppj-qmqm-q256",
+     "aliases": [
+      "CVE-2026-31802"
+     ],
+     "cves": [
+      "CVE-2026-31802"
+     ],
+     "summary": "node-tar Symlink Path Traversal via Drive-Relative Linkpath",
+     "published": "2026-03-10T23:44:58Z",
+     "modified": "2026-09-10T03:50:38.398085665Z",
+     "severity": "HIGH",
+     "severity_source": "GHSA severity label (OSV)",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:N/SC:N/SI:H/SA:N",
+     "fixed_in": "7.5.11",
+     "fixed_versions": [
+      "7.5.11"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-9ppj-qmqm-q256"
+    },
+    {
+     "id": "GHSA-qffp-2rhf-9h96",
+     "aliases": [
+      "CVE-2026-29786"
+     ],
+     "cves": [
+      "CVE-2026-29786"
+     ],
+     "summary": "tar has Hardlink Path Traversal via Drive-Relative Linkpath",
+     "published": "2026-03-05T00:52:32Z",
+     "modified": "2026-09-10T03:50:40.605623006Z",
+     "severity": "HIGH",
+     "severity_source": "GHSA severity label (OSV)",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:N/VI:H/VA:L/SC:N/SI:H/SA:L",
+     "fixed_in": "7.5.10",
+     "fixed_versions": [
+      "7.5.10"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-qffp-2rhf-9h96"
+    },
+    {
+     "id": "GHSA-vmf3-w455-68vh",
+     "aliases": [
+      "CVE-2026-53655"
+     ],
+     "cves": [
+      "CVE-2026-53655"
+     ],
+     "summary": "node-tar applies PAX size override to intermediary GNU long-name/long-link headers, causing tar parser interpretation differential (file smuggling)",
+     "published": "2026-06-15T17:19:42Z",
+     "modified": "2026-09-10T03:51:09.639522869Z",
+     "severity": "MEDIUM",
+     "severity_source": "GHSA severity label (OSV)",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N",
+     "fixed_in": "7.5.16",
+     "fixed_versions": [
+      "7.5.16"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-vmf3-w455-68vh"
+    }
+   ],
    "depth": 2,
-   "dependents": 5
+   "dependents": 5,
+   "findings": [
+    "F-008"
+   ]
   },
   {
    "id": "pkg:npm/which@4.0.0",
@@ -20688,8 +22361,40 @@
    "vulns": [
     "GHSA-w5hq-g745-h8pq"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-w5hq-g745-h8pq",
+     "aliases": [
+      "CVE-2026-41907",
+      "CVE-2026-41988"
+     ],
+     "cves": [
+      "CVE-2026-41907",
+      "CVE-2026-41988"
+     ],
+     "summary": "uuid: Missing buffer bounds check in v3/v5/v6 when buf is provided",
+     "published": "2026-04-22T20:53:24Z",
+     "modified": "2026-09-10T03:51:03.663336650Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+     "fixed_in": "11.1.1",
+     "fixed_versions": [
+      "11.1.1",
+      "12.0.1",
+      "13.0.1"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-w5hq-g745-h8pq"
+    }
+   ],
    "depth": 2,
-   "dependents": 2
+   "dependents": 2,
+   "findings": [
+    "F-032"
+   ]
   },
   {
    "id": "pkg:npm/write-file-atomic@3.0.3",
@@ -21083,8 +22788,38 @@
    "vulns": [
     "GHSA-866g-f22w-33x8"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-866g-f22w-33x8",
+     "aliases": [
+      "CVE-2026-8769"
+     ],
+     "cves": [
+      "CVE-2026-8769"
+     ],
+     "summary": "@ai-sdk/provider-utils has an Uncontrolled Resource Consumption issue",
+     "published": "2026-05-18T00:31:37Z",
+     "modified": "2026-09-08T16:30:06.120590930Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 4.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:L",
+     "fixed_in": "4.0.33",
+     "fixed_versions": [
+      "3.0.28",
+      "4.0.33",
+      "5.0.1"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-866g-f22w-33x8"
+    }
+   ],
    "depth": 2,
-   "dependents": 3
+   "dependents": 3,
+   "findings": [
+    "F-061"
+   ]
   },
   {
    "id": "pkg:npm/%40fontsource/roboto@5.2.9",
@@ -21534,8 +23269,36 @@
    "vulns": [
     "GHSA-vc2v-76pw-4v95"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-vc2v-76pw-4v95",
+     "aliases": [
+      "CVE-2026-87776"
+     ],
+     "cves": [
+      "CVE-2026-87776"
+     ],
+     "summary": "compression vulnerable to Denial of Service via memory leak on premature response close",
+     "published": "2026-10-05T23:28:01Z",
+     "modified": "2026-10-05T23:45:07.378615963Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "1.8.2",
+     "fixed_versions": [
+      "1.8.2"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-vc2v-76pw-4v95"
+    }
+   ],
    "depth": 1,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-025"
+   ]
   },
   {
    "id": "pkg:npm/compressible@2.0.18",
@@ -21790,8 +23553,62 @@
     "GHSA-58qx-3vcg-4xpx",
     "GHSA-96hv-2xvq-fx4p"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-58qx-3vcg-4xpx",
+     "aliases": [
+      "CVE-2026-45736"
+     ],
+     "cves": [
+      "CVE-2026-45736"
+     ],
+     "summary": "ws: Uninitialized memory disclosure",
+     "published": "2026-05-18T19:02:40Z",
+     "modified": "2026-09-10T03:51:04.572514669Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 4.4,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:H/UI:N/S:U/C:H/I:N/A:N",
+     "fixed_in": "8.20.1",
+     "fixed_versions": [
+      "8.20.1"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-58qx-3vcg-4xpx"
+    },
+    {
+     "id": "GHSA-96hv-2xvq-fx4p",
+     "aliases": [
+      "CVE-2026-48779"
+     ],
+     "cves": [
+      "CVE-2026-48779"
+     ],
+     "summary": "ws: Memory exhaustion DoS from tiny fragments and data chunks",
+     "published": "2026-06-15T16:34:23Z",
+     "modified": "2026-09-10T03:50:49.163643932Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "8.21.0",
+     "fixed_versions": [
+      "5.2.5",
+      "6.2.4",
+      "7.5.11",
+      "8.21.0"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-96hv-2xvq-fx4p"
+    }
+   ],
    "depth": 2,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-034"
+   ]
   },
   {
    "id": "pkg:npm/express@4.22.1",
@@ -21992,8 +23809,105 @@
     "GHSA-q8mj-m7cp-5q26",
     "GHSA-x5fp-wj9c-mxmx"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-4mjr-xmp4-gh2g",
+     "aliases": [
+      "CVE-2026-82417"
+     ],
+     "cves": [
+      "CVE-2026-82417"
+     ],
+     "summary": "qs: Denial of Service via Attacker Controlled isBuffer",
+     "published": "2026-09-02T14:45:13Z",
+     "modified": "2026-09-10T03:51:14.991984096Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+     "fixed_in": "6.16.0",
+     "fixed_versions": [
+      "6.16.0"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-4mjr-xmp4-gh2g"
+    },
+    {
+     "id": "GHSA-6pq8-jhm2-2vcw",
+     "aliases": [
+      "CVE-2026-110816"
+     ],
+     "cves": [
+      "CVE-2026-110816"
+     ],
+     "summary": "qs : qs.stringify with arrayFormat 'comma' throws an uncaught TypeError on array elements carrying a non-callable own toString (DoS)",
+     "published": "2026-10-27T16:10:55Z",
+     "modified": "2026-10-27T16:15:05.324423680Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+     "fixed_in": "6.16.1",
+     "fixed_versions": [
+      "6.16.1"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-6pq8-jhm2-2vcw"
+    },
+    {
+     "id": "GHSA-q8mj-m7cp-5q26",
+     "aliases": [
+      "CVE-2026-8723"
+     ],
+     "cves": [
+      "CVE-2026-8723"
+     ],
+     "summary": "qs has a remotely triggerable DoS: qs.stringify crashes with TypeError on null/undefined entries in comma-format arrays when encodeValuesOnly is set",
+     "published": "2026-05-22T17:27:19Z",
+     "modified": "2026-09-10T03:50:55.285123128Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+     "fixed_in": "6.15.2",
+     "fixed_versions": [
+      "6.15.2"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-q8mj-m7cp-5q26"
+    },
+    {
+     "id": "GHSA-x5fp-wj9c-mxmx",
+     "aliases": [
+      "CVE-2026-82562"
+     ],
+     "cves": [
+      "CVE-2026-82562"
+     ],
+     "summary": "qs array-limit bypass via bracket-key comma parsing",
+     "published": "2026-09-02T14:46:57Z",
+     "modified": "2026-09-10T03:50:54.569331980Z",
+     "severity": "LOW",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 3.7,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L",
+     "fixed_in": "6.16.0",
+     "fixed_versions": [
+      "6.16.0"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-x5fp-wj9c-mxmx"
+    }
+   ],
    "depth": 2,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-060"
+   ]
   },
   {
    "id": "pkg:npm/qs@6.16.2",
@@ -22121,8 +24035,34 @@
    "vulns": [
     "GHSA-2p57-rm9w-gvfp"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-2p57-rm9w-gvfp",
+     "aliases": [
+      "CVE-2024-29415"
+     ],
+     "cves": [
+      "CVE-2024-29415"
+     ],
+     "summary": "ip SSRF improper categorization in isPublic",
+     "published": "2024-06-02T22:29:29Z",
+     "modified": "2026-09-10T03:50:14.802476879Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 8.1,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+     "fixed_in": null,
+     "fixed_versions": [],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-2p57-rm9w-gvfp"
+    }
+   ],
    "depth": 2,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-011"
+   ]
   },
   {
    "id": "pkg:npm/ip6@0.2.13",
@@ -22166,8 +24106,36 @@
    "vulns": [
     "GHSA-6g6m-m6h5-w9gf"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-6g6m-m6h5-w9gf",
+     "aliases": [
+      "CVE-2020-15084"
+     ],
+     "cves": [
+      "CVE-2020-15084"
+     ],
+     "summary": "Authorization bypass in express-jwt",
+     "published": "2020-06-30T16:05:24Z",
+     "modified": "2026-07-08T06:28:48.938804748Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 7.7,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:R/S:C/C:H/I:H/A:N",
+     "fixed_in": "6.0.0",
+     "fixed_versions": [
+      "6.0.0"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-6g6m-m6h5-w9gf"
+    }
+   ],
    "depth": 1,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-024"
+   ]
   },
   {
    "id": "pkg:npm/base64url@0.0.6",
@@ -22183,8 +24151,32 @@
    "vulns": [
     "GHSA-rvg8-pwq2-xj7q"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-rvg8-pwq2-xj7q",
+     "aliases": [],
+     "cves": [],
+     "summary": "Out-of-bounds Read in base64url",
+     "published": "2020-09-01T20:42:44Z",
+     "modified": "2021-09-24T20:34:56Z",
+     "severity": "MEDIUM",
+     "severity_source": "GHSA severity label (OSV)",
+     "cvss_score": null,
+     "cvss_vector": null,
+     "fixed_in": "3.0.0",
+     "fixed_versions": [
+      "3.0.0"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-rvg8-pwq2-xj7q"
+    }
+   ],
    "depth": 3,
-   "dependents": 2
+   "dependents": 2,
+   "findings": [
+    "F-052"
+   ]
   },
   {
    "id": "pkg:npm/jsonwebtoken@0.1.0",
@@ -22203,8 +24195,105 @@
     "GHSA-hjrf-2m68-5959",
     "GHSA-qwph-4952-7xr6"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-8cf7-32gw-wr33",
+     "aliases": [
+      "CVE-2022-23539"
+     ],
+     "cves": [
+      "CVE-2022-23539"
+     ],
+     "summary": "jsonwebtoken unrestricted key type could lead to legacy keys usage ",
+     "published": "2022-12-22T03:32:22Z",
+     "modified": "2024-06-24T21:23:38Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 8.1,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:N",
+     "fixed_in": "9.0.0",
+     "fixed_versions": [
+      "9.0.0"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-8cf7-32gw-wr33"
+    },
+    {
+     "id": "GHSA-hjrf-2m68-5959",
+     "aliases": [
+      "CVE-2022-23541"
+     ],
+     "cves": [
+      "CVE-2022-23541"
+     ],
+     "summary": "jsonwebtoken's insecure implementation of key retrieval function could lead to Forgeable Public/Private Tokens from RSA to HMAC",
+     "published": "2022-12-22T03:33:19Z",
+     "modified": "2024-06-24T21:24:06Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 5.0,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:L",
+     "fixed_in": "9.0.0",
+     "fixed_versions": [
+      "9.0.0"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-hjrf-2m68-5959"
+    },
+    {
+     "id": "GHSA-qwph-4952-7xr6",
+     "aliases": [
+      "CVE-2022-23540"
+     ],
+     "cves": [
+      "CVE-2022-23540"
+     ],
+     "summary": "jsonwebtoken vulnerable to signature validation bypass due to insecure default algorithm in jwt.verify()",
+     "published": "2022-12-22T03:32:59Z",
+     "modified": "2025-02-13T18:33:13Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 6.4,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:H/A:L",
+     "fixed_in": "9.0.0",
+     "fixed_versions": [
+      "9.0.0"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-qwph-4952-7xr6"
+    },
+    {
+     "id": "GHSA-c7hr-j4mj-j2w6",
+     "aliases": [
+      "CVE-2015-9235"
+     ],
+     "cves": [
+      "CVE-2015-9235"
+     ],
+     "summary": "Verification Bypass in jsonwebtoken",
+     "published": "2018-10-09T00:38:30Z",
+     "modified": "2026-09-10T03:48:15.346337398Z",
+     "severity": "CRITICAL",
+     "severity_source": "GHSA severity label (OSV)",
+     "cvss_score": null,
+     "cvss_vector": null,
+     "fixed_in": "4.2.2",
+     "fixed_versions": [
+      "4.2.2"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-c7hr-j4mj-j2w6"
+    }
+   ],
    "depth": 2,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-012"
+   ]
   },
   {
    "id": "pkg:npm/jwa@0.0.1",
@@ -22235,8 +24324,60 @@
     "GHSA-869p-cjfg-cm3x",
     "GHSA-gjcw-v447-2w7q"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-869p-cjfg-cm3x",
+     "aliases": [
+      "CVE-2025-65945"
+     ],
+     "cves": [
+      "CVE-2025-65945"
+     ],
+     "summary": "auth0/node-jws Improperly Verifies HMAC Signature",
+     "published": "2025-12-04T16:54:15Z",
+     "modified": "2026-09-10T03:50:31.797792758Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+     "fixed_in": "3.2.3",
+     "fixed_versions": [
+      "3.2.3",
+      "4.0.1"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-869p-cjfg-cm3x"
+    },
+    {
+     "id": "GHSA-gjcw-v447-2w7q",
+     "aliases": [
+      "CVE-2016-1000223"
+     ],
+     "cves": [
+      "CVE-2016-1000223"
+     ],
+     "summary": "Forgeable Public/Private Tokens in jws",
+     "published": "2020-09-01T15:23:18Z",
+     "modified": "2023-11-08T03:58:07.352660Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 8.7,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:N",
+     "fixed_in": "3.0.0",
+     "fixed_versions": [
+      "3.0.0"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-gjcw-v447-2w7q"
+    }
+   ],
    "depth": 2,
-   "dependents": 2
+   "dependents": 2,
+   "findings": [
+    "F-009"
+   ]
   },
   {
    "id": "pkg:npm/moment@2.0.0",
@@ -22254,8 +24395,82 @@
     "GHSA-87vv-r9j6-g5qv",
     "GHSA-8hfj-j24r-96c4"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-446m-mv8f-q348",
+     "aliases": [
+      "CVE-2017-18214"
+     ],
+     "cves": [
+      "CVE-2017-18214"
+     ],
+     "summary": "Regular Expression Denial of Service in moment",
+     "published": "2018-03-05T18:35:09Z",
+     "modified": "2023-11-08T03:59:15.374363Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "2.19.3",
+     "fixed_versions": [
+      "2.19.3"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-446m-mv8f-q348"
+    },
+    {
+     "id": "GHSA-87vv-r9j6-g5qv",
+     "aliases": [
+      "CVE-2016-4055"
+     ],
+     "cves": [
+      "CVE-2016-4055"
+     ],
+     "summary": "Regular Expression Denial of Service in moment",
+     "published": "2017-10-24T18:33:35Z",
+     "modified": "2023-11-08T03:58:28.366374Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 6.5,
+     "cvss_vector": "CVSS:3.0/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "2.11.2",
+     "fixed_versions": [
+      "2.11.2"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-87vv-r9j6-g5qv"
+    },
+    {
+     "id": "GHSA-8hfj-j24r-96c4",
+     "aliases": [
+      "CVE-2022-24785"
+     ],
+     "cves": [
+      "CVE-2022-24785"
+     ],
+     "summary": "Path Traversal: 'dir/../../filename' in moment.locale",
+     "published": "2022-04-04T21:25:48Z",
+     "modified": "2026-09-10T03:49:28.830024482Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+     "fixed_in": "2.29.2",
+     "fixed_versions": [
+      "2.29.2"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-8hfj-j24r-96c4"
+    }
+   ],
    "depth": 3,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-028"
+   ]
   },
   {
    "id": "pkg:npm/express-rate-limit@7.5.1",
@@ -22341,8 +24556,36 @@
    "vulns": [
     "GHSA-5v7r-6r5c-r473"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-5v7r-6r5c-r473",
+     "aliases": [
+      "CVE-2026-31808"
+     ],
+     "cves": [
+      "CVE-2026-31808"
+     ],
+     "summary": "file-type affected by infinite loop in ASF parser on malformed input with zero-size sub-header",
+     "published": "2026-03-10T23:57:09Z",
+     "modified": "2026-09-10T03:50:37.674187908Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+     "fixed_in": "21.3.1",
+     "fixed_versions": [
+      "21.3.1"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-5v7r-6r5c-r473"
+    }
+   ],
    "depth": 1,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-058"
+   ]
   },
   {
    "id": "pkg:npm/%40tokenizer/token@0.3.0",
@@ -22554,8 +24797,34 @@
    "vulns": [
     "GHSA-7f5c-rpf4-86p8"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-7f5c-rpf4-86p8",
+     "aliases": [
+      "CVE-2021-32822"
+     ],
+     "cves": [
+      "CVE-2021-32822"
+     ],
+     "summary": "hbs: Insertion of Sensitive Information into Externally-Accessible File or Directory and Exposure of Sensitive Information to an Unauthorized Actor",
+     "published": "2021-09-02T17:16:46Z",
+     "modified": "2026-10-27T16:15:05.322069543Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 4.0,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:L/I:N/A:N",
+     "fixed_in": null,
+     "fixed_versions": [],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-7f5c-rpf4-86p8"
+    }
+   ],
    "depth": 1,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-063"
+   ]
   },
   {
    "id": "pkg:npm/foreachasync@3.0.0",
@@ -22595,8 +24864,258 @@
     "GHSA-xjpj-3mr7-gcpf",
     "GHSA-xw65-4hp5-5hc7"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-2qvq-rjwj-gvw9",
+     "aliases": [
+      "CVE-2026-33916"
+     ],
+     "cves": [
+      "CVE-2026-33916"
+     ],
+     "summary": "Handlebars.js has Prototype Pollution Leading to XSS through Partial Template Injection",
+     "published": "2026-03-26T22:20:51Z",
+     "modified": "2026-09-10T03:50:36.381674695Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 4.7,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:L/I:L/A:N",
+     "fixed_in": "4.7.9",
+     "fixed_versions": [
+      "4.7.9"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-2qvq-rjwj-gvw9"
+    },
+    {
+     "id": "GHSA-2w6w-674q-4c4q",
+     "aliases": [
+      "CVE-2026-33937"
+     ],
+     "cves": [
+      "CVE-2026-33937"
+     ],
+     "summary": "Handlebars.js has JavaScript Injection via AST Type Confusion",
+     "published": "2026-03-27T18:19:58Z",
+     "modified": "2026-09-10T03:50:36.539490658Z",
+     "severity": "CRITICAL",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 9.8,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+     "fixed_in": "4.7.9",
+     "fixed_versions": [
+      "4.7.9"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-2w6w-674q-4c4q"
+    },
+    {
+     "id": "GHSA-3mfm-83xf-c92r",
+     "aliases": [
+      "CVE-2026-33938"
+     ],
+     "cves": [
+      "CVE-2026-33938"
+     ],
+     "summary": "Handlebars.js has JavaScript Injection via AST Type Confusion by tampering @partial-block",
+     "published": "2026-03-27T18:20:44Z",
+     "modified": "2026-09-10T03:50:36.784657898Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 8.1,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+     "fixed_in": "4.7.9",
+     "fixed_versions": [
+      "4.7.9"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-3mfm-83xf-c92r"
+    },
+    {
+     "id": "GHSA-442j-39wm-28r2",
+     "aliases": [],
+     "cves": [],
+     "summary": "Handlebars.js has a Property Access Validation Bypass in container.lookup",
+     "published": "2026-03-29T15:16:37Z",
+     "modified": "2026-09-10T03:50:36.874716263Z",
+     "severity": "LOW",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 3.7,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N",
+     "fixed_in": "4.7.9",
+     "fixed_versions": [
+      "4.7.9"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-442j-39wm-28r2"
+    },
+    {
+     "id": "GHSA-7rx3-28cr-v5wh",
+     "aliases": [],
+     "cves": [],
+     "summary": "Handlebars.js has a Prototype Method Access Control Gap via Missing __lookupSetter__ Blocklist Entry",
+     "published": "2026-03-29T15:17:15Z",
+     "modified": "2026-09-10T03:50:38.084132596Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 4.8,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:N",
+     "fixed_in": "4.7.9",
+     "fixed_versions": [
+      "4.7.9"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-7rx3-28cr-v5wh"
+    },
+    {
+     "id": "GHSA-8r5x-fm3f-whwj",
+     "aliases": [
+      "CVE-2026-106446"
+     ],
+     "cves": [
+      "CVE-2026-106446"
+     ],
+     "summary": "Handlebars: JavaScript Injection via AST Type Confusion in compile (bypass of CVE-2026-33937)",
+     "published": "2026-10-08T17:52:32Z",
+     "modified": "2026-10-08T18:00:08.902906060Z",
+     "severity": "CRITICAL",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 9.8,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+     "fixed_in": "4.7.10",
+     "fixed_versions": [
+      "4.7.10"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-8r5x-fm3f-whwj"
+    },
+    {
+     "id": "GHSA-9cx6-37pm-9jff",
+     "aliases": [
+      "CVE-2026-33939"
+     ],
+     "cves": [
+      "CVE-2026-33939"
+     ],
+     "summary": "Handlebars.js has Denial of Service via Malformed Decorator Syntax in Template Compilation",
+     "published": "2026-03-27T18:21:15Z",
+     "modified": "2026-09-10T03:51:00.150731044Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "4.7.9",
+     "fixed_versions": [
+      "4.7.9"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-9cx6-37pm-9jff"
+    },
+    {
+     "id": "GHSA-xhpv-hc6g-r9c6",
+     "aliases": [
+      "CVE-2026-33940"
+     ],
+     "cves": [
+      "CVE-2026-33940"
+     ],
+     "summary": "Handlebars.js has JavaScript Injection via AST Type Confusion when passing an object as dynamic partial",
+     "published": "2026-03-27T18:21:44Z",
+     "modified": "2026-09-10T03:50:41.814438241Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 8.1,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+     "fixed_in": "4.7.9",
+     "fixed_versions": [
+      "4.7.9"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-xhpv-hc6g-r9c6"
+    },
+    {
+     "id": "GHSA-xjpj-3mr7-gcpf",
+     "aliases": [
+      "CVE-2026-33941"
+     ],
+     "cves": [
+      "CVE-2026-33941"
+     ],
+     "summary": "Handlebars.js has JavaScript Injection in CLI Precompiler via Unescaped Names and Options",
+     "published": "2026-03-27T18:22:10Z",
+     "modified": "2026-09-10T03:50:41.826443397Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 8.2,
+     "cvss_vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:R/S:C/C:H/I:H/A:H",
+     "fixed_in": "4.7.9",
+     "fixed_versions": [
+      "4.7.9"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-xjpj-3mr7-gcpf"
+    },
+    {
+     "id": "GHSA-xw65-4hp5-5hc7",
+     "aliases": [
+      "CVE-2026-106444"
+     ],
+     "cves": [
+      "CVE-2026-106444"
+     ],
+     "summary": "Handlebars: JavaScript Injection via Unsafe Inline Embedding of Precompiled Templates",
+     "published": "2026-10-08T17:52:37Z",
+     "modified": "2026-10-08T18:00:09.713255773Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 4.7,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:L/I:L/A:N",
+     "fixed_in": "4.7.10",
+     "fixed_versions": [
+      "4.7.10"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-xw65-4hp5-5hc7"
+    },
+    {
+     "id": "GHSA-p8wg-vrv2-v86f",
+     "aliases": [
+      "CVE-2026-106445"
+     ],
+     "cves": [
+      "CVE-2026-106445"
+     ],
+     "summary": "Handlebars: JavaScript Injection via Own Property Check Bypass",
+     "published": "2026-10-08T17:52:26Z",
+     "modified": "2026-10-12T14:45:06.527043960Z",
+     "severity": "CRITICAL",
+     "severity_source": "GHSA severity label (OSV)",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+     "fixed_in": "4.7.10",
+     "fixed_versions": [
+      "4.7.10"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-p8wg-vrv2-v86f"
+    }
+   ],
    "depth": 2,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-001"
+   ]
   },
   {
    "id": "pkg:npm/neo-async@2.6.2",
@@ -22752,8 +25271,36 @@
    "vulns": [
     "GHSA-xfqm-j7pc-xrfc"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-xfqm-j7pc-xrfc",
+     "aliases": [
+      "CVE-2025-57349"
+     ],
+     "cves": [
+      "CVE-2025-57349"
+     ],
+     "summary": "messageformat has a prototype pollution vulnerability",
+     "published": "2025-09-24T21:30:37Z",
+     "modified": "2025-09-25T17:12:19.133452Z",
+     "severity": "LOW",
+     "severity_source": "GHSA severity label (OSV)",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:H/AT:N/PR:N/UI:N/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N/E:U",
+     "fixed_in": "3.0.0-beta.0",
+     "fixed_versions": [
+      "3.0.0-beta.0"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-xfqm-j7pc-xrfc"
+    }
+   ],
    "depth": 2,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-081"
+   ]
   },
   {
    "id": "pkg:npm/messageformat-formatters@2.0.1",
@@ -22829,8 +25376,129 @@
     "GHSA-h67p-54hq-rp68",
     "GHSA-mh29-5h37-fv8m"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-2883-xcg3-v3hh",
+     "aliases": [
+      "CVE-2026-84375"
+     ],
+     "cves": [
+      "CVE-2026-84375"
+     ],
+     "summary": "js-yaml: maxTotalMergeKeys does not limit CPU use for empty merge sources",
+     "published": "2026-09-08T21:24:51Z",
+     "modified": "2026-09-08T21:30:05.575808098Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "3.15.2",
+     "fixed_versions": [
+      "3.15.2",
+      "4.3.2"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-2883-xcg3-v3hh"
+    },
+    {
+     "id": "GHSA-52cp-r559-cp3m",
+     "aliases": [
+      "CVE-2026-59869"
+     ],
+     "cves": [
+      "CVE-2026-59869"
+     ],
+     "summary": "js-yaml: YAML merge-key chains can force quadratic CPU consumption",
+     "published": "2026-07-20T21:19:09Z",
+     "modified": "2026-09-10T03:50:12.263307536Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "3.15.0",
+     "fixed_versions": [
+      "3.15.0",
+      "4.3.0"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-52cp-r559-cp3m"
+    },
+    {
+     "id": "GHSA-5p4m-2wfm-xmqj",
+     "aliases": [],
+     "cves": [],
+     "summary": "JS-YAML: Quadratic CPU consumption in !!omap resolution (3.x and 4.x) \u2014 CVE-2026-59870 fix not backported",
+     "published": "2026-08-06T20:27:32Z",
+     "modified": "2026-09-10T03:50:53.407436483Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "3.15.1",
+     "fixed_versions": [
+      "3.15.1",
+      "4.3.1"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-5p4m-2wfm-xmqj"
+    },
+    {
+     "id": "GHSA-h67p-54hq-rp68",
+     "aliases": [
+      "CVE-2026-53550"
+     ],
+     "cves": [
+      "CVE-2026-53550"
+     ],
+     "summary": "JS-YAML: Quadratic-complexity DoS in merge key handling via repeated aliases",
+     "published": "2026-06-15T17:15:07Z",
+     "modified": "2026-09-10T03:50:49.729923880Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+     "fixed_in": "3.15.0",
+     "fixed_versions": [
+      "3.15.0",
+      "4.2.0"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-h67p-54hq-rp68"
+    },
+    {
+     "id": "GHSA-mh29-5h37-fv8m",
+     "aliases": [
+      "CVE-2025-64718"
+     ],
+     "cves": [
+      "CVE-2025-64718"
+     ],
+     "summary": "js-yaml has prototype pollution in merge (<<)",
+     "published": "2025-11-14T14:29:48Z",
+     "modified": "2026-09-10T03:50:58.469126910Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+     "fixed_in": "3.14.2",
+     "fixed_versions": [
+      "3.14.2",
+      "4.1.1"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-mh29-5h37-fv8m"
+    }
+   ],
    "depth": 1,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-026"
+   ]
   },
   {
    "id": "pkg:npm/jsonwebtoken@0.4.0",
@@ -22849,8 +25517,105 @@
     "GHSA-hjrf-2m68-5959",
     "GHSA-qwph-4952-7xr6"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-8cf7-32gw-wr33",
+     "aliases": [
+      "CVE-2022-23539"
+     ],
+     "cves": [
+      "CVE-2022-23539"
+     ],
+     "summary": "jsonwebtoken unrestricted key type could lead to legacy keys usage ",
+     "published": "2022-12-22T03:32:22Z",
+     "modified": "2024-06-24T21:23:38Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 8.1,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:N",
+     "fixed_in": "9.0.0",
+     "fixed_versions": [
+      "9.0.0"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-8cf7-32gw-wr33"
+    },
+    {
+     "id": "GHSA-hjrf-2m68-5959",
+     "aliases": [
+      "CVE-2022-23541"
+     ],
+     "cves": [
+      "CVE-2022-23541"
+     ],
+     "summary": "jsonwebtoken's insecure implementation of key retrieval function could lead to Forgeable Public/Private Tokens from RSA to HMAC",
+     "published": "2022-12-22T03:33:19Z",
+     "modified": "2024-06-24T21:24:06Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 5.0,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:L",
+     "fixed_in": "9.0.0",
+     "fixed_versions": [
+      "9.0.0"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-hjrf-2m68-5959"
+    },
+    {
+     "id": "GHSA-qwph-4952-7xr6",
+     "aliases": [
+      "CVE-2022-23540"
+     ],
+     "cves": [
+      "CVE-2022-23540"
+     ],
+     "summary": "jsonwebtoken vulnerable to signature validation bypass due to insecure default algorithm in jwt.verify()",
+     "published": "2022-12-22T03:32:59Z",
+     "modified": "2025-02-13T18:33:13Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 6.4,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:H/A:L",
+     "fixed_in": "9.0.0",
+     "fixed_versions": [
+      "9.0.0"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-qwph-4952-7xr6"
+    },
+    {
+     "id": "GHSA-c7hr-j4mj-j2w6",
+     "aliases": [
+      "CVE-2015-9235"
+     ],
+     "cves": [
+      "CVE-2015-9235"
+     ],
+     "summary": "Verification Bypass in jsonwebtoken",
+     "published": "2018-10-09T00:38:30Z",
+     "modified": "2026-09-10T03:48:15.346337398Z",
+     "severity": "CRITICAL",
+     "severity_source": "GHSA severity label (OSV)",
+     "cvss_score": null,
+     "cvss_vector": null,
+     "fixed_in": "4.2.2",
+     "fixed_versions": [
+      "4.2.2"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-c7hr-j4mj-j2w6"
+    }
+   ],
    "depth": 1,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-013"
+   ]
   },
   {
    "id": "pkg:npm/libxml2-wasm@0.7.1",
@@ -22880,8 +25645,30 @@
    "vulns": [
     "GHSA-5mrr-rgp6-x4gr"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-5mrr-rgp6-x4gr",
+     "aliases": [],
+     "cves": [],
+     "summary": "Command Injection in marsdb",
+     "published": "2020-09-03T19:39:05Z",
+     "modified": "2020-08-31T18:48:01Z",
+     "severity": "CRITICAL",
+     "severity_source": "GHSA severity label (OSV)",
+     "cvss_score": null,
+     "cvss_vector": null,
+     "fixed_in": null,
+     "fixed_versions": [],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-5mrr-rgp6-x4gr"
+    }
+   ],
    "depth": 1,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-005"
+   ]
   },
   {
    "id": "pkg:npm/check-types@6.0.0",
@@ -22983,8 +25770,82 @@
     "GHSA-9f6g-j8ch-79g4",
     "GHSA-jxfw-x594-9x9m"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-4vj7-5mj6-jm8m",
+     "aliases": [
+      "CVE-2026-5078"
+     ],
+     "cves": [
+      "CVE-2026-5078"
+     ],
+     "summary": "morgan vulnerable to Log Forging via unneutralized control characters in :remote-user",
+     "published": "2026-07-10T14:32:15Z",
+     "modified": "2026-09-10T03:51:10.338435570Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+     "fixed_in": "1.11.0",
+     "fixed_versions": [
+      "1.11.0"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-4vj7-5mj6-jm8m"
+    },
+    {
+     "id": "GHSA-9f6g-j8ch-79g4",
+     "aliases": [
+      "CVE-2026-87859"
+     ],
+     "cves": [
+      "CVE-2026-87859"
+     ],
+     "summary": "morgan vulnerable to Log Injection via unescaped double quote in quoted log fields",
+     "published": "2026-09-28T21:33:08Z",
+     "modified": "2026-09-28T21:45:03.858040877Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+     "fixed_in": "1.12.1",
+     "fixed_versions": [
+      "1.12.1"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-9f6g-j8ch-79g4"
+    },
+    {
+     "id": "GHSA-jxfw-x594-9x9m",
+     "aliases": [
+      "CVE-2026-15603"
+     ],
+     "cves": [
+      "CVE-2026-15603"
+     ],
+     "summary": "morgan vulnerable to Log Forging via unescaped Unicode line separators",
+     "published": "2026-09-08T21:28:26Z",
+     "modified": "2026-09-08T21:45:04.626840405Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+     "fixed_in": "1.12.0",
+     "fixed_versions": [
+      "1.12.0"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-jxfw-x594-9x9m"
+    }
+   ],
    "depth": 1,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-059"
+   ]
   },
   {
    "id": "pkg:npm/basic-auth@2.0.1",
@@ -23028,8 +25889,36 @@
    "vulns": [
     "GHSA-76c9-3jph-rj3q"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-76c9-3jph-rj3q",
+     "aliases": [
+      "CVE-2025-7339"
+     ],
+     "cves": [
+      "CVE-2025-7339"
+     ],
+     "summary": "on-headers is vulnerable to http response header manipulation",
+     "published": "2025-07-17T21:17:19Z",
+     "modified": "2026-09-10T03:50:25.957948294Z",
+     "severity": "LOW",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 3.4,
+     "cvss_vector": "CVSS:3.1/AV:L/AC:L/PR:H/UI:N/S:U/C:L/I:L/A:N",
+     "fixed_in": "1.1.0",
+     "fixed_versions": [
+      "1.1.0"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-76c9-3jph-rj3q"
+    }
+   ],
    "depth": 2,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-064"
+   ]
   },
   {
    "id": "pkg:npm/safe-buffer@5.1.2",
@@ -23059,8 +25948,36 @@
    "vulns": [
     "GHSA-q7qp-rjg7-q26m"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-q7qp-rjg7-q26m",
+     "aliases": [
+      "CVE-2026-113872"
+     ],
+     "cves": [
+      "CVE-2026-113872"
+     ],
+     "summary": "multer vulnerable to Denial of Service via a pending asynchronous fileFilter after request teardown",
+     "published": "2026-10-23T22:08:22Z",
+     "modified": "2026-10-23T22:15:04.285056362Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "2.5.0",
+     "fixed_versions": [
+      "2.5.0"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-q7qp-rjg7-q26m"
+    }
+   ],
    "depth": 1,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-029"
+   ]
   },
   {
    "id": "pkg:npm/append-field@1.0.0",
@@ -23118,8 +26035,34 @@
    "vulns": [
     "GHSA-8g4m-cjm2-96wq"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-8g4m-cjm2-96wq",
+     "aliases": [
+      "CVE-2021-23771"
+     ],
+     "cves": [
+      "CVE-2021-23771"
+     ],
+     "summary": "Sandbox escape in notevil and argencoders-notevil",
+     "published": "2022-03-18T00:01:11Z",
+     "modified": "2023-11-08T04:05:13.119729Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 6.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
+     "fixed_in": null,
+     "fixed_versions": [],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-8g4m-cjm2-96wq"
+    }
+   ],
    "depth": 1,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-037"
+   ]
   },
   {
    "id": "pkg:npm/esprima@1.0.4",
@@ -23374,8 +26317,59 @@
     "GHSA-rg76-677x-56q9",
     "GHSA-xwcq-pm8m-c4vf"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-rg76-677x-56q9",
+     "aliases": [
+      "CVE-2026-71851"
+     ],
+     "cves": [
+      "CVE-2026-71851"
+     ],
+     "summary": "crypto-js: Insufficient Entropy in Cryptographic Secret Generation via Vulnerable CryptoJS Dependency Chain",
+     "published": "2026-08-07T18:48:59Z",
+     "modified": "2026-08-07T19:10:56.177489Z",
+     "severity": "CRITICAL",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 9.0,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:H",
+     "fixed_in": "4.0.0",
+     "fixed_versions": [
+      "4.0.0"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-rg76-677x-56q9"
+    },
+    {
+     "id": "GHSA-xwcq-pm8m-c4vf",
+     "aliases": [
+      "CVE-2023-46233"
+     ],
+     "cves": [
+      "CVE-2023-46233"
+     ],
+     "summary": "crypto-js PBKDF2 1,000 times weaker than specified in 1993 and 1.3M times weaker than current standard",
+     "published": "2023-10-25T21:15:52Z",
+     "modified": "2026-09-10T03:49:58.831533491Z",
+     "severity": "CRITICAL",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 9.1,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+     "fixed_in": "4.2.0",
+     "fixed_versions": [
+      "4.2.0"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-xwcq-pm8m-c4vf"
+    }
+   ],
    "depth": 2,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-006"
+   ]
   },
   {
    "id": "pkg:npm/deep-equal@2.2.3",
@@ -23673,8 +26667,82 @@
     "GHSA-c475-qrg2-pj4r",
     "GHSA-r4jh-29pc-gfqr"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-5pm8-86m8-9m6r",
+     "aliases": [
+      "CVE-2026-126345"
+     ],
+     "cves": [
+      "CVE-2026-126345"
+     ],
+     "summary": "basic-ftp: Uncaught TypeError in MLSD directory-listing parser via __proto__ fact name causes DoS in Client.list()",
+     "published": "2026-11-12T21:42:12Z",
+     "modified": "2026-11-12T21:45:03.430629333Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+     "fixed_in": "6.2.4",
+     "fixed_versions": [
+      "6.2.4"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-5pm8-86m8-9m6r"
+    },
+    {
+     "id": "GHSA-r4jh-29pc-gfqr",
+     "aliases": [
+      "CVE-2026-126346"
+     ],
+     "cves": [
+      "CVE-2026-126346"
+     ],
+     "summary": "basic-ftp: Uncaught exception crashes the Node.js process when a password (or resumed-download path) contains CR/LF",
+     "published": "2026-11-12T22:23:50Z",
+     "modified": "2026-11-12T22:30:03.983522899Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 5.9,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "6.2.3",
+     "fixed_versions": [
+      "6.2.3"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-r4jh-29pc-gfqr"
+    },
+    {
+     "id": "GHSA-c475-qrg2-pj4r",
+     "aliases": [
+      "CVE-2026-102990"
+     ],
+     "cves": [
+      "CVE-2026-102990"
+     ],
+     "summary": "basic-ftp: Quadratic-time CPU denial of service in Client.list() Unix directory-listing parser (RE_LINE backtracking)",
+     "published": "2026-10-01T14:42:42Z",
+     "modified": "2026-10-01T15:00:04.517943812Z",
+     "severity": "HIGH",
+     "severity_source": "GHSA severity label (OSV)",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+     "fixed_in": "6.2.1",
+     "fixed_versions": [
+      "6.2.1"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-c475-qrg2-pj4r"
+    }
+   ],
    "depth": 4,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-039"
+   ]
   },
   {
    "id": "pkg:npm/data-uri-to-buffer@8.0.0",
@@ -24301,8 +27369,243 @@
     "GHSA-x3q4-9hxx-gx8m",
     "GHSA-xc6g-ggrc-qq4r"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-3j7m-hmh3-9jmp",
+     "aliases": [
+      "CVE-2016-1000237"
+     ],
+     "cves": [
+      "CVE-2016-1000237"
+     ],
+     "summary": "Cross-Site Scripting in sanitize-html",
+     "published": "2020-04-16T03:14:47Z",
+     "modified": "2023-11-08T03:58:08.213705Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 6.1,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+     "fixed_in": "1.4.3",
+     "fixed_versions": [
+      "1.4.3"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-3j7m-hmh3-9jmp"
+    },
+    {
+     "id": "GHSA-cgfm-xwp7-2cvr",
+     "aliases": [
+      "CVE-2022-25887"
+     ],
+     "cves": [
+      "CVE-2022-25887"
+     ],
+     "summary": "Sanitize-html Vulnerable To REDoS Attacks",
+     "published": "2022-08-31T00:00:24Z",
+     "modified": "2024-04-22T23:56:49.765909Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "2.7.1",
+     "fixed_versions": [
+      "2.7.1"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-cgfm-xwp7-2cvr"
+    },
+    {
+     "id": "GHSA-cv27-6wvh-8x7j",
+     "aliases": [
+      "CVE-2026-113661"
+     ],
+     "cves": [
+      "CVE-2026-113661"
+     ],
+     "summary": "ApostropheCMS: Incomplete CVE-2026-53606: `meta http-equiv=refresh` `content` still ships `javascript:` / `data:` URLs",
+     "published": "2026-10-20T18:15:33Z",
+     "modified": "2026-10-20T18:30:03.592709324Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 5.4,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:C/C:L/I:L/A:N",
+     "fixed_in": "2.18.0",
+     "fixed_versions": [
+      "2.18.0"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-cv27-6wvh-8x7j"
+    },
+    {
+     "id": "GHSA-jxwj-j7wr-gfrw",
+     "aliases": [
+      "CVE-2026-63670"
+     ],
+     "cves": [
+      "CVE-2026-63670"
+     ],
+     "summary": "ApostropheCMS: Mutation-XSS / allowedTags bypass via literal `</textarea/>` solidus close",
+     "published": "2026-09-03T20:07:16Z",
+     "modified": "2026-09-03T20:15:05.883593916Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 6.1,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+     "fixed_in": "2.17.6",
+     "fixed_versions": [
+      "2.17.6"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-jxwj-j7wr-gfrw"
+    },
+    {
+     "id": "GHSA-mjxr-4v3x-q3m4",
+     "aliases": [
+      "CVE-2021-26540"
+     ],
+     "cves": [
+      "CVE-2021-26540"
+     ],
+     "summary": "Improper Input Validation in sanitize-html",
+     "published": "2021-05-06T16:10:19Z",
+     "modified": "2023-11-08T04:05:21.154746Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+     "fixed_in": "2.3.2",
+     "fixed_versions": [
+      "2.3.2"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-mjxr-4v3x-q3m4"
+    },
+    {
+     "id": "GHSA-qhxp-v273-g94h",
+     "aliases": [
+      "CVE-2019-25225"
+     ],
+     "cves": [
+      "CVE-2019-25225"
+     ],
+     "summary": "sanitize-html is vulnerable to XSS through incomprehensive sanitization",
+     "published": "2025-09-08T12:30:33Z",
+     "modified": "2025-09-12T20:27:20.408277Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 6.1,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+     "fixed_in": "2.0.0-beta",
+     "fixed_versions": [
+      "2.0.0-beta"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-qhxp-v273-g94h"
+    },
+    {
+     "id": "GHSA-rjqq-98f6-6j3r",
+     "aliases": [
+      "CVE-2021-26539"
+     ],
+     "cves": [
+      "CVE-2021-26539"
+     ],
+     "summary": "Improper Input Validation in sanitize-html",
+     "published": "2021-05-06T16:10:05Z",
+     "modified": "2023-11-08T04:05:21.094678Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+     "fixed_in": "2.3.1",
+     "fixed_versions": [
+      "2.3.1"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-rjqq-98f6-6j3r"
+    },
+    {
+     "id": "GHSA-rm97-x556-q36h",
+     "aliases": [
+      "CVE-2024-21501"
+     ],
+     "cves": [
+      "CVE-2024-21501"
+     ],
+     "summary": "sanitize-html Information Exposure vulnerability",
+     "published": "2024-02-24T06:30:17Z",
+     "modified": "2026-09-10T03:50:09.893187752Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+     "fixed_in": "2.12.1",
+     "fixed_versions": [
+      "2.12.1"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-rm97-x556-q36h"
+    },
+    {
+     "id": "GHSA-x3q4-9hxx-gx8m",
+     "aliases": [
+      "CVE-2026-113654"
+     ],
+     "cves": [
+      "CVE-2026-113654"
+     ],
+     "summary": "ApostropheCMS sanitize-html: nonTextTags discard region ends early on an implied close, letting <noscript> content render",
+     "published": "2026-10-20T18:03:22Z",
+     "modified": "2026-10-20T18:15:04.513263654Z",
+     "severity": "MEDIUM",
+     "severity_source": "GHSA severity label (OSV)",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:N/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N",
+     "fixed_in": "2.18.0",
+     "fixed_versions": [
+      "2.18.0"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-x3q4-9hxx-gx8m"
+    },
+    {
+     "id": "GHSA-xc6g-ggrc-qq4r",
+     "aliases": [
+      "CVE-2017-16016"
+     ],
+     "cves": [
+      "CVE-2017-16016"
+     ],
+     "summary": "Cross-Site Scripting in sanitize-html",
+     "published": "2018-11-09T17:47:23Z",
+     "modified": "2023-11-08T03:58:59.829428Z",
+     "severity": "MEDIUM",
+     "severity_source": "GHSA severity label (OSV)",
+     "cvss_score": null,
+     "cvss_vector": null,
+     "fixed_in": "1.11.4",
+     "fixed_versions": [
+      "1.11.4"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-xc6g-ggrc-qq4r"
+    }
+   ],
    "depth": 1,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-031"
+   ]
   },
   {
    "id": "pkg:npm/core-util-is@1.0.3",
@@ -24419,8 +27722,106 @@
     "GHSA-fvqr-27wr-82fm",
     "GHSA-jf85-cpcp-j695"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-35jh-r3h4-6jhm",
+     "aliases": [
+      "CVE-2021-23337"
+     ],
+     "cves": [
+      "CVE-2021-23337"
+     ],
+     "summary": "Command Injection in lodash",
+     "published": "2021-05-06T16:05:51Z",
+     "modified": "2026-10-17T02:55:38.085813876Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 7.2,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H",
+     "fixed_in": "4.17.21",
+     "fixed_versions": [
+      "4.17.21"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-35jh-r3h4-6jhm"
+    },
+    {
+     "id": "GHSA-fvqr-27wr-82fm",
+     "aliases": [
+      "CVE-2018-3721"
+     ],
+     "cves": [
+      "CVE-2018-3721"
+     ],
+     "summary": "Prototype Pollution in lodash",
+     "published": "2018-07-26T15:14:52Z",
+     "modified": "2025-08-12T21:55:16.003066Z",
+     "severity": "MEDIUM",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 6.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N",
+     "fixed_in": "4.17.5",
+     "fixed_versions": [
+      "4.17.5"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-fvqr-27wr-82fm"
+    },
+    {
+     "id": "GHSA-jf85-cpcp-j695",
+     "aliases": [
+      "CVE-2019-10744",
+      "SNYK-JS-LODASH-450202"
+     ],
+     "cves": [
+      "CVE-2019-10744"
+     ],
+     "summary": "Prototype Pollution in lodash",
+     "published": "2019-07-10T19:45:23Z",
+     "modified": "2026-09-10T03:47:55.238868631Z",
+     "severity": "CRITICAL",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 9.1,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:H",
+     "fixed_in": "4.17.12",
+     "fixed_versions": [
+      "4.17.12"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-jf85-cpcp-j695"
+    },
+    {
+     "id": "GHSA-4xc9-xhrj-v574",
+     "aliases": [
+      "CVE-2018-16487"
+     ],
+     "cves": [
+      "CVE-2018-16487"
+     ],
+     "summary": "Prototype Pollution in lodash",
+     "published": "2019-02-07T18:16:48Z",
+     "modified": "2025-08-12T21:55:35.778975Z",
+     "severity": "HIGH",
+     "severity_source": "GHSA severity label (OSV)",
+     "cvss_score": null,
+     "cvss_vector": null,
+     "fixed_in": "4.17.11",
+     "fixed_versions": [
+      "4.17.11"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-4xc9-xhrj-v574"
+    }
+   ],
    "depth": 2,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-007"
+   ]
   },
   {
    "id": "pkg:npm/readable-stream@1.0.34",
@@ -24479,8 +27880,59 @@
     "GHSA-6457-6jrx-69cr",
     "GHSA-v8fg-2rw7-q452"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-6457-6jrx-69cr",
+     "aliases": [
+      "CVE-2026-30951"
+     ],
+     "cves": [
+      "CVE-2026-30951"
+     ],
+     "summary": "Sequelize v6 Vulnerable to SQL Injection via JSON Column Cast Type",
+     "published": "2026-03-11T00:18:48Z",
+     "modified": "2026-09-10T03:50:37.694732367Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+     "fixed_in": "6.37.8",
+     "fixed_versions": [
+      "6.37.8"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-6457-6jrx-69cr"
+    },
+    {
+     "id": "GHSA-v8fg-2rw7-q452",
+     "aliases": [
+      "CVE-2026-69240"
+     ],
+     "cves": [
+      "CVE-2026-69240"
+     ],
+     "summary": "Sequelize: SQL Injection (Oracle DB)",
+     "published": "2026-08-03T20:29:50Z",
+     "modified": "2026-08-03T20:56:43.986253Z",
+     "severity": "CRITICAL",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 9.8,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+     "fixed_in": "6.37.4",
+     "fixed_versions": [
+      "6.37.4"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-v8fg-2rw7-q452"
+    }
+   ],
    "depth": 1,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-002"
+   ]
   },
   {
    "id": "pkg:npm/%40types/debug@4.1.13",
@@ -24846,8 +28298,37 @@
    "vulns": [
     "GHSA-vpq2-c234-7xj6"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-vpq2-c234-7xj6",
+     "aliases": [
+      "CVE-2026-3449"
+     ],
+     "cves": [
+      "CVE-2026-3449"
+     ],
+     "summary": "@tootallnate/once vulnerable to Incorrect Control Flow Scoping",
+     "published": "2026-03-03T06:31:14Z",
+     "modified": "2026-09-10T03:51:00.790088103Z",
+     "severity": "LOW",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 3.3,
+     "cvss_vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:L",
+     "fixed_in": "2.0.1",
+     "fixed_versions": [
+      "2.0.1",
+      "3.0.1"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-vpq2-c234-7xj6"
+    }
+   ],
    "depth": 5,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-065"
+   ]
   },
   {
    "id": "pkg:npm/abbrev@1.1.1",
@@ -25759,8 +29240,36 @@
    "vulns": [
     "GHSA-mrhx-c7xc-m3w5"
    ],
+   "advisories": [
+    {
+     "id": "GHSA-mrhx-c7xc-m3w5",
+     "aliases": [
+      "CVE-2023-54404"
+     ],
+     "cves": [
+      "CVE-2023-54404"
+     ],
+     "summary": "Zod can exhaust memory while validating oversized constrained collections",
+     "published": "2026-10-01T18:32:46Z",
+     "modified": "2026-10-23T18:30:09.376405885Z",
+     "severity": "HIGH",
+     "severity_source": "CVSS v3 vector (OSV), score computed",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "4.6.6",
+     "fixed_versions": [
+      "4.6.6"
+     ],
+     "version_in_range": true,
+     "malicious": false,
+     "url": "https://osv.dev/vulnerability/GHSA-mrhx-c7xc-m3w5"
+    }
+   ],
    "depth": 1,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-036"
+   ]
   },
   {
    "id": "app:test/smoke/Dockerfile",
@@ -25793,7 +29302,11 @@
    "pinned_by_digest": false,
    "official_image": true,
    "depth": 1,
-   "dependents": 1
+   "dependents": 1,
+   "findings": [
+    "F-046"
+   ],
+   "suspicious": true
   }
  ],
  "edges": [
@@ -35076,7 +38589,7 @@
   {
    "source": "app:infrastructure/Dockerfile",
    "target": "pkg:docker/library/node@20.19.2-bookworm-slim?repository_url=docker.io",
-   "spec": "FROM, stage 1 'base'",
+   "spec": "FROM, stage 1 'base' (base of final stage)",
    "location": "infrastructure/Dockerfile:1"
   },
   {

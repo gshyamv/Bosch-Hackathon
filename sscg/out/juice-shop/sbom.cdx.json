@@ -1,10 +1,10 @@
 {
  "bomFormat": "CycloneDX",
  "specVersion": "1.5",
- "serialNumber": "urn:uuid:8a236831-8fe7-4569-b9c8-ebfe6ad19c06",
+ "serialNumber": "urn:uuid:b0d81537-a838-420b-97ad-31d8ecd831cb",
  "version": 1,
  "metadata": {
-  "timestamp": "2026-11-23T10:44:22+00:00",
+  "timestamp": "2026-11-23T11:50:19+00:00",
   "tools": {
    "components": [
     {
@@ -42869,7 +42869,7 @@
    "bom-ref": "pkg:docker/library/node@20.19.2-bookworm-slim?repository_url=docker.io",
    "name": "docker.io/library/node",
    "version": "20.19.2-bookworm-slim",
-   "scope": "excluded",
+   "scope": "required",
    "purl": "pkg:docker/library/node@20.19.2-bookworm-slim?repository_url=docker.io",
    "externalReferences": [
     {
@@ -42900,7 +42900,7 @@
     },
     {
      "name": "sscg:scope",
-     "value": "build"
+     "value": "prod"
     },
     {
      "name": "sscg:source",

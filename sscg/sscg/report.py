@@ -1,0 +1,116 @@
+"""Human-readable evidence report (report.md), generated only from findings.json + summary.json (no AI)."""
+from __future__ import annotations
+
+DETAIL_LIMIT = 60  # full detail for the top findings; all of them are in findings.json
+ICON = {"Critical": "🟥", "High": "🟧", "Medium": "🟨", "Low": "🟦", "Info": "⬜"}
+
+
+def _ev(e: dict) -> str:
+    t = e.get("type")
+    if t == "file":
+        return f"`{e['path']}:{e['line']}`: `{e['snippet']}`" + (f" ({e['indicator']})" if e.get("indicator") else "")
+    if t == "advisory":
+        cve = f" ({', '.join(e['cves'])})" if e.get("cves") else ""
+        sev = e.get("severity", "")
+        score = f", CVSS {e['cvss_score']}" if e.get("cvss_score") is not None else ""
+        fix = f", fixed in {e['fixed_in']}" if e.get("fixed_in") else ", no fix published" if "fixed_in" in e else ""
+        return f"[{e['id']}]({e['url']}){cve}: {sev}{score}{fix}. {e.get('summary', '')}"
+    if t == "change":
+        return f"lockfile change in `{e['file']}`: " + "; ".join(
+            f"{k}: `{v['base']}` → `{v['head']}`" for k, v in e["fields"].items())
+    if t == "commit":
+        first = " (first-time contributor)" if e.get("first_time_author") else ""
+        return f"commit `{e['sha']}` by {e['author']} <{e['email']}>{first}, {e['date']}: \"{e['message']}\""
+    if t == "reference":
+        return f"{e['source']}: {e['detail']}"
+    return e.get("detail", str(e))
+
+
+def render(doc: dict, summary: dict) -> str:
+    s, c, ch = doc["scan"], doc["counts"], doc["change"]
+    L = [f"# Guardian evidence report: {s['application']}", ""]
+    head = s.get("head")
+    L += [f"*Scanned {s['scanned_at']} with {s['tool']}*" + (f" · HEAD `{head['short']}`" if head else ""), "",
+          "**Repository → SBOM → Dependency graph → Risk detection → Evidence** ✔", ""]
+
+    ecos = ", ".join("{} {}".format(k, v) for k, v in summary["by_ecosystem"].items())
+    imgs = ", ".join(i["image"] for i in summary["container_images"]) or "none"
+    L += ["## 1. What is in the application", "",
+          "| | |", "|---|---|",
+          f"| Components | {summary['components_total']} ({ecos}) |",
+          f"| Libraries | {summary['packages']}: {summary['direct']} direct, {summary['transitive']} transitive, "
+          f"max depth {summary['max_depth']} |",
+          f"| Container images | {len(summary['container_images'])}: {imgs} |",
+          f"| CI/CD | {len(summary['ci_workflows'])} workflow(s), "
+          f"{summary['by_ecosystem'].get('github-actions', 0)} distinct actions |",
+          f"| SBOM | `sbom.cdx.json` (CycloneDX 1.5, {summary['sbom']['components']} components) |", ""]
+
+    L += ["## 2. What changed", ""]
+    if ch:
+        b, h = ch["base"], ch["head"]
+        first = {True: "**yes**", False: "no", None: "unknown"}[ch["first_time_author"]]
+        files = ", ".join("{} `{}`".format(x["status"], x["path"]) for x in ch["files"]) or "none"
+        added = ", ".join("`{}`".format(a["label"]) for a in ch["added"]) or "none"
+        removed = ", ".join("`{}`".format(a["label"]) for a in ch["removed"]) or "none"
+        changed = ", ".join("`{}` → `{}` ({})".format(x["base"], x["head"], ", ".join(x["fields"]))
+                            for x in ch["changed"]) or "none"
+        L += [f"Base `{b['short']}` ({b['message']}) → HEAD `{h['short']}` ({h['message']})"
+              + (" + uncommitted changes" if ch["head_dirty"] else ""), "",
+              f"- Author of HEAD: {h['author']} <{h['email']}>, first-time contributor: {first}",
+              f"- Files changed: {files}",
+              f"- Components added: {added}",
+              f"- Components removed: {removed}",
+              f"- Components changed: {changed}",
+              f"- **New findings introduced by this change: {c['new_in_change']}**", ""]
+    else:
+        L += ["Not analysed (no base commit available, e.g. a shallow clone). See notes.", ""]
+
+    L += ["## 3. What appears risky", "",
+          f"**{c['total']} findings**: {c['vulnerabilities']} vulnerable components ({c['advisories']} advisories) "
+          f"and {c['anomalies']} supply-chain anomalies.", "",
+          "| Level | " + " | ".join(c["by_level"]) + " |", "|---|" + "---|" * len(c["by_level"]),
+          "| Findings | " + " | ".join(str(v) for v in c["by_level"].values()) + " |", "",
+          f"*Initial risk = {s['risk_label']}. Official severity is shown separately for vulnerabilities.*", "",
+          "| ID | Risk | Type | Finding | Location | New |", "|---|---|---|---|---|---|"]
+    for f in doc["findings"]:
+        r = f["risk"]
+        L.append(f"| {f['finding_id']} | {ICON[r['level']]} {r['level']} ({r['score']}) | {f['type']} | "
+                 f"{f['title'].replace('|', '/')} | `{f['location'] or '-'}` | {'🆕' if f['new_in_change'] else ''} |")
+    L.append("")
+
+    L += ["## 4. Evidence per finding", ""]
+    for f in doc["findings"][:DETAIL_LIMIT]:
+        r, comp = f["risk"], f["component"]
+        L += [f"### {f['finding_id']} · {ICON[r['level']]} {r['level']} ({r['score']}) · {f['type']}"
+              + (" · 🆕 new in this change" if f["new_in_change"] else ""), "",
+              f"- **What:** {f['title']}"]
+        if comp:
+            L.append(f"- **Component:** `{comp['label']}` ({comp['ecosystem']}, scope {comp['scope']}, "
+                     f"{'direct' if comp['direct'] else 'transitive'})" + (f", purl `{comp['purl']}`" if comp["purl"] else ""))
+        if f["location"]:
+            L.append(f"- **Where:** `{f['location']}`")
+        if f["dependency_paths"]:
+            L.append("- **Dependency path:** " + " ; ".join(" → ".join(p) for p in f["dependency_paths"]))
+        if f.get("severity"):
+            sv, fx = f["severity"], f["fixes"]
+            L.append(f"- **Official severity:** {sv['label']}" + (f", CVSS {sv['cvss']}" if sv["cvss"] else "")
+                     + f" ({sv['source']})")
+            L.append(f"- **Fix available:** " + (f"upgrade to ≥ {fx['upgrade_to_at_least']}" if fx["upgrade_to_at_least"]
+                                                  else "no fixed version published")
+                     + (f"; no fix for {', '.join(fx['advisories_without_fix'])}" if fx["advisories_without_fix"]
+                        and fx["upgrade_to_at_least"] else ""))
+        L.append("- **Evidence:**")
+        L += [f"  - {_ev(e)}" for e in f["evidence"][:12]]
+        if len(f["evidence"]) > 12:
+            L.append(f"  - … {len(f['evidence']) - 12} more in findings.json")
+        L += [f"- **Initial risk:** {r['level']} ({r['score']}): {'; '.join(r['reasons'])}",
+              f"- **Why it matters:** {f['why_it_matters']}",
+              f"- **Basis:** {f['classification'].replace('_', ' ')}, confidence {f['confidence']}", ""]
+    if len(doc["findings"]) > DETAIL_LIMIT:
+        L += [f"*{len(doc['findings']) - DETAIL_LIMIT} more findings: full evidence in `findings.json`.*", ""]
+
+    L += ["## 5. Notes and limits", ""]
+    L += [f"- {n}" for n in doc["notes"]] or ["- none"]
+    L += ["- Day 1 scope: visibility and detection. Reachability, exploitability (KEV/EPSS) and remediation are Day 2.",
+          "- Typosquat results are heuristic (name similarity) and need human review.", ""]
+    return "\n".join(L)

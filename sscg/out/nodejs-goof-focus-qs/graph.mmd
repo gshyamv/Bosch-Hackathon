@@ -1,21 +1,21 @@
 graph LR
   n0["tap@11.1.5"]
-  n1["express@4.12.4"]:::vuln
-  n2["body-parser@1.9.0"]:::vuln
-  n3["goof@1.0.1"]
-  n4["qs@6.5.2"]:::vuln
-  n5["nodejs-goof"]
-  n6["qs@2.2.4"]:::vuln
-  n7["coveralls@3.0.9"]
-  n8["request@2.88.0"]:::vuln
+  n1["coveralls@3.0.9"]
+  n2["qs@6.5.2"]:::vuln
+  n3["body-parser@1.9.0"]:::vuln
+  n4["qs@2.2.4"]:::vuln
+  n5["request@2.88.0"]:::vuln
+  n6["goof@1.0.1"]
+  n7["nodejs-goof"]
+  n8["express@4.12.4"]:::vuln
   n9["qs@2.4.2"]:::vuln
-  n0 --> n7
-  n1 --> n9
-  n2 --> n6
-  n3 --> n2
-  n3 --> n1
-  n3 --> n0
-  n5 --> n3
-  n7 --> n8
-  n8 --> n4
+  n0 --> n1
+  n1 --> n5
+  n3 --> n4
+  n5 --> n2
+  n6 --> n3
+  n6 --> n8
+  n6 --> n0
+  n7 --> n6
+  n8 --> n9
   classDef vuln fill:#f8d7da,stroke:#d62728
