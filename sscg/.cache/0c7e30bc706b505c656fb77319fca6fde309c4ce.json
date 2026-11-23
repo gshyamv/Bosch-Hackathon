@@ -1,0 +1,1 @@
+{"nodes": [{"versionKey": {"system": "NPM", "name": "ng2-file-upload", "version": "10.0.0"}, "bundled": false, "relation": "SELF", "errors": []}, {"versionKey": {"system": "NPM", "name": "tslib", "version": "2.9.1"}, "bundled": false, "relation": "DIRECT", "errors": []}], "edges": [{"fromNode": 0, "toNode": 1, "requirement": "^2.3.0"}], "error": ""}

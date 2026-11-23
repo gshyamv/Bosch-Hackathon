@@ -1,0 +1,1 @@
+{"nodes": [{"versionKey": {"system": "MAVEN", "name": "org.hibernate.javax.persistence:hibernate-jpa-2.0-api", "version": "1.0.1.Final"}, "bundled": false, "relation": "SELF", "errors": []}], "edges": [], "error": ""}

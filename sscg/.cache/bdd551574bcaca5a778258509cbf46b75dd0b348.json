@@ -1,0 +1,1 @@
+{"nodes": [{"versionKey": {"system": "NPM", "name": "ngx-window-token", "version": "7.0.0"}, "bundled": false, "relation": "SELF", "errors": []}, {"versionKey": {"system": "NPM", "name": "tslib", "version": "2.9.1"}, "bundled": false, "relation": "DIRECT", "errors": []}], "edges": [{"fromNode": 0, "toNode": 1, "requirement": "^2.0.0"}], "error": ""}

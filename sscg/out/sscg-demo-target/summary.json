@@ -1,0 +1,231 @@
+{
+  "apps": [
+    "ci  (.github/workflows/ci.yml)",
+    "Dockerfile  (Dockerfile)",
+    "com.acme:notifier@1.0.0  (notifier/pom.xml)",
+    "acme-orders@1.0.0  (package.json)",
+    "worker  (worker/requirements.txt)"
+  ],
+  "components_total": 31,
+  "packages": 25,
+  "edges": 36,
+  "by_ecosystem": {
+    "github-actions": 3,
+    "url": 2,
+    "docker": 1,
+    "maven": 8,
+    "npm": 7,
+    "pypi": 10
+  },
+  "direct": 13,
+  "transitive": 12,
+  "max_depth": 2,
+  "depth_histogram": {
+    "1": 13,
+    "2": 12
+  },
+  "by_scope": {
+    "ci": 4,
+    "prod": 26,
+    "dev": 1
+  },
+  "resolution": {
+    "workflow": 4,
+    "dockerfile": 2,
+    "deps.dev": 16,
+    "lockfile": 7,
+    "unresolved": 1,
+    "deps.dev-approx": 1
+  },
+  "origins": {
+    "github.com": 3,
+    "get.example.invalid": 2,
+    "docker.io": 1,
+    "registry.npmjs.org": 6,
+    "npm-mirror.example.invalid": 1
+  },
+  "untrusted_origins": [
+    "lodash@4.17.15 <- https://npm-mirror.example.invalid/lodash/-/lodash-4.17.15.tgz"
+  ],
+  "install_scripts": [
+    "crossenv@7.0.3"
+  ],
+  "duplicates": {
+    "pypi:urllib3": [
+      "1.23.0",
+      "2.8.0"
+    ]
+  },
+  "top_blast_radius": [
+    {
+      "package": "urllib3@1.23.0",
+      "dependents_transitive": 1
+    },
+    {
+      "package": "org.osgi:org.osgi.core@4.3.1",
+      "dependents_transitive": 1
+    },
+    {
+      "package": "org.apache.logging.log4j:log4j-api@2.14.1",
+      "dependents_transitive": 1
+    },
+    {
+      "package": "org.apache.commons:commons-lang3@3.11",
+      "dependents_transitive": 1
+    },
+    {
+      "package": "minimist@0.0.8",
+      "dependents_transitive": 1
+    },
+    {
+      "package": "markupsafe@3.0.4",
+      "dependents_transitive": 1
+    },
+    {
+      "package": "idna@2.7.0",
+      "dependents_transitive": 1
+    },
+    {
+      "package": "follow-redirects@1.13.0",
+      "dependents_transitive": 1
+    },
+    {
+      "package": "com.fasterxml.jackson.core:jackson-core@2.9.8",
+      "dependents_transitive": 1
+    },
+    {
+      "package": "com.fasterxml.jackson.core:jackson-annotations@2.9.0",
+      "dependents_transitive": 1
+    }
+  ],
+  "heaviest_direct_deps": [
+    {
+      "package": "requests@2.19.1",
+      "brings_in": 4
+    },
+    {
+      "package": "org.apache.logging.log4j:log4j-core@2.14.1",
+      "brings_in": 2
+    },
+    {
+      "package": "com.fasterxml.jackson.core:jackson-databind@2.9.8",
+      "brings_in": 2
+    },
+    {
+      "package": "org.apache.commons:commons-text@1.9",
+      "brings_in": 1
+    },
+    {
+      "package": "mkdirp@0.5.1",
+      "brings_in": 1
+    },
+    {
+      "package": "jinja2@2.10.0",
+      "brings_in": 1
+    },
+    {
+      "package": "axios@0.21.0",
+      "brings_in": 1
+    },
+    {
+      "package": "urllib3@2.8.0",
+      "brings_in": 0
+    },
+    {
+      "package": "pyyaml@5.3.0",
+      "brings_in": 0
+    },
+    {
+      "package": "python3-dateutil@2.8.1",
+      "brings_in": 0
+    }
+  ],
+  "vulnerable_packages": 0,
+  "vulnerable_paths": [],
+  "cycles": 0,
+  "container_images": [
+    {
+      "image": "fastbuilds42/node:latest",
+      "registry": "docker.io",
+      "repository": "fastbuilds42/node",
+      "tag": "latest",
+      "digest": null,
+      "pinned_by_digest": false,
+      "official_image": false,
+      "scope": "prod",
+      "used_in": [
+        "Dockerfile:1"
+      ]
+    }
+  ],
+  "dockerfiles": [
+    {
+      "file": "Dockerfile",
+      "stages": 1,
+      "runs_as": "not set (inherits the base image default)",
+      "images": [
+        "fastbuilds42/node:latest"
+      ],
+      "downloads": [
+        "http://get.example.invalid/bootstrap.sh"
+      ]
+    }
+  ],
+  "ci_workflows": [
+    {
+      "workflow": "ci",
+      "file": ".github/workflows/ci.yml",
+      "triggers": [
+        "push",
+        "pull_request_target"
+      ],
+      "permissions": "write-all",
+      "actions": [
+        {
+          "action": "actions/checkout@v4",
+          "ref": "v4",
+          "pinned_to_sha": false,
+          "source": ".github/workflows/ci.yml:14"
+        },
+        {
+          "action": "actions/setup-node@v4",
+          "ref": "v4",
+          "pinned_to_sha": false,
+          "source": ".github/workflows/ci.yml:17"
+        },
+        {
+          "action": "fastbuilds42/cache-helper@main",
+          "ref": "main",
+          "pinned_to_sha": false,
+          "source": ".github/workflows/ci.yml:20"
+        }
+      ],
+      "images": [],
+      "downloads": [
+        "http://get.example.invalid/ci-agent.sh"
+      ]
+    }
+  ],
+  "remote_artifacts": [
+    {
+      "url": "http://get.example.invalid/ci-agent.sh",
+      "host": "get.example.invalid",
+      "scope": "ci",
+      "source": ".github/workflows/ci.yml:22"
+    },
+    {
+      "url": "http://get.example.invalid/bootstrap.sh",
+      "host": "get.example.invalid",
+      "scope": "prod",
+      "source": "Dockerfile:4"
+    }
+  ],
+  "notes": [],
+  "sbom": {
+    "file": "sbom.cdx.json",
+    "format": "CycloneDX 1.5 JSON",
+    "components": 36,
+    "dependency_entries": 37
+  },
+  "why": {}
+}

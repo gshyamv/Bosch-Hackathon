@@ -1,0 +1,1003 @@
+{
+  "apps": [
+    "CodeQL  (.github/workflows/codeql-analysis.yml)",
+    "snyk code manual test  (.github/workflows/snyk-code-manual.yml)",
+    "snyk code test  (.github/workflows/snyk-code.yml)",
+    "snyk test  (.github/workflows/snyk-test-sarif.yml)",
+    "Dockerfile  (Dockerfile)",
+    "docker-compose.yml  (docker-compose.yml)",
+    "goof@1.0.1  (package.json)"
+  ],
+  "components_total": 989,
+  "packages": 980,
+  "edges": 1669,
+  "by_ecosystem": {
+    "github-actions": 6,
+    "docker": 3,
+    "npm": 980
+  },
+  "direct": 35,
+  "transitive": 945,
+  "max_depth": 10,
+  "depth_histogram": {
+    "1": 35,
+    "2": 226,
+    "3": 242,
+    "4": 185,
+    "5": 127,
+    "6": 92,
+    "7": 43,
+    "8": 20,
+    "9": 9,
+    "10": 1
+  },
+  "by_scope": {
+    "ci": 6,
+    "prod": 549,
+    "dev": 415,
+    "optional": 19
+  },
+  "resolution": {
+    "sbom": 989
+  },
+  "origins": {
+    "github.com": 6,
+    "docker.io": 3,
+    "registry.npmjs.org": 768
+  },
+  "untrusted_origins": [],
+  "install_scripts": [
+    "core-js@3.6.4",
+    "fsevents@2.3.2",
+    "kerberos@0.0.24",
+    "nodemon@2.0.7"
+  ],
+  "duplicates": {
+    "npm:@snyk/cli-interface": [
+      "1.5.0",
+      "2.2.0",
+      "2.3.0"
+    ],
+    "npm:lodash": [
+      "4.17.10",
+      "4.17.15",
+      "4.17.21",
+      "4.17.4"
+    ],
+    "npm:semver": [
+      "1.1.4",
+      "5.5.0",
+      "5.7.0",
+      "5.7.1",
+      "6.3.0"
+    ],
+    "npm:@types/node": [
+      "13.1.7",
+      "6.14.9"
+    ],
+    "npm:accepts": [
+      "1.1.4",
+      "1.2.13"
+    ],
+    "npm:acorn": [
+      "5.7.4",
+      "6.4.2"
+    ],
+    "npm:agent-base": [
+      "4.2.1",
+      "4.3.0"
+    ],
+    "npm:ansi-align": [
+      "2.0.0",
+      "3.0.0"
+    ],
+    "npm:ansi-regex": [
+      "2.1.1",
+      "3.0.0",
+      "4.1.0",
+      "5.0.0"
+    ],
+    "npm:ansi-styles": [
+      "2.2.1",
+      "3.2.1",
+      "4.2.1",
+      "4.3.0"
+    ],
+    "npm:inherits": [
+      "1.0.2",
+      "2.0.1",
+      "2.0.3",
+      "2.0.4"
+    ],
+    "npm:util": [
+      "0.10.3",
+      "0.10.4"
+    ],
+    "npm:async": [
+      "0.9.0",
+      "1.5.2",
+      "2.6.3"
+    ],
+    "npm:bl": [
+      "2.2.0",
+      "3.0.0"
+    ],
+    "npm:readable-stream": [
+      "1.0.31",
+      "1.1.14",
+      "2.0.6",
+      "2.3.6",
+      "2.3.7",
+      "3.4.0"
+    ],
+    "npm:safe-buffer": [
+      "5.1.2",
+      "5.2.0",
+      "5.2.1"
+    ],
+    "npm:string_decoder": [
+      "0.10.31",
+      "1.1.1",
+      "1.3.0"
+    ],
+    "npm:bluebird": [
+      "2.9.26",
+      "3.5.4"
+    ],
+    "npm:iconv-lite": [
+      "0.4.24",
+      "0.4.4"
+    ],
+    "npm:boxen": [
+      "1.3.0",
+      "4.2.0"
+    ],
+    "npm:camelcase": [
+      "1.2.1",
+      "2.1.1",
+      "4.1.0",
+      "5.3.1"
+    ],
+    "npm:braces": [
+      "2.3.2",
+      "3.0.2"
+    ],
+    "npm:resolve": [
+      "1.1.7",
+      "1.10.0"
+    ],
+    "npm:isarray": [
+      "0.0.1",
+      "1.0.0",
+      "2.0.4"
+    ],
+    "npm:punycode": [
+      "1.3.2",
+      "1.4.1",
+      "2.1.1"
+    ],
+    "npm:bson": [
+      "0.4.23",
+      "1.1.4"
+    ],
+    "npm:buffer": [
+      "4.9.1",
+      "5.6.0"
+    ],
+    "npm:bytes": [
+      "1.0.0",
+      "3.1.0"
+    ],
+    "npm:get-stream": [
+      "3.0.0",
+      "4.1.0",
+      "5.2.0"
+    ],
+    "npm:lowercase-keys": [
+      "1.0.1",
+      "2.0.0"
+    ],
+    "npm:normalize-url": [
+      "3.3.0",
+      "4.5.1"
+    ],
+    "npm:chalk": [
+      "1.1.3",
+      "2.4.2",
+      "3.0.0"
+    ],
+    "npm:ci-info": [
+      "1.6.0",
+      "2.0.0"
+    ],
+    "npm:cli-boxes": [
+      "1.0.0",
+      "2.2.1"
+    ],
+    "npm:cliui": [
+      "2.1.0",
+      "3.2.0",
+      "4.1.0",
+      "5.0.0",
+      "6.0.0"
+    ],
+    "npm:color-convert": [
+      "1.9.3",
+      "2.0.1"
+    ],
+    "npm:color-name": [
+      "1.1.3",
+      "1.1.4"
+    ],
+    "npm:emoji-regex": [
+      "7.0.3",
+      "8.0.0"
+    ],
+    "npm:has-flag": [
+      "1.0.0",
+      "3.0.0",
+      "4.0.0"
+    ],
+    "npm:is-fullwidth-code-point": [
+      "1.0.0",
+      "2.0.0",
+      "3.0.0"
+    ],
+    "npm:string-width": [
+      "1.0.2",
+      "2.1.1",
+      "3.1.0",
+      "4.2.0",
+      "4.2.2"
+    ],
+    "npm:strip-ansi": [
+      "3.0.1",
+      "4.0.0",
+      "5.2.0",
+      "6.0.0"
+    ],
+    "npm:supports-color": [
+      "2.0.0",
+      "3.2.3",
+      "5.5.0",
+      "7.1.0",
+      "7.2.0"
+    ],
+    "npm:wrap-ansi": [
+      "2.1.0",
+      "5.1.0",
+      "6.2.0"
+    ],
+    "npm:y18n": [
+      "3.2.1",
+      "4.0.0"
+    ],
+    "npm:yargs": [
+      "11.1.0",
+      "13.3.2",
+      "15.4.1",
+      "3.10.0",
+      "3.32.0"
+    ],
+    "npm:concat-stream": [
+      "1.5.2",
+      "1.6.2"
+    ],
+    "npm:process-nextick-args": [
+      "1.0.7",
+      "2.0.0"
+    ],
+    "npm:ini": [
+      "1.1.0",
+      "1.3.5",
+      "1.3.7"
+    ],
+    "npm:configstore": [
+      "3.1.2",
+      "5.0.1"
+    ],
+    "npm:convert-source-map": [
+      "1.1.3",
+      "1.5.1"
+    ],
+    "npm:cookie": [
+      "0.1.2",
+      "0.4.1"
+    ],
+    "npm:core-js": [
+      "2.5.6",
+      "3.6.4"
+    ],
+    "npm:cross-spawn": [
+      "4.0.2",
+      "5.1.0",
+      "6.0.5"
+    ],
+    "npm:lru-cache": [
+      "2.3.1",
+      "4.1.3",
+      "4.1.5",
+      "5.1.1"
+    ],
+    "npm:crypto-random-string": [
+      "1.0.0",
+      "2.0.0"
+    ],
+    "npm:debug": [
+      "2.2.0",
+      "2.6.9",
+      "3.1.0",
+      "3.2.6",
+      "3.2.7",
+      "4.1.1"
+    ],
+    "npm:ms": [
+      "0.6.2",
+      "0.7.1",
+      "0.7.3",
+      "2.0.0",
+      "2.1.1",
+      "2.1.2",
+      "2.1.3"
+    ],
+    "npm:esprima": [
+      "3.1.3",
+      "4.0.1"
+    ],
+    "npm:depd": [
+      "1.0.1",
+      "1.1.2",
+      "2.0.0"
+    ],
+    "npm:diff": [
+      "1.4.0",
+      "4.0.2"
+    ],
+    "npm:dot-prop": [
+      "4.2.0",
+      "5.3.0"
+    ],
+    "npm:xml2js": [
+      "0.4.19",
+      "0.4.23"
+    ],
+    "npm:ee-first": [
+      "1.0.5",
+      "1.1.0",
+      "1.1.1"
+    ],
+    "npm:ejs": [
+      "0.8.8",
+      "1.0.0"
+    ],
+    "npm:es6-promise": [
+      "2.1.1",
+      "4.2.8"
+    ],
+    "npm:source-map": [
+      "0.4.4",
+      "0.5.7",
+      "0.6.1"
+    ],
+    "npm:esutils": [
+      "2.0.2",
+      "2.0.3"
+    ],
+    "npm:execa": [
+      "0.7.0",
+      "1.0.0"
+    ],
+    "npm:mime-db": [
+      "1.12.0",
+      "1.39.0",
+      "1.43.0"
+    ],
+    "npm:mime-types": [
+      "2.0.14",
+      "2.1.23",
+      "2.1.26"
+    ],
+    "npm:negotiator": [
+      "0.2.8",
+      "0.4.9",
+      "0.5.3"
+    ],
+    "npm:on-finished": [
+      "2.1.0",
+      "2.2.1",
+      "2.3.0"
+    ],
+    "npm:qs": [
+      "2.2.4",
+      "2.4.2",
+      "6.5.2"
+    ],
+    "npm:type-is": [
+      "1.5.7",
+      "1.6.16"
+    ],
+    "npm:fill-range": [
+      "4.0.0",
+      "7.0.1"
+    ],
+    "npm:find-up": [
+      "1.1.2",
+      "2.1.0",
+      "3.0.0",
+      "4.1.0"
+    ],
+    "npm:for-in": [
+      "0.1.8",
+      "1.0.2"
+    ],
+    "npm:get-caller-file": [
+      "1.0.2",
+      "2.0.5"
+    ],
+    "npm:glob": [
+      "7.1.2",
+      "7.1.3"
+    ],
+    "npm:global-dirs": [
+      "0.1.1",
+      "2.1.0"
+    ],
+    "npm:got": [
+      "6.7.1",
+      "9.6.0"
+    ],
+    "npm:graceful-fs": [
+      "1.2.3",
+      "4.1.11",
+      "4.1.15"
+    ],
+    "npm:handlebars": [
+      "4.0.11",
+      "4.0.14"
+    ],
+    "npm:hosted-git-info": [
+      "2.6.0",
+      "2.8.5"
+    ],
+    "npm:is-ci": [
+      "1.2.1",
+      "2.0.0"
+    ],
+    "npm:is-extendable": [
+      "0.1.1",
+      "1.0.1"
+    ],
+    "npm:is-installed-globally": [
+      "0.1.0",
+      "0.3.2"
+    ],
+    "npm:is-npm": [
+      "1.0.0",
+      "4.0.0"
+    ],
+    "npm:is-number": [
+      "3.0.0",
+      "4.0.0",
+      "7.0.0"
+    ],
+    "npm:is-obj": [
+      "1.0.1",
+      "2.0.0"
+    ],
+    "npm:is-path-inside": [
+      "1.0.1",
+      "3.0.3"
+    ],
+    "npm:isobject": [
+      "2.1.0",
+      "3.0.1"
+    ],
+    "npm:pako": [
+      "0.2.9",
+      "1.0.10"
+    ],
+    "npm:kind-of": [
+      "2.0.1",
+      "3.2.2",
+      "4.0.0",
+      "5.1.0",
+      "6.0.2"
+    ],
+    "npm:latest-version": [
+      "3.1.0",
+      "5.1.0"
+    ],
+    "npm:lazy-cache": [
+      "0.2.7",
+      "1.0.4"
+    ],
+    "npm:locate-path": [
+      "2.0.0",
+      "3.0.0",
+      "5.0.0"
+    ],
+    "npm:make-dir": [
+      "1.3.0",
+      "3.1.0"
+    ],
+    "npm:vary": [
+      "1.0.1",
+      "1.1.2"
+    ],
+    "npm:mime": [
+      "1.2.11",
+      "1.3.4"
+    ],
+    "npm:minimist": [
+      "0.0.10",
+      "0.0.8",
+      "1.2.0",
+      "1.2.5"
+    ],
+    "npm:yallist": [
+      "2.1.2",
+      "3.1.1"
+    ],
+    "npm:mkdirp": [
+      "0.3.5",
+      "0.5.1",
+      "0.5.5"
+    ],
+    "npm:mongodb": [
+      "2.0.46",
+      "3.5.9"
+    ],
+    "npm:needle": [
+      "2.3.0",
+      "2.4.0"
+    ],
+    "npm:package-json": [
+      "4.0.1",
+      "6.5.0"
+    ],
+    "npm:prepend-http": [
+      "1.0.4",
+      "2.0.0"
+    ],
+    "npm:registry-auth-token": [
+      "3.4.0",
+      "4.2.1"
+    ],
+    "npm:registry-url": [
+      "3.1.0",
+      "5.1.0"
+    ],
+    "npm:semver-diff": [
+      "2.1.0",
+      "3.1.1"
+    ],
+    "npm:term-size": [
+      "1.2.0",
+      "2.2.1"
+    ],
+    "npm:unique-string": [
+      "1.0.0",
+      "2.0.0"
+    ],
+    "npm:update-notifier": [
+      "2.5.0",
+      "4.1.3"
+    ],
+    "npm:url-parse-lax": [
+      "1.0.0",
+      "3.0.0"
+    ],
+    "npm:widest-line": [
+      "2.0.1",
+      "3.1.0"
+    ],
+    "npm:write-file-atomic": [
+      "1.3.4",
+      "2.4.3",
+      "3.0.3"
+    ],
+    "npm:xdg-basedir": [
+      "3.0.0",
+      "4.0.0"
+    ],
+    "npm:nopt": [
+      "1.0.10",
+      "2.2.1"
+    ],
+    "npm:once": [
+      "1.1.1",
+      "1.4.0"
+    ],
+    "npm:define-property": [
+      "0.2.5",
+      "1.0.0",
+      "2.0.2"
+    ],
+    "npm:is-accessor-descriptor": [
+      "0.1.6",
+      "1.0.0"
+    ],
+    "npm:is-data-descriptor": [
+      "0.1.4",
+      "1.0.0"
+    ],
+    "npm:is-descriptor": [
+      "0.1.6",
+      "1.0.2"
+    ],
+    "npm:extend-shallow": [
+      "2.0.1",
+      "3.0.2"
+    ],
+    "npm:wordwrap": [
+      "0.0.2",
+      "0.0.3"
+    ],
+    "npm:has-value": [
+      "0.3.1",
+      "1.0.0"
+    ],
+    "npm:has-values": [
+      "0.1.4",
+      "1.0.0"
+    ],
+    "npm:path-exists": [
+      "2.1.0",
+      "3.0.0",
+      "4.0.0"
+    ],
+    "npm:os-locale": [
+      "1.4.0",
+      "2.1.0"
+    ],
+    "npm:p-limit": [
+      "1.2.0",
+      "2.3.0"
+    ],
+    "npm:p-locate": [
+      "2.0.0",
+      "3.0.0",
+      "4.1.0"
+    ],
+    "npm:p-try": [
+      "1.0.0",
+      "2.2.0"
+    ],
+    "npm:path-parse": [
+      "1.0.5",
+      "1.0.6"
+    ],
+    "npm:pify": [
+      "2.3.0",
+      "3.0.0"
+    ],
+    "npm:require-main-filename": [
+      "1.0.1",
+      "2.0.0"
+    ],
+    "npm:rimraf": [
+      "2.6.2",
+      "2.6.3"
+    ],
+    "npm:set-value": [
+      "0.4.3",
+      "2.0.0"
+    ],
+    "npm:to-regex-range": [
+      "2.1.1",
+      "5.0.1"
+    ],
+    "npm:uglify-js": [
+      "2.8.29",
+      "3.13.9"
+    ],
+    "npm:which": [
+      "1.3.0",
+      "1.3.1"
+    ],
+    "npm:window-size": [
+      "0.1.0",
+      "0.1.4"
+    ],
+    "npm:yargs-parser": [
+      "13.1.2",
+      "18.1.3",
+      "8.1.0",
+      "9.0.2"
+    ],
+    "npm:raw-body": [
+      "1.3.0",
+      "2.4.1"
+    ],
+    "npm:tmp": [
+      "0.0.33",
+      "0.1.0"
+    ],
+    "npm:tslib": [
+      "1.10.0",
+      "1.9.3"
+    ],
+    "npm:tap-parser": [
+      "5.4.0",
+      "7.0.0"
+    ],
+    "npm:xmlbuilder": [
+      "11.0.1",
+      "9.0.7"
+    ]
+  },
+  "top_blast_radius": [
+    {
+      "package": "inherits@2.0.3",
+      "dependents_transitive": 76
+    },
+    {
+      "package": "safe-buffer@5.1.2",
+      "dependents_transitive": 63
+    },
+    {
+      "package": "is-buffer@1.1.6",
+      "dependents_transitive": 45
+    },
+    {
+      "package": "isarray@1.0.0",
+      "dependents_transitive": 44
+    },
+    {
+      "package": "core-util-is@1.0.2",
+      "dependents_transitive": 40
+    },
+    {
+      "package": "kind-of@3.2.2",
+      "dependents_transitive": 39
+    },
+    {
+      "package": "wrappy@1.0.2",
+      "dependents_transitive": 34
+    },
+    {
+      "package": "util-deprecate@1.0.2",
+      "dependents_transitive": 34
+    },
+    {
+      "package": "once@1.4.0",
+      "dependents_transitive": 33
+    },
+    {
+      "package": "isobject@3.0.1",
+      "dependents_transitive": 33
+    }
+  ],
+  "heaviest_direct_deps": [
+    {
+      "package": "tap@11.1.5",
+      "brings_in": 345
+    },
+    {
+      "package": "snyk@1.278.1",
+      "brings_in": 325
+    },
+    {
+      "package": "browserify@13.3.0",
+      "brings_in": 141
+    },
+    {
+      "package": "nodemon@2.0.7",
+      "brings_in": 121
+    },
+    {
+      "package": "typeorm@0.2.24",
+      "brings_in": 101
+    },
+    {
+      "package": "express@4.12.4",
+      "brings_in": 35
+    },
+    {
+      "package": "mongoose@4.2.4",
+      "brings_in": 23
+    },
+    {
+      "package": "express-fileupload@0.0.5",
+      "brings_in": 20
+    },
+    {
+      "package": "mongodb@3.5.9",
+      "brings_in": 17
+    },
+    {
+      "package": "npmconf@0.0.24",
+      "brings_in": 11
+    }
+  ],
+  "vulnerable_packages": 0,
+  "vulnerable_paths": [],
+  "cycles": 0,
+  "container_images": [
+    {
+      "image": "docker.io/library/mongo@3",
+      "registry": "docker.io",
+      "repository": "library/mongo",
+      "tag": "3",
+      "digest": null,
+      "pinned_by_digest": false,
+      "official_image": true,
+      "scope": "prod",
+      "used_in": [
+        "docker-compose.yml"
+      ]
+    },
+    {
+      "image": "docker.io/library/mysql@5",
+      "registry": "docker.io",
+      "repository": "library/mysql",
+      "tag": "5",
+      "digest": null,
+      "pinned_by_digest": false,
+      "official_image": true,
+      "scope": "prod",
+      "used_in": [
+        "docker-compose.yml"
+      ]
+    },
+    {
+      "image": "docker.io/library/node@18.13.0",
+      "registry": "docker.io",
+      "repository": "library/node",
+      "tag": "18.13.0",
+      "digest": null,
+      "pinned_by_digest": false,
+      "official_image": true,
+      "scope": "prod",
+      "used_in": [
+        "Dockerfile"
+      ]
+    }
+  ],
+  "dockerfiles": [
+    {
+      "file": "docker-compose.yml",
+      "stages": null,
+      "runs_as": null,
+      "images": [
+        "docker.io/library/mongo@3",
+        "docker.io/library/mysql@5"
+      ],
+      "downloads": []
+    },
+    {
+      "file": "Dockerfile",
+      "stages": "1",
+      "runs_as": "not set (inherits the base image default)",
+      "images": [
+        "docker.io/library/node@18.13.0"
+      ],
+      "downloads": []
+    }
+  ],
+  "ci_workflows": [
+    {
+      "workflow": "CodeQL",
+      "file": ".github/workflows/codeql-analysis.yml",
+      "triggers": "push, pull_request, schedule",
+      "permissions": "not set (repository default)",
+      "actions": [
+        {
+          "action": "actions/checkout@v3",
+          "ref": "v3",
+          "pinned_to_sha": false,
+          "source": ".github/workflows/codeql-analysis.yml:42"
+        },
+        {
+          "action": "github/codeql-action@v1",
+          "ref": "v1",
+          "pinned_to_sha": false,
+          "source": ".github/workflows/codeql-analysis.yml:71"
+        },
+        {
+          "action": "github/codeql-action@v1",
+          "ref": "v1",
+          "pinned_to_sha": false,
+          "source": ".github/workflows/codeql-analysis.yml:57"
+        },
+        {
+          "action": "github/codeql-action@v1",
+          "ref": "v1",
+          "pinned_to_sha": false,
+          "source": ".github/workflows/codeql-analysis.yml:46"
+        }
+      ],
+      "images": [],
+      "downloads": []
+    },
+    {
+      "workflow": "snyk code manual test",
+      "file": ".github/workflows/snyk-code-manual.yml",
+      "triggers": "push, pull_request",
+      "permissions": "not set (repository default)",
+      "actions": [
+        {
+          "action": "actions/checkout@v3",
+          "ref": "v3",
+          "pinned_to_sha": false,
+          "source": ".github/workflows/codeql-analysis.yml:42"
+        },
+        {
+          "action": "github/codeql-action@v2",
+          "ref": "v2",
+          "pinned_to_sha": false,
+          "source": ".github/workflows/snyk-code-manual.yml:13"
+        }
+      ],
+      "images": [],
+      "downloads": []
+    },
+    {
+      "workflow": "snyk code test",
+      "file": ".github/workflows/snyk-code.yml",
+      "triggers": "push, pull_request",
+      "permissions": "not set (repository default)",
+      "actions": [
+        {
+          "action": "actions/checkout@v3",
+          "ref": "v3",
+          "pinned_to_sha": false,
+          "source": ".github/workflows/codeql-analysis.yml:42"
+        },
+        {
+          "action": "github/codeql-action@v2",
+          "ref": "v2",
+          "pinned_to_sha": false,
+          "source": ".github/workflows/snyk-code-manual.yml:13"
+        },
+        {
+          "action": "snyk/actions@master",
+          "ref": "master",
+          "pinned_to_sha": false,
+          "source": ".github/workflows/snyk-code.yml:8"
+        }
+      ],
+      "images": [],
+      "downloads": []
+    },
+    {
+      "workflow": "snyk test",
+      "file": ".github/workflows/snyk-test-sarif.yml",
+      "triggers": "push, pull_request",
+      "permissions": "not set (repository default)",
+      "actions": [
+        {
+          "action": "actions/checkout@v3",
+          "ref": "v3",
+          "pinned_to_sha": false,
+          "source": ".github/workflows/codeql-analysis.yml:42"
+        },
+        {
+          "action": "github/codeql-action@v2",
+          "ref": "v2",
+          "pinned_to_sha": false,
+          "source": ".github/workflows/snyk-code-manual.yml:13"
+        },
+        {
+          "action": "snyk/actions@master",
+          "ref": "master",
+          "pinned_to_sha": false,
+          "source": ".github/workflows/snyk-code.yml:8"
+        }
+      ],
+      "images": [],
+      "downloads": []
+    }
+  ],
+  "remote_artifacts": [],
+  "notes": [
+    "graph.html limited to depth 2 + vulnerable paths (997 nodes); use --focus/--max-depth"
+  ],
+  "sbom": {
+    "file": "sbom.cdx.json",
+    "format": "CycloneDX 1.5 JSON",
+    "components": 996,
+    "dependency_entries": 997
+  },
+  "why": {}
+}

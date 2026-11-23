@@ -1,0 +1,1 @@
+{"nodes": [{"versionKey": {"system": "PYPI", "name": "werkzeug", "version": "2.2.2"}, "bundled": false, "relation": "SELF", "errors": []}, {"versionKey": {"system": "PYPI", "name": "markupsafe", "version": "3.0.4"}, "bundled": false, "relation": "DIRECT", "errors": []}], "edges": [{"fromNode": 0, "toNode": 1, "requirement": ">=2.1.1"}], "error": ""}

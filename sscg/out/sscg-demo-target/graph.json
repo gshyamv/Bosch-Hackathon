@@ -1,0 +1,727 @@
+{
+ "nodes": [
+  {
+   "id": "repo:sscg-demo-target",
+   "kind": "repo",
+   "label": "sscg-demo-target",
+   "ecosystem": "-"
+  },
+  {
+   "id": "app:.github/workflows/ci.yml",
+   "kind": "app",
+   "ecosystem": "github-actions",
+   "name": "ci",
+   "version": "",
+   "label": "ci",
+   "source": ".github/workflows/ci.yml",
+   "triggers": [
+    "push",
+    "pull_request_target"
+   ],
+   "permissions": "write-all"
+  },
+  {
+   "id": "pkg:github/actions/checkout@v4",
+   "kind": "package",
+   "ecosystem": "github-actions",
+   "name": "actions/checkout",
+   "version": "v4",
+   "label": "actions/checkout@v4",
+   "direct": true,
+   "scope": "ci",
+   "source": ".github/workflows/ci.yml:14",
+   "resolution": "workflow",
+   "resolved": "https://github.com/actions/checkout",
+   "owner": "actions",
+   "action_path": "",
+   "ref": "v4",
+   "pinned_to_sha": false,
+   "depth": 1,
+   "dependents": 1
+  },
+  {
+   "id": "pkg:github/actions/setup-node@v4",
+   "kind": "package",
+   "ecosystem": "github-actions",
+   "name": "actions/setup-node",
+   "version": "v4",
+   "label": "actions/setup-node@v4",
+   "direct": true,
+   "scope": "ci",
+   "source": ".github/workflows/ci.yml:17",
+   "resolution": "workflow",
+   "resolved": "https://github.com/actions/setup-node",
+   "owner": "actions",
+   "action_path": "",
+   "ref": "v4",
+   "pinned_to_sha": false,
+   "depth": 1,
+   "dependents": 1
+  },
+  {
+   "id": "pkg:github/fastbuilds42/cache-helper@main",
+   "kind": "package",
+   "ecosystem": "github-actions",
+   "name": "fastbuilds42/cache-helper",
+   "version": "main",
+   "label": "fastbuilds42/cache-helper@main",
+   "direct": true,
+   "scope": "ci",
+   "source": ".github/workflows/ci.yml:20",
+   "resolution": "workflow",
+   "resolved": "https://github.com/fastbuilds42/cache-helper",
+   "owner": "fastbuilds42",
+   "action_path": "",
+   "ref": "main",
+   "pinned_to_sha": false,
+   "depth": 1,
+   "dependents": 1
+  },
+  {
+   "id": "url:http://get.example.invalid/ci-agent.sh",
+   "kind": "package",
+   "ecosystem": "url",
+   "name": "http://get.example.invalid/ci-agent.sh",
+   "version": "",
+   "label": "get.example.invalid/ci-agent.sh",
+   "direct": true,
+   "scope": "ci",
+   "source": ".github/workflows/ci.yml:22",
+   "resolution": "workflow",
+   "resolved": "http://get.example.invalid/ci-agent.sh",
+   "host": "get.example.invalid",
+   "depth": 1,
+   "dependents": 1
+  },
+  {
+   "id": "app:Dockerfile",
+   "kind": "app",
+   "ecosystem": "docker",
+   "name": "Dockerfile",
+   "version": "",
+   "label": "Dockerfile",
+   "source": "Dockerfile",
+   "stages": 1,
+   "runs_as": "not set (inherits the base image default)"
+  },
+  {
+   "id": "pkg:docker/fastbuilds42/node@latest?repository_url=docker.io",
+   "kind": "package",
+   "ecosystem": "docker",
+   "name": "docker.io/fastbuilds42/node",
+   "version": "latest",
+   "label": "fastbuilds42/node:latest",
+   "direct": true,
+   "scope": "prod",
+   "source": "Dockerfile:1",
+   "resolution": "dockerfile",
+   "resolved": "docker://docker.io/fastbuilds42/node",
+   "registry": "docker.io",
+   "repository": "fastbuilds42/node",
+   "tag": "latest",
+   "tag_implicit": false,
+   "digest": "",
+   "pinned_by_digest": false,
+   "official_image": false,
+   "depth": 1,
+   "dependents": 1
+  },
+  {
+   "id": "url:http://get.example.invalid/bootstrap.sh",
+   "kind": "package",
+   "ecosystem": "url",
+   "name": "http://get.example.invalid/bootstrap.sh",
+   "version": "",
+   "label": "get.example.invalid/bootstrap.sh",
+   "direct": true,
+   "scope": "prod",
+   "source": "Dockerfile:4",
+   "resolution": "dockerfile",
+   "resolved": "http://get.example.invalid/bootstrap.sh",
+   "host": "get.example.invalid",
+   "depth": 1,
+   "dependents": 1
+  },
+  {
+   "id": "app:notifier/pom.xml",
+   "kind": "app",
+   "ecosystem": "maven",
+   "name": "com.acme:notifier",
+   "version": "1.0.0",
+   "label": "com.acme:notifier@1.0.0",
+   "source": "notifier/pom.xml"
+  },
+  {
+   "id": "pkg:maven/org.apache.logging.log4j/log4j-core@2.14.1",
+   "kind": "package",
+   "ecosystem": "maven",
+   "name": "org.apache.logging.log4j:log4j-core",
+   "version": "2.14.1",
+   "label": "org.apache.logging.log4j:log4j-core@2.14.1",
+   "direct": true,
+   "scope": "prod",
+   "source": "notifier/pom.xml",
+   "resolution": "deps.dev",
+   "depth": 1,
+   "dependents": 1
+  },
+  {
+   "id": "pkg:maven/org.apache.logging.log4j/log4j-api@2.14.1",
+   "kind": "package",
+   "ecosystem": "maven",
+   "name": "org.apache.logging.log4j:log4j-api",
+   "version": "2.14.1",
+   "label": "org.apache.logging.log4j:log4j-api@2.14.1",
+   "direct": false,
+   "scope": "prod",
+   "source": "notifier/pom.xml",
+   "resolution": "deps.dev",
+   "depth": 2,
+   "dependents": 1
+  },
+  {
+   "id": "pkg:maven/org.osgi/org.osgi.core@4.3.1",
+   "kind": "package",
+   "ecosystem": "maven",
+   "name": "org.osgi:org.osgi.core",
+   "version": "4.3.1",
+   "label": "org.osgi:org.osgi.core@4.3.1",
+   "direct": false,
+   "scope": "prod",
+   "source": "notifier/pom.xml",
+   "resolution": "deps.dev",
+   "depth": 2,
+   "dependents": 1
+  },
+  {
+   "id": "pkg:maven/org.apache.commons/commons-text@1.9",
+   "kind": "package",
+   "ecosystem": "maven",
+   "name": "org.apache.commons:commons-text",
+   "version": "1.9",
+   "label": "org.apache.commons:commons-text@1.9",
+   "direct": true,
+   "scope": "prod",
+   "source": "notifier/pom.xml",
+   "resolution": "deps.dev",
+   "depth": 1,
+   "dependents": 1
+  },
+  {
+   "id": "pkg:maven/org.apache.commons/commons-lang3@3.11",
+   "kind": "package",
+   "ecosystem": "maven",
+   "name": "org.apache.commons:commons-lang3",
+   "version": "3.11",
+   "label": "org.apache.commons:commons-lang3@3.11",
+   "direct": false,
+   "scope": "prod",
+   "source": "notifier/pom.xml",
+   "resolution": "deps.dev",
+   "depth": 2,
+   "dependents": 1
+  },
+  {
+   "id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.8",
+   "kind": "package",
+   "ecosystem": "maven",
+   "name": "com.fasterxml.jackson.core:jackson-databind",
+   "version": "2.9.8",
+   "label": "com.fasterxml.jackson.core:jackson-databind@2.9.8",
+   "direct": true,
+   "scope": "prod",
+   "source": "notifier/pom.xml",
+   "resolution": "deps.dev",
+   "depth": 1,
+   "dependents": 1
+  },
+  {
+   "id": "pkg:maven/com.fasterxml.jackson.core/jackson-annotations@2.9.0",
+   "kind": "package",
+   "ecosystem": "maven",
+   "name": "com.fasterxml.jackson.core:jackson-annotations",
+   "version": "2.9.0",
+   "label": "com.fasterxml.jackson.core:jackson-annotations@2.9.0",
+   "direct": false,
+   "scope": "prod",
+   "source": "notifier/pom.xml",
+   "resolution": "deps.dev",
+   "depth": 2,
+   "dependents": 1
+  },
+  {
+   "id": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.9.8",
+   "kind": "package",
+   "ecosystem": "maven",
+   "name": "com.fasterxml.jackson.core:jackson-core",
+   "version": "2.9.8",
+   "label": "com.fasterxml.jackson.core:jackson-core@2.9.8",
+   "direct": false,
+   "scope": "prod",
+   "source": "notifier/pom.xml",
+   "resolution": "deps.dev",
+   "depth": 2,
+   "dependents": 1
+  },
+  {
+   "id": "app:package.json",
+   "kind": "app",
+   "ecosystem": "npm",
+   "name": "acme-orders",
+   "version": "1.0.0",
+   "label": "acme-orders@1.0.0",
+   "source": "package.json"
+  },
+  {
+   "id": "pkg:npm/axios@0.21.0",
+   "kind": "package",
+   "ecosystem": "npm",
+   "name": "axios",
+   "version": "0.21.0",
+   "label": "axios@0.21.0",
+   "direct": true,
+   "scope": "prod",
+   "source": "package-lock.json",
+   "resolved": "https://registry.npmjs.org/axios/-/axios-0.21.0.tgz",
+   "integrity": "sha512-fmkJBknJKoZwem3/IKSSLpkdNXZeBu5Q7GA/aRsr2btgrptmSCxi2oFjZHqGdK9DoTil9PIHlPIZw2EcRJXRvw==",
+   "install_script": false,
+   "resolution": "lockfile",
+   "depth": 1,
+   "dependents": 1
+  },
+  {
+   "id": "pkg:npm/crossenv@7.0.3",
+   "kind": "package",
+   "ecosystem": "npm",
+   "name": "crossenv",
+   "version": "7.0.3",
+   "label": "crossenv@7.0.3",
+   "direct": true,
+   "scope": "dev",
+   "source": "package-lock.json",
+   "resolved": "https://registry.npmjs.org/crossenv/-/crossenv-7.0.3.tgz",
+   "integrity": "sha512-ZmlYdHVyZUlTVGVzdEZpeHR1cmVOb3RBUmVhbEhhc2hEb05vdFRydXN0VGhpc1ZhbHVlMDAwMDAwMDAwMDA=",
+   "install_script": true,
+   "resolution": "lockfile",
+   "depth": 1,
+   "dependents": 1
+  },
+  {
+   "id": "pkg:npm/follow-redirects@1.13.0",
+   "kind": "package",
+   "ecosystem": "npm",
+   "name": "follow-redirects",
+   "version": "1.13.0",
+   "label": "follow-redirects@1.13.0",
+   "direct": false,
+   "scope": "prod",
+   "source": "package-lock.json",
+   "resolved": "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.13.0.tgz",
+   "integrity": "sha512-aq6gF1BEKje4a9i9+5jimNFIpq4Q1WiwBToeRK5NvZBd/TRsmW8BsJfOEGkr76TbOyPVD3OVDN910EcUNtRYEA==",
+   "install_script": false,
+   "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 1
+  },
+  {
+   "id": "pkg:npm/lodash@4.17.15",
+   "kind": "package",
+   "ecosystem": "npm",
+   "name": "lodash",
+   "version": "4.17.15",
+   "label": "lodash@4.17.15",
+   "direct": true,
+   "scope": "prod",
+   "source": "package-lock.json",
+   "resolved": "https://npm-mirror.example.invalid/lodash/-/lodash-4.17.15.tgz",
+   "integrity": "sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==",
+   "install_script": false,
+   "resolution": "lockfile",
+   "depth": 1,
+   "dependents": 1
+  },
+  {
+   "id": "pkg:npm/minimist@0.0.8",
+   "kind": "package",
+   "ecosystem": "npm",
+   "name": "minimist",
+   "version": "0.0.8",
+   "label": "minimist@0.0.8",
+   "direct": false,
+   "scope": "prod",
+   "source": "package-lock.json",
+   "resolved": "https://registry.npmjs.org/minimist/-/minimist-0.0.8.tgz",
+   "integrity": "sha512-miQKw5Hv4NS1Psg2517mV4e4dYNaO3++hjAvLOAzKqZ61rH8NS1SK+vbfBWZ5PY/Me/bEWhUwqMghEW5Fb9T7Q==",
+   "install_script": false,
+   "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 1
+  },
+  {
+   "id": "pkg:npm/mkdirp@0.5.1",
+   "kind": "package",
+   "ecosystem": "npm",
+   "name": "mkdirp",
+   "version": "0.5.1",
+   "label": "mkdirp@0.5.1",
+   "direct": true,
+   "scope": "prod",
+   "source": "package-lock.json",
+   "resolved": "https://registry.npmjs.org/mkdirp/-/mkdirp-0.5.1.tgz",
+   "integrity": "sha512-SknJC52obPfGQPnjIkXbmA6+5H15E+fR+E4iR2oQ3zzCLbd7/ONua69R/Gw7AgkTLsRG+r5fzksYwWe1AgTyWA==",
+   "install_script": false,
+   "resolution": "lockfile",
+   "depth": 1,
+   "dependents": 1
+  },
+  {
+   "id": "pkg:npm/node-fetch@2.6.0",
+   "kind": "package",
+   "ecosystem": "npm",
+   "name": "node-fetch",
+   "version": "2.6.0",
+   "label": "node-fetch@2.6.0",
+   "direct": true,
+   "scope": "prod",
+   "source": "package-lock.json",
+   "resolved": "https://registry.npmjs.org/node-fetch/-/node-fetch-2.6.0.tgz",
+   "integrity": "sha512-8dG4H5ujfvFiqDmVu9fQ5bOHUC15JMjMY/Zumv26oOvvVJjM67KF8koCWIabKQ1GJIa9r2mMZscBq/TbdOcmNA==",
+   "install_script": false,
+   "resolution": "lockfile",
+   "depth": 1,
+   "dependents": 1
+  },
+  {
+   "id": "app:worker/requirements.txt",
+   "kind": "app",
+   "ecosystem": "pypi",
+   "name": "worker",
+   "version": "",
+   "label": "worker",
+   "source": "worker/requirements.txt"
+  },
+  {
+   "id": "pkg:pypi/requests@2.19.1",
+   "kind": "package",
+   "ecosystem": "pypi",
+   "name": "requests",
+   "version": "2.19.1",
+   "label": "requests@2.19.1",
+   "direct": true,
+   "scope": "prod",
+   "source": "worker/requirements.txt:1",
+   "resolution": "deps.dev",
+   "depth": 1,
+   "dependents": 1
+  },
+  {
+   "id": "pkg:pypi/certifi@2026.10.23",
+   "kind": "package",
+   "ecosystem": "pypi",
+   "name": "certifi",
+   "version": "2026.10.23",
+   "label": "certifi@2026.10.23",
+   "direct": false,
+   "scope": "prod",
+   "source": "worker/requirements.txt:1",
+   "resolution": "deps.dev",
+   "depth": 2,
+   "dependents": 1
+  },
+  {
+   "id": "pkg:pypi/chardet@3.0.4",
+   "kind": "package",
+   "ecosystem": "pypi",
+   "name": "chardet",
+   "version": "3.0.4",
+   "label": "chardet@3.0.4",
+   "direct": false,
+   "scope": "prod",
+   "source": "worker/requirements.txt:1",
+   "resolution": "deps.dev",
+   "depth": 2,
+   "dependents": 1
+  },
+  {
+   "id": "pkg:pypi/idna@2.7.0",
+   "kind": "package",
+   "ecosystem": "pypi",
+   "name": "idna",
+   "version": "2.7.0",
+   "label": "idna@2.7.0",
+   "direct": false,
+   "scope": "prod",
+   "source": "worker/requirements.txt:1",
+   "resolution": "deps.dev",
+   "depth": 2,
+   "dependents": 1
+  },
+  {
+   "id": "pkg:pypi/urllib3@1.23.0",
+   "kind": "package",
+   "ecosystem": "pypi",
+   "name": "urllib3",
+   "version": "1.23.0",
+   "label": "urllib3@1.23.0",
+   "direct": false,
+   "scope": "prod",
+   "source": "worker/requirements.txt:1",
+   "resolution": "deps.dev",
+   "depth": 2,
+   "dependents": 1
+  },
+  {
+   "id": "pkg:pypi/pyyaml@5.3.0",
+   "kind": "package",
+   "ecosystem": "pypi",
+   "name": "pyyaml",
+   "version": "5.3.0",
+   "label": "pyyaml@5.3.0",
+   "direct": true,
+   "scope": "prod",
+   "source": "worker/requirements.txt:2",
+   "resolution": "deps.dev",
+   "depth": 1,
+   "dependents": 1
+  },
+  {
+   "id": "pkg:pypi/jinja2@2.10.0",
+   "kind": "package",
+   "ecosystem": "pypi",
+   "name": "jinja2",
+   "version": "2.10.0",
+   "label": "jinja2@2.10.0",
+   "direct": true,
+   "scope": "prod",
+   "source": "worker/requirements.txt:3",
+   "resolution": "deps.dev",
+   "depth": 1,
+   "dependents": 1
+  },
+  {
+   "id": "pkg:pypi/markupsafe@3.0.4",
+   "kind": "package",
+   "ecosystem": "pypi",
+   "name": "markupsafe",
+   "version": "3.0.4",
+   "label": "markupsafe@3.0.4",
+   "direct": false,
+   "scope": "prod",
+   "source": "worker/requirements.txt:3",
+   "resolution": "deps.dev",
+   "depth": 2,
+   "dependents": 1
+  },
+  {
+   "id": "pkg:pypi/python3-dateutil@2.8.1",
+   "kind": "package",
+   "ecosystem": "pypi",
+   "name": "python3-dateutil",
+   "version": "2.8.1",
+   "label": "python3-dateutil@2.8.1",
+   "direct": true,
+   "scope": "prod",
+   "source": "worker/requirements.txt:4",
+   "resolution": "unresolved",
+   "depth": 1,
+   "dependents": 1
+  },
+  {
+   "id": "pkg:pypi/urllib3@2.8.0",
+   "kind": "package",
+   "ecosystem": "pypi",
+   "name": "urllib3",
+   "version": "2.8.0",
+   "label": "urllib3@2.8.0",
+   "direct": true,
+   "scope": "prod",
+   "source": "worker/requirements.txt:5",
+   "resolution": "deps.dev-approx",
+   "depth": 1,
+   "dependents": 1
+  }
+ ],
+ "edges": [
+  {
+   "source": "repo:sscg-demo-target",
+   "target": "app:.github/workflows/ci.yml"
+  },
+  {
+   "source": "repo:sscg-demo-target",
+   "target": "app:Dockerfile"
+  },
+  {
+   "source": "repo:sscg-demo-target",
+   "target": "app:notifier/pom.xml"
+  },
+  {
+   "source": "repo:sscg-demo-target",
+   "target": "app:package.json"
+  },
+  {
+   "source": "repo:sscg-demo-target",
+   "target": "app:worker/requirements.txt"
+  },
+  {
+   "source": "app:.github/workflows/ci.yml",
+   "target": "pkg:github/actions/checkout@v4",
+   "spec": "job build",
+   "location": ".github/workflows/ci.yml:14"
+  },
+  {
+   "source": "app:.github/workflows/ci.yml",
+   "target": "pkg:github/actions/setup-node@v4",
+   "spec": "job build",
+   "location": ".github/workflows/ci.yml:17"
+  },
+  {
+   "source": "app:.github/workflows/ci.yml",
+   "target": "pkg:github/fastbuilds42/cache-helper@main",
+   "spec": "job build",
+   "location": ".github/workflows/ci.yml:20"
+  },
+  {
+   "source": "app:.github/workflows/ci.yml",
+   "target": "url:http://get.example.invalid/ci-agent.sh",
+   "spec": "job build run download",
+   "location": ".github/workflows/ci.yml:22"
+  },
+  {
+   "source": "app:Dockerfile",
+   "target": "pkg:docker/fastbuilds42/node@latest?repository_url=docker.io",
+   "spec": "FROM, stage 1 (final)",
+   "location": "Dockerfile:1"
+  },
+  {
+   "source": "app:Dockerfile",
+   "target": "url:http://get.example.invalid/bootstrap.sh",
+   "spec": "RUN download, stage 1 (final)",
+   "location": "Dockerfile:4"
+  },
+  {
+   "source": "app:notifier/pom.xml",
+   "target": "pkg:maven/org.apache.logging.log4j/log4j-core@2.14.1",
+   "spec": "2.14.1"
+  },
+  {
+   "source": "app:notifier/pom.xml",
+   "target": "pkg:maven/org.apache.commons/commons-text@1.9",
+   "spec": "1.9"
+  },
+  {
+   "source": "app:notifier/pom.xml",
+   "target": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.8",
+   "spec": "2.9.8"
+  },
+  {
+   "source": "pkg:maven/org.apache.logging.log4j/log4j-core@2.14.1",
+   "target": "pkg:maven/org.apache.logging.log4j/log4j-api@2.14.1",
+   "spec": "2.14.1"
+  },
+  {
+   "source": "pkg:maven/org.apache.logging.log4j/log4j-core@2.14.1",
+   "target": "pkg:maven/org.osgi/org.osgi.core@4.3.1",
+   "spec": "4.3.1"
+  },
+  {
+   "source": "pkg:maven/org.apache.commons/commons-text@1.9",
+   "target": "pkg:maven/org.apache.commons/commons-lang3@3.11",
+   "spec": "3.11"
+  },
+  {
+   "source": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.8",
+   "target": "pkg:maven/com.fasterxml.jackson.core/jackson-annotations@2.9.0",
+   "spec": "2.9.0"
+  },
+  {
+   "source": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.8",
+   "target": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.9.8",
+   "spec": "2.9.8"
+  },
+  {
+   "source": "app:package.json",
+   "target": "pkg:npm/axios@0.21.0",
+   "spec": "0.21.0"
+  },
+  {
+   "source": "app:package.json",
+   "target": "pkg:npm/lodash@4.17.15",
+   "spec": "4.17.15"
+  },
+  {
+   "source": "app:package.json",
+   "target": "pkg:npm/mkdirp@0.5.1",
+   "spec": "0.5.1"
+  },
+  {
+   "source": "app:package.json",
+   "target": "pkg:npm/node-fetch@2.6.0",
+   "spec": "2.6.0"
+  },
+  {
+   "source": "app:package.json",
+   "target": "pkg:npm/crossenv@7.0.3",
+   "spec": "7.0.3"
+  },
+  {
+   "source": "pkg:npm/axios@0.21.0",
+   "target": "pkg:npm/follow-redirects@1.13.0",
+   "spec": "^1.10.0"
+  },
+  {
+   "source": "pkg:npm/mkdirp@0.5.1",
+   "target": "pkg:npm/minimist@0.0.8",
+   "spec": "0.0.8"
+  },
+  {
+   "source": "app:worker/requirements.txt",
+   "target": "pkg:pypi/requests@2.19.1",
+   "spec": "==2.19.1"
+  },
+  {
+   "source": "app:worker/requirements.txt",
+   "target": "pkg:pypi/pyyaml@5.3.0",
+   "spec": "==5.3"
+  },
+  {
+   "source": "app:worker/requirements.txt",
+   "target": "pkg:pypi/jinja2@2.10.0",
+   "spec": "==2.10"
+  },
+  {
+   "source": "app:worker/requirements.txt",
+   "target": "pkg:pypi/python3-dateutil@2.8.1",
+   "spec": "==2.8.1"
+  },
+  {
+   "source": "app:worker/requirements.txt",
+   "target": "pkg:pypi/urllib3@2.8.0",
+   "spec": ""
+  },
+  {
+   "source": "pkg:pypi/requests@2.19.1",
+   "target": "pkg:pypi/certifi@2026.10.23",
+   "spec": ">=2017.4.17"
+  },
+  {
+   "source": "pkg:pypi/requests@2.19.1",
+   "target": "pkg:pypi/chardet@3.0.4",
+   "spec": "<3.1.0,>=3.0.2"
+  },
+  {
+   "source": "pkg:pypi/requests@2.19.1",
+   "target": "pkg:pypi/idna@2.7.0",
+   "spec": "<2.8,>=2.5"
+  },
+  {
+   "source": "pkg:pypi/requests@2.19.1",
+   "target": "pkg:pypi/urllib3@1.23.0",
+   "spec": "<1.24,>=1.21.1"
+  },
+  {
+   "source": "pkg:pypi/jinja2@2.10.0",
+   "target": "pkg:pypi/markupsafe@3.0.4",
+   "spec": ">=0.23"
+  }
+ ]
+}

@@ -1,0 +1,21 @@
+graph LR
+  n0["qs@2.4.2"]:::vuln
+  n1["goof@1.0.1"]
+  n2["tap@11.1.5"]
+  n3["nodejs-goof"]
+  n4["coveralls@3.0.9"]
+  n5["qs@6.5.2"]:::vuln
+  n6["request@2.88.0"]:::vuln
+  n7["body-parser@1.9.0"]:::vuln
+  n8["qs@2.2.4"]:::vuln
+  n9["express@4.12.4"]:::vuln
+  n1 --> n7
+  n1 --> n9
+  n1 --> n2
+  n2 --> n4
+  n3 --> n1
+  n4 --> n6
+  n6 --> n5
+  n7 --> n8
+  n9 --> n0
+  classDef vuln fill:#f8d7da,stroke:#d62728
