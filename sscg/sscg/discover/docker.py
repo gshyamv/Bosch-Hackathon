@@ -15,7 +15,8 @@ from urllib.parse import quote, urlparse
 
 import yaml
 
-URL_RE = re.compile(r"""https?://[^\s'"`|;&)<>]+""")
+# A URL may contain GitHub Actions expressions with spaces, e.g. .../juice-shop/${{ github.ref_name }}/x.yml
+URL_RE = re.compile(r"""https?://(?:\$\{\{[^}]*\}\}|[^\s'"`|;&)<>])+""")
 FETCH_RE = re.compile(r"\b(curl|wget|Invoke-WebRequest|iwr)\b", re.I)
 DOCKER_HUB = {"docker.io", "index.docker.io", "registry-1.docker.io"}
 
@@ -166,6 +167,8 @@ def scan_compose(dg, repo: Path, path: Path):
     rid = dg.app(rel, "docker", rel)
     find = line_finder(text)
     for svc, cfg in services.items():
-        img = cfg.get("image") if isinstance(cfg, dict) else None
+        if not isinstance(cfg, dict) or cfg.get("build") is not None:
+            continue  # built locally: `image:` only names the result; its Dockerfile is scanned separately
+        img = cfg.get("image")
         if isinstance(img, str) and img:
             add_image(dg, rid, img, "prod", f"{rel}:{find(img)}", f"service {svc}", "compose")
