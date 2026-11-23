@@ -2,66 +2,68 @@
 
 > **Know what you build. Trust what you ship.**
 > Bosch × Amrita hackathon · Problem statement: *Software Supply Chain Guardian*
-> Status: **Day 1, columns 1–2 complete**: *Discover Components* and *Build the Supply Chain View*
+> Status: **Day 1 complete, all five columns**: Discover → Supply chain view → Vulnerabilities → Suspicious changes → Evidence
 
-SSCG scans a repository **without installing or running anything**. It inventories every component the application depends on: libraries, transitive dependencies, container base images, CI/CD actions and files downloaded at build time. It records where each one comes from, generates a standard **CycloneDX SBOM**, and draws an interactive **dependency graph**.
+SSCG scans a repository **without installing or running anything** and answers the Day 1 checkpoint question:
+
+> *"Show us what is in the application, what changed, and what appears risky."*
+
+* **What is in it:** every library (direct and transitive), container image, CI/CD action and build-time download, where each comes from, as a CycloneDX **SBOM** and an interactive **dependency graph**.
+* **What changed:** a component-by-component comparison with the previous commit, including who changed it.
+* **What appears risky:** **known vulnerabilities** (CVE, severity, fix, path back to the source) and **supply-chain anomalies** (typosquats, malicious packages, install scripts, tampered lockfiles, untrusted images, unsafe CI). Every finding carries **evidence** and an **initial risk level**.
 
 ---
 
 ## Table of contents
 
-1. [What problem this solves](#1-what-problem-this-solves)
-2. [Scope: what is done and what is next](#2-scope-what-is-done-and-what-is-next)
-3. [Quick start](#3-quick-start)
-4. [How it works](#4-how-it-works)
-5. [Command-line reference](#5-command-line-reference)
-6. [Outputs](#6-outputs)
-7. [The SBOM in detail](#7-the-sbom-in-detail)
-8. [Container image and CI/CD inspection](#8-container-image-and-cicd-inspection)
-9. [The dashboard](#9-the-dashboard)
-10. [Results on the sample applications](#10-results-on-the-sample-applications)
-11. [How the results were verified](#11-how-the-results-were-verified)
-12. [Repository layout](#12-repository-layout)
-13. [Tech stack](#13-tech-stack)
-14. [Safety and responsible use](#14-safety-and-responsible-use)
-15. [Known limitations](#15-known-limitations)
-16. [Roadmap](#16-roadmap)
-17. [Troubleshooting](#17-troubleshooting)
+1. [Scope: the five Day 1 columns](#1-scope-the-five-day-1-columns)
+2. [Quick start](#2-quick-start)
+3. [How it works](#3-how-it-works)
+4. [Command-line reference](#4-command-line-reference)
+5. [Outputs](#5-outputs)
+6. [Column 1 + 2: components, SBOM, graph, containers, CI/CD](#6-column-1--2-components-sbom-graph-containers-cicd)
+7. [Column 3: Detect vulnerabilities](#7-column-3-detect-vulnerabilities)
+8. [Column 4: Detect suspicious changes](#8-column-4-detect-suspicious-changes)
+9. [Column 5: Present evidence](#9-column-5-present-evidence)
+10. [The dashboard](#10-the-dashboard)
+11. [Results on the sample applications](#11-results-on-the-sample-applications)
+12. [How the results were verified](#12-how-the-results-were-verified)
+13. [Repository layout](#13-repository-layout)
+14. [Tech stack](#14-tech-stack)
+15. [Safety and responsible use](#15-safety-and-responsible-use)
+16. [Known limitations](#16-known-limitations)
+17. [Roadmap: Day 2](#17-roadmap-day-2)
+18. [Troubleshooting](#18-troubleshooting)
 
 ---
 
-## 1. What problem this solves
+## 1. Scope: the five Day 1 columns
 
-Modern applications are assembled from open-source libraries, transitive dependencies, container images, build tools and CI/CD components, and all of these change continuously. Before a team can judge which risks matter, it has to answer a more basic question: **what is actually in the application, and where did each piece come from?**
-
-For example, in `nodejs-goof` (one of our sample apps) the developers chose **35** packages, yet the application ships **980**. That means 96% of the code was pulled in by something else, up to **10 levels deep**. The app also depends on 3 container images and 6 third-party GitHub Actions, none of which appear in `package.json`.
-
-SSCG makes all of this visible.
-
----
-
-## 2. Scope: what is done and what is next
-
-The problem statement splits Day 1 ("Build the Guardian's Eyes") into five columns. This repository completes **columns 1 and 2**:
-
-| Day 1 column | Requirement from the slide | Status | Where in the code |
+| Day 1 column | Slide requirement | Status | Where |
 |---|---|---|---|
-| **1 · Discover Components** | Analyze package manifests and lockfiles | ✅ | `sscg/discover/npm.py`, `pypi.py`, `maven.py` |
-| | Identify direct and transitive dependencies | ✅ | lockfiles; [deps.dev](https://deps.dev) when no lockfile exists (`discover/depsdev.py`) |
-| | Capture component names and versions | ✅ | every node in `graph.json`, every component in `sbom.cdx.json` |
-| **2 · Build the Supply Chain View** | Generate **or** consume an SBOM (CycloneDX or SPDX) | ✅ **both** | `sscg/sbom.py`, CycloneDX 1.5 JSON |
-| | Build the dependency graph | ✅ | `sscg/graph.py`, `sscg/export.py` |
-| | Identify where each component originates | ✅ | registry / download URL per component |
-| | Inspect at least one container image **or** CI/CD workflow | ✅ **both** | `discover/docker.py`, `discover/gha.py` |
-| 3 · Detect Vulnerabilities | CVE, severity, fixes; trace transitive vulns to source | ⏳ next | (an OSV overlay already marks packages with published advisories) |
-| 4 · Detect Suspicious Changes | typosquats, install scripts, untrusted images, lockfile changes … | ⏳ | |
-| 5 · Present Evidence | component, path, evidence, initial risk level | ⏳ | |
+| **1 · Discover Components** | Analyze package manifests and lockfiles | ✅ | `discover/npm.py`, `pypi.py`, `maven.py` |
+| | Identify direct and transitive dependencies | ✅ | lockfiles; [deps.dev](https://deps.dev) when no lockfile exists |
+| | Capture component names and versions | ✅ | `graph.json`, `sbom.cdx.json` |
+| **2 · Build the Supply Chain View** | Generate **or** consume an SBOM (CycloneDX or SPDX) | ✅ both | `sbom.py` (CycloneDX 1.5) |
+| | Build the dependency graph | ✅ | `graph.py`, `export.py` |
+| | Identify where each component originates | ✅ | download URL / registry per component |
+| | Inspect at least one container image **or** CI/CD workflow | ✅ both | `discover/docker.py`, `discover/gha.py` |
+| **3 · Detect Vulnerabilities** | Correlate components with known vulnerabilities | ✅ | `vulns.py` ([OSV.dev](https://osv.dev)) |
+| | Capture CVE, severity and available fixes | ✅ | CVE aliases, CVSS score / label, fixed version per advisory |
+| | Trace vulnerable transitive dependencies back to their source | ✅ | dependency paths + "introduced via" direct dependency |
+| **4 · Detect Suspicious Changes** | Identify at least one supply-chain anomaly | ✅ 19 rules | `rules/` + `diff.py` ("what changed") |
+| | unexpected dependency · typosquatted package · suspicious package update · unsafe install script · untrusted image · modified lockfile | ✅ all six | see [§8](#8-column-4-detect-suspicious-changes) |
+| **5 · Present Evidence** | what was detected, which component, dependency path, supporting evidence, initial risk level | ✅ | `findings.py` → `findings.json`, `report.py` → `report.md`, dashboard ⑤ |
+
+**Expected Day 1 outcome** from the slide: `Repository → SBOM → Dependency Graph → Risk Detection → Evidence`. Every scan produces all of them.
+
+Day 1 is *visibility and detection*. Remediation, exploitability (CISA KEV / EPSS), reachability and AI prioritisation are **Day 2** (see [§17](#17-roadmap-day-2)).
 
 ---
 
-## 3. Quick start
+## 2. Quick start
 
-**Requirements:** Python **3.11+**. Developed and tested on Windows 11 with Python 3.12.4. The code uses only portable Python, but macOS and Linux have not been tested. Node, npm, Maven and Docker are **not** needed to scan.
+**Requirements:** Python **3.11.4+** (developed and tested on Windows 11 with Python 3.12.4; the code is portable but macOS/Linux are untested). Node, npm, Maven and Docker are **not** needed to scan.
 
 ```powershell
 # 1. get the code
@@ -73,304 +75,286 @@ python -m venv .venv
 .\.venv\Scripts\Activate.ps1          # macOS/Linux: source .venv/bin/activate
 pip install -r requirements.txt
 
-# 3. scan a sample application
+# 3. scan a sample application (full Day 1 pipeline)
 python -m sscg scan ..\targets\sscg-demo-target
 
-# 4. open the results
-start out\sscg-demo-target\graph.html # interactive graph (macOS: open, Linux: xdg-open)
-streamlit run ui/app.py               # full dashboard at http://localhost:8501
+# 4. look at the results
+start out\sscg-demo-target\report.md  # evidence report
+start out\sscg-demo-target\graph.html # interactive graph
+streamlit run ui/app.py               # dashboard at http://localhost:8501
 ```
 
-The repository ships with cached API responses (`sscg/.cache/`), so you can add `--offline` to any scan and it works without internet.
+The repository ships with cached API responses (`sscg/.cache/`), so `--offline` works for all three sample apps without internet.
 
-**Getting the sample applications.** `targets/sscg-demo-target` is our own test fixture. `nodejs-goof` is a public, deliberately vulnerable app from Snyk. If `targets/nodejs-goof` is missing:
+**Getting the sample applications.** `targets/sscg-demo-target` is our own test fixture. `nodejs-goof` (Snyk) and `juice-shop` (OWASP) are public, deliberately vulnerable apps. If they are missing:
 ```powershell
 git clone --depth 1 https://github.com/snyk-labs/nodejs-goof.git targets\nodejs-goof   # scanned at commit add14ba
+git clone --depth 1 https://github.com/juice-shop/juice-shop.git targets\juice-shop    # scanned at commit c9f9922
 ```
-> Both sample apps are git repositories of their own. `sscg-demo-target` needs its 2-commit history for the later "what changed" pillar. Commit them as submodules or as plain files; otherwise a fresh clone of this repo will have empty `targets/` folders.
+> All three sample apps are git repositories of their own. `sscg-demo-target` **needs its 2-commit history** for "what changed". Commit them as submodules or as plain files (keeping the demo target's `.git`), otherwise a fresh clone of this repo has empty `targets/` folders. Shallow clones (`--depth 1`) have no previous commit, so "what changed" is skipped for them.
 
 ---
 
-## 4. How it works
+## 3. How it works
 
 ```mermaid
 flowchart LR
-    R[(Repository<br/>read-only)] --> D
-
-    subgraph D["① Discover components"]
-        direction TB
-        N[npm<br/>package.json + lockfile]
-        P[PyPI<br/>requirements.txt / poetry.lock]
-        M[Maven<br/>pom.xml]
-        DD[deps.dev API<br/>transitive deps when<br/>there is no lockfile]
-        N & P & M -.-> DD
-    end
-
-    R --> C
-    subgraph C["② Container + CI/CD inspection"]
-        direction TB
-        DF[Dockerfile / compose<br/>base images, downloads, USER]
-        WF[GitHub Actions<br/>actions, refs, triggers, permissions]
-    end
-
-    D --> G[("Dependency graph<br/>(networkx)")]
+    R[(Repository<br/>read-only)] --> D["① Discover<br/>npm · PyPI · Maven<br/>(+ deps.dev)"]
+    R --> C["② Inspect<br/>Dockerfile · compose<br/>GitHub Actions"]
+    D --> G[("② Dependency graph")]
     C --> G
-    SB[/Existing SBOM<br/>CycloneDX JSON/] -- consume --> G
-
-    G --> O1[sbom.cdx.json<br/>CycloneDX 1.5]
-    G --> O2[graph.html<br/>interactive]
-    G --> O3[graph.json<br/>machine-readable]
-    G --> O4[summary.json<br/>counts, origins, inventory]
-    O1 & O2 & O3 & O4 --> UI[Streamlit dashboard]
+    SB[/Existing SBOM/] -- consume --> G
+    G --> SBOM["② sbom.cdx.json<br/>CycloneDX 1.5"]
+    G --> V["③ Vulnerabilities<br/>OSV.dev: CVE, CVSS, fix"]
+    B[(Base commit<br/>git archive)] --> X["④ What changed<br/>base vs head"]
+    G --> X
+    G --> A["④ 19 anomaly rules"]
+    X --> A
+    V --> E["⑤ Findings<br/>evidence + initial risk"]
+    A --> E
+    E --> OUT["findings.json · report.md<br/>graph.html · dashboard"]
 ```
 
-### 4.1 The graph model
+**Design principles**
+1. **Deterministic detection.** Parsers and rules produce facts; the same input always gives the same findings. No AI on Day 1.
+2. **Evidence first.** Every finding cites a `file:line`, an advisory record, a lockfile before/after, or a git commit.
+3. **Diff-aware.** "What changed" is first-class: findings that did not exist in the base commit are marked 🆕.
+4. **Facts kept apart from judgement.** Official severity (CVSS) and our heuristic risk score live in separate fields, and each finding says whether it is a *verified fact* or a *heuristic*.
+5. **Hostile-input safe and offline-capable.** Nothing from the scanned repo is executed; all API answers are cached.
 
-Everything is one directed graph:
+### 3.1 The graph model
 
 ```
 repo  ──►  manifest / Dockerfile / workflow  ──►  component  ──►  component  ──► …
  ★              (the "apps")                       (direct)        (transitive)
 ```
 
-* **Repo node:** the repository itself.
-* **App nodes:** one per `package.json`, `requirements.txt`, `pom.xml`, `Dockerfile`, compose file or workflow.
-* **Component nodes:** libraries, container images, GitHub Actions and downloaded files. Each node is identified by its [package URL (purl)](https://github.com/package-url/purl-spec), e.g. `pkg:npm/qs@2.4.2`, so a package used by many parents appears **once**, with many incoming edges.
-* **Edges:** "depends on". Each edge keeps the version range it was requested with and, for container and CI uses, the exact `file:line`.
-* **Depth:** 1 = direct dependency, 2 = dependency of a direct dependency, and so on.
+Components are identified by [package URL (purl)](https://github.com/package-url/purl-spec), e.g. `pkg:npm/qs@2.4.2`, so a package used by many parents appears once with many incoming edges. Depth 1 = direct dependency.
 
-### 4.2 How each ecosystem is resolved
+### 3.2 How each ecosystem is resolved
 
-| Ecosystem | Input files | How transitive dependencies are found | Accuracy |
+| Ecosystem | Input files | Transitive dependencies | Accuracy |
 |---|---|---|---|
-| npm | `package-lock.json` v1/v2/v3, `npm-shrinkwrap.json`, `yarn.lock` v1 | read from the lockfile, using Node's own `node_modules` lookup rules | exact |
-| npm (no lockfile) | `package.json` | deps.dev resolves the lowest version in each range | approximate (`deps.dev-approx`) |
-| PyPI | `poetry.lock` | read from the lockfile | exact |
-| PyPI | `requirements*.txt` (incl. `-r` includes) | deps.dev resolves each pinned package | exact for `==` pins, approximate otherwise |
-| Maven | `pom.xml` (`${properties}`, `dependencyManagement`, parent version) | deps.dev | exact for explicit versions; versions inherited from an external parent POM show as `managed-by-parent` |
-| Container | `Dockerfile`, `Containerfile`, `docker-compose*.yml` | static parsing | exact (what the file says) |
-| CI/CD | `.github/workflows/*.yml` | static parsing | exact (what the file says) |
-
-Every component records how it was resolved (`resolution`: `lockfile`, `deps.dev`, `deps.dev-approx`, `dockerfile`, `compose`, `workflow`, `sbom`, `unresolved`), so it is always clear which facts are exact.
+| npm | `package-lock.json` v1/v2/v3, `npm-shrinkwrap.json`, `yarn.lock` v1 | from the lockfile (Node's `node_modules` lookup rules) | exact |
+| npm (no lockfile) | `package.json` | deps.dev, lowest version in each range | approximate (`deps.dev-approx`) |
+| PyPI | `poetry.lock` | from the lockfile | exact |
+| PyPI | `requirements*.txt` | deps.dev | exact for `==` pins, approximate otherwise |
+| Maven | `pom.xml` (`${properties}`, `dependencyManagement`) | deps.dev | exact for explicit versions; parent-POM versions → `managed-by-parent` |
+| Container | `Dockerfile`, `Containerfile`, `docker-compose*.yml` | static parsing | exact |
+| CI/CD | `.github/workflows/*.yml` | static parsing | exact |
 
 ---
 
-## 5. Command-line reference
+## 4. Command-line reference
 
 ```
-python -m sscg scan <repo> [--out DIR] [--sbom FILE] [--osv] [--offline]
-                           [--why NAME ...] [--focus NAME] [--max-depth N]
+python -m sscg scan <repo> [--out DIR] [--base REV | --no-diff] [--no-vulns] [--sbom FILE] [--offline]
+                           [--why NAME ...] [--focus NAME] [--max-depth N] [--top N]
 ```
 
-Run it from inside the `sscg/` folder.
+Run from inside the `sscg/` folder.
 
 | Option | Meaning |
 |---|---|
-| `<repo>` | Folder to scan. It is only read: nothing is installed, built or executed. |
-| `--out DIR` | Output folder. Default: `out/<repo name>/`. |
-| `--sbom FILE` | **Consume** a CycloneDX JSON SBOM (from SSCG, Syft, cdxgen …) instead of scanning manifests. |
-| `--osv` | Mark packages that have published security advisories (OSV.dev). Graph colouring only. |
-| `--offline` | Answer every API call from `.cache/`. No network. |
+| `<repo>` | Folder to scan. It is only read; nothing is installed, built or executed. |
+| `--out DIR` | Output folder (default `out/<repo name>/`). |
+| `--base REV` | Commit to compare with for "what changed" (default `HEAD~1`). |
+| `--no-diff` | Skip the comparison. |
+| `--no-vulns` | Skip vulnerability detection (no OSV calls). |
+| `--sbom FILE` | **Consume** a CycloneDX JSON SBOM instead of scanning manifests. |
+| `--offline` | Answer every API call from `.cache/`. |
 | `--why NAME …` | Print every dependency path that pulls `NAME` into the app. |
-| `--focus NAME` | `graph.html` shows only that package, everything that depends on it, and everything it depends on. |
-| `--max-depth N` | `graph.html` shows only N levels. Graphs over 600 nodes are cut to 2 levels automatically (packages with advisories and their paths are always kept). |
-
-### Examples
+| `--focus NAME` | `graph.html` shows only that package, its dependents and its dependencies. |
+| `--max-depth N` | `graph.html` shows only N levels (above 600 nodes it is cut to 2 automatically; vulnerable and suspicious nodes are always kept). |
+| `--top N` | How many top findings to print (default 15). |
 
 ```powershell
-# full scan with vulnerability colouring and two "why" questions
-python -m sscg scan ..\targets\nodejs-goof --osv --why qs lodash
-
-# the three paths that bring qs into nodejs-goof, as a small graph
-python -m sscg scan ..\targets\nodejs-goof --osv --focus qs --out out\nodejs-goof-focus-qs
-
-# consume an SBOM produced elsewhere
-python -m sscg scan ..\targets\nodejs-goof --sbom path\to\bom.cdx.json --out out\goof-from-sbom
-
-# no internet
-python -m sscg scan ..\targets\sscg-demo-target --osv --offline
+python -m sscg scan ..\targets\sscg-demo-target                       # everything, compares with HEAD~1
+python -m sscg scan ..\targets\sscg-demo-target --base bf0e651        # compare with a specific commit
+python -m sscg scan ..\targets\nodejs-goof --why qs --focus qs        # trace qs
+python -m sscg scan ..\targets\juice-shop --offline                   # no network
 ```
 
 <details>
 <summary><b>Sample terminal output</b> (sscg-demo-target)</summary>
 
 ```
-=== Supply chain view: sscg-demo-target ===
-              apps: ['ci  (.github/workflows/ci.yml)', 'Dockerfile  (Dockerfile)', 'com.acme:notifier@1.0.0  (notifier/pom.xml)', 'acme-orders@1.0.0  (package.json)', 'worker  (worker/requirements.txt)']
-  components_total: 31
-          packages: 25
-      by_ecosystem: {'github-actions': 3, 'url': 2, 'docker': 1, 'maven': 8, 'npm': 7, 'pypi': 10}
-            direct: 13
-        transitive: 12
-         max_depth: 2
-           origins: {'github.com': 3, 'get.example.invalid': 2, 'docker.io': 1, 'registry.npmjs.org': 6, 'npm-mirror.example.invalid': 1}
- untrusted_origins: ['lodash@4.17.15 <- https://npm-mirror.example.invalid/lodash/-/lodash-4.17.15.tgz']
-   install_scripts: ['crossenv@7.0.3']
-  CONTAINER Dockerfile: images ['fastbuilds42/node:latest'], runs as: not set (inherits the base image default), downloads ['http://get.example.invalid/bootstrap.sh']
-    image fastbuilds42/node:latest: registry docker.io, official False, pinned by digest False, used in ['Dockerfile:1']
-  CI .github/workflows/ci.yml (ci): triggers ['push', 'pull_request_target'], permissions: write-all
-    action actions/checkout@v4  pinned to SHA: False  (.github/workflows/ci.yml:14)
-    action actions/setup-node@v4  pinned to SHA: False  (.github/workflows/ci.yml:17)
-    action fastbuilds42/cache-helper@main  pinned to SHA: False  (.github/workflows/ci.yml:20)
-    download http://get.example.invalid/ci-agent.sh
-  WHY pkg:npm/minimist@0.0.8:
-     acme-orders@1.0.0 -> mkdirp@0.5.1 -> minimist@0.0.8
-
-  SBOM: 36 components, 37 dependency entries
+=== Guardian scan: sscg-demo-target ===
+  ① components      : 31 (25 libraries: 13 direct, 12 transitive, depth 2) · 1 images · 3 CI actions
+  ② SBOM            : 36 components (CycloneDX 1.5)
+  what changed      : bf0e651 -> 8cad42e by fastbuilds42 (FIRST-TIME contributor): "chore: routine dependency refresh"; 6 files, +7 / -1 / ~1 components
+  ③ vulnerabilities : 16 vulnerable components (141 advisories)
+  ④ anomalies       : 25  (R08_UNEXPECTED_DEPENDENCY 3, R03_INSTALL_SCRIPT 2, R13_CONTAINER_HARDENING 2, R01_TYPOSQUAT 2, ...)
+  ⑤ findings        : 41 · Critical 21 · High 8 · Medium 12 · Low 0 · Info 0 · new in change 25
+    F-001 Critical 10.0  NEW 'postinstall' script scripts/setup.js runs shell commands / child processes, reads secrets from the environment, ...
+    F-002 Critical 10.0  NEW .github/workflows/ci.yml: 'pull_request_target' workflow checks out the pull request's own code
+    F-003 Critical 10.0  NEW .github/workflows/ci.yml: secret(s) NPM_TOKEN are passed to a downloaded script
+    F-004 Critical 10.0  NEW crossenv@7.0.3 is a documented malicious package
+    F-005 Critical 10.0  NEW lodash@4.17.15: same version, different content hash (and source) in package-lock.json
+    F-006 Critical 10.0  NEW python3-dateutil@2.8.1 is a documented malicious package
+    F-007 Critical 10.0      org.apache.logging.log4j:log4j-core@2.14.1: 8 known vulnerabilities (highest CRITICAL, CVSS 10.0)
+    ...
 ```
 </details>
 
 ---
 
-## 6. Outputs
+## 5. Outputs
 
 Every scan writes to `out/<repo name>/`:
 
-| File | What it is | Who uses it |
+| File | Column | Content |
 |---|---|---|
-| `sbom.cdx.json` | **CycloneDX 1.5 SBOM**: every component with purl, version, scope, hashes, origin, and the full dependency tree | other tools (Grype, Dependency-Track …), auditors |
-| `graph.html` | Interactive graph. Hover a node for details, drag to explore. Works offline (vis.js is embedded). | people |
-| `graph.json` | All nodes and edges with every attribute | the dashboard, later pillars |
-| `summary.json` | Counts, depth histogram, origins, duplicates, blast radius, container and CI inventory, dependency paths | the dashboard, reports |
-| `graph.mmd` | Mermaid version of the graph (small graphs only, ≤ 80 nodes) | docs, slides |
-
-### Reading `graph.html`
-
-| Symbol | Meaning |
-|---|---|
-| ★ | the repository |
-| green box | a manifest, Dockerfile or workflow |
-| ● orange / blue / purple | npm / PyPI / Maven library |
-| ■ blue square | container image |
-| ▲ dark triangle | GitHub Action |
-| ● grey | file downloaded during a build or CI run |
-| ◆ diamond | npm package with an install script, or not served from the npm registry |
-| red fill | package has published advisories (only with `--osv`) |
-| big node, thick border | direct dependency |
-
-### Key fields in `summary.json`
-
-| Field | Meaning |
-|---|---|
-| `components_total` | everything in the supply chain (libraries + images + actions + downloads) |
-| `packages`, `direct`, `transitive` | code libraries only (npm, PyPI, Maven) |
-| `max_depth`, `depth_histogram` | how deep the dependency tree goes |
-| `by_ecosystem`, `by_scope`, `resolution` | breakdowns |
-| `origins` | components per host (`registry.npmjs.org`, `docker.io`, `github.com` …) |
-| `untrusted_origins` | npm packages not downloaded from the official npm registry |
-| `install_scripts` | packages that run code on install (`hasInstallScript` in the lockfile) |
-| `duplicates` | the same package installed in several versions |
-| `top_blast_radius` | packages with the most other packages depending on them |
-| `heaviest_direct_deps` | direct dependencies that pull in the most other packages |
-| `container_images`, `dockerfiles`, `ci_workflows`, `remote_artifacts` | the container and CI/CD inventory (see §8) |
-| `vulnerable_paths` | dependency path to each package with advisories (`--osv`) |
-| `sbom` | file name, format and counts of the generated SBOM |
-| `why` | answers to `--why` |
+| `sbom.cdx.json` | 2 | **CycloneDX 1.5 SBOM**: every component with purl, version, scope, hashes, origin, and the full dependency tree |
+| `graph.html` | 2 | Interactive graph (offline). Red = published advisories, ◆ = suspicious. |
+| `graph.json` | 2 | All nodes and edges with every attribute (incl. advisories and finding IDs) |
+| `summary.json` | 1–2 | Counts, depth, origins, duplicates, blast radius, container and CI inventory, finding counts |
+| `findings.json` | 3–5 | **All findings** with evidence, severity, fixes, paths and risk, plus the "what changed" comparison |
+| `report.md` | 5 | **Human-readable evidence report**: what is in it, what changed, what appears risky, evidence per finding |
+| `graph.mmd` | 2 | Mermaid diagram (graphs ≤ 80 nodes) |
 
 ---
 
-## 7. The SBOM in detail
+## 6. Column 1 + 2: components, SBOM, graph, containers, CI/CD
 
-SSCG covers **both** options on the slide: it **generates** an SBOM on every scan and can **consume** one with `--sbom`.
+### 6.1 SBOM (generate and consume)
 
-### 7.1 Generate
-
-The format is **CycloneDX 1.5 JSON**, the OWASP standard that most security tools read. Every node in the graph becomes a component, and every edge becomes an entry in `dependencies`:
+**Generate:** every scan writes `sbom.cdx.json` in **CycloneDX 1.5 JSON**:
 
 | Component | CycloneDX `type` | Identity (`purl`) | Origin (`externalReferences`) | Hashes |
 |---|---|---|---|---|
-| npm / PyPI / Maven package | `library` | `pkg:npm/qs@2.4.2`, `pkg:pypi/…`, `pkg:maven/…` | lockfile `resolved` URL (`distribution`) | SHA-512 / SHA-1 from lockfile `integrity` |
-| Container base image | `container` | `pkg:docker/library/node@18.13.0?repository_url=docker.io` | `docker://docker.io/library/node` | SHA-256 if pinned by digest |
-| GitHub Action | `application` | `pkg:github/actions/checkout@v4` | `https://github.com/actions/checkout` (`vcs`) | — |
+| npm / PyPI / Maven package | `library` | `pkg:npm/qs@2.4.2` … | lockfile `resolved` URL | SHA-512 / SHA-1 from lockfile `integrity` |
+| Container image | `container` | `pkg:docker/library/node@18.13.0?repository_url=docker.io` | `docker://docker.io/library/node` | SHA-256 if pinned by digest |
+| GitHub Action | `application` | `pkg:github/actions/checkout@v4` | `https://github.com/actions/checkout` (vcs) | — |
 | File downloaded while building | `file` | — | the URL | — |
-| Manifest / Dockerfile / workflow | `application` | — (`bom-ref` = `app:<path>`) | — | — |
+| Manifest / Dockerfile / workflow | `application` | `bom-ref` = `app:<path>` | — | — |
 
-**Scope mapping:** `required` = needed at runtime, `optional` = optional dependency, `excluded` = dev, test, build or CI only.
+Scope: `required` = runtime, `optional`, `excluded` = dev/test/build/CI only. Facts CycloneDX has no field for are kept as `sscg:*` properties (`sscg:direct`, `sscg:depth`, `sscg:source`, `sscg:pinned_to_sha`, `sscg:pinned_by_digest`, `sscg:runs_as` …). An integrity value that is not a well-formed hash is kept as `sscg:integrity_malformed`, never emitted as a hash.
 
-**Extra facts.** CycloneDX has no field for some things we record, so they are stored as properties with the `sscg:` prefix:
+**Consume:** `python -m sscg scan <repo> --sbom bom.cdx.json` rebuilds the graph from an SBOM (ours, Syft, cdxgen …) and runs the same pipeline. SBOMs written by SSCG come back identical (verified).
 
-| Property | Example |
-|---|---|
-| `sscg:direct`, `sscg:depth`, `sscg:dependents` | `true`, `1`, `3` |
-| `sscg:source` | `package-lock.json`, `worker/requirements.txt:3`, `Dockerfile:1` |
-| `sscg:resolution` | `lockfile`, `deps.dev`, `workflow` … |
-| `sscg:install_script` | `true` |
-| `sscg:registry`, `sscg:tag`, `sscg:pinned_by_digest`, `sscg:official_image` | container images |
-| `sscg:ref`, `sscg:pinned_to_sha`, `sscg:owner` | GitHub Actions |
-| `sscg:triggers`, `sscg:permissions`, `sscg:runs_as` | workflows and Dockerfiles |
-| `sscg:integrity_malformed` | a lockfile integrity value that is **not** a valid hash (kept as evidence, never emitted as a hash) |
-
-<details>
-<summary><b>Example component</b> (from <code>out/sscg-demo-target/sbom.cdx.json</code>)</summary>
-
-```json
-{
-  "type": "library",
-  "bom-ref": "pkg:npm/minimist@0.0.8",
-  "name": "minimist",
-  "version": "0.0.8",
-  "scope": "required",
-  "purl": "pkg:npm/minimist@0.0.8",
-  "hashes": [{
-    "alg": "SHA-512",
-    "content": "9a240ac391efe0d4b53ec836e75ee65787b875835a3b7fbe86302f2ce0332aa67ad6b1fc352d522bebdb7c1599e4f63f31efdb116854c2a3208445b915bf53ed"
-  }],
-  "externalReferences": [{ "type": "distribution", "url": "https://registry.npmjs.org/minimist/-/minimist-0.0.8.tgz" }],
-  "properties": [
-    { "name": "sscg:kind", "value": "package" },
-    { "name": "sscg:ecosystem", "value": "npm" },
-    { "name": "sscg:direct", "value": "false" },
-    { "name": "sscg:depth", "value": "2" },
-    { "name": "sscg:dependents", "value": "1" },
-    { "name": "sscg:scope", "value": "prod" },
-    { "name": "sscg:source", "value": "package-lock.json" },
-    { "name": "sscg:resolution", "value": "lockfile" },
-    { "name": "sscg:install_script", "value": "false" }
-  ]
-}
-```
-</details>
-
-### 7.2 Consume
-
-```powershell
-python -m sscg scan <repo> --sbom bom.cdx.json
-```
-
-SSCG rebuilds the graph from the SBOM's `components` and `dependencies` and produces the same outputs as a scan.
-* **SBOMs written by SSCG** come back exactly: the same components, edges and attributes (verified, see §11).
-* **SBOMs from other tools** (Syft, cdxgen, …) work too. The whole document is shown as one app node, and if the SBOM has no dependency information, its components hang directly under that node.
-
----
-
-## 8. Container image and CI/CD inspection
-
-The slide asks for at least one container image **or** CI/CD workflow. SSCG inspects **both**, statically: nothing is pulled, built or run.
-
-### 8.1 Containers: `Dockerfile`, `Containerfile`, `docker-compose*.yml`
+### 6.2 Container inspection (`Dockerfile`, `Containerfile`, `docker-compose*.yml`)
 
 | Recorded | Details |
 |---|---|
-| **Base images** (`FROM`) | registry, repository, tag, digest; whether it is an official Docker Hub image; whether it is pinned by digest; `--platform` flags and `ARG` defaults (`FROM node:${VERSION}`) are handled |
-| **Build stages** | multi-stage builds: the final stage is the shipped runtime image (`scope: prod`), earlier stages are build-only (`scope: build`); `FROM <earlier-stage>` and `scratch` are not counted as images |
-| **Remote files** | URLs fetched with `RUN curl/wget …` or `ADD <url>`: recorded as components whose origin is the URL |
-| **Runtime user** | the final `USER`, or "not set (inherits the base image default)" |
-| **Compose services** | the `image:` of every service (services with `build:` use the Dockerfile, which is scanned separately) |
+| Base images (`FROM`) | registry, repository, tag, digest; official Docker Hub image or not; pinned by digest or not; `--platform` and `ARG` defaults handled |
+| Build stages | the final stage **and every stage it is built on** ship (`scope: prod`, e.g. `FROM base AS production`); other stages are `build` |
+| Remote files | URLs fetched with `RUN curl/wget` or `ADD <url>` (across `\` continuations) |
+| Runtime user | the `USER` in effect for the final stage, inherited along the stage chain |
+| Compose services | images of pulled services; services with `build:` are skipped (their Dockerfile is scanned) |
 
-### 8.2 CI/CD: GitHub Actions (`.github/workflows/*.yml`)
+### 6.3 CI/CD inspection (GitHub Actions)
 
-| Recorded | Details |
-|---|---|
-| **Triggers** | `on:` events, e.g. `push`, `pull_request`, `pull_request_target`, `schedule` |
-| **Token permissions** | top-level `permissions:` (or "not set (repository default)") |
-| **Actions** | every `uses:` (steps and reusable workflows): owner, repo, sub-path, ref, and whether the ref is a **full commit SHA** (immutable) or a tag/branch (can change) |
-| **Images** | job `container:` and `services:` images, and `docker://` actions |
-| **Remote files** | URLs fetched with `curl`/`wget` in `run:` steps |
-| **Location** | each use keeps its own `file:line`, even when the same action appears in several workflows |
+Triggers, token `permissions`, every `uses:` action with its ref and whether it is pinned to a **full commit SHA**, job container and service images, `docker://` actions, files fetched in `run:` steps (URLs with `${{ }}` kept whole), each with its own `file:line`.
 
 ---
 
-## 9. The dashboard
+## 7. Column 3: Detect vulnerabilities
+
+| Step | How |
+|---|---|
+| **Correlate** | Every npm / PyPI / Maven package version is sent to OSV.dev `querybatch` (name + version only). |
+| **Capture** | For each advisory: OSV/GHSA ID, **CVE aliases**, summary, **CVSS vector**, **CVSS v3 base score** (computed with the FIRST formula; checked against reference vectors), or the advisory's severity label when only CVSS v4 / no vector is published, and the **fixed version** for the installed version's range. |
+| **De-duplicate** | The same issue published as GHSA + PYSEC + CVE is counted once (alias matching). |
+| **Trace** | Up to 3 shortest **dependency paths** from the app to the vulnerable package, plus the **direct dependency that introduces it** ("introduced via"). |
+| **Fix** | Per advisory `fixed_in`, plus the lowest version that fixes all of them (`upgrade_to_at_least`), and the list of advisories without a published fix. |
+
+One finding is created **per vulnerable component** (not per advisory). Its type is *Vulnerable direct dependency* or *Vulnerable transitive dependency*, the two categories from the slide.
+
+Example (sscg-demo-target):
+```
+F-007  org.apache.logging.log4j:log4j-core@2.14.1: 8 known vulnerabilities (highest CRITICAL, CVSS 10.0)
+       path: com.acme:notifier@1.0.0 → log4j-core@2.14.1
+       GHSA-jfh8-c2jp-5v3q  CVE-2021-44228 (Log4Shell)  CRITICAL  CVSS 10.0  fixed in 2.15.0
+       GHSA-7rjr-3q55-vv33  CVE-2021-45046              CRITICAL  CVSS 9.0   fixed in 2.16.0
+       ...                                              → upgrade to ≥ 2.25.4 fixes all 8
+F-009  minimist@0.0.8 (transitive): acme-orders → mkdirp@0.5.1 → minimist@0.0.8   introduced via mkdirp
+```
+
+**OSV `MAL-*` records** (known malicious packages) are not treated as vulnerabilities; they become rule R02 in column 4.
+
+---
+
+## 8. Column 4: Detect suspicious changes
+
+### 8.1 What changed
+
+When the repository has history, SSCG extracts the **base commit** (default `HEAD~1`) with `git archive` into a temporary folder. Nothing is checked out or run. It scans the base with the same code and compares component by component:
+
+* **commit metadata:** author, date, message, and whether this is the author's **first commit** in the repository
+* **files changed** (`git diff --name-status`)
+* components **added**, **removed**, and **changed**: a new version, or the *same* version with a different download URL, integrity hash or install-script flag
+
+All rules then run on **both** sides. A finding that did not exist in the base is marked **🆕 new in this change** and gets `introduced_in = <commit>`.
+
+### 8.2 The 19 rules
+
+| Rule | Slide category | Detects | Default level |
+|---|---|---|---|
+| R01 `TYPOSQUAT` | Typosquatted package | direct dependency whose name equals a popular package once separators / `python-`·`node-` prefixes are removed, or is 1 edit (2 for long names) away from one | High |
+| R02 `KNOWN_MALICIOUS` | Typosquatted package | OSV `MAL-*` record, or entry in the documented-incidents list `data/known_malicious.json` | Critical |
+| R03 `INSTALL_SCRIPT` | Unsafe install script | `preinstall/install/postinstall/prepare` in the app's `package.json` (Medium); third-party package with `hasInstallScript` (Low) | Medium / Low |
+| R04 `INSTALL_SCRIPT_CONTENT` | Unsafe install script | the app's install script contains child processes, secret-looking env names, base64-hidden data (decoded in the evidence), `eval`, network access, host fingerprinting | High (≥ 2 kinds: Critical) |
+| R05 `LOCKFILE_UNTRUSTED_SOURCE` | Modified lockfile | npm package downloaded from a host other than the npm registry | High |
+| R06 `LOCKFILE_INTEGRITY_CHANGED` | Modified lockfile | **same name and version, different integrity hash** vs. the base commit (tarball swap) | Critical |
+| R07 `LOCKFILE_DRIFT` | Modified lockfile | lockfile entry of a direct dependency changed while `package.json` did not | High |
+| R08 `UNEXPECTED_DEPENDENCY` | Unexpected dependency | new direct dependency vs. the base commit | Medium |
+| R09 `UNPINNED_DEPENDENCY` | Suspicious package update | `requirements.txt` line without `==`; npm spec `latest`/`*`/git/URL; `package.json` without lockfile (one finding per manifest) | Low (no lockfile: Medium) |
+| R10 `UNTRUSTED_BASE_IMAGE` | Untrusted image | image not from `docker.io/library`, `gcr.io/distroless`, `mcr.microsoft.com`, `cgr.dev/chainguard` | High |
+| R11 `MUTABLE_IMAGE_TAG` | Untrusted image | `latest` or no tag, and no digest | Medium |
+| R12 `REMOTE_SCRIPT_EXEC` | Unsafe install script | `curl`/`wget … \| sh` in a Dockerfile `RUN` or a workflow `run:` | High |
+| R13 `CONTAINER_HARDENING` | Untrusted image | `npm install/ci/update` without `--ignore-scripts` in a Dockerfile (Medium); no `USER` (Low) | Medium / Low |
+| R14 `CI_PWN_REQUEST` | Unsafe CI/CD component | `pull_request_target` + checkout of the PR's head ref | Critical |
+| R15 `CI_UNPINNED_ACTION` | Unsafe CI/CD component | third-party action (owner not `actions`/`github`) not pinned to a commit SHA | High |
+| R16 `CI_EXCESSIVE_PERMISSIONS` | Unsafe CI/CD component | `permissions: write-all` (High); no top-level `permissions:` (Low) | High / Low |
+| R17 `CI_SECRET_EXPOSURE` | Unsafe CI/CD component | `secrets.*` handed to a step that pipes a download into a shell, or to an unpinned third-party action | Critical |
+| R18 `NEW_AUTHOR_SENSITIVE_CHANGE` | Suspicious package update | a **first-time contributor** changed lockfiles, manifests, Dockerfiles, workflows or install scripts | High |
+| R19 `SUSPICIOUS_UPDATE` | Suspicious package update | a version update that also adds an install script or changes the download host | High |
+
+All six example categories from the slide are covered: **unexpected dependency** (R08), **typosquatted package** (R01, R02), **suspicious package update** (R09, R18, R19), **unsafe install script** (R03, R04, R12), **untrusted image** (R10, R11, R13), **modified lockfile** (R05, R06, R07). The CI/CD rules (R14–R17) cover slide 3's "unpinned or unsafe CI/CD component".
+
+Wording follows "investigate, not accuse": rule findings describe what was observed; only R02 states that a package *is* malicious, and only when a published record says so.
+
+---
+
+## 9. Column 5: Present evidence
+
+Every finding in `findings.json` answers the slide's five questions:
+
+| Slide asks | Field(s) | Example (F-005) |
+|---|---|---|
+| **What was detected** | `title`, `type`, `rule` | "lodash@4.17.15: same version, different content hash (and source)" · Modified lockfile · R06 |
+| **Which component** | `component` (purl, ecosystem, scope, direct), `location` | `pkg:npm/lodash@4.17.15`, direct, prod · `package-lock.json:51` |
+| **Dependency path** | `dependency_paths`, `introduced_by` | `acme-orders@1.0.0 → lodash@4.17.15` |
+| **Supporting evidence** | `evidence[]`: `file` (path, line, snippet) · `advisory` (ID, CVEs, CVSS, fix, link) · `change` (base → head values) · `commit` (sha, author, message) · `reference` · `fact` | integrity `sha512-…` → `sha512-…`, resolved `registry.npmjs.org` → `npm-mirror.example.invalid`, commit `8cad42e` by fastbuilds42 |
+| **Initial risk level** | `risk` (score 0–10, level, factors, reasons) | Critical (10.0): R06 default Critical + introduced in the latest change |
+
+Plus: `severity` and `fixes` (vulnerabilities only, official data), `why_it_matters`, `classification` (`verified_fact` / `heuristic`), `confidence` (`high` / `medium`), `new_in_change`, `introduced_in`.
+
+### 9.1 Initial risk (explainable)
+
+> **Guardian initial risk (heuristic, 0–10); not a CVSS score.** Official severity stays in `severity`.
+
+| Finding | Starting score |
+|---|---|
+| Vulnerability | highest **CVSS v3** score of its advisories; if none, the advisory label: Critical 9.5 · High 8.0 · Medium 5.5 · Low 3.0 · unknown 5.5 |
+| Anomaly | the rule's level: Critical 9.5 · High 8.0 · Medium 5.5 · Low 3.0 |
+| **+1.0** | if the finding is **new in the latest change** |
+
+Level: **≥ 9 Critical · ≥ 7 High · ≥ 4 Medium · ≥ 2 Low · else Info**. Every finding lists its `reasons` (e.g. *"highest advisory severity CRITICAL (CVSS 10.0)"*, *"introduced in the latest change"*, *"version estimated without a lockfile"*, *"2 advisories without a published fix"*).
+
+### 9.2 The report
+
+`report.md` follows the checkpoint question:
+1. **What is in the application:** inventory and SBOM
+2. **What changed:** base → head, author (first-time?), files, components added / removed / changed, number of new findings
+3. **What appears risky:** counts per level and one table row per finding (risk, type, finding, location, 🆕)
+4. **Evidence per finding:** the five answers above for the top 60 findings (all are in `findings.json`)
+5. **Notes and limits**
+
+---
+
+## 10. The dashboard
 
 ```powershell
 cd sscg
@@ -381,74 +365,86 @@ streamlit run ui/app.py
 
 | Section | Shows |
 |---|---|
-| **Repository picker** | the two sample apps, or any folder; options for the OSV overlay, offline mode and focus |
-| **① Components** | components, libraries, direct, transitive, max depth, container images, CI actions; breakdown by ecosystem and resolution method |
-| **② Dependency graph** | the interactive graph, top blast radius, heaviest direct dependencies, **"Why is this package here?"** search, duplicates |
-| **② SBOM (CycloneDX)** | format, counts, component table (type, name, version, scope, purl, origin), **Download** button |
-| **② Container images & CI/CD** | images table, Dockerfile facts, each workflow's triggers, permissions and actions, downloaded files |
-| **② Origins** | components per host, npm packages not served by the npm registry, packages with install scripts |
+| Controls | repository picker (3 sample apps or any folder), vulnerability detection, offline, **compare with commit**, graph focus, **Scan** |
+| Pipeline + headline | `Repository → SBOM → Dependency graph → Risk detection → Evidence`; components, vulnerable components, suspicious changes, Critical, High, **new in latest change** |
+| **①** Components | inventory numbers, manifests, ecosystems, resolution |
+| **②** Supply chain view | dependency graph + "Why is this package here?", SBOM (download), container images & CI/CD, origins |
+| **③** Vulnerabilities | counts by severity, filterable table (CVEs, CVSS, fix, introduced via, risk), **trace a component**: paths + advisory table with links |
+| **④** Suspicious changes | **what changed** (commit, author, first-time flag, files, components added/removed/changed) + anomaly table |
+| **⑤** Evidence | all findings filterable by level / category / new; **open a finding** for its full evidence card; download `findings.json` and `report.md`; full report inline |
 
 ---
 
-## 10. Results on the sample applications
+## 11. Results on the sample applications
 
-### 10.1 `targets/sscg-demo-target`: our multi-ecosystem test fixture
+### 11.1 `targets/sscg-demo-target`: our multi-ecosystem fixture (with history)
 
-A small "orders" service (npm + Python worker + Java notifier + Dockerfile + CI). It has two commits; the second, *"chore: routine dependency refresh"*, quietly plants supply-chain problems that later pillars will detect.
+A small "orders" service (npm + Python worker + Java notifier + Dockerfile + CI) with two commits. The second, by a new contributor, is titled *"chore: routine dependency refresh"*.
 
 | | |
 |---|---|
-| Manifests | `package.json` (+ lockfile v3), `worker/requirements.txt`, `notifier/pom.xml`, `Dockerfile`, `.github/workflows/ci.yml` |
-| Libraries | **25**: npm 7, PyPI 10, Maven 8 · **13 direct / 12 transitive** · depth 2 |
-| Container | `fastbuilds42/node:latest` (non-official, not pinned by digest) · downloads `bootstrap.sh` during build · no `USER` |
-| CI/CD | triggers `push`, `pull_request_target` · permissions `write-all` · `actions/checkout@v4`, `actions/setup-node@v4`, `fastbuilds42/cache-helper@main` (none pinned to a SHA) · downloads `ci-agent.sh` |
-| Origins | `registry.npmjs.org` 6 · **`npm-mirror.example.invalid` 1** (lodash) · `docker.io` 1 · `github.com` 3 · `get.example.invalid` 2 |
-| Install scripts | `crossenv@7.0.3` |
-| SBOM | 36 components, 37 dependency entries |
-| With `--osv` | 16 packages with published advisories, e.g. `acme-orders → mkdirp → minimist@0.0.8` |
+| Inventory | 31 components: 25 libraries (npm 7, PyPI 10, Maven 8; 13 direct / 12 transitive), 1 image, 3 CI actions, 2 downloads · SBOM 36 components |
+| What changed | `bf0e651` → `8cad42e` by **fastbuilds42 (first-time contributor)** · 6 files · +7 / −1 / ~1 components |
+| Vulnerabilities | **16 vulnerable components, 141 advisories**, incl. Log4Shell (CVE-2021-44228, CVSS 10.0), jackson-databind (60 advisories), minimist via mkdirp (CVSS 9.8) |
+| Anomalies | **25, all new in the change** |
+| Findings | **41**: 21 Critical · 8 High · 12 Medium · **25 new** |
 
-> ⚠️ This repository is **inert test data**. Its URLs use the reserved `.invalid` domain. **Never** run `npm install`, `pip install`, `mvn`, `docker build` or its workflow.
+What a "routine dependency refresh" really did, and what SSCG found:
 
-### 10.2 `targets/nodejs-goof`: public, deliberately vulnerable Node.js app (Snyk)
+| Planted in `8cad42e` | Found as |
+|---|---|
+| `crossenv` (typosquat of `cross-env`, real 2017 malicious package) | R01 + R02 + R08 + R03 |
+| `postinstall` → `scripts/setup.js` with `child_process`, token names, a base64-hidden URL | R03 + **R04 Critical**, endpoint decoded: `http://telemetry.example.invalid/c` |
+| lodash moved to `npm-mirror.example.invalid`, **same version, new hash** | R05 + **R06 Critical** + R07 |
+| `python3-dateutil` (typosquat of `python-dateutil`, real 2019 malicious package) | R01 + R02 + R08 |
+| `urllib3` without a version | R08 + R09 |
+| base image → `fastbuilds42/node:latest`, `curl … \| sh`, `USER` removed, `npm install` with scripts | R10 + R11 + R12 + R13 ×2 |
+| CI → `pull_request_target` + PR checkout, `write-all`, `fastbuilds42/cache-helper@main`, `NPM_TOKEN` to `curl … \| bash` | **R14 + R16 + R15 + R12 + R17** |
+| all of it by a first-time author | R18 |
+
+### 11.2 `targets/nodejs-goof`: Snyk's deliberately vulnerable Node.js app (shallow clone)
 
 | | |
 |---|---|
-| Libraries | **980** npm packages · **35 direct / 945 transitive (96%)** · depth **10** · 148 packages in several versions |
-| Scope | 549 prod · 415 dev · 19 optional · 6 CI |
-| Container | `node:18.13.0` (Dockerfile) · `mongo:3`, `mysql:5` (docker-compose) · all official, none pinned by digest |
-| CI/CD | 4 workflows (CodeQL, 3 × Snyk) · 6 distinct actions, e.g. `actions/checkout@v3`, `snyk/actions/setup@master` · none pinned to a SHA |
-| Origins | `registry.npmjs.org` 768 (the other 212 are bundled inside `nyc`'s own tarball, so they have no download URL of their own) |
-| Install scripts | `core-js`, `fsevents`, `kerberos`, `nodemon` |
-| Most depended-on | `inherits@2.0.3` (under 76 packages), `safe-buffer@5.1.2` (63) |
-| Heaviest direct deps | `tap` (+345 packages), `snyk` (+325), `browserify` (+141) |
-| SBOM | 996 components, 997 dependency entries, 768 with hashes |
-| With `--osv` | 139 packages with published advisories |
+| Inventory | 989 components: **980** npm packages (35 direct / 945 transitive, depth 10), 3 images, 6 CI actions · SBOM 996 components |
+| Vulnerabilities | **139 vulnerable components, 315 advisories**. `qs` ships in 3 versions via 3 parents: `express@4.12.4`, `body-parser@1.9.0`, `tap → coveralls → request` |
+| Anomalies | 15: 4 third-party install scripts, 4 workflows without `permissions:`, `snyk/actions/setup@master` unpinned (×2), Dockerfile runs `npm update`/`npm install` with scripts and as root, `morgan`/`method-override` requested as `latest` |
+| Findings | **154**: 24 Critical · 73 High · 37 Medium · 20 Low |
 
-**"Why is `qs` here?"** Nobody installed it, yet three versions ship:
-```
-goof → express@4.12.4 → qs@2.4.2
-goof → body-parser@1.9.0 → qs@2.2.4
-goof → tap@11.1.5 → coveralls@3.0.9 → request@2.88.0 → qs@6.5.2
-```
+### 11.3 `targets/juice-shop`: OWASP Juice Shop (large, no lockfile, shallow clone)
+
+| | |
+|---|---|
+| Inventory | 1,790 components: **1,754** npm packages (155 direct / 1,599 transitive, depth 9), 8 images (6 shipped, 2 build-only), 25 CI actions (18 pinned to a SHA), 3 downloads · SBOM 1,813 components |
+| Vulnerabilities | 55 vulnerable components, 139 advisories (**over-estimate**: no lockfile, see below) |
+| Anomalies | 28: `GITHUB_TOKEN` passed to the unpinned third-party actions `coverallsapp/github-action@v2` and `calibreapp/image-actions` (R17), Heroku installer piped into a shell (R12), 3 unpinned third-party actions, 13 workflows without `permissions:`, `latest` images, 2 manifests without a lockfile |
+| Findings | **83**: 7 Critical · 29 High · 27 Medium · 20 Low |
+
+**Accuracy without a lockfile.** We generated a real lockfile for the backend in a scratch copy (`npm install --package-lock-only --ignore-scripts`: metadata only) and compared it with the estimate: package **names 99.7 %** identical, exact **versions 88 %**, packages with advisories **37 estimated vs 22 real**. The estimate takes the lowest version each range allows, so it skews older and over-counts vulnerabilities. Such findings are marked `confidence: medium`.
 
 ---
 
-## 11. How the results were verified
+## 12. How the results were verified
 
-| Check | How | sscg-demo-target | nodejs-goof |
-|---|---|---|---|
-| **Ground truth** | compared with the expected components listed in `docs/blueprint.md` §7.1 | ✅ npm 7, image, 3 actions match | — |
-| **SBOM is valid CycloneDX** | validated against the official CycloneDX 1.5 JSON schema (+ SPDX and JSF sub-schemas) | ✅ 0 errors | ✅ 0 errors |
-| **SBOM is internally consistent** | every `dependencies` reference points to an existing `bom-ref`; no duplicate `bom-ref`s | ✅ | ✅ |
-| **Generate → consume round-trip** | write the SBOM, read it back with `--sbom`, compare graphs | ✅ identical nodes, edges, attributes | ✅ identical |
-| **Regression** | graph compared with the previous builder (`archive/depgraph-v0`) | ✅ 0 diffs | ✅ 0 diffs |
-| **Cross-check with npm** | package counts compared with `npm ls --all --json --package-lock-only` | — | ✅ 980 packages, 35 direct, depth 10 |
-| **Offline mode** | rerun with `--offline` | ✅ identical | ✅ identical |
-| **Dashboard** | headless run with Streamlit `AppTest` on both repos | ✅ no errors | ✅ no errors |
+| Check | How | Result |
+|---|---|---|
+| **Ground truth (columns 3–5)** | the 9 planted anomalies and the vulnerability list in `docs/blueprint.md` §7.2–7.3 | ✅ all 9 anomalies, all listed vulnerable components (Log4Shell, Text4Shell, minimist, follow-redirects, …) |
+| **Ground truth (columns 1–2)** | expected components in `docs/blueprint.md` §7.1 | ✅ npm 7, image, 3 actions |
+| **CVSS calculator** | 7 reference CVSS 3.0/3.1 vectors (incl. 10.0, 9.8, 0.0, scope-changed cases) | ✅ 7/7 |
+| **Fix-version logic** | multiple ranges, `last_affected`, open ranges, pre-releases, 4-part / qualifier versions | ✅ |
+| **"New in change" logic** | compare HEAD with itself | ✅ 0 new findings, change-only rules silent |
+| **Typosquat false positives** | all 190 direct dependencies of nodejs-goof and juice-shop | ✅ 0 flagged |
+| **SBOM validity** | official CycloneDX 1.5 JSON schema, all 3 targets | ✅ 0 errors |
+| **Generate → consume round-trip** | write SBOM, read back with `--sbom`, compare graphs | ✅ identical on all 3 |
+| **Regression** | graph vs. the first builder (`archive/depgraph-v0`) | ✅ 0 diffs |
+| **Cross-check with npm** | nodejs-goof vs `npm ls` | ✅ 980 packages, 35 direct, depth 10 |
+| **Container / CI parser edge cases** | hand-written fixture (ARG in FROM, multi-stage chains, inherited USER, digest-only images, reusable workflows, SHA pins, `docker://`, `${{ }}` URLs …) | ✅ 16/16 |
+| **Offline mode** | rerun with `--offline` | ✅ identical findings |
+| **Dashboard** | headless Streamlit `AppTest`, live scan on all 3 targets | ✅ no exceptions or errors |
 
 ---
 
-## 12. Repository layout
+## 13. Repository layout
 
 ```
 Bosch-Hackathon/
@@ -457,102 +453,101 @@ Bosch-Hackathon/
 ├── sscg/                         ← the solution
 │   ├── README.md                 short quick-start
 │   ├── requirements.txt
-│   ├── sscg/                     Python package
+│   ├── sscg/
 │   │   ├── __main__.py           CLI: python -m sscg scan <repo>
 │   │   ├── model.py              graph model (DepGraph, purl)
-│   │   ├── cache.py              cached HTTP for deps.dev / OSV (offline mode)
-│   │   ├── discover/             ① + ② inspection
-│   │   │   ├── __init__.py       walks the repo, dispatches each file
-│   │   │   ├── npm.py            package.json, package-lock v1/v2/v3, shrinkwrap, yarn.lock v1
-│   │   │   ├── pypi.py           requirements*.txt, poetry.lock
-│   │   │   ├── maven.py          pom.xml
-│   │   │   ├── depsdev.py        transitive resolution via deps.dev
-│   │   │   ├── docker.py         Dockerfile, Containerfile, docker-compose
-│   │   │   └── gha.py            GitHub Actions workflows
-│   │   ├── sbom.py               CycloneDX 1.5 generate + consume
-│   │   ├── graph.py              depth, "why" paths, origins, inventory, summary
-│   │   ├── export.py             graph.html, graph.json, graph.mmd
-│   │   └── vulns.py              OSV overlay (--osv)
-│   ├── ui/app.py                 Streamlit dashboard
-│   ├── .cache/                   cached API responses (offline demo)
+│   │   ├── cache.py              cached HTTP (deps.dev, OSV) for offline use
+│   │   ├── discover/             ① npm.py · pypi.py · maven.py · depsdev.py   ② docker.py · gha.py
+│   │   ├── sbom.py               ② CycloneDX 1.5 generate + consume
+│   │   ├── graph.py              ② depth, paths, origins, inventory, summary
+│   │   ├── export.py             ② graph.html / graph.json / graph.mmd
+│   │   ├── vulns.py              ③ OSV: advisories, CVEs, severity, fixes, de-duplication
+│   │   ├── cvss.py               ③ CVSS v3.x base score
+│   │   ├── versions.py           ③ version comparison, fixed version per range
+│   │   ├── gitutil.py            ④ read-only git helpers (commit info, git archive)
+│   │   ├── diff.py               ④ what changed: base vs head
+│   │   ├── rules/                ④ common.py (catalogue) · packages.py · lockfile.py · container.py · cicd.py · provenance.py
+│   │   ├── data/                 ④ popular_npm.txt · popular_pypi.txt · known_malicious.json
+│   │   ├── findings.py           ⑤ finding envelope, paths, initial risk, counts
+│   │   └── report.py             ⑤ report.md
+│   ├── ui/app.py                 dashboard (all five columns)
+│   ├── .cache/                   cached API responses
 │   └── out/<repo>/               scan results
 ├── targets/                      sample applications (scanned, never run)
-│   ├── sscg-demo-target/
-│   └── nodejs-goof/
-├── docs/
-│   ├── blueprint.md              Day 1 plan and ground truth
-│   ├── graph_blueprint.md        dependency-graph plan
-│   ├── report.md                 progress report
-│   └── screenshots/
-└── archive/                      earlier prototypes, kept for reference
-    ├── depgraph-v0/              first single-file builder (superseded by sscg/)
-    └── npm-ls-prototype/         npm-ls + pyvis proof of concept
+│   ├── sscg-demo-target/  ·  nodejs-goof/  ·  juice-shop/
+├── docs/                         blueprint.md · graph_blueprint.md · dashboard.md · report.md · screenshots/
+└── archive/                      earlier prototypes (depgraph-v0, npm-ls-prototype)
 ```
 
 ---
 
-## 13. Tech stack
+## 14. Tech stack
 
 | Layer | Tool | Used for |
 |---|---|---|
 | Language | Python 3.12 | everything |
-| Graph | [networkx](https://networkx.org) 3.4 | graph model, paths, depth, ancestors/descendants |
-| Visualisation | [pyvis](https://pyvis.readthedocs.io) 0.3 (vis-network) | `graph.html` |
-| Dashboard | [Streamlit](https://streamlit.io) 1.42 + pandas | `ui/app.py` |
-| Parsing | `json`, `tomllib`, `xml.etree`, [PyYAML](https://pyyaml.org) 6 | manifests, lockfiles, workflows, compose files |
+| Graph | networkx 3.4 | graph model, paths, ancestors/descendants |
+| Visualisation | pyvis 0.3 (vis-network) | `graph.html` |
+| Dashboard | Streamlit 1.42 + pandas | `ui/app.py` |
+| Parsing | `json`, `tomllib`, `xml.etree`, PyYAML 6 | manifests, lockfiles, workflows, compose |
+| Similarity | rapidfuzz 3 (Levenshtein) | typosquat rule R01 |
+| Versions | packaging 25 (PEP 440) + fallback | fixed-version selection |
 | HTTP | requests | API calls (cached on disk) |
-| SBOM standard | [CycloneDX 1.5](https://cyclonedx.org/docs/1.5/json/) | `sbom.cdx.json` |
-| Component IDs | [Package URL (purl)](https://github.com/package-url/purl-spec) | node identity |
-| Transitive resolution | [deps.dev API](https://docs.deps.dev/api/v3/) (Google, free, no key) | PyPI, Maven, npm without lockfile |
-| Advisory overlay | [OSV.dev API](https://osv.dev) (free, no key) | `--osv` |
+| Git | git CLI (`log`, `diff`, `archive`) | what changed, commit evidence |
+| Standards | CycloneDX 1.5 · purl · CVSS v3.1 (FIRST) | SBOM, identities, scoring |
+| Data | [OSV.dev](https://osv.dev) · [deps.dev](https://deps.dev) (free, no key) | advisories incl. `MAL-*`; transitive resolution |
 
 ---
 
-## 14. Safety and responsible use
+## 15. Safety and responsible use
 
-* **Static analysis only.** SSCG reads files. It never runs `npm install`, `pip install`, `mvn`, `docker build`, `docker pull` or a workflow, so planted install scripts and malicious build steps cannot execute.
-* **Scanned repositories are treated as hostile input.** Text from a scanned repo is escaped before it goes into `graph.html` (a lockfile could contain `</script>`), and node IDs in the HTML are plain numbers.
-* **Network access** goes only to two public APIs, deps.dev and OSV.dev. Only package names and versions are sent, never source code. Use `--offline` to disable all network access.
-* **No credentials** are needed, read or stored.
-* **No AI is used in columns 1–2.** Every output is deterministic and reproducible. AI-assisted analysis is planned for later pillars, with a rule that it may only cite facts these tools produced.
-* **Within the hackathon rules:** we use free, open-source sample applications, scan only inside our own sandbox, and publish nothing to package registries.
+* **Static analysis only.** SSCG reads files. It never runs `npm install`, `pip install`, `mvn`, `docker build`/`pull` or a workflow. The base commit is read with `git archive` and extracted with Python's safe `data` filter (no absolute paths, no links outside the folder).
+* **Hostile input.** Text from scanned repos is escaped in `graph.html`; detectors only read files inside the repository (path-traversal guard); a broken file or detector never stops the scan.
+* **Network:** only OSV.dev and deps.dev, with package names and versions only, never source code. `--offline` disables all network access.
+* **No credentials** are needed, read or stored. The install-script rule *reports* secret-looking names it finds in code; it never reads environment variables.
+* **No AI on Day 1.** All findings are deterministic and reproducible. Each says whether it is a *verified fact* (e.g. a hash changed) or a *heuristic* (e.g. a name looks like a typosquat).
+* **Within the hackathon rules:** free, open-source sample apps; scanning only inside our sandbox; nothing published to registries; no automatic changes.
 
 ---
 
-## 15. Known limitations
+## 16. Known limitations
 
 | Limitation | Effect |
 |---|---|
-| Container images are inspected from the Dockerfile, not pulled | OS packages *inside* an image are not listed (that needs Syft or Trivy on a pulled image) |
-| CI/CD: GitHub Actions only | GitLab CI, Jenkins and Azure Pipelines files are ignored |
-| PyPI without lockfile, Maven | transitive dependencies come from deps.dev; ranges are resolved to their lower bound and marked `deps.dev-approx` |
-| Maven parent POMs | versions inherited from an external parent show as `managed-by-parent` |
+| No lockfile (npm / PyPI) and Maven | versions estimated via deps.dev (lowest version in range). Measured on Juice Shop: names ~99.7 % right, versions 88 %, advisories over-counted (37 vs 22); such findings say `confidence: medium` |
+| Shallow clones / first commit | no previous commit, so "what changed" and the 🆕 marking are skipped (noted in the report) |
+| Container images | inspected from Dockerfile/compose, not pulled: OS packages inside images and their CVEs are not covered |
+| Third-party install scripts | only the lockfile flag is known (package code is not downloaded); R04 inspects the **application's own** install scripts |
+| Typosquat (R01) | name similarity against a bundled list of ~300 npm and ~200 PyPI names; scoped npm names are not checked; needs human review |
+| Known malicious (R02) | OSV `MAL-*` records + a small seed list of documented incidents; not a complete malware feed |
+| Severity | CVSS v3 is scored; CVSS v4-only / v2-only advisories use the published label |
+| Initial risk | Day 1 heuristic: no exploitability (KEV/EPSS), reachability or production exposure yet (Day 2) |
+| CI/CD | GitHub Actions only |
 | npm peer dependencies | not drawn as edges |
-| yarn berry (v2+) lockfiles | fall back to deps.dev |
-| Foreign SBOMs | carry no `sscg:` hints, so their GitHub Actions arrive as plain `pkg:github` components and are counted as libraries |
-| Large graphs | `graph.html` is cut to 2 levels above 600 nodes (use `--focus` or `--max-depth`); `graph.json` and the SBOM always contain everything |
+| Large graphs | `graph.html` cut to 2 levels above 600 nodes (vulnerable / suspicious nodes kept); JSON and SBOM always complete |
 
 ---
 
-## 16. Roadmap
+## 17. Roadmap: Day 2
 
-**Day 1 (remaining)**
-* **Column 3 · Detect Vulnerabilities:** CVE IDs, CVSS severity and fixed versions from OSV; dependency path from the app to each vulnerable transitive package (the paths are already computed).
-* **Column 4 · Detect Suspicious Changes:** compare two commits ("what changed"); typosquats; install scripts; untrusted registries and images; unpinned actions; lockfile integrity changes.
-* **Column 5 · Present Evidence:** one finding per issue with component, dependency path, evidence (`file:line`, commit, API response) and an initial risk level.
-
-**Day 2:** prioritise risks with AI using evidence only, recommend safe remediation, require human approval, build, test, rescan, and produce a before/after report.
+Day 2 ("Build the Guardian's Brain & Shield") builds on `findings.json`:
+1. **Prioritize:** combine severity with exploitability (CISA KEV, EPSS), **reachability** (is the vulnerable code imported? e.g. `node-fetch` is declared but never imported in the demo) and production exposure.
+2. **Investigate:** AI-assisted explanation that may only cite finding IDs and evidence from this pipeline.
+3. **Recommend safe remediation:** upgrade / replace / pin / remove / block, using the captured fixed versions.
+4. **Human approval → build → test → rescan:** compare before/after SBOMs and findings.
+5. **Verify and report:** remaining or accepted risk, audit trail.
 
 ---
 
-## 17. Troubleshooting
+## 18. Troubleshooting
 
 | Problem | Fix |
 |---|---|
 | `No module named sscg` | run the command from inside the `sscg/` folder |
-| `No module named tomllib` | use Python 3.11 or newer |
-| Scan is slow the first time | the first PyPI/Maven scan calls deps.dev; later runs use `.cache/` |
-| `OSV unavailable` note | no network: rerun with `--offline` to use the cache, or check the connection |
+| `No module named rapidfuzz` / `packaging` | `pip install -r requirements.txt` |
+| `extractall() got an unexpected keyword argument 'filter'` | Python older than 3.11.4: upgrade (3.12 recommended) |
+| `base revision 'HEAD~1' not found` | shallow clone or single commit: fetch history (`git fetch --deepen=1`) or pass `--base <commit>` |
+| `OSV unavailable` / no vulnerabilities | no network: rerun with `--offline` (uses the cache) or check the connection |
+| Slow first scan | the first run fetches advisory details and deps.dev data; later runs use `.cache/` |
 | `graph.html` looks cut off | large graph: use `--focus <package>` or `--max-depth N` |
-| Graph is empty | no supported manifest found; check `notes` in `summary.json` |
-| Dashboard shows an old result | click **Scan repository** again; results are read from `out/<repo>/` |
+| Dashboard shows old results | click **Scan repository** again; results are read from `out/<repo>/` |
