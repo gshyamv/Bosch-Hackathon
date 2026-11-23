@@ -10,6 +10,7 @@ import subprocess
 import sys
 from pathlib import Path
 
+import altair as alt
 import networkx as nx
 import pandas as pd
 import streamlit as st
@@ -17,7 +18,63 @@ import streamlit.components.v1 as components
 
 ROOT = Path(__file__).resolve().parent.parent          # sscg/
 sys.path.insert(0, str(ROOT))
+from sscg.export import DEP_COLOR, render_html  # noqa: E402
+from sscg.model import NON_LIBRARY  # noqa: E402
 from sscg.report import _ev as evidence_text  # noqa: E402
+
+GRAPH_VIEWS = ["Direct vs transitive (by level)", "Direct dependencies only",
+               "One direct dependency's transitive tree", "Full graph (ecosystems & risk)"]
+LAYERED_MAX = 300
+
+
+@st.cache_resource(show_spinner=False)
+def load_graph(path: str, mtime: float) -> nx.DiGraph:
+    """graph.json -> networkx graph (cached until the file changes)."""
+    d = json.loads(Path(path).read_text(encoding="utf-8"))
+    G = nx.DiGraph()
+    for n in d["nodes"]:
+        G.add_node(n["id"], **{k: v for k, v in n.items() if k != "id"})
+    for e in d["edges"]:
+        G.add_edge(e["source"], e["target"], **{k: v for k, v in e.items() if k not in ("source", "target")})
+    return G
+
+
+def library(G, n, libs_only: bool) -> bool:
+    a = G.nodes[n]
+    return a["kind"] == "package" and (not libs_only or a["ecosystem"] not in NON_LIBRARY)
+
+
+def with_parents(G, top, pk: set) -> nx.DiGraph:
+    """Subgraph of the chosen components plus the manifests that declare them and the repo node."""
+    apps = {p for n in pk for p in G.predecessors(n) if G.nodes[p]["kind"] == "app"}
+    return G.subgraph({top} | apps | pk).copy()
+
+
+@st.cache_data(show_spinner=False, max_entries=32)
+def view_html(path: str, mtime: float, mode: str, levels: int, libs_only: bool, root: str | None) -> tuple[str, dict]:
+    """Build one direct/transitive view and its HTML. Returns (html, counts of what is shown)."""
+    G = load_graph(path, mtime)
+    top = next(n for n in G if n.startswith("repo:"))
+    if mode == GRAPH_VIEWS[2] and root:
+        dist = nx.single_source_shortest_path_length(G, root)
+        pk = {n for n in dist if library(G, n, libs_only) and dist[n] <= levels}
+        H = with_parents(G, top, pk)
+        for n in pk:                          # columns count from the chosen dependency
+            H.nodes[n]["_level"] = dist[n] + 2
+    else:
+        lim = 1 if mode == GRAPH_VIEWS[1] else levels
+        pk = {n for n in G if library(G, n, libs_only) and (G.nodes[n].get("depth") or 99) <= lim}
+        H = with_parents(G, top, pk)
+        if mode == GRAPH_VIEWS[1]:            # show how much each direct dependency drags in
+            for n in pk:
+                below = sum(1 for d in nx.descendants(G, n) if library(G, d, True))
+                H.nodes[n]["label"] = f"{H.nodes[n]['label']}  (+{below})"
+    shown = [n for n in H if H.nodes[n]["kind"] == "package"]
+    layered = len(shown) <= LAYERED_MAX   # columns per level stay readable up to a few hundred nodes
+    counts = {"nodes": len(shown), "edges": H.number_of_edges(), "layered": layered,
+              "direct": sum(1 for n in shown if H.nodes[n].get("direct")),
+              "transitive": sum(1 for n in shown if not H.nodes[n].get("direct"))}
+    return render_html(H, mode="dependency", layered=layered, small_labels=len(shown) <= 250), counts
 
 TARGETS = ROOT.parent / "targets"
 PRESETS = {
@@ -134,14 +191,95 @@ tab_graph, tab_sbom, tab_container, tab_origin = st.tabs(
     ["Dependency graph", "SBOM (CycloneDX)", "Container images & CI/CD", "Origins"])
 
 with tab_graph:
+    gpath = out / "graph.json"
+    gkey = (str(gpath), gpath.stat().st_mtime)
+    G = load_graph(*gkey)
+    top = next(n for n in G if n.startswith("repo:"))
+
+    # --- direct vs transitive at a glance: libraries per dependency level
+    st.markdown("**Direct vs transitive libraries by dependency level**")
+    hist = {int(k): v for k, v in s["depth_histogram"].items()}
+    lvl_df = pd.DataFrame([{"Level": k, "Kind": "Direct" if k == 1 else "Transitive", "Libraries": v}
+                           for k, v in sorted(hist.items())])
+    g1, g2, g3 = st.columns([1, 1, 4])
+    g1.metric("Direct", s["direct"], help="Libraries listed in the manifests (level 1)")
+    g2.metric("Transitive", s["transitive"], help="Libraries pulled in by other libraries (level 2 and deeper)")
+    if not lvl_df.empty:
+        bars = alt.Chart(lvl_df).mark_bar(cornerRadiusTopLeft=4, cornerRadiusTopRight=4, size=26).encode(
+            x=alt.X("Level:O", title="Dependency level (1 = direct)", axis=alt.Axis(labelAngle=0)),
+            y=alt.Y("Libraries:Q", title="Libraries"),
+            color=alt.Color("Kind:N", title=None, legend=alt.Legend(orient="top"),
+                            scale=alt.Scale(domain=["Direct", "Transitive"],
+                                            range=[DEP_COLOR["direct"], DEP_COLOR["transitive"]])),
+            tooltip=[alt.Tooltip("Level:O", title="Level"), alt.Tooltip("Kind:N"),
+                     alt.Tooltip("Libraries:Q")])
+        chart = (bars.properties(height=200)
+                 .configure(background="#fcfcfb", padding=12)
+                 .configure_view(stroke=None)
+                 .configure_axis(labelColor="#52514e", titleColor="#52514e", gridColor="#e1e0d9",
+                                 domainColor="#c3c2b7", tickColor="#c3c2b7")
+                 .configure_legend(labelColor="#0b0b0b", symbolType="square"))
+        g3.altair_chart(chart, use_container_width=True, theme=None)
+        with st.expander("Table: libraries per level"):
+            st.dataframe(lvl_df, hide_index=True)
+
+    # --- graph views
+    view_mode = st.radio("Graph view", GRAPH_VIEWS, horizontal=True)
+    maxd = max(hist) if hist else 1
     left, right = st.columns([3, 1])
-    with left:
-        components.html((out / "graph.html").read_text(encoding="utf-8"), height=820, scrolling=True)
+    if view_mode == GRAPH_VIEWS[3]:
+        with left:
+            components.html((out / "graph.html").read_text(encoding="utf-8"), height=820, scrolling=True)
+        with right:
+            st.markdown("**Legend**  \n★ repo · 🟩 manifest / Dockerfile / workflow  \n"
+                        "🟠 npm · 🔵 PyPI · 🟣 Maven · ■ container image · ▲ CI action · ⚪ downloaded file  \n"
+                        "◆ suspicious (has an anomaly finding, install script or untrusted origin)  \n"
+                        "🔴 has published advisories · big = direct · small = transitive")
+    else:
+        o1, o2 = st.columns([2, 1])
+        libs_only = o2.checkbox("Libraries only", value=True,
+                                help="Hide container images, CI actions and downloaded files (they have no transitive "
+                                     "dependencies)")
+        root, levels = None, 1
+        if view_mode == GRAPH_VIEWS[2]:
+            directs = sorted((n for n in G if G.nodes[n].get("direct") and library(G, n, libs_only)),
+                             key=lambda n: -sum(1 for d in nx.descendants(G, n) if library(G, d, True)))
+            if directs:
+                pick = o1.selectbox("Direct dependency", directs, format_func=lambda n: (
+                    f"{G.nodes[n]['label']}  (+{sum(1 for d in nx.descendants(G, n) if library(G, d, True))} "
+                    "transitive)"))
+                root = pick
+                below = nx.single_source_shortest_path_length(G, root)
+                deep = max(below.values()) if below else 0
+                levels = o1.slider("Levels below it", 1, max(deep, 1), max(deep, 1)) if deep > 1 else max(deep, 1)
+        elif view_mode == GRAPH_VIEWS[0]:
+            levels = o1.slider("Show levels (1 = direct only)", 1, maxd,
+                               min(maxd, 3 if s["packages"] > 300 else maxd)) if maxd > 1 else 1
+        html, cnt = view_html(*gkey, view_mode, levels, libs_only, root)
+        with left:
+            layout = ("Columns, left to right: repository · manifests · "
+                      + ("the chosen dependency · each level below it" if root else "level 1 (direct) · level 2 · …")
+                      if cnt["layered"] else
+                      f"More than {LAYERED_MAX} components, so a clustered layout is used (reduce the levels to "
+                      "get columns per level).")
+            st.caption(f"Showing {cnt['nodes']} components ({cnt['direct']} direct, {cnt['transitive']} transitive) "
+                       f"and {cnt['edges']} edges. {layout}")
+            if cnt["nodes"] > 1200:
+                st.warning("Large view: it may take a moment to draw. Reduce the levels for a faster, clearer picture.")
+            components.html(html, height=820, scrolling=True)
+        with right:
+            position = ("Columns = dependency levels, so direct vs transitive is also shown by position.  \n"
+                        if cnt["layered"] else "Big blue nodes = direct, small orange = transitive.  \n")
+            hidden = ("  \nLabels of transitive nodes are hidden in large views; hover to see them."
+                      if cnt["nodes"] > 250 else "")
+            st.markdown(
+                f"**Legend**  \n<span style='color:{DEP_COLOR['direct']}'>●</span> **direct** dependency (big)  \n"
+                f"<span style='color:{DEP_COLOR['transitive']}'>●</span> **transitive** dependency (small)  \n"
+                "★ repository · dark grey box = manifest / Dockerfile / workflow  \n"
+                "red outline = has published advisories · ◆ = suspicious (has an anomaly finding)  \n"
+                + position + "Hover a node for its version, path data, advisories and finding IDs." + hidden,
+                unsafe_allow_html=True)
     with right:
-        st.markdown("**Legend**  \n★ repo · 🟩 manifest / Dockerfile / workflow  \n"
-                    "🟠 npm · 🔵 PyPI · 🟣 Maven · ■ container image · ▲ CI action · ⚪ downloaded file  \n"
-                    "◆ suspicious (has an anomaly finding, install script or untrusted origin)  \n"
-                    "🔴 has published advisories · big = direct · small = transitive")
         st.markdown("**Top blast radius**")
         st.dataframe(s["top_blast_radius"], hide_index=True)
         st.markdown("**Heaviest direct deps**")
@@ -150,13 +288,6 @@ with tab_graph:
     st.subheader("🔎 Why is this package here?")
     q = st.text_input("Package name", "minimist")
     if q:
-        d = json.loads((out / "graph.json").read_text(encoding="utf-8"))
-        G = nx.DiGraph()
-        for n in d["nodes"]:
-            G.add_node(n["id"], **n)
-        for e in d["edges"]:
-            G.add_edge(e["source"], e["target"])
-        top = next(n for n in G if n.startswith("repo:"))
         hits = [n for n, a in G.nodes(data=True) if str(a.get("name", "")).lower() == q.lower()]
         if not hits:
             st.info("Not in the graph")

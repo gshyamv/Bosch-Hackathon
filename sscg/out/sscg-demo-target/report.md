@@ -1,6 +1,6 @@
 # Guardian evidence report: sscg-demo-target
 
-*Scanned 2026-11-23T12:05:19+00:00 with sscg 0.1.0* · HEAD `8cad42e`
+*Scanned 2026-11-23T12:37:18+00:00 with sscg 0.1.0* · HEAD `8cad42e`
 
 **Repository → SBOM → Dependency graph → Risk detection → Evidence** ✔
 

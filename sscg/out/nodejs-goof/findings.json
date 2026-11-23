@@ -2,7 +2,7 @@
  "scan": {
   "application": "nodejs-goof",
   "tool": "sscg 0.1.0",
-  "scanned_at": "2026-11-23T11:11:55+00:00",
+  "scanned_at": "2026-11-23T12:29:18+00:00",
   "head": null,
   "base": null,
   "risk_label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
@@ -29,8 +29,8 @@
   },
   "by_rule": {
    "VULN": 139,
-   "R16_CI_EXCESSIVE_PERMISSIONS": 4,
    "R03_INSTALL_SCRIPT": 4,
+   "R16_CI_EXCESSIVE_PERMISSIONS": 4,
    "R13_CONTAINER_HARDENING": 3,
    "R09_UNPINNED_DEPENDENCY": 2,
    "R15_CI_UNPINNED_ACTION": 2

@@ -141,7 +141,29 @@ Below: **Manifests** (every file understood) and **By ecosystem / Resolution**. 
 
 ### 6.1 Tab: Dependency graph
 
-**The interactive graph** (left) is `graph.html`: zoom with the wheel or ➕ ➖, drag to move or rearrange, ⤢ to re-centre, **hover** for details.
+#### Direct vs transitive at a glance
+
+At the top of the tab: **Direct** and **Transitive** counts and a bar chart **"Direct vs transitive libraries by dependency level"**. Level 1 (blue) = libraries the developers listed; levels 2, 3, … (orange) = libraries pulled in by other libraries. Hover a bar for its exact count; **Table: libraries per level** shows the same numbers as a table. Example nodejs-goof: 35 direct, then 226 · 242 · 185 · 127 · … down to level 10.
+
+#### Graph view (choose one)
+
+| View | Shows | Good for |
+|---|---|---|
+| **Direct vs transitive (by level)** *(default)* | every library up to the chosen number of levels (**Show levels** slider; 1 = direct only) | seeing how direct dependencies fan out into transitive ones |
+| **Direct dependencies only** | the manifests and their direct dependencies; each label ends with **(+N)** = how many transitive libraries it pulls in | spotting the "heavy" direct dependencies (e.g. `tap (+345)`) |
+| **One direct dependency's transitive tree** | pick a direct dependency (sorted by size) to see everything it brings in, level by level (**Levels below it** slider) | answering "what does `express` drag into my app?" |
+| **Full graph (ecosystems & risk)** | the complete `graph.html` coloured by ecosystem | the overall picture incl. containers and CI |
+
+In the first three views:
+* **blue = direct**, **orange = transitive**, **dark grey boxes = manifests / Dockerfiles / workflows**, ★ = repository;
+* **red outline = has published advisories**, **◆ in front of a name = suspicious** (has an anomaly finding);
+* up to 300 components are laid out in **columns per level** (repository · manifests · level 1 · level 2 · …), with names inside the boxes, so direct vs transitive is also visible by position; larger views switch to a clustered layout (big blue dots = direct, small orange = transitive; hover for names);
+* **Libraries only** (on by default) hides container images, CI actions and downloaded files, which have no transitive dependencies;
+* the caption says how many components (direct / transitive) and edges are shown.
+
+#### Full graph view
+
+**The interactive graph** is `graph.html`: zoom with the wheel or ➕ ➖, drag to move or rearrange, ⤢ to re-centre, **hover** for details.
 
 | Symbol | Meaning |
 |---|---|

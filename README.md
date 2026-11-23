@@ -368,7 +368,7 @@ streamlit run ui/app.py
 | Controls | repository picker (3 sample apps or any folder), vulnerability detection, offline, **compare with commit**, graph focus, **Scan** |
 | Pipeline + headline | `Repository → SBOM → Dependency graph → Risk detection → Evidence`; components, vulnerable components, suspicious changes, Critical, High, **new in latest change** |
 | **①** Components | inventory numbers, manifests, ecosystems, resolution |
-| **②** Supply chain view | dependency graph + "Why is this package here?", SBOM (download), container images & CI/CD, origins |
+| **②** Supply chain view | **direct vs transitive**: level chart + 3 graph views (by level, direct only with "+N transitive", one direct dependency's tree) next to the full graph; "Why is this package here?"; SBOM (download); container images & CI/CD; origins |
 | **③** Vulnerabilities | counts by severity, filterable table (CVEs, CVSS, fix, introduced via, risk), **trace a component**: paths + advisory table with links |
 | **④** Suspicious changes | **what changed** (commit, author, first-time flag, files, components added/removed/changed) + anomaly table |
 | **⑤** Evidence | all findings filterable by level / category / new; **open a finding** for its full evidence card; download `findings.json` and `report.md`; full report inline |

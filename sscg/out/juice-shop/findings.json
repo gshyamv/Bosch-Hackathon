@@ -2,7 +2,7 @@
  "scan": {
   "application": "juice-shop",
   "tool": "sscg 0.1.0",
-  "scanned_at": "2026-11-23T11:50:20+00:00",
+  "scanned_at": "2026-11-23T12:29:21+00:00",
   "head": null,
   "base": null,
   "risk_label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
@@ -32,9 +32,9 @@
    "R16_CI_EXCESSIVE_PERMISSIONS": 13,
    "R13_CONTAINER_HARDENING": 4,
    "R15_CI_UNPINNED_ACTION": 3,
-   "R11_MUTABLE_IMAGE_TAG": 2,
    "R17_CI_SECRET_EXPOSURE": 2,
    "R09_UNPINNED_DEPENDENCY": 2,
+   "R11_MUTABLE_IMAGE_TAG": 2,
    "R03_INSTALL_SCRIPT": 1,
    "R12_REMOTE_SCRIPT_EXEC": 1
   },

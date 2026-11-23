@@ -1,6 +1,6 @@
 # Guardian evidence report: juice-shop
 
-*Scanned 2026-11-23T11:50:20+00:00 with sscg 0.1.0*
+*Scanned 2026-11-23T12:29:21+00:00 with sscg 0.1.0*
 
 **Repository → SBOM → Dependency graph → Risk detection → Evidence** ✔
 
