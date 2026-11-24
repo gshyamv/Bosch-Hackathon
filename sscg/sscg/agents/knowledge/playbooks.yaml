@@ -1,0 +1,248 @@
+# Rule playbooks: one entry per detector rule in sscg/rules/common.py (RULES).
+# Used by the Triage agent (what confirms / refutes a finding), the Evidence Gatherer (which tools to run first),
+# the rules-only fallback (fallback_verdict) and, on Day 2, the Remediation agent (remediation_options).
+#
+# triage: true  -> the rule flags something that needs judgement in context; the finding goes to the Triage agent.
+# triage: false -> the finding is a verified fact (documented malicious package, swapped hash, unsafe CI config);
+#                  an LLM adds nothing to "is it real?", so it skips triage (it still appears in the summary).
+
+R01_TYPOSQUAT:
+  triage: true
+  checks: Package name is within a small edit distance of a popular package name.
+  confirms:
+    - package is new in the latest change, or was added by a first-time contributor
+    - registry shows a young package, few versions, few maintainers, or no repository link
+    - the package has an install script, or is also listed as documented malicious (R02)
+  false_positives:
+    - legitimate packages with similar names (for example forks or scoped variants with an active repository)
+    - long-standing dependency present before the latest change and with a long release history
+  default_tools: [registry_metadata, graph_context, commit_history]
+  fallback_verdict: suspicious
+  remediation_options:
+    - {action: replace, when: "the intended popular package exists: switch to it"}
+    - {action: remove, when: "the dependency is not needed"}
+    - {action: block, when: "registry metadata or other rules show malicious behaviour"}
+
+R02_KNOWN_MALICIOUS:
+  triage: false
+  checks: Package (version) is listed in known_malicious.json or has an OSV MAL-* record.
+  confirms: [the listing itself is the evidence]
+  false_positives: [name reused later by a different, legitimate owner (check the version)]
+  default_tools: []
+  fallback_verdict: likely_malicious
+  remediation_options:
+    - {action: remove, when: always}
+    - {action: block, when: always; add to a deny-list}
+    - {action: escalate_review, when: "the package was installed anywhere: rotate secrets present on those machines"}
+
+R03_INSTALL_SCRIPT:
+  triage: true
+  checks: A package declares preinstall / install / postinstall scripts (they run on every install, including CI).
+  confirms:
+    - script content downloads or executes code, reads environment variables or credentials (see R04)
+    - script was added in a version update (R19) or by a new maintainer
+    - package is also flagged as typosquat / malicious
+  false_positives:
+    - native build steps (node-gyp rebuild, prebuild-install, cmake-js) in well-known packages
+    - git hook installers (husky) and donation / telemetry messages (core-js, opencollective)
+    - the application's own lifecycle scripts that only build or copy local files
+  default_tools: [repo_file_context, registry_metadata, graph_context]
+  fallback_verdict: needs_human_review
+  remediation_options:
+    - {action: mitigate, when: "install with --ignore-scripts and allow-list scripts that are needed"}
+    - {action: replace, when: "an alternative without install scripts exists"}
+
+R04_INSTALL_SCRIPT_CONTENT:
+  triage: true
+  checks: Install script content matches indicators (child_process / shell, network download, env or credential reads, obfuscation).
+  confirms:
+    - script reads secrets (env vars, ~/.npmrc, ~/.ssh, cloud credentials) AND sends data over the network
+    - obfuscated code (long base64 / hex strings, eval of decoded text)
+    - script was introduced in the latest change by a first-time contributor
+  false_positives:
+    - build scripts that shell out to compilers and read build-related env vars (CI, NODE_ENV)
+  default_tools: [repo_file_context, commit_history]
+  fallback_verdict: suspicious
+  remediation_options:
+    - {action: block, when: "secret read + network send are both present"}
+    - {action: escalate_review, when: always}
+
+R05_LOCKFILE_UNTRUSTED_SOURCE:
+  triage: true
+  checks: Lockfile resolves a package from a host that is not the official registry.
+  confirms:
+    - host is not in policy.registries for the ecosystem
+    - lockfile change introduced the host in the latest change (R07) or the integrity hash changed (R06)
+  false_positives:
+    - a corporate mirror / proxy (Artifactory, Nexus, Verdaccio) that is listed in the organisation policy
+  default_tools: [commit_history, graph_context]
+  fallback_verdict: suspicious
+  remediation_options:
+    - {action: pin, when: "regenerate the lockfile against the official registry and pin the version"}
+    - {action: block, when: "host is unknown"}
+
+R06_LOCKFILE_INTEGRITY_CHANGED:
+  triage: false
+  checks: Same package name and version but a different integrity hash between base and head.
+  confirms: [the hash change is the evidence; registries do not allow re-publishing the same version]
+  false_positives: [switching between registry mirrors that repack tarballs (rare, should still be reviewed)]
+  default_tools: []
+  fallback_verdict: likely_malicious
+  remediation_options:
+    - {action: pin, when: "restore the base lockfile entry and verify the hash against the official registry"}
+    - {action: escalate_review, when: always}
+
+R07_LOCKFILE_DRIFT:
+  triage: true
+  checks: Lockfile entry changed although the manifest did not request a change.
+  confirms:
+    - resolved URL or integrity changed (not only the version within the allowed range)
+    - change made by a first-time contributor or in a commit whose message does not mention dependencies
+  false_positives:
+    - "npm update / npm dedupe within the allowed semver range (version moves, host and hash pattern stay normal)"
+    - lockfile format upgrade (lockfileVersion 1 -> 2/3)
+  default_tools: [commit_history, repo_file_context]
+  fallback_verdict: suspicious
+  remediation_options:
+    - {action: pin, when: "revert the lockfile entry and regenerate it from the manifest"}
+
+R08_UNEXPECTED_DEPENDENCY:
+  triage: true
+  checks: A new direct dependency was added in the latest change.
+  confirms:
+    - commit message does not explain the new dependency, or the author is a first-time contributor
+    - the package is young / has few maintainers / overlaps with another rule (typosquat, install script)
+    - it is a production dependency of a service that handles secrets or network traffic
+  false_positives:
+    - a well-known package added in a feature commit that clearly needs it
+    - dev / test tooling added together with matching config files
+  default_tools: [commit_history, registry_metadata, graph_context]
+  fallback_verdict: needs_human_review
+  remediation_options:
+    - {action: escalate_review, when: "no justification in the change"}
+    - {action: remove, when: "not used by the code"}
+
+R09_UNPINNED_DEPENDENCY:
+  triage: true
+  checks: Dependency without an exact version (Python ranges / no version) or a wide npm range without a lockfile.
+  confirms:
+    - no lockfile in that ecosystem, so every build may resolve a different version
+    - production scope
+  false_positives:
+    - libraries that intentionally declare ranges and are always installed from a lockfile
+  default_tools: [graph_context]
+  fallback_verdict: needs_human_review
+  remediation_options:
+    - {action: pin, when: always; use a lockfile or exact pins with hashes (pip --require-hashes)}
+
+R10_UNTRUSTED_BASE_IMAGE:
+  triage: true
+  checks: Container base image is not an official / verified-publisher image.
+  confirms:
+    - image namespace is a personal account, especially one that also authored the change
+    - image not found on the registry, or no digest pin
+  false_positives:
+    - the organisation's own registry or a vendor image listed in policy.container_images.trusted_publishers
+  default_tools: [registry_metadata, commit_history]
+  fallback_verdict: suspicious
+  remediation_options:
+    - {action: update_base_image, when: "switch to the official image (docker.io/library/...) pinned by digest"}
+
+R11_MUTABLE_IMAGE_TAG:
+  triage: false
+  checks: Image referenced by 'latest' or no tag and without a digest.
+  confirms: [the reference itself]
+  false_positives: [local development compose files that are never built in CI]
+  default_tools: []
+  fallback_verdict: needs_human_review
+  remediation_options:
+    - {action: pin, when: always; pin to image@sha256:<digest>}
+
+R12_REMOTE_SCRIPT_EXEC:
+  triage: false
+  checks: A script is downloaded and piped into a shell (curl | sh) in a Dockerfile or workflow.
+  confirms: [the command itself]
+  false_positives: ["none for integrity: even official installers should be verified by checksum"]
+  default_tools: []
+  fallback_verdict: suspicious
+  remediation_options:
+    - {action: mitigate, when: "download to a file, verify a pinned checksum or signature, then run"}
+
+R13_CONTAINER_HARDENING:
+  triage: false
+  checks: Container runs as root, or installs with scripts enabled, or similar hardening gaps.
+  confirms: [the Dockerfile line]
+  false_positives: [build stages of multi-stage images that are not shipped]
+  default_tools: []
+  fallback_verdict: needs_human_review
+  remediation_options:
+    - {action: mitigate, when: "add USER, use npm ci --ignore-scripts, multi-stage builds"}
+
+R14_CI_PWN_REQUEST:
+  triage: false
+  checks: pull_request_target workflow checks out and runs the pull request's code.
+  confirms: [the workflow file]
+  false_positives: [workflows that only label / comment and never check out PR code]
+  default_tools: []
+  fallback_verdict: suspicious
+  remediation_options:
+    - {action: mitigate, when: "use pull_request instead, or never check out PR head in pull_request_target"}
+
+R15_CI_UNPINNED_ACTION:
+  triage: false
+  checks: Third-party GitHub Action referenced by tag or branch instead of a full commit SHA.
+  confirms: ["the 'uses:' line"]
+  false_positives: [first-party actions/* and github/* are lower risk but still recommended to pin]
+  default_tools: []
+  fallback_verdict: needs_human_review
+  remediation_options:
+    - {action: pin, when: always; pin to the full 40-character commit SHA}
+
+R16_CI_EXCESSIVE_PERMISSIONS:
+  triage: false
+  checks: Workflow token has write-all or broad write permissions.
+  confirms: [the permissions block]
+  false_positives: ["release workflows that need 'contents: write', scoped to one job"]
+  default_tools: []
+  fallback_verdict: needs_human_review
+  remediation_options:
+    - {action: mitigate, when: "permissions: read-all at workflow level, grant writes per job"}
+
+R17_CI_SECRET_EXPOSURE:
+  triage: false
+  checks: A secret is passed to downloaded code or a mutable third-party action.
+  confirms: [the workflow step]
+  false_positives: ["none: treat as exposure until the step is pinned and verified"]
+  default_tools: []
+  fallback_verdict: suspicious
+  remediation_options:
+    - {action: mitigate, when: "pin the action / verify the script; rotate the secret if the workflow has run"}
+
+R18_NEW_AUTHOR_SENSITIVE_CHANGE:
+  triage: true
+  checks: A first-time contributor changed build / dependency / CI files.
+  confirms:
+    - the same change introduces other findings (new dependency, lockfile change, untrusted image, CI change)
+    - commit message understates the change ("routine", "chore", "bump") compared with what changed
+  false_positives:
+    - new team member making a reviewed, documented change
+    - bots (dependabot, renovate) with expected author identities
+  default_tools: [commit_history]
+  fallback_verdict: needs_human_review
+  remediation_options:
+    - {action: escalate_review, when: always; require a second reviewer for build and dependency files}
+
+R19_SUSPICIOUS_UPDATE:
+  triage: true
+  checks: A version update also changed the download source or added an install script.
+  confirms:
+    - new version adds an install script that the previous version did not have
+    - source host changed together with the version
+    - release published very recently or by a different maintainer than earlier releases
+  false_positives:
+    - major version that legitimately adds a native build step
+  default_tools: [registry_metadata, commit_history, graph_context]
+  fallback_verdict: suspicious
+  remediation_options:
+    - {action: pin, when: "pin to the last known-good version"}
+    - {action: escalate_review, when: always}

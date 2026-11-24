@@ -12,9 +12,19 @@ CACHE = ROOT / ".cache"
 OFFLINE = False  # set by the CLI (--offline): only answer from the cache
 
 
-def http_json(method: str, url: str, body=None):
+def _path(method: str, url: str, body=None) -> Path:
     key = hashlib.sha1(f"{method} {url} {json.dumps(body, sort_keys=True)}".encode()).hexdigest()
-    path = CACHE / f"{key}.json"
+    return CACHE / f"{key}.json"
+
+
+def answered(method: str, url: str, body=None) -> bool:
+    """True if the service gave a definite answer (cached), so a None from http_json means 'not found'
+    rather than 'offline / unreachable'."""
+    return _path(method, url, body).exists()
+
+
+def http_json(method: str, url: str, body=None):
+    path = _path(method, url, body)
     if path.exists():
         return json.loads(path.read_text(encoding="utf-8"))
     if OFFLINE:

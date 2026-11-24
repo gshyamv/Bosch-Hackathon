@@ -8,3 +8,12 @@ rapidfuzz==3.12.1
 packaging==25.0
 markdown-it-py==3.0.0
 reportlab==4.4.5
+
+# ---- agentic layer: python -m sscg agent (docs/agentic.md). The plain `scan` command does not need these.
+langgraph==0.4.8
+pydantic==2.11.7
+python-dotenv==1.2.1
+# LLM provider SDKs: only the one you use is required (no key at all = rules-only fallback)
+anthropic==0.77.1
+google-genai==1.62.0
+openai==2.16.0

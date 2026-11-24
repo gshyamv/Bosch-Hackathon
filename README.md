@@ -12,6 +12,8 @@ SSCG scans a repository **without installing or running anything** and answers t
 * **What changed:** a component-by-component comparison with the previous commit, including who changed it.
 * **What appears risky:** **known vulnerabilities** (CVE, severity, fix, path back to the source) and **supply-chain anomalies** (typosquats, malicious packages, install scripts, tampered lockfiles, untrusted images, unsafe CI). Every finding carries **evidence** and an **initial risk level**.
 
+> **Agentic AI layer:** `python -m sscg agent <repo>` runs the same pipeline as a **LangGraph multi-agent workflow**: deterministic agents wrap the modules below, a **Triage agent** (Claude, Gemini, Groq or Grok) judges the suspicious changes rules cannot decide on their own, gathering more evidence when it needs it, and a **Narrator agent** writes the checkpoint summary. AI output is kept apart from the evidence, grounding-checked, and falls back to rules when no API key is set. The Day 2 graph (prioritise → remediate → human approval → validate) is already wired in as a scaffold. Details: **[docs/agentic.md](docs/agentic.md)**.
+
 ---
 
 ## Table of contents
@@ -82,6 +84,11 @@ python -m sscg scan ..\targets\sscg-demo-target
 start out\sscg-demo-target\report.md  # evidence report (also report.html, report.pdf)
 start out\sscg-demo-target\graph.html # interactive graph
 streamlit run ui/app.py               # dashboard at http://localhost:8501
+
+# 5. optional: the agentic version (LangGraph agents + LLM triage; see docs/agentic.md)
+copy .env.example .env                # then put ONE real API key (Claude, Gemini, Groq or Grok) into .env
+python -m sscg agent ..\targets\sscg-demo-target            # no key = rules-only fallback, still works
+python -m sscg agent ..\targets\sscg-demo-target --day2-preview   # + Day 2 scaffold with human approval
 ```
 
 The repository ships with cached API responses (`sscg/.cache/`), so `--offline` works for all three sample apps without internet.
@@ -455,7 +462,8 @@ Bosch-Hackathon/
 │   ├── README.md                 short quick-start
 │   ├── requirements.txt
 │   ├── sscg/
-│   │   ├── __main__.py           CLI: python -m sscg scan <repo>
+│   │   ├── __main__.py           CLI: python -m sscg scan <repo> · python -m sscg agent <repo>
+│   │   ├── pipeline.py           build · detect · emit: the pipeline steps shared by scan and the agents
 │   │   ├── model.py              graph model (DepGraph, purl)
 │   │   ├── cache.py              cached HTTP (deps.dev, OSV) for offline use
 │   │   ├── discover/             ① npm.py · pypi.py · maven.py · depsdev.py   ② docker.py · gha.py
@@ -470,13 +478,16 @@ Bosch-Hackathon/
 │   │   ├── rules/                ④ common.py (catalogue) · packages.py · lockfile.py · container.py · cicd.py · provenance.py
 │   │   ├── data/                 ④ popular_npm.txt · popular_pypi.txt · known_malicious.json
 │   │   ├── findings.py           ⑤ finding envelope, paths, initial risk, counts
-│   │   └── report.py             ⑤ report.md
-│   ├── ui/app.py                 dashboard (all five columns)
+│   │   ├── report.py             ⑤ report.md (+ the separate AI section when the agents ran)
+│   │   └── agents/               LangGraph agents (docs/agentic.md): graph · workers · triage · narrator · day2
+│   │                             · tools · guard · kb + knowledge/ (playbooks, attack patterns, policy) · llm · config
+│   ├── .env.example              LLM keys template (copy to .env, which is git-ignored)
+│   ├── ui/app.py                 dashboard (all five columns + ⑥ AI triage)
 │   ├── .cache/                   cached API responses
 │   └── out/<repo>/               scan results
 ├── targets/                      sample applications (scanned, never run)
 │   ├── sscg-demo-target/  ·  nodejs-goof/  ·  juice-shop/
-├── docs/                         blueprint.md · graph_blueprint.md · dashboard.md · report.md · screenshots/
+├── docs/                         agentic.md · blueprint.md · graph_blueprint.md · dashboard.md · report.md · screenshots/
 └── archive/                      earlier prototypes (depgraph-v0, npm-ls-prototype)
 ```
 
@@ -497,6 +508,8 @@ Bosch-Hackathon/
 | Git | git CLI (`log`, `diff`, `archive`) | what changed, commit evidence |
 | Standards | CycloneDX 1.5 · purl · CVSS v3.1 (FIRST) | SBOM, identities, scoring |
 | Data | [OSV.dev](https://osv.dev) · [deps.dev](https://deps.dev) (free, no key) | advisories incl. `MAL-*`; transitive resolution |
+| Agents | LangGraph 0.4 (StateGraph, Send, interrupt, MemorySaver) + pydantic 2 | orchestration, parallel triage, human approval, typed contracts |
+| LLMs | official SDKs: `anthropic` (Claude) · `google-genai` (Gemini) · `openai` → Groq and xAI (Grok) APIs | triage + summary (`agent` command only) |
 
 ---
 
@@ -506,7 +519,7 @@ Bosch-Hackathon/
 * **Hostile input.** Text from scanned repos is escaped in `graph.html`; detectors only read files inside the repository (path-traversal guard); a broken file or detector never stops the scan.
 * **Network:** only OSV.dev and deps.dev, with package names and versions only, never source code. `--offline` disables all network access.
 * **No credentials** are needed, read or stored. The install-script rule *reports* secret-looking names it finds in code; it never reads environment variables.
-* **No AI on Day 1.** All findings are deterministic and reproducible. Each says whether it is a *verified fact* (e.g. a hash changed) or a *heuristic* (e.g. a name looks like a typosquat).
+* **Findings never come from AI.** All findings are deterministic and reproducible. Each says whether it is a *verified fact* (e.g. a hash changed) or a *heuristic* (e.g. a name looks like a typosquat). The optional `agent` command adds AI *inference* in a separate place (`agentic.json`, report section "AI triage"): redacted evidence packets only, grounding-checked, never changes a finding or its risk score. See [docs/agentic.md §7](docs/agentic.md#7-responsible-ai-and-security).
 * **Within the hackathon rules:** free, open-source sample apps; scanning only inside our sandbox; nothing published to registries; no automatic changes.
 
 ---
@@ -531,7 +544,7 @@ Bosch-Hackathon/
 
 ## 17. Roadmap: Day 2
 
-Day 2 ("Build the Guardian's Brain & Shield") builds on `findings.json`:
+Day 2 ("Build the Guardian's Brain & Shield") builds on `findings.json`. The agent graph already runs these steps as a scaffold (`python -m sscg agent <repo> --day2-preview`, see [docs/agentic.md §9](docs/agentic.md#9-day-2-how-to-extend-the-graph)):
 1. **Prioritize:** combine severity with exploitability (CISA KEV, EPSS), **reachability** (is the vulnerable code imported? e.g. `node-fetch` is declared but never imported in the demo) and production exposure.
 2. **Investigate:** AI-assisted explanation that may only cite finding IDs and evidence from this pipeline.
 3. **Recommend safe remediation:** upgrade / replace / pin / remove / block, using the captured fixed versions.

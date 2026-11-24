@@ -112,12 +112,20 @@ offline = c2.checkbox("Offline (cache only)", value=False)
 base = c3.text_input("Compare with commit (what changed)", "HEAD~1",
                      help="Base commit for 'what changed'. Leave empty to skip the comparison.")
 focus = c4.text_input("Focus graph on package (optional)")
+a1, a2, _ = st.columns([1, 1, 2])
+agentic = a1.toggle("Agentic AI (LangGraph agents)", value=False,
+                    help="Runs `python -m sscg agent`: the same pipeline plus AI triage of suspicious changes and an "
+                         "AI summary. Uses the API key in sscg/.env; without one it runs the rules-only fallback.")
+llm_choice = a2.selectbox("LLM provider", ["auto", "claude", "gemini", "groq", "grok", "none"], disabled=not agentic,
+                          help="groq = Groq / GroqCloud; grok = xAI Grok")
 
 if st.button("Scan repository", type="primary"):
-    cmd = [sys.executable, "-m", "sscg", "scan", repo, "--out", str(out), "--top", "0"]
+    cmd = [sys.executable, "-m", "sscg", "agent" if agentic else "scan", repo, "--out", str(out), "--top", "0"]
     cmd += (["--base", base] if base.strip() else ["--no-diff"]) + ([] if osv else ["--no-vulns"])
     cmd += ["--offline"] * offline + (["--focus", focus] if focus else [])
-    with st.spinner("Discovering components, building the SBOM and graph, detecting risks..."):
+    cmd += ["--llm", llm_choice] if agentic else []
+    with st.spinner("Agents at work: discovery, detection, AI triage, summary..." if agentic else
+                    "Discovering components, building the SBOM and graph, detecting risks..."):
         r = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", cwd=ROOT)
     if r.returncode != 0:
         st.error(r.stderr[-2000:])
@@ -479,3 +487,54 @@ if (out / "report.md").exists():
 
 for n in s["notes"]:
     st.caption("ℹ️ " + n)
+
+# ------------------------------------------------------------------ ⑥ AI triage (agent graph, inference only)
+ag_path = out / "agentic.json"
+if ag_path.exists():
+    ag = json.loads(ag_path.read_text(encoding="utf-8"))
+    st.header("⑥ AI triage and summary")
+    st.caption(f"Inference by **{ag['engine']}** via the LangGraph agent workflow, kept apart from the evidence above. "
+               "It cites finding / evidence IDs (F-012/E1 finding evidence, F-012/T1 tool evidence) and never changes "
+               f"the initial risk. Knowledge base {ag['kb_version']}. See docs/agentic.md.")
+    if (out / "findings.json").exists() and ag_path.stat().st_mtime < (out / "findings.json").stat().st_mtime - 5:
+        st.warning("This AI triage is from an earlier agent run; the findings above were rescanned since. "
+                   "Turn on **Agentic AI** and scan again to refresh it.")
+    nar = ag.get("narrative") or {}
+    if nar:
+        with st.container(border=True):
+            st.markdown(f"**{nar['headline']}**")
+            st.markdown(f"- **What is in the application:** {nar['what_is_in_the_app']}\n"
+                        f"- **What changed:** {nar['what_changed']}\n- **What appears risky:** {nar['what_appears_risky']}")
+            for c in nar.get("top_concerns", []):
+                st.markdown(f"👉 `{c['finding_id']}`: {c['why']}")
+            for c in nar.get("caveats", []):
+                st.caption(c)
+    tri = ag.get("triage", {})
+    if tri:
+        VI = {"likely_malicious": "⛔", "suspicious": "⚠️", "needs_human_review": "👀", "likely_benign": "✅"}
+        st.dataframe(pd.DataFrame([{
+            "ID": fid, "Rule": t["rule"], "AI verdict": f"{VI.get(t['verdict'], '')} {t['verdict']}",
+            "Confidence": t["confidence"], "Grounded": "yes" if t["grounding"].get("ok", True) else "⚠ no",
+            "Rounds": t["rounds"], "Rationale": t["rationale"]} for fid, t in sorted(tri.items())]),
+            hide_index=True, use_container_width=True)
+        pick_t = st.selectbox("Open a triage decision", sorted(tri))
+        t = tri[pick_t]
+        with st.container(border=True):
+            st.markdown(f"**{pick_t}** · {t['verdict']} ({t['confidence']}) · by `{t['generated_by']}`  \n{t['rationale']}")
+            if t.get("benign_explanations"):
+                st.markdown("**Innocent explanations considered:** " + "; ".join(t["benign_explanations"]))
+            if t.get("recommended_next_step"):
+                st.markdown(f"**Reviewer should check:** {t['recommended_next_step']}")
+            if t.get("matched_patterns"):
+                st.markdown("**Matches attack patterns:** " + ", ".join(t["matched_patterns"]))
+            if not t["grounding"].get("ok", True):
+                st.warning(f"Grounding check: {t['grounding']}")
+            for e in ag.get("tool_evidence", {}).get(pick_t, []):
+                with st.expander(f"{e['id']} · tool `{e['tool']}` (round {e['round'] + 1})"):
+                    st.json(e["result"])
+    u = ag.get("llm_usage", {})
+    st.caption(f"LLM calls {u.get('calls', 0)} · tokens in/out {u.get('input_tokens', 0)}/{u.get('output_tokens', 0)} · "
+               f"secrets redacted before sending {u.get('secrets_redacted', 0)} · "
+               + " · ".join(f"{r['agent']} {r['seconds']}s" for r in ag.get("agent_runs", []) if r["kind"] != "llm"))
+    st.download_button("Download agentic.json", ag_path.read_bytes(), file_name=f"{name}.agentic.json",
+                       mime="application/json")
