@@ -158,6 +158,6 @@ def render(doc: dict, summary: dict, agentic: dict | None = None) -> str:
         L += render_agentic(agentic, 5)
     L += [f"## {6 if agentic else 5}. Notes and limits", ""]
     L += [f"- {n}" for n in doc["notes"]] or ["- none"]
-    L += ["- Day 1 scope: visibility and detection. Reachability, exploitability (KEV/EPSS) and remediation are Day 2.",
+    L += ["- Initial risk is a heuristic. Reachability, exploitability (KEV/EPSS), prioritisation and remediation are added by `python -m sscg agent --remediate`.",
           "- Typosquat results are heuristic (name similarity) and need human review.", ""]
     return "\n".join(L)

@@ -1,4 +1,4 @@
-"""Day 2 column 3, "Recommend safe remediation": two agents.
+"""Remediate stage, "Recommend safe remediation": two agents.
 
 plan_remediation  (deterministic) sscg/remediation.Planner: one proposal per component / file for the P0 + P1
                   findings: action, safe target version, exact edits + diff, expected risk reduction, compatibility
@@ -19,7 +19,7 @@ from .runtime import get, traced
 from .schemas import Advice, RemediationProposal
 
 BATCH = 6
-SYSTEM = """You are the Remediation Advisor of a software supply chain security tool (Day 2).
+SYSTEM = """You are the Remediation Advisor of a software supply chain security tool.
 A deterministic planner already chose each proposal's action, target version and exact edits from verified data.
 For every proposal in the packet write:
 - rationale: 2-3 sentences for a human approver: why this action fits the findings, what it trades off

@@ -1,4 +1,4 @@
-"""Triage agent (LLM): judges findings that rules can flag but not decide (Day 1 column 4).
+"""Triage agent (LLM): judges findings that rules can flag but not decide (suspicious changes).
 
 One `triage_one` task per finding, fanned out in parallel with LangGraph Send. Each gets a self-contained evidence
 packet: the finding, its evidence (F-012/E1 ...), tool evidence (F-012/T1 ...), what changed, other findings on the
@@ -16,7 +16,7 @@ from .llm import LLMError, complete_json
 from .runtime import get, traced
 from .schemas import TriageAssessment
 
-SYSTEM = """You are the Triage agent of a software supply chain security tool (Day 1: visibility and detection).
+SYSTEM = """You are the Triage agent of a software supply chain security tool (detection stage: visibility and evidence).
 A deterministic rule flagged the finding in the evidence packet. Decide how concerning it is IN CONTEXT.
 
 Rules:

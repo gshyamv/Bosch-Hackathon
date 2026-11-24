@@ -1,4 +1,4 @@
-# Day 2: Build the Guardian's Brain & Shield
+# Remediation: from finding to verified fix
 
 *How the Guardian takes a finding from detection to verified remediation, for any scanned application.*
 
@@ -6,27 +6,27 @@
 
 ## 0. In short
 
-The Day 2 final demonstration asks: *"Show us how the Guardian takes a finding from detection to verified remediation."*
+The question: *"How does the Guardian take a finding from detection to verified remediation?"*
 We do it in **one LangGraph run** that pauses for a human:
 
 ```
 Prioritized risk  ->  Recommended fix  ->  Human approval  ->  Build & test  ->  Rescan  ->  Verified remediation
- (KEV, EPSS,          (exact patch,         (LangGraph          (sandbox,        (Day 1      (before / after,
+ (KEV, EPSS,          (exact patch,         (LangGraph          (sandbox,        (detection  (before / after,
   reachability)        safe version)         interrupt)          before/after)    pipeline)   report + patch)
 ```
 
 ```powershell
 cd sscg
-# 1. Day 1 + Day 2 up to the approval gate; the run pauses and is saved to disk
-python -m sscg agent ..\targets\sscg-demo-target --day2 --decisions later
+# 1. detect, prioritise and propose fixes up to the approval gate; the run pauses and is saved to disk
+python -m sscg agent ..\targets\sscg-demo-target --remediate --decisions later
 # 2. a human decides, in another process or the dashboard; the run resumes: sandbox build, test, rescan, report
 python -m sscg approve ..\targets\sscg-demo-target --approve all-patchable --by "Your Name"
 # or interactively in one go
-python -m sscg agent ..\targets\sscg-demo-target --day2           # asks per proposal on the console
-streamlit run ui/app.py                                          # "Agentic AI" + "Day 2" toggles, approval form
+python -m sscg agent ..\targets\sscg-demo-target --remediate           # asks per proposal on the console
+python -m sscg serve                                             # dashboard: New run -> "Full: detect -> remediate", approve on the Remediation page
 ```
 
-Outputs are in `out/<repo>/day2/`: `remediation_report.md/.html/.pdf`, `day2.json` (machine-readable),
+Outputs are in `out/<repo>/remediation/`: `remediation_report.md/.html/.pdf`, `remediation.json` (machine-readable),
 `remediation.patch` (everything that changed, including regenerated lockfiles) and, while paused, `pending.json`.
 **The original repository is never modified.** All changes happen in a sandbox copy.
 
@@ -39,7 +39,7 @@ the repository.
 
 ```mermaid
 flowchart TD
-    R[Day 1 Reporter] --> X[Exploit Intel<br/>CISA KEV + EPSS]
+    R[Reporter] --> X[Exploit Intel<br/>CISA KEV + EPSS]
     R --> Y[Reachability<br/>imports, exposure]
     X --> P[Prioritizer<br/>explainable score, P0-P3]
     Y --> P
@@ -48,7 +48,7 @@ flowchart TD
     A --> H{{Human approval<br/>LangGraph interrupt}}
     H -->|paused: state in SQLite| H
     H --> V[Validation<br/>sandbox: build, test, rescan]
-    V --> D[Day 2 Reporter<br/>report, day2.json, patch]
+    V --> D[Remediation Reporter<br/>report, remediation.json, patch]
 ```
 
 | Node | Kind | File |
@@ -58,13 +58,13 @@ flowchart TD
 | `prioritize` | deterministic | `agents/prioritizer.py` |
 | `plan_remediation` | deterministic | `agents/remediator.py` + `sscg/remediation.py`, `sscg/registry.py` |
 | `advise_remediation` | **LLM** (optional) | `agents/remediator.py` |
-| `human_approval` | **human** (interrupt) | `agents/day2.py` |
-| `validate` | deterministic | `agents/day2.py` + `sscg/validation.py` |
-| `day2_report` | deterministic | `agents/day2.py` + `sscg/day2_report.py` |
+| `human_approval` | **human** (interrupt) | `agents/remediation_flow.py` |
+| `validate` | deterministic | `agents/remediation_flow.py` + `sscg/validation.py` |
+| `remediation_report` | deterministic | `agents/remediation_flow.py` + `sscg/remediation_report.py` |
 
 ---
 
-## 2. Column ① Prioritize risks: "focus on what truly matters"
+## 2. Prioritize risks: "focus on what truly matters"
 
 **Exploitability** (`sscg/intel.py`). Every CVE alias of every vulnerability finding is looked up in:
 * **CISA KEV**: the CVE is exploited in the wild (including the "known ransomware use" flag);
@@ -88,7 +88,7 @@ source. Nothing is executed.
 **Exposure.** Production vs dev/test scope, plus whether the app is a **network service** (HTTP server patterns,
 Dockerfile `EXPOSE`).
 
-**Score.** Day 1 initial risk plus signed points. It is deterministic, and each point is listed with its reason in
+**Score.** initial risk plus signed points. It is deterministic, and each point is listed with its reason in
 the report.
 
 | Factor | Points |
@@ -108,12 +108,12 @@ the report.
 * **Confidence** drops for every missing signal: KEV or EPSS unavailable, no CVE alias, unknown reachability, a
   version estimated without a lockfile, or triage done by the rules-only fallback.
 
-## 3. Column ② Investigate suspicious changes: "look beyond known CVEs"
+## 3. Investigate suspicious changes: "look beyond known CVEs"
 
-This was done on Day 1 (`docs/agentic.md`): 19 rules, "what changed" vs the base commit, and the Triage agent with
+This happens in detection (`docs/agentic.md`): 19 rules, "what changed" vs the base commit, and the Triage agent with
 its evidence loop. Verified evidence (`F-012/E1`) is kept apart from AI inference.
 
-## 4. Column ③ Recommend safe remediation: "suggest the right action"
+## 4. Recommend safe remediation: "suggest the right action"
 
 **One proposal per package or file.** All versions of a package and all findings on it are fixed together. For
 example, lodash 4.17.15 has four findings (CVE, swapped hash, untrusted mirror, drift); one upgrade plus a lockfile
@@ -169,7 +169,7 @@ go in `ai_rationale` and `ai_reviewer_checklist`, next to the deterministic rati
 
 ## 5. Human approval: the gate
 
-The run **stops at a LangGraph `interrupt()`**. With `--day2`, the state is checkpointed in SQLite
+The run **stops at a LangGraph `interrupt()`**. With `--remediate`, the state is checkpointed in SQLite
 (`out/<repo>/.sscg-state/checkpoints.sqlite`, via `langgraph-checkpoint-sqlite`), so the decision can come later,
 from any process:
 
@@ -184,7 +184,7 @@ from any process:
 * Manual proposals can be acknowledged or risk-accepted. Undecided ones stay pending.
 * Unknown IDs are refused, and a finished run can't be resumed again.
 
-## 6. Column ④ Validate the proposed fix: "test before you trust"
+## 6. Validate the proposed fix: "test before you trust"
 
 `sscg/validation.py`. It is generic: every `package.json`, `requirements*.txt`, `pom.xml` and `Dockerfile` in the
 repository is found automatically.
@@ -200,7 +200,7 @@ repository is found automatically.
    compile.
 4. **Baseline:** the unchanged repository is built the same way, so pre-existing failures aren't blamed on the fix
    (`--no-baseline` skips it).
-5. **Rescan:** the Day 1 pipeline runs on the sandbox, followed by a **before/after comparison**:
+5. **Rescan:** the detection pipeline runs on the sandbox, followed by a **before/after comparison**:
    * findings **resolved / remaining / new**;
    * new findings are classed as `introduced`, `still_vulnerable` (same package at a new version that still has
      advisories) or `expected` (e.g. the replacement package now shows as a new dependency);
@@ -225,9 +225,9 @@ repository is found automatically.
 * Dependency install scripts are disabled.
 * The application's own tests do run its code. Use Docker for untrusted repositories.
 
-## 7. Column ⑤ Verify & report: "show the complete story"
+## 7. Verify & report: "show the complete story"
 
-`day2/remediation_report.md` (plus `.html` and `.pdf`) follows the slide's checklist:
+`remediation/remediation_report.md` (plus `.html` and `.pdf`) follows the slide's checklist:
 
 1. **Summary:** verdict, confidence, reasons, findings before → after, decisions.
 2. **Prioritized risks:** score, urgent flag, the reason for every point, confidence.
@@ -239,10 +239,10 @@ repository is found automatically.
 5. **Remaining and accepted risk:** what is left, accepted risks with approver and reason, pending items.
 6. **Audit trail:** every agent run (status, time, tokens) and every human decision.
 
-The dashboard's **Day 2** section shows:
+The dashboard's **Remediation** page shows:
 * the verdict tiles;
-* tabs for ① Priorities, ③ Proposals & decisions, ④ Validation and ⑤ Report & patch;
-* downloads of the report, the patch and `day2.json`.
+* tabs for Prioritised risks, Proposals & decisions, Validation, and Report & patch;
+* downloads of the report, the patch and `remediation.json`.
 
 ## 8. Results
 
@@ -271,7 +271,7 @@ Mixed decisions were tested too: approve 3, reject 1, accept-risk 1, request-cha
 | Approve all 20 patchable proposals | ❌ **failed**, correctly. `npm ci` worked before and broke after (`ERESOLVE`). The verdict names the cause: *"likely caused by P-010 (dustjs-linkedin): approve again without it"*. `dustjs-linkedin` 2.5.0 → 3.0.0 is outside the peer range `2.5 - 2.6` of `dustjs-helpers@1.5.0`. |
 | Approve all except P-010 (rejected with that reason) | 🟨 **partially verified.** `docker build` ✅ before and after (271 s) and `npm ci` ✅ before and after. `npm test` fails before *and* after (it needs a Snyk account), so it is pre-existing. 154 → 116 findings, 40 resolved. The 4 targeted findings that remain are copies of lodash, handlebars, minimist and y18n **bundled inside `nyc`** (bundleDependencies): npm overrides cannot reach them, and the proposals say so (*"upgrade nyc"*). |
 
-This is the Day 2 loop the slide asks for: recommend, approve, validate, catch a newly introduced problem, attribute
+This is the loop the problem statement asks for: recommend, approve, validate, catch a newly introduced problem, attribute
 it, approve again without it, and get a clean build with the remaining risk stated.
 
 ## 9. Configuration
@@ -287,10 +287,10 @@ it, approve again without it, and get a clean build with the remaining risk stat
 ## 10. Testing and known limitations
 
 **Tested:**
-* The plain Day 1 `scan` output is unchanged.
+* The plain `scan` output is unchanged.
 * Demo target end to end: console, pause and `approve`, mixed decisions, with and without Docker.
 * Invalid input: unknown IDs, flags, and a second resume.
-* Dashboard (Streamlit AppTest): the pending approval form and the results view.
+* Dashboard (React + FastAPI, headless Chrome): the pending approval board, submitting decisions, the validation job and the results view.
 * Live Groq Remediation Advisor.
 * Planner on all three sample apps.
 * nodejs-goof end to end, 3 attempts:

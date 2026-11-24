@@ -359,6 +359,8 @@
    "integrity": "sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 10,
    "vulns": [
     "GHSA-29mw-wpgm-hmr9",
     "GHSA-35jh-r3h4-6jhm",
@@ -483,8 +485,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-xxjr-mmjv-4gpg"
     }
    ],
-   "depth": 2,
-   "dependents": 10,
    "findings": [
     "F-030"
    ]
@@ -520,6 +520,8 @@
    "integrity": "sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 8,
    "vulns": [
     "GHSA-c2qf-rxjj-qqgw"
    ],
@@ -550,8 +552,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-c2qf-rxjj-qqgw"
     }
    ],
-   "depth": 2,
-   "dependents": 8,
    "findings": [
     "F-082"
    ]
@@ -604,6 +604,8 @@
    "integrity": "sha512-XVkvaMvMzQ3miJi/YZmsRJSAUfDloYhfg6pXPgzAeAugB4p+cNi01Z68pT62ypB8U/Ugh1Xx2pb9aoOFqBbSjA==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-4x6g-3cmx-w76r"
    ],
@@ -632,8 +634,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-4x6g-3cmx-w76r"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-102"
    ]
@@ -975,6 +975,8 @@
    "integrity": "sha1-hgbCy/HEJs6MjsABdER/1Jtur8E=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-3v6h-hqm4-2rg6",
     "GHSA-7q85-xj36-vmfc",
@@ -1171,8 +1173,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-xcpc-8h2w-3j85"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-046"
    ]
@@ -1208,6 +1208,8 @@
    "integrity": "sha512-TXtUUEYHuaTEbLZWIKUr5pmBuhDLy+8KYtPYdcV8qC+pOZL+NKqYwvWSRrVXHn+ZmRRAu8vJTAznH7Oag6RVRw==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 5,
+   "dependents": 1,
    "vulns": [
     "GHSA-2g4f-4pwh-qvx6",
     "GHSA-v88g-cgmw-v5xw"
@@ -1261,8 +1263,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-2g4f-4pwh-qvx6"
     }
    ],
-   "depth": 5,
-   "dependents": 1,
    "findings": [
     "F-110"
    ]
@@ -1842,6 +1842,8 @@
    "integrity": "sha512-EUAyP5UHU5hxF8BPT0LKW8gjYLhq1DQIcneOX/pL/m2Alo+OYDQAJlHq+yseMP50Os2nHXOSic6Ss3vSQeyf4A==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 4,
+   "dependents": 1,
    "vulns": [
     "GHSA-pp7h-53gx-mx7r"
    ],
@@ -1873,8 +1875,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-pp7h-53gx-mx7r"
     }
    ],
-   "depth": 4,
-   "dependents": 1,
    "findings": [
     "F-100"
    ]
@@ -1961,6 +1961,8 @@
    "integrity": "sha512-ItfYfPLkWHUjckQCk8xC+LwxgK8NYcXywGigJgSwOP8Y2iyWT4f2vsZnoOXTTbo+o5yXmIUJ4gn5538SO5S3gA==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 4,
+   "dependents": 8,
    "vulns": [
     "GHSA-378v-28hj-76wf"
    ],
@@ -1990,8 +1992,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-378v-28hj-76wf"
     }
    ],
-   "depth": 4,
-   "dependents": 8,
    "findings": [
     "F-114"
    ]
@@ -2010,6 +2010,8 @@
    "integrity": "sha1-ldcpQ7Gk9n9Wu6yeDcyDe2hwNgU=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-27r3-jxmh-p828",
     "GHSA-qwcr-r2fm-qrc7",
@@ -2088,8 +2090,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-v422-hmwv-36x6"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-050"
    ]
@@ -2159,6 +2159,8 @@
    "integrity": "sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 3,
+   "dependents": 1,
    "vulns": [
     "GHSA-3jxr-9vmj-r5cp",
     "GHSA-6j4f-fj2g-mc7p",
@@ -2378,8 +2380,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-v6h2-p8h4-qcjw"
     }
    ],
-   "depth": 3,
-   "dependents": 1,
    "findings": [
     "F-051"
    ]
@@ -2398,6 +2398,8 @@
    "integrity": "sha512-b8um+L1RzM3WDSzvhm6gIz1yfTbBt6YTlcEKAvsmqCZZFw46z626lVj9j1yEPW33H5H+lBQpZMP1k8l+78Ha0A==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 3,
+   "dependents": 1,
    "vulns": [
     "GHSA-grv7-fg5c-xmjg"
    ],
@@ -2426,8 +2428,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-grv7-fg5c-xmjg"
     }
    ],
-   "depth": 3,
-   "dependents": 1,
    "findings": [
     "F-053"
    ]
@@ -2616,6 +2616,8 @@
    "integrity": "sha1-qk62jl17ZYuqa/alfmMMvXqT0pg=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 3,
+   "dependents": 1,
    "vulns": [
     "GHSA-x9w5-v3q2-3rhw"
    ],
@@ -2644,8 +2646,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-x9w5-v3q2-3rhw"
     }
    ],
-   "depth": 3,
-   "dependents": 1,
    "findings": [
     "F-054"
    ]
@@ -2749,6 +2749,8 @@
    "integrity": "sha1-5louPHUH/63kEJvHV1p25Q+NqRU=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 2,
    "vulns": [
     "GHSA-4jwp-vfvf-657p",
     "GHSA-v8w9-2789-6hhr"
@@ -2802,8 +2804,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-v8w9-2789-6hhr"
     }
    ],
-   "depth": 2,
-   "dependents": 2,
    "findings": [
     "F-002"
    ]
@@ -2992,6 +2992,8 @@
    "integrity": "sha512-5r2GqsoEb4qMTTN9J+WzXfjov+hjxT+j3u5K+kIVNIwAd99DLCJE9pBIMP1qVeybV6JiijL385Oz0DcYxfbOIg==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 2,
    "vulns": [
     "GHSA-wg6g-ppvx-927h"
    ],
@@ -3020,8 +3022,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-wg6g-ppvx-927h"
     }
    ],
-   "depth": 2,
-   "dependents": 2,
    "findings": [
     "F-089"
    ]
@@ -3176,6 +3176,8 @@
    "integrity": "sha512-Kkht5ye6ZGmwv40uUDZztayT2ThLQGfnj/T71N/XzeZeo3nf8foyW7zGTsPYkEya3m5f3cAypH+qe7YOrM1U2Q==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 4,
+   "dependents": 4,
    "vulns": [
     "GHSA-cpq7-6gpm-g9rc"
    ],
@@ -3204,8 +3206,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-cpq7-6gpm-g9rc"
     }
    ],
-   "depth": 4,
-   "dependents": 4,
    "findings": [
     "F-020"
    ]
@@ -3292,6 +3292,8 @@
    "integrity": "sha512-bY6fj56OUQ0hU1KjFNDQuJFezqKdrAyFdIevADiqrWHwSlbmBNMHp5ak2f40Pm8JTFyM2mqxkG6ngkHO11f/lg==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 6,
+   "dependents": 1,
    "vulns": [
     "GHSA-93q8-gq69-wqmw"
    ],
@@ -3323,8 +3325,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-93q8-gq69-wqmw"
     }
    ],
-   "depth": 6,
-   "dependents": 1,
    "findings": [
     "F-049"
    ]
@@ -3547,6 +3547,8 @@
    "integrity": "sha512-r9S/ZyXu/Xu9q1tYlpsLIsa3EeLXXk0VwlxqTcFRfg9EhMW+17kbt9G0NrgCmhGb5vT2hyhJZLfDGx+7+5Uj/w==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 3,
+   "dependents": 2,
    "vulns": [
     "GHSA-c4w7-xm78-47vh"
    ],
@@ -3577,8 +3579,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-c4w7-xm78-47vh"
     }
    ],
-   "depth": 3,
-   "dependents": 2,
    "findings": [
     "F-097"
    ]
@@ -3954,6 +3954,8 @@
    "integrity": "sha512-RZY5huIKCMRWDUqZlEi72f/lmXKMvuszcMBduliQ3nnWbx9X/ZBQO7DijMEYS9EhHBb2qacRUMtC7svLwe0lcw==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 3,
+   "dependents": 4,
    "vulns": [
     "GHSA-qqgx-2p2h-9c37"
    ],
@@ -3983,8 +3985,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-qqgx-2p2h-9c37"
     }
    ],
-   "depth": 3,
-   "dependents": 4,
    "findings": [
     "F-092"
    ]
@@ -4139,6 +4139,8 @@
    "integrity": "sha1-cv7D0k5Io0Mgc9kMEmQgBQYQBLE=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-pxg6-pf52-xh8x"
    ],
@@ -4167,8 +4169,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-pxg6-pf52-xh8x"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-150"
    ]
@@ -4344,6 +4344,8 @@
    "integrity": "sha1-e5JHYhwjrf3ThWAEqCPL45dCTUE=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 3,
+   "dependents": 1,
    "vulns": [
     "GHSA-3xgq-45jj-v275"
    ],
@@ -4373,8 +4375,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-3xgq-45jj-v275"
     }
    ],
-   "depth": 3,
-   "dependents": 1,
    "findings": [
     "F-055"
    ]
@@ -4512,6 +4512,8 @@
    "integrity": "sha512-pYAIzeRo8J6KPEaJ0VWOh5Pzkbw/RetuzehGM7QRRX5he4fPHx2rdKMB256ehJCkX+XRQm16eZLqLNS8RSZXZw==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 9,
    "vulns": [
     "GHSA-gxpj-cx7g-858c"
    ],
@@ -4543,8 +4545,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-gxpj-cx7g-858c"
     }
    ],
-   "depth": 2,
-   "dependents": 9,
    "findings": [
     "F-136"
    ]
@@ -4665,6 +4665,8 @@
    "integrity": "sha1-/PSQo37OJmRk2cxDGrmMWBnO0JU=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 5,
+   "dependents": 1,
    "vulns": [
     "GHSA-9j49-mfvp-vmhm"
    ],
@@ -4693,8 +4695,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-9j49-mfvp-vmhm"
     }
    ],
-   "depth": 5,
-   "dependents": 1,
    "findings": [
     "F-028"
    ]
@@ -4866,6 +4866,8 @@
    "integrity": "sha512-MdceRRWqltEG2dZqO769g27N/3PXfcKl04VhYnBlo2YhH7zPi88VebsjTKclaOyiuMaGU72hTfw3VkUitGcVCA==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 4,
+   "dependents": 1,
    "vulns": [
     "GHSA-wm7h-9275-46v2"
    ],
@@ -4892,8 +4894,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-wm7h-9275-46v2"
     }
    ],
-   "depth": 4,
-   "dependents": 1,
    "findings": [
     "F-060"
    ]
@@ -4912,6 +4912,8 @@
    "integrity": "sha1-fyjS657nsVqX79ic5j3P2qPMur8=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 3,
+   "dependents": 1,
    "vulns": [
     "GHSA-73rr-hh4g-fpgx",
     "GHSA-h6ch-v84p-w6p9"
@@ -4963,8 +4965,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-h6ch-v84p-w6p9"
     }
    ],
-   "depth": 3,
-   "dependents": 1,
    "findings": [
     "F-036"
    ]
@@ -5034,6 +5034,8 @@
    "integrity": "sha512-tUMXrxlExSW6U2EXiiKGSBVdYgtV8qlHL+C10TsW4PURY/ic+eaysnSkwB4kA/mBlCyy/IKDJ+Lc3wbWeaXtuQ==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 3,
+   "dependents": 1,
    "vulns": [
     "GHSA-ff7x-qrg7-qggm"
    ],
@@ -5063,8 +5065,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-ff7x-qrg7-qggm"
     }
    ],
-   "depth": 3,
-   "dependents": 1,
    "findings": [
     "F-090"
    ]
@@ -5117,6 +5117,8 @@
    "integrity": "sha512-esZnJZJOiJR9wWKMyuvSE1y6Dq5LCuJanqhxslH2bxM6duahNZ+HMpCLhBQGZkbX6xRf8x1Y2eJlgt2q3qo49Q==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 4,
+   "dependents": 1,
    "vulns": [
     "GHSA-776f-qx25-q3cc"
    ],
@@ -5145,8 +5147,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-776f-qx25-q3cc"
     }
    ],
-   "depth": 4,
-   "dependents": 1,
    "findings": [
     "F-127"
    ]
@@ -5216,6 +5216,8 @@
    "integrity": "sha1-DMbjWJsRA9BuBG6Gr87deNcNchw=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-c6rp-wrp9-qr4q"
    ],
@@ -5244,8 +5246,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-c6rp-wrp9-qr4q"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-025"
    ]
@@ -5298,6 +5298,8 @@
    "integrity": "sha1-ycYKSKRu5FL7MqccMXuV5aofyz0=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-3w5v-p54c-f74x",
     "GHSA-6x77-rpqf-j6mw",
@@ -5422,8 +5424,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-phwq-j96m-2c2q"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-004"
    ]
@@ -5459,6 +5459,8 @@
    "integrity": "sha1-/9xW3MNdApJt1QrRNDm7xUBh1Zg=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-3w5v-p54c-f74x",
     "GHSA-6x77-rpqf-j6mw",
@@ -5583,8 +5585,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-phwq-j96m-2c2q"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-003"
    ]
@@ -5603,6 +5603,8 @@
    "integrity": "sha512-BsXLz5sqX8OHcsh7CqBMztyXARmGQ3LWPtGjJi6DiJHq5C/qvi9P3OqgswKSDftbu8+IoI/QDTAm2fFnQ9SZSQ==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 4,
+   "dependents": 2,
    "vulns": [
     "GHSA-434g-2637-qmqr",
     "GHSA-49q7-c7j4-3p7m",
@@ -5817,8 +5819,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-vjh7-7g9h-fjfh"
     }
    ],
-   "depth": 4,
-   "dependents": 2,
    "findings": [
     "F-045"
    ]
@@ -6177,6 +6177,8 @@
    "integrity": "sha512-eTVLrBSt7fjbDygz805pMnstIs2VTBNkRm0qxZd+M7A5XDdxVRWO5MxGBXZhjY4cqLYLdtrGqRf8mBPmzwSpWQ==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 5,
+   "dependents": 1,
    "vulns": [
     "GHSA-3xgq-45jj-v275"
    ],
@@ -6206,8 +6208,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-3xgq-45jj-v275"
     }
    ],
-   "depth": 5,
-   "dependents": 1,
    "findings": [
     "F-057"
    ]
@@ -6226,6 +6226,8 @@
    "integrity": "sha1-j+wlECVbxrLlgQfEgjnA+jB8GqI=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-qw6h-vgh9-j6wx",
     "GHSA-rv95-896h-c2vc"
@@ -6280,8 +6282,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-rv95-896h-c2vc"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-107"
    ]
@@ -6300,6 +6300,8 @@
    "integrity": "sha1-QzpxJSWvqYtMkxYlIui/ecaNguc=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-9wcg-jrwf-8gg7",
     "GHSA-q3w9-g74q-vp5f",
@@ -6371,8 +6373,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-q3w9-g74q-vp5f"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-005"
    ]
@@ -6408,6 +6408,8 @@
    "integrity": "sha512-ZwrFkGJxUR3EIoXtO+yVE69Eb7KlixbaeAWfBQB9vVsNn/o+Yw69gBWSSDK825hQNdN+wF8zELf3dFNl/kxkUA==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-pxg6-pf52-xh8x"
    ],
@@ -6436,8 +6438,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-pxg6-pf52-xh8x"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-151"
    ]
@@ -6541,6 +6541,8 @@
    "integrity": "sha1-+HBX6ZWxofauaklgZkE3vFbwOdo=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 4,
    "vulns": [
     "GHSA-9vvw-cc9w-f27h",
     "GHSA-gxpj-cx7g-858c"
@@ -6597,8 +6599,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-gxpj-cx7g-858c"
     }
    ],
-   "depth": 2,
-   "dependents": 4,
    "findings": [
     "F-058"
    ]
@@ -6668,6 +6668,8 @@
    "integrity": "sha1-nNE8A62/8ltl7/3nzoZO6VIBcJg=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 3,
    "vulns": [
     "GHSA-w9mr-4mfr-499f"
    ],
@@ -6696,8 +6698,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-w9mr-4mfr-499f"
     }
    ],
-   "depth": 2,
-   "dependents": 3,
    "findings": [
     "F-122"
    ]
@@ -6716,6 +6716,8 @@
    "integrity": "sha1-Jp1cR2gQ7JLtvntsLygxY4T5p+g=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 3,
+   "dependents": 1,
    "vulns": [
     "GHSA-7mc5-chhp-fmc3"
    ],
@@ -6744,8 +6746,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-7mc5-chhp-fmc3"
     }
    ],
-   "depth": 3,
-   "dependents": 1,
    "findings": [
     "F-041"
    ]
@@ -6781,6 +6781,8 @@
    "integrity": "sha1-9854jld33wtQENp/fE5zujJHD1o=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-4mjr-xmp4-gh2g",
     "GHSA-6rw7-vpxm-498p",
@@ -6892,8 +6894,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-hrpp-h998-j3pp"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-076"
    ]
@@ -7048,6 +7048,8 @@
    "integrity": "sha512-ZQJM4aifMpz6H19AW1VqvZ7l4pOE9p7i/3LyxgO2kp+PO/VcDYNqIHEMtkccqIhTXMKci4kjueJr/iCQEaT/Ww==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 3,
+   "dependents": 1,
    "vulns": [
     "GHSA-62ch-8vmq-8xm7"
    ],
@@ -7076,8 +7078,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-62ch-8vmq-8xm7"
     }
    ],
-   "depth": 3,
-   "dependents": 1,
    "findings": [
     "F-037"
    ]
@@ -7283,6 +7283,8 @@
    "integrity": "sha512-1lLKB2Mu3aGP1Q/2eCOx0fNbRMe7XdwktwOruhfqqd0rIJWwN4Dh+E3hrPSlDCXnSR7UtZ1N38rVXm+6+MEhJQ==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 4,
+   "dependents": 1,
    "vulns": [
     "GHSA-fjxv-7rqg-78g4",
     "GHSA-hmw2-7cc7-3qxx"
@@ -7339,8 +7341,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-fjxv-7rqg-78g4"
     }
    ],
-   "depth": 4,
-   "dependents": 1,
    "findings": [
     "F-061"
    ]
@@ -7410,6 +7410,8 @@
    "integrity": "sha1-NYJJkgbJcjcUGQ7ddLRgT+tKYUw=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 2,
    "vulns": [
     "GHSA-9qj9-36jm-prpv"
    ],
@@ -7438,8 +7440,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-9qj9-36jm-prpv"
     }
    ],
-   "depth": 2,
-   "dependents": 2,
    "findings": [
     "F-062"
    ]
@@ -7802,6 +7802,8 @@
    "integrity": "sha1-JAzQV4WpoY5WHcG0S0HHY+8ejbA=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 5,
+   "dependents": 1,
    "vulns": [
     "GHSA-pfrx-2q88-qq97"
    ],
@@ -7831,8 +7833,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-pfrx-2q88-qq97"
     }
    ],
-   "depth": 5,
-   "dependents": 1,
    "findings": [
     "F-115"
    ]
@@ -7902,6 +7902,8 @@
    "integrity": "sha512-E7tDoyAA8ilZIV3xDJgl18sX3M8xB9/fMw8+mfW4msLW8jlX97bAnWgT3pmaNXuvzIEgSBMnAHfuXsB2hdzfow==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-2cf5-4w76-r9qv",
     "GHSA-2qvq-rjwj-gvw9",
@@ -8349,8 +8351,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-q2c6-c6pm-g3gh"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-007"
    ]
@@ -8369,6 +8369,8 @@
    "integrity": "sha512-zflvls11DCy+dQWzTW2dzuilv8Z5X/pjfmZOWba6TNIVDm+2UDaJmXSOXlasHKfNBs8oo3M0aT50fDEWfKZjXg==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 3,
+   "dependents": 1,
    "vulns": [
     "GHSA-fwr7-v2mv-hh25"
    ],
@@ -8398,8 +8400,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-fwr7-v2mv-hh25"
     }
    ],
-   "depth": 3,
-   "dependents": 1,
    "findings": [
     "F-042"
    ]
@@ -8418,6 +8418,8 @@
    "integrity": "sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 4,
+   "dependents": 1,
    "vulns": [
     "GHSA-r5fr-rjxr-66jc",
     "GHSA-xxjr-mmjv-4gpg"
@@ -8470,8 +8472,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-xxjr-mmjv-4gpg"
     }
    ],
-   "depth": 4,
-   "dependents": 1,
    "findings": [
     "F-031"
    ]
@@ -8626,6 +8626,8 @@
    "integrity": "sha512-esVlyV/V59mKkwFai5YmPRSNIWZzhqL5YMN0++ueMxyK1cCfPa5f6JiHtapPKAIVAhQR6rpGxow0troav9WMEg==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-7f5c-rpf4-86p8"
    ],
@@ -8652,8 +8654,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-7f5c-rpf4-86p8"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-134"
    ]
@@ -8672,6 +8672,8 @@
    "integrity": "sha512-OrVKYz70LHsnCgmbXctv/bfuvntIKDz177h0Co37DQ5jamGZLVmoCVMtjMtNZY3X9DrCcKfklHPNeA0uPZhSJg==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 3,
+   "dependents": 1,
    "vulns": [
     "GHSA-7wwv-vh3v-89cq",
     "GHSA-vfrc-7r7c-w9mx"
@@ -8721,8 +8723,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-7wwv-vh3v-89cq"
     }
    ],
-   "depth": 3,
-   "dependents": 1,
    "findings": [
     "F-109"
    ]
@@ -8775,6 +8775,8 @@
    "integrity": "sha512-kssjab8CvdXfcXMXVcvsXum4Hwdq9XGtRD3TteMEvEbq0LXyiNQr6AprqKqfeaDXze7SxWvRxdpwE6ku7ikLkg==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 3,
+   "dependents": 1,
    "vulns": [
     "GHSA-43f8-2h32-f4cj"
    ],
@@ -8804,8 +8806,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-43f8-2h32-f4cj"
     }
    ],
-   "depth": 3,
-   "dependents": 1,
    "findings": [
     "F-118"
    ]
@@ -8841,6 +8841,8 @@
    "integrity": "sha512-carPklcUh7ROWRK7Cv27RPtdhYhUsela/ue5/jKzjegVvXDqM2ILE9Q2BGn9JZJh1g87cp56su/FgQSzcWS8cQ==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 7,
+   "dependents": 1,
    "vulns": [
     "GHSA-rc47-6667-2j5j"
    ],
@@ -8869,8 +8871,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-rc47-6667-2j5j"
     }
    ],
-   "depth": 7,
-   "dependents": 1,
    "findings": [
     "F-063"
    ]
@@ -9025,6 +9025,8 @@
    "integrity": "sha512-mel+jf7nrtEl5Pn1Qx46zARXKDpBbvzezse7p7LqINmdoIk8PYP5SySaxEmYv6TZ0JyEKA1hsCId6DIhgITtWQ==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 10,
    "vulns": [
     "GHSA-gxpj-cx7g-858c"
    ],
@@ -9056,8 +9058,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-gxpj-cx7g-858c"
     }
    ],
-   "depth": 2,
-   "dependents": 10,
    "findings": [
     "F-135"
    ]
@@ -9110,6 +9110,8 @@
    "integrity": "sha1-2JwhJMb9wTU9Zai3e/GqxLGTcIw=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-3fx5-fwvr-xrjg",
     "GHSA-w9mr-4mfr-499f"
@@ -9162,8 +9164,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-w9mr-4mfr-499f"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-072"
    ]
@@ -9335,6 +9335,8 @@
    "integrity": "sha1-ToCMLOFExsF4iRjgNNZ5e8bPYoE=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-qqgx-2p2h-9c37"
    ],
@@ -9364,8 +9366,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-qqgx-2p2h-9c37"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-091"
    ]
@@ -9418,6 +9418,8 @@
    "integrity": "sha512-1apePfXM1UOSqw0o9IiFAovVz9M5S1Dg+4TrDwfMewQ6p/rmMueb7tWZjQ1rx4Loy1ArBggoqGpfqqdI4rondg==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 3,
+   "dependents": 1,
    "vulns": [
     "GHSA-93q8-gq69-wqmw"
    ],
@@ -9449,8 +9451,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-93q8-gq69-wqmw"
     }
    ],
-   "depth": 3,
-   "dependents": 1,
    "findings": [
     "F-048"
    ]
@@ -9537,6 +9537,8 @@
    "integrity": "sha1-vd7XARQpCCjAoDnnLvJfWq7ENUo=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 5,
+   "dependents": 2,
    "vulns": [
     "GHSA-2p57-rm9w-gvfp",
     "GHSA-78xj-cgh5-2h22"
@@ -9588,8 +9590,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-78xj-cgh5-2h22"
     }
    ],
-   "depth": 5,
-   "dependents": 2,
    "findings": [
     "F-029"
    ]
@@ -10050,6 +10050,8 @@
    "integrity": "sha1-LInWiJterFIqfuoywUUhVZxsvwI=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-6c3j-c64m-qhgq",
     "GHSA-gxr4-xjj5-5px2",
@@ -10156,8 +10158,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-rmxg-73gg-4p98"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-098"
    ]
@@ -10176,6 +10176,8 @@
    "integrity": "sha512-YfbcO7jXDdyj0DGxYVSlSeQNHbD7XPWvrVWeVUujrQEoZzWJIRrCPoyk6kL6IAjAG2IolMK4T0hNUe0HOUs5Jw==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 9,
    "vulns": [
     "GHSA-2883-xcg3-v3hh",
     "GHSA-52cp-r559-cp3m",
@@ -10301,8 +10303,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-mh29-5h37-fv8m"
     }
    ],
-   "depth": 2,
-   "dependents": 9,
    "findings": [
     "F-064"
    ]
@@ -10355,6 +10355,8 @@
    "integrity": "sha1-tIDIkuWaLwWVTOcnvT8qTogvnhM=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 6,
+   "dependents": 1,
    "vulns": [
     "GHSA-896r-f27r-55mw"
    ],
@@ -10383,8 +10385,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-896r-f27r-55mw"
     }
    ],
-   "depth": 6,
-   "dependents": 1,
    "findings": [
     "F-008"
    ]
@@ -10539,6 +10539,8 @@
    "integrity": "sha512-NmKajvAFQpbg3taXQXr/ccS2wcucR1AZ+NtyWp2Nq7HHVsXhcJFR8p0Baf32C2yVvBylFWVeKf+WI2AnvlPhpA==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 3,
+   "dependents": 1,
    "vulns": [
     "GHSA-36fh-84j7-cv5h",
     "GHSA-jg8v-48h5-wgxg"
@@ -10592,8 +10594,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-jg8v-48h5-wgxg"
     }
    ],
-   "depth": 3,
-   "dependents": 1,
    "findings": [
     "F-093"
    ]
@@ -10646,6 +10646,8 @@
    "integrity": "sha512-QO6bFq9eETHB5zcA0OJiQtw137TH45OuUcGtI+QGg2ZJQIPCvwXL2kjCqZZMColcIdbPhj4X40EY5f3oOiBfiw==",
    "install_script": true,
    "resolution": "lockfile",
+   "depth": 4,
+   "dependents": 1,
    "vulns": [
     "GHSA-m2mx-rfpw-jghv"
    ],
@@ -10674,8 +10676,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-m2mx-rfpw-jghv"
     }
    ],
-   "depth": 4,
-   "dependents": 1,
    "findings": [
     "F-043",
     "F-148"
@@ -10883,6 +10883,8 @@
    "integrity": "sha1-eCA6TRwyiuHYbcpkYONptX9AVa4=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 1,
+   "dependents": 2,
    "vulns": [
     "GHSA-29mw-wpgm-hmr9",
     "GHSA-35jh-r3h4-6jhm",
@@ -11105,8 +11107,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-4xc9-xhrj-v574"
     }
    ],
-   "depth": 1,
-   "dependents": 2,
    "findings": [
     "F-022"
    ]
@@ -11244,6 +11244,8 @@
    "integrity": "sha1-2HV7HagH3eJIFrDWqEvqGnYjCyM=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 3,
+   "dependents": 1,
    "vulns": [
     "GHSA-p6mc-m468-83gw"
    ],
@@ -11270,8 +11272,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-p6mc-m468-83gw"
     }
    ],
-   "depth": 3,
-   "dependents": 1,
    "findings": [
     "F-088"
    ]
@@ -11375,6 +11375,8 @@
    "integrity": "sha1-QROhWsXXvKFYpargciRYe5+hW5Q=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-5v2h-r2cx-5xgj",
     "GHSA-7px7-7xjx-hxm8",
@@ -11523,8 +11525,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-p9wx-2529-fp83"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-066"
    ]
@@ -11679,6 +11679,8 @@
    "integrity": "sha1-EV+eO2s9rylZmDyzjxSaLUDrXVM=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 3,
+   "dependents": 1,
    "vulns": [
     "GHSA-wrvr-8mpx-r7pp"
    ],
@@ -11708,8 +11710,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-wrvr-8mpx-r7pp"
     }
    ],
-   "depth": 3,
-   "dependents": 1,
    "findings": [
     "F-068"
    ]
@@ -11830,6 +11830,8 @@
    "integrity": "sha512-yJHVQEhyqPLUTgt9B83PXu6W3rx4MvvHvSUvToogpwoGDOUQ+yDrR0HRot+yOCdCO7u4hX3pWft6kWBBcqh0UA==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 3,
    "vulns": [
     "GHSA-23c5-xmqv-rm74",
     "GHSA-3ppc-4f35-3m26",
@@ -11951,8 +11953,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-3ppc-4f35-3m26"
     }
    ],
-   "depth": 2,
-   "dependents": 3,
    "findings": [
     "F-069"
    ]
@@ -11971,6 +11971,8 @@
    "integrity": "sha1-o1AIsg9BOD7sH7kU9M1d95omQoQ=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 3,
+   "dependents": 3,
    "vulns": [
     "GHSA-vh95-rmgr-6w4m",
     "GHSA-xvch-5gv4-984h"
@@ -12025,8 +12027,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-xvch-5gv4-984h"
     }
    ],
-   "depth": 3,
-   "dependents": 3,
    "findings": [
     "F-011"
    ]
@@ -12147,6 +12147,8 @@
    "integrity": "sha1-6XnCop4iiI5g85byIgphGPhc2Uw=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-446m-mv8f-q348",
     "GHSA-8hfj-j24r-96c4"
@@ -12199,8 +12201,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-8hfj-j24r-96c4"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-070"
    ]
@@ -12253,6 +12253,8 @@
    "integrity": "sha512-wbgvOpqopSr7uq6fJrLH8EsvYMJf9gzfo2jCsL2eTy75qXPukA4pCgHamOQkZtY5vmfVtjB+P3LNlMHW5CEZXA==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-pp7h-53gx-mx7r"
    ],
@@ -12284,8 +12286,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-pp7h-53gx-mx7r"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-099"
    ]
@@ -12321,6 +12321,8 @@
    "integrity": "sha1-4vjAB92Dj2YztPbJZbqSojKskxc=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-664h-wqgq-64gw",
     "GHSA-6972-9mcm-vhwj",
@@ -12668,8 +12670,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-wr5m-5jph-8m96"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-001"
    ]
@@ -12688,6 +12688,8 @@
    "integrity": "sha1-sbhXRl5F4lmx4OAzaYNBpky5NVk=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-mh5c-679w-hh4r"
    ],
@@ -12712,8 +12714,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-mh5c-679w-hh4r"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-038"
    ]
@@ -12749,6 +12749,8 @@
    "integrity": "sha512-AbegBVI4sh6El+1gNwvD5YIck7nSA36weD7xvIxG4in80j/UoK8AEGaWnnz8v1GxonMCltmlNs5ZKbGvl9b1XQ==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-4vj7-5mj6-jm8m",
     "GHSA-9f6g-j8ch-79g4",
@@ -12825,8 +12827,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-jxfw-x594-9x9m"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-120"
    ]
@@ -12879,6 +12879,8 @@
    "integrity": "sha1-I9qFK3wjLuCX9HWdKcDunNItXkY=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-h466-j336-74wx",
     "GHSA-p92x-r36w-9395"
@@ -12931,8 +12933,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-p92x-r36w-9395"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-071"
    ]
@@ -12968,6 +12968,8 @@
    "integrity": "sha1-fAK/t+ScgBLOzhVWxeZf72HzyOU=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-45q2-34rf-mr94"
    ],
@@ -12996,8 +12998,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-45q2-34rf-mr94"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-121"
    ]
@@ -13033,6 +13033,8 @@
    "integrity": "sha1-cIFVpeROM/X9D8U+gdDUCpG+H/8=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-w9mr-4mfr-499f"
    ],
@@ -13061,8 +13063,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-w9mr-4mfr-499f"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-123"
    ]
@@ -13166,6 +13166,8 @@
    "integrity": "sha512-fKiXMQrpP7CYWJQzKkPPx9hPgmq+YLDyxcG9N8RpiE9FoCkCbzD0NyW0YhE3xn3Aupe7nnDeIx4PFzYehpHT9Q==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 3,
+   "dependents": 1,
    "vulns": [
     "GHSA-6xwr-q98w-rvg7"
    ],
@@ -13194,8 +13196,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-6xwr-q98w-rvg7"
     }
    ],
-   "depth": 3,
-   "dependents": 1,
    "findings": [
     "F-094"
    ]
@@ -13248,6 +13248,8 @@
    "integrity": "sha1-kuRrbbU8fkIe1koryU8IvnYw3z8=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 3,
+   "dependents": 1,
    "vulns": [
     "GHSA-7mc5-chhp-fmc3"
    ],
@@ -13276,8 +13278,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-7mc5-chhp-fmc3"
     }
    ],
-   "depth": 3,
-   "dependents": 1,
    "findings": [
     "F-040"
    ]
@@ -13296,6 +13296,8 @@
    "integrity": "sha1-ICl+idhvb2QA8lDZ9Pa0wZRfzTU=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 5,
+   "dependents": 1,
    "vulns": [
     "GHSA-4c7m-wxvm-r7gc",
     "GHSA-pch5-whg9-qr2r"
@@ -13328,8 +13330,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-4c7m-wxvm-r7gc"
     }
    ],
-   "depth": 5,
-   "dependents": 1,
    "findings": [
     "F-023"
    ]
@@ -13607,6 +13607,8 @@
    "integrity": "sha512-R7eWptXuGYxwijs0eV+v3o6+XH1IqVK8dJOEecQfTmkncw9AV4dcw/Dhxi8MdlqPthxxpZyizMzyg8RTmEsG+Q==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 5,
+   "dependents": 1,
    "vulns": [
     "GHSA-pfrx-2q88-qq97"
    ],
@@ -13636,8 +13638,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-pfrx-2q88-qq97"
     }
    ],
-   "depth": 5,
-   "dependents": 1,
    "findings": [
     "F-116"
    ]
@@ -13877,6 +13877,8 @@
    "integrity": "sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-c2qf-rxjj-qqgw"
    ],
@@ -13907,8 +13909,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-c2qf-rxjj-qqgw"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-081"
    ]
@@ -14148,6 +14148,8 @@
    "integrity": "sha1-t4h1sIjMw8Cvo+zrPOMkSxtSOQw=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-57cf-349j-352g"
    ],
@@ -14172,8 +14174,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-57cf-349j-352g"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-113"
    ]
@@ -14226,6 +14226,8 @@
    "integrity": "sha1-LlpOcrqwNHLMl/cnU7RQiRLvVUA=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-x6fg-f45m-jf5q"
    ],
@@ -14254,8 +14256,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-x6fg-f45m-jf5q"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-078"
    ]
@@ -14580,6 +14580,8 @@
    "integrity": null,
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 4,
+   "dependents": 2,
    "vulns": [
     "GHSA-67hx-6x53-jw92"
    ],
@@ -14606,8 +14608,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-67hx-6x53-jw92"
     }
    ],
-   "depth": 4,
-   "dependents": 2,
    "findings": [
     "F-019"
    ]
@@ -14745,6 +14745,8 @@
    "integrity": null,
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 4,
+   "dependents": 6,
    "vulns": [
     "GHSA-6c8f-qphg-qjgp"
    ],
@@ -14773,8 +14775,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-6c8f-qphg-qjgp"
     }
    ],
-   "depth": 4,
-   "dependents": 6,
    "findings": [
     "F-065"
    ]
@@ -14793,6 +14793,8 @@
    "integrity": null,
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 4,
+   "dependents": 1,
    "vulns": [
     "GHSA-grv7-fg5c-xmjg"
    ],
@@ -14821,8 +14823,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-grv7-fg5c-xmjg"
     }
    ],
-   "depth": 4,
-   "dependents": 1,
    "findings": [
     "F-052"
    ]
@@ -15147,6 +15147,8 @@
    "integrity": null,
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 6,
+   "dependents": 1,
    "vulns": [
     "GHSA-qr28-fpjm-wq7f",
     "GHSA-vcc3-ghjq-m6fr",
@@ -15223,8 +15225,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-vcc3-ghjq-m6fr"
     }
    ],
-   "depth": 6,
-   "dependents": 1,
    "findings": [
     "F-059"
    ]
@@ -15345,6 +15345,8 @@
    "integrity": null,
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 6,
+   "dependents": 1,
    "vulns": [
     "GHSA-3xgq-45jj-v275"
    ],
@@ -15374,8 +15376,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-3xgq-45jj-v275"
     }
    ],
-   "depth": 6,
-   "dependents": 1,
    "findings": [
     "F-056"
    ]
@@ -15615,6 +15615,8 @@
    "integrity": null,
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 4,
+   "dependents": 1,
    "vulns": [
     "GHSA-2cf5-4w76-r9qv",
     "GHSA-2qvq-rjwj-gvw9",
@@ -16084,8 +16086,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-q2c6-c6pm-g3gh"
     }
    ],
-   "depth": 4,
-   "dependents": 1,
    "findings": [
     "F-006"
    ]
@@ -16206,6 +16206,8 @@
    "integrity": null,
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 7,
+   "dependents": 1,
    "vulns": [
     "GHSA-43f8-2h32-f4cj"
    ],
@@ -16235,8 +16237,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-43f8-2h32-f4cj"
     }
    ],
-   "depth": 7,
-   "dependents": 1,
    "findings": [
     "F-117"
    ]
@@ -16680,6 +16680,8 @@
    "integrity": null,
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 5,
+   "dependents": 4,
    "vulns": [
     "GHSA-29mw-wpgm-hmr9",
     "GHSA-35jh-r3h4-6jhm",
@@ -16878,8 +16880,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-4xc9-xhrj-v574"
     }
    ],
-   "depth": 5,
-   "dependents": 4,
    "findings": [
     "F-021"
    ]
@@ -17017,6 +17017,8 @@
    "integrity": null,
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 5,
+   "dependents": 1,
    "vulns": [
     "GHSA-4xcv-9jjx-gfj3"
    ],
@@ -17041,8 +17043,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-4xcv-9jjx-gfj3"
     }
    ],
-   "depth": 5,
-   "dependents": 1,
    "findings": [
     "F-131"
    ]
@@ -17078,6 +17078,8 @@
    "integrity": null,
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 3,
+   "dependents": 2,
    "vulns": [
     "GHSA-952p-6rrq-rcjv"
    ],
@@ -17106,8 +17108,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-952p-6rrq-rcjv"
     }
    ],
-   "depth": 3,
-   "dependents": 2,
    "findings": [
     "F-119"
    ]
@@ -17126,6 +17126,8 @@
    "integrity": null,
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 3,
+   "dependents": 2,
    "vulns": [
     "GHSA-vh95-rmgr-6w4m",
     "GHSA-xvch-5gv4-984h"
@@ -17180,8 +17182,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-xvch-5gv4-984h"
     }
    ],
-   "depth": 3,
-   "dependents": 2,
    "findings": [
     "F-010"
    ]
@@ -17200,6 +17200,8 @@
    "integrity": null,
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 6,
+   "dependents": 1,
    "vulns": [
     "GHSA-fhjf-83wg-r2j9"
    ],
@@ -17230,8 +17232,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-fhjf-83wg-r2j9"
     }
    ],
-   "depth": 6,
-   "dependents": 1,
    "findings": [
     "F-013"
    ]
@@ -17590,6 +17590,8 @@
    "integrity": null,
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 4,
+   "dependents": 1,
    "vulns": [
     "GHSA-hj48-42vr-x3v9"
    ],
@@ -17618,8 +17620,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-hj48-42vr-x3v9"
     }
    ],
-   "depth": 4,
-   "dependents": 1,
    "findings": [
     "F-124"
    ]
@@ -18029,6 +18029,8 @@
    "integrity": null,
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 4,
+   "dependents": 2,
    "vulns": [
     "GHSA-c2qf-rxjj-qqgw"
    ],
@@ -18059,8 +18061,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-c2qf-rxjj-qqgw"
     }
    ],
-   "depth": 4,
-   "dependents": 2,
    "findings": [
     "F-079"
    ]
@@ -18096,6 +18096,8 @@
    "integrity": null,
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 7,
+   "dependents": 1,
    "vulns": [
     "GHSA-4g88-fppr-53pp",
     "GHSA-4jqc-8m5r-9rpr"
@@ -18152,8 +18154,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-4jqc-8m5r-9rpr"
     }
    ],
-   "depth": 7,
-   "dependents": 1,
    "findings": [
     "F-016"
    ]
@@ -18478,6 +18478,8 @@
    "integrity": null,
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 5,
+   "dependents": 1,
    "vulns": [
     "GHSA-93q8-gq69-wqmw"
    ],
@@ -18509,8 +18511,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-93q8-gq69-wqmw"
     }
    ],
-   "depth": 5,
-   "dependents": 1,
    "findings": [
     "F-047"
    ]
@@ -18784,6 +18784,8 @@
    "integrity": null,
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 8,
+   "dependents": 1,
    "vulns": [
     "GHSA-4g88-fppr-53pp",
     "GHSA-4jqc-8m5r-9rpr"
@@ -18840,8 +18842,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-4jqc-8m5r-9rpr"
     }
    ],
-   "depth": 8,
-   "dependents": 1,
    "findings": [
     "F-015"
    ]
@@ -19081,6 +19081,8 @@
    "integrity": null,
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 4,
+   "dependents": 2,
    "vulns": [
     "GHSA-c4w7-xm78-47vh"
    ],
@@ -19111,8 +19113,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-c4w7-xm78-47vh"
     }
    ],
-   "depth": 4,
-   "dependents": 2,
    "findings": [
     "F-096"
    ]
@@ -19165,6 +19165,8 @@
    "integrity": null,
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 3,
+   "dependents": 1,
    "vulns": [
     "GHSA-p9pc-299p-vxgp"
    ],
@@ -19197,8 +19199,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-p9pc-299p-vxgp"
     }
    ],
-   "depth": 3,
-   "dependents": 1,
    "findings": [
     "F-129"
    ]
@@ -19234,6 +19234,8 @@
    "integrity": null,
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 4,
+   "dependents": 1,
    "vulns": [
     "GHSA-p9pc-299p-vxgp"
    ],
@@ -19266,8 +19268,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-p9pc-299p-vxgp"
     }
    ],
-   "depth": 4,
-   "dependents": 1,
    "findings": [
     "F-130"
    ]
@@ -19337,6 +19337,8 @@
    "integrity": "sha512-pZAE+FJLoyITytdqK0U5s+FIpjN0JP3OzFi/u8Rx+EV5/W+JTWGXG8xFzevE7AjBfDqHv/8vL8qQsIhHnqRkrA==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 2,
    "vulns": [
     "GHSA-76c9-3jph-rj3q"
    ],
@@ -19365,8 +19367,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-76c9-3jph-rj3q"
     }
    ],
-   "depth": 2,
-   "dependents": 2,
    "findings": [
     "F-138"
    ]
@@ -19436,6 +19436,8 @@
    "integrity": "sha1-3j+YVD2/lggr5IrRoMfNqDYwHc8=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 4,
+   "dependents": 1,
    "vulns": [
     "GHSA-vh95-rmgr-6w4m",
     "GHSA-xvch-5gv4-984h"
@@ -19490,8 +19492,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-xvch-5gv4-984h"
     }
    ],
-   "depth": 4,
-   "dependents": 1,
    "findings": [
     "F-009"
    ]
@@ -19799,6 +19799,8 @@
    "integrity": "sha512-tcc38bsjuE3XZ5+4vP96OfhOugrX+JcnpUbhfuc4LuXBLQhoTthOstZeoQJBDnQUDYzYmdImKsbz0xSl1/9qeA==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 4,
+   "dependents": 1,
    "vulns": [
     "GHSA-9j49-mfvp-vmhm"
    ],
@@ -19827,8 +19829,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-9j49-mfvp-vmhm"
     }
    ],
-   "depth": 4,
-   "dependents": 1,
    "findings": [
     "F-032"
    ]
@@ -19932,6 +19932,8 @@
    "integrity": "sha512-d7yhga0Oc+PwNXDvQ0Jv1BuWkLVPXcAoQ/WREgd6vNNoKYaW52KI+RdOFjI63wjkmps9yUE8VS4veP+AgpQ/hA==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 5,
+   "dependents": 1,
    "vulns": [
     "GHSA-3j8f-xvm3-ffx4"
    ],
@@ -19960,8 +19962,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-3j8f-xvm3-ffx4"
     }
    ],
-   "depth": 5,
-   "dependents": 1,
    "findings": [
     "F-095"
    ]
@@ -19980,6 +19980,8 @@
    "integrity": "sha512-flNUPP27r3vJpROi0/R3/2efgKkyXqnXwyP1KQ2U0SfFRgdizOdWfvrrvJg1LuOoxs7GQhmxJlq23IpQ/BkByg==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 4,
+   "dependents": 1,
    "vulns": [
     "GHSA-4p35-cfcx-8653",
     "GHSA-7f3x-x4pr-wqhj",
@@ -20128,8 +20130,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-q6wq-5p59-983w"
     }
    ],
-   "depth": 4,
-   "dependents": 1,
    "findings": [
     "F-014"
    ]
@@ -20250,6 +20250,8 @@
    "integrity": "sha512-GSmOT2EbHrINBf9SR7CDELwlJ8AENk3Qn7OikK4nFYAu3Ote2+JYNVvkpAEQm3/TLNEJFD/xZJjzyxg3KBWOzw==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 3,
+   "dependents": 1,
    "vulns": [
     "GHSA-hj48-42vr-x3v9"
    ],
@@ -20278,8 +20280,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-hj48-42vr-x3v9"
     }
    ],
-   "depth": 3,
-   "dependents": 1,
    "findings": [
     "F-125"
    ]
@@ -20315,6 +20315,8 @@
    "integrity": "sha1-IbmrgidCed4lsVbqCP0SylG4rss=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-37ch-88jc-xwx2",
     "GHSA-9wv6-86v2-598j",
@@ -20371,8 +20373,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-rhx6-c78j-4q9w"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-073"
    ]
@@ -20391,6 +20391,8 @@
    "integrity": "sha512-U/il5MsrZp7mGg3mSQfn742na2T+1/vHDCG5/iTI3X9MKUuYUZVLQhyRsg06mCgDBTd57TxzgZt7P+fYfjRLtA==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 3,
+   "dependents": 2,
    "vulns": [
     "GHSA-477h-4r7f-fvrx",
     "GHSA-h7cp-r72f-jxh6",
@@ -20467,8 +20469,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-v62p-rq8g-8h59"
     }
    ],
-   "depth": 3,
-   "dependents": 2,
    "findings": [
     "F-137"
    ]
@@ -20504,6 +20504,8 @@
    "integrity": "sha512-lY1Q/PiJGC2zOv/z391WOTD+Z02bCgsFfvxoXXf6h7kv9o+WmsmzYqrAwY63sNgOxE4xEdq0WyUnXfKeBrSvYw==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 4,
+   "dependents": 2,
    "vulns": [
     "GHSA-3v7f-55p6-f55p",
     "GHSA-c2c7-rcm5-vvqj"
@@ -20560,8 +20562,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-c2c7-rcm5-vvqj"
     }
    ],
-   "depth": 4,
-   "dependents": 2,
    "findings": [
     "F-074"
    ]
@@ -20903,6 +20903,8 @@
    "integrity": "sha1-Lp+800tUDjQhySTs0B6QqpdTGcg=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-6rw7-vpxm-498p",
     "GHSA-gqgv-6jq5-jjj9",
@@ -20990,8 +20992,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-hrpp-h998-j3pp"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-075"
    ]
@@ -21248,6 +21248,8 @@
    "integrity": "sha512-NAqBSrijGLZdM0WZNsInLJpkJokL72XYjUpnB0iwsRgxh7dB6COrHnTBNwN0E+lHDAJzu7kLAkDeY08z2/A0hg==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 3,
+   "dependents": 1,
    "vulns": [
     "GHSA-p8p7-x288-28g6"
    ],
@@ -21274,8 +21276,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-p8p7-x288-28g6"
     }
    ],
-   "depth": 3,
-   "dependents": 1,
    "findings": [
     "F-108"
    ]
@@ -21294,6 +21294,8 @@
    "integrity": "sha512-N5ZAX4/LxJmF+7wN74pUD6qAh9/wnvdQcjq9TZjevvXzSUo7bfmw91saqMjzGS2xq91/odN2dW/WOl7qQHNDGA==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 4,
+   "dependents": 1,
    "vulns": [
     "GHSA-4mjr-xmp4-gh2g",
     "GHSA-6rw7-vpxm-498p",
@@ -21378,8 +21380,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-hrpp-h998-j3pp"
     }
    ],
-   "depth": 4,
-   "dependents": 1,
    "findings": [
     "F-077"
    ]
@@ -21636,6 +21636,8 @@
    "integrity": "sha512-Ya52jSX2u7QKghxeoFGpLwCtGlt7j0oY9DYb5apt9nPlJ42ID+ulTXESnt/qAQcoSERyZ5sl3LDIOw0nAn/5DA==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 3,
+   "dependents": 5,
    "vulns": [
     "GHSA-c2qf-rxjj-qqgw"
    ],
@@ -21666,8 +21668,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-c2qf-rxjj-qqgw"
     }
    ],
-   "depth": 3,
-   "dependents": 5,
    "findings": [
     "F-080"
    ]
@@ -21703,6 +21703,8 @@
    "integrity": "sha1-zRLcWP3iHk+RkCs5sv2gWnptm9w=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 2,
    "vulns": [
     "GHSA-m6fv-jmcg-4jfg"
    ],
@@ -21731,8 +21733,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-m6fv-jmcg-4jfg"
     }
    ],
-   "depth": 2,
-   "dependents": 2,
    "findings": [
     "F-132"
    ]
@@ -21751,6 +21751,8 @@
    "integrity": "sha1-X42gcyOtOF/z3FQfGnkXsuQ261c=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-cm22-4g7w-348p"
    ],
@@ -21780,8 +21782,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-cm22-4g7w-348p"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-133"
    ]
@@ -21834,6 +21834,8 @@
    "integrity": "sha512-QMEp5B7cftE7APOjk5Y6xgrbWu+WkLVQwk8JNjZ8nKRciZaByEW6MubieAiToS7+dwvrjGhH8jRXz3MVd0AYqQ==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 5,
    "vulns": [
     "GHSA-95m3-7q98-8xr5"
    ],
@@ -21862,8 +21864,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-95m3-7q98-8xr5"
     }
    ],
-   "depth": 2,
-   "dependents": 5,
    "findings": [
     "F-024"
    ]
@@ -21933,6 +21933,8 @@
    "integrity": "sha1-9HgZSczkAmlxJ0MOo7PFR29IF2c=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-395f-4hp3-45gv",
     "GHSA-w7jw-789q-3m8p"
@@ -21985,8 +21987,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-w7jw-789q-3m8p"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-033"
    ]
@@ -22056,6 +22056,8 @@
    "integrity": "sha512-fcmnsQQGEjwkzc472IIp+WesYp1HCg/victizONDOUlhB+864CCm4y5n8OaK21kuhihU7xnZb+Pon0JRrHmRXQ==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-4vrv-93c7-m92j",
     "GHSA-4x6g-3cmx-w76r",
@@ -22157,8 +22159,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-hpqj-7cj6-hfj8"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-026"
    ]
@@ -22194,6 +22194,8 @@
    "integrity": "sha512-xfs3DN1tPMTh6J8x2341wGK4HRr+pI5+i/YRuRmsslnBnwk/DkKYcbt8zOIWk6kzMoW8vo+9LqqXBQO/24szKg==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-4x6g-3cmx-w76r"
    ],
@@ -22222,8 +22224,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-4x6g-3cmx-w76r"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-103"
    ]
@@ -22259,6 +22259,8 @@
    "integrity": "sha512-IsNi7TmpHoRHzONOWJTT8+VYozQJnaJpKgnYNQjzNm2JlV8bDGbdGQ1a8LcEoChxnJ8v8aMZy7GTiQyGGABtEQ==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-hpqj-7cj6-hfj8"
    ],
@@ -22287,8 +22289,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-hpqj-7cj6-hfj8"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-044"
    ]
@@ -22307,6 +22307,8 @@
    "integrity": "sha512-ijIWsypbtpdTuRcYTFsnEWbaBnhCc7q0iIg0A4OcOW/xLyInPwyfBMnip4ubNfHAS/PrvzgfwwwJhttcQD0ZaQ==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-4x6g-3cmx-w76r",
     "GHSA-qqqw-gm93-qf6m"
@@ -22359,8 +22361,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-qqqw-gm93-qf6m"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-083"
    ]
@@ -22413,6 +22413,8 @@
    "integrity": "sha512-DLBt+6ZvtoleXE7Si3wAa6gdPSWsXdIQEY6m2zW2InN9WiaRwIEKMCY822eFmRPZVNNmZNRUIeQsoHZwv/slqQ==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-4x6g-3cmx-w76r"
    ],
@@ -22441,8 +22443,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-4x6g-3cmx-w76r"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-104"
    ]
@@ -22478,6 +22478,8 @@
    "integrity": "sha512-J7Z2K08jbGcdA1kkQpJSqLF6T0tdQqpR2pnSUXsIchbPdTI9v3e85cLW0d6WDhwuAleOV71j2xWs8qMPfK7nKw==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 3,
+   "dependents": 2,
    "vulns": [
     "GHSA-52f5-9888-hmc6",
     "GHSA-ph9p-34f9-6g65"
@@ -22530,8 +22532,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-ph9p-34f9-6g65"
     }
    ],
-   "depth": 3,
-   "dependents": 2,
    "findings": [
     "F-154"
    ]
@@ -22618,6 +22618,8 @@
    "integrity": "sha512-mDe90xkqSEVrpx1ZC7ItqCOc6fZCySbE+pHVI+dAPUmf1C1LSWZrZVmAVeo/Dw9sJzJfzmcdAFQl+jZP8/uV0A==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-69f9-h8f9-7vjf"
    ],
@@ -22646,8 +22648,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-69f9-h8f9-7vjf"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-084"
    ]
@@ -22683,6 +22683,8 @@
    "integrity": "sha512-IA53xOcy1s881tbIrIXNqIuCNozd4PAVWN8oF0xgRn2NQbq0e7EWt7kFPJbmZodpLCDpXaKKqV2MHbXruFIsrw==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-4x6g-3cmx-w76r"
    ],
@@ -22711,8 +22713,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-4x6g-3cmx-w76r"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-105"
    ]
@@ -22782,6 +22782,8 @@
    "integrity": "sha512-wUqHLAa3MzV6sVO+05MnV+lwc+T6o87FZZaY+43tQPytBI2Wq23O3j4POREM4fa2iFfiQJoEYD6c7xmhiEUsSA==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-4x6g-3cmx-w76r"
    ],
@@ -22810,8 +22812,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-4x6g-3cmx-w76r"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-106"
    ]
@@ -22864,6 +22864,8 @@
    "integrity": "sha512-58lmxKSA4BNyLz+HHMUzlOEpg09FV+ev6ZMe3vJihgdxzgcwZ8VoEEPmALCZG9LmqfVoNMMKpttIYTVG6uDY7A==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-73rr-hh4g-fpgx"
    ],
@@ -22895,8 +22897,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-73rr-hh4g-fpgx"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-152"
    ]
@@ -23051,6 +23051,8 @@
    "integrity": "sha1-lzGPVUhf/L5whuIrQNYXWJI8/6A=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-69rr-wvh9-6c4q",
     "GHSA-72fg-jqhx-c68p"
@@ -23103,8 +23105,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-72fg-jqhx-c68p"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-085"
    ]
@@ -23140,6 +23140,8 @@
    "integrity": "sha1-WCA+7Ybjpe8XrtK32evUfwpg3RA=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-wrvr-8mpx-r7pp"
    ],
@@ -23169,8 +23171,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-wrvr-8mpx-r7pp"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-067"
    ]
@@ -23189,6 +23189,8 @@
    "integrity": "sha1-rf0gejh1xNNwlXKcLnwoPFui7nI=",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-7mc5-chhp-fmc3"
    ],
@@ -23217,8 +23219,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-7mc5-chhp-fmc3"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-039"
    ]
@@ -23764,6 +23764,8 @@
    "integrity": "sha512-jRCJlojKnZ3addtTOjdIqoRuPEKBvNXcGYqzO6zWZX8KfKEpnGY5jfggJQ3EjKuu8D4bJRr0y+cYJFmYbImXGw==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 3,
+   "dependents": 4,
    "vulns": [
     "GHSA-52f5-9888-hmc6",
     "GHSA-ph9p-34f9-6g65"
@@ -23816,8 +23818,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-ph9p-34f9-6g65"
     }
    ],
-   "depth": 3,
-   "dependents": 4,
    "findings": [
     "F-153"
    ]
@@ -23904,6 +23904,8 @@
    "integrity": "sha512-y/mWCZinnvxjTKYhJ+pYxwD0mRLVvOtdS2Awbgxln6iEnt4rk0yBxeSBHkGJcPucRiG0e55mwWp+g/05rsrd6w==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 4,
+   "dependents": 1,
    "vulns": [
     "GHSA-4qx8-w7c3-pj3p",
     "GHSA-82x6-q7mm-w9cf",
@@ -24052,8 +24054,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-h895-cgqg-jf52"
     }
    ],
-   "depth": 4,
-   "dependents": 1,
    "findings": [
     "F-027"
    ]
@@ -24106,6 +24106,8 @@
    "integrity": "sha512-Q5srk/4vDM54WJsJio3XNn6K2sCG+CQ8G5Wz6bZhRZoAe/+TxjWB/GlFAnYEbkYVlON9FMk/fE3h2RLpPXo4lQ==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 4,
+   "dependents": 1,
    "vulns": [
     "GHSA-72xf-g2v4-qvf3"
    ],
@@ -24134,8 +24136,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-72xf-g2v4-qvf3"
     }
    ],
-   "depth": 4,
-   "dependents": 1,
    "findings": [
     "F-101"
    ]
@@ -24358,6 +24358,8 @@
    "integrity": "sha512-L9tQv6nNLRyh+gex/qc8/CyLs8u0kXKqk1OjYGF13k/KOg6N2oibwkuGgv0FuoTGYx2ta2NmqvuMUAMrHIY5ew==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-2rp8-mm9q-fp49",
     "GHSA-9ggv-8w38-r7pm",
@@ -24479,8 +24481,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-q2pj-6v73-8rgj"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-017"
    ]
@@ -24567,6 +24567,8 @@
    "integrity": "sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 3,
+   "dependents": 1,
    "vulns": [
     "GHSA-xvch-5gv4-984h"
    ],
@@ -24596,8 +24598,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-xvch-5gv4-984h"
     }
    ],
-   "depth": 3,
-   "dependents": 1,
    "findings": [
     "F-012"
    ]
@@ -24769,6 +24769,8 @@
    "integrity": "sha512-5/4etnCkd9c8gwgowi5/om/mYO5ajCaOgdzj/oW+0eQV9WxKBDZw5+ycmKmeaTXjInS/W0BzpGLo2xR2aBwZdg==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-cf4h-3jhx-xvhq",
     "GHSA-qpx9-hpmf-5gmw"
@@ -24821,8 +24823,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-qpx9-hpmf-5gmw"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-018"
    ]
@@ -25045,6 +25045,8 @@
    "integrity": "sha512-yXJmeNaw3DnnKAOKJE51sL/ZaYfWJRl1pK9dr19YFCu0ObS231AB1/LbqTKRAQ5kw8A90rA6fr4riOUpTZvQZA==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 4,
    "vulns": [
     "GHSA-w5hq-g745-h8pq"
    ],
@@ -25077,8 +25079,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-w5hq-g745-h8pq"
     }
    ],
-   "depth": 2,
-   "dependents": 4,
    "findings": [
     "F-086"
    ]
@@ -25097,6 +25097,8 @@
    "integrity": "sha512-mD45p0rvHVBlY2Zuy3F3ESIe1h5X58GPfAtslBjY7EtTqGquZTj+VX/J4RnHWN8FKq0C9WRVt1oWAcytWRuYLQ==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-9965-vmph-33xx",
     "GHSA-qgmg-gppg-76g5",
@@ -25193,8 +25195,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-xx4c-jj58-r7x6"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-087"
    ]
@@ -25366,6 +25366,8 @@
    "integrity": "sha512-Hz/mrNwitNRh/HUAtM/VT/5VH+ygD6DV7mYKZAtHOrbs8U7lvPS6xf7EJKMF0uW1KJCl0H701g3ZGus+muE5vQ==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 8,
+   "dependents": 1,
    "vulns": [
     "GHSA-j8xg-fqg3-53r7"
    ],
@@ -25394,8 +25396,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-j8xg-fqg3-53r7"
     }
    ],
-   "depth": 8,
-   "dependents": 1,
    "findings": [
     "F-126"
    ]
@@ -25465,6 +25465,8 @@
    "integrity": "sha512-ySPiMjM0+pLDftHgXY4By0uswI3SPKLDw/i3UXbnO8M/p28zqexCUoPmQFrYD+/1BzhGJSs2i1ERWKJAtiLrug==",
    "install_script": false,
    "resolution": "lockfile",
+   "depth": 2,
+   "dependents": 2,
    "vulns": [
     "GHSA-776f-qx25-q3cc"
    ],
@@ -25493,8 +25495,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-776f-qx25-q3cc"
     }
    ],
-   "depth": 2,
-   "dependents": 2,
    "findings": [
     "F-128"
    ]

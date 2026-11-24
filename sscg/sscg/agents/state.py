@@ -1,7 +1,7 @@
 """The shared LangGraph state. JSON-safe only (it is checkpointed); live objects live in runtime.Runtime.
 
 Fields written by parallel branches (the per-finding triage fan-out) use reducers, so branches merge instead of
-overwriting each other. Day 2 fields are already declared so new nodes only have to fill them.
+overwriting each other. Remediation fields are declared up front so each node only has to fill its own.
 """
 from __future__ import annotations
 
@@ -25,21 +25,21 @@ class GuardianState(TypedDict, total=False):
     run_id: str
     repo: str
     out: str
-    options: dict                    # base, sbom, offline, no_vulns, focus, max_depth, why, day2
-    # ---- Day 1: written by deterministic agents
+    options: dict                    # base, sbom, offline, no_vulns, focus, max_depth, why, remediation
+    # ---- discover / detect: written by deterministic agents
     plan: dict                       # Orchestrator: what will run and why
     inventory: dict                  # Discovery: component counts, ecosystems, images, CI
     vuln_summary: dict               # Vulnerability Intel
     findings: list                   # Detection: findings (JSON-safe), F-001 ...
     change: dict | None              # Detection: "what changed" (diff.Change.as_dict)
-    # ---- Day 1: agentic triage loop
+    # ---- detect: agentic triage loop
     triage_queue: list               # finding IDs to (re)triage this round
     triage_round: int
     tool_evidence: Annotated[dict, merge_list_dict]   # finding_id -> [{id, tool, result}]
     triage: Annotated[dict, merge_dict]               # finding_id -> TriageAssessment (dict)
     narrative: dict                  # Narrator
     artifacts: dict                  # Reporter: files written
-    # ---- Day 2 (agents/prioritizer.py, agents/day2.py)
+    # ---- analyze / remediate / validate (agents/prioritizer.py, agents/remediation_flow.py)
     exploitability: dict             # Exploit Intel: CISA KEV + EPSS per vulnerability finding
     reachability: dict               # Reachability: status per package node + network-service exposure
     priorities: list                 # [PriorityItem]

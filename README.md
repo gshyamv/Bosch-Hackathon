@@ -2,31 +2,32 @@
 
 > **Know what you build. Trust what you ship.**
 > Bosch × Amrita hackathon · Problem statement: *Software Supply Chain Guardian*
-> Status: **Day 1 complete, all five columns**: Discover → Supply chain view → Vulnerabilities → Suspicious changes → Evidence
+> Status: **complete workflow**: Discover → Detect → Analyze → Remediate → Validate & report
 
-SSCG scans a repository **without installing or running anything** and answers the Day 1 checkpoint question:
+SSCG takes a repository from **discovery to verified remediation**. It scans **without installing or running anything** and answers:
 
-> *"Show us what is in the application, what changed, and what appears risky."*
+> *"What is in the application, what changed, what appears risky, and how do we fix it safely?"*
 
 * **What is in it:** every library (direct and transitive), container image, CI/CD action and build-time download, where each comes from, as a CycloneDX **SBOM** and an interactive **dependency graph**.
 * **What changed:** a component-by-component comparison with the previous commit, including who changed it.
 * **What appears risky:** **known vulnerabilities** (CVE, severity, fix, path back to the source) and **supply-chain anomalies** (typosquats, malicious packages, install scripts, tampered lockfiles, untrusted images, unsafe CI). Every finding carries **evidence** and an **initial risk level**.
+* **How to fix it safely:** findings are **prioritised** (CISA KEV, EPSS, reachability, exposure), each gets an exact **remediation proposal** (upgrade, replace, pin, block, …), a **human approves** it, and the fix is **built, tested and rescanned in a sandbox** before a before/after **remediation report** is written.
 
-> **Agentic AI layer:** `python -m sscg agent <repo>` runs the same pipeline as a **LangGraph multi-agent workflow**: deterministic agents wrap the modules below, a **Triage agent** (Claude, Gemini, Groq, DeepSeek or Grok) judges the suspicious changes rules cannot decide on their own, gathering more evidence when it needs it, and a **Narrator agent** writes the checkpoint summary. AI output is kept apart from the evidence, grounding-checked, and falls back to rules when no API key is set. **Day 2** (prioritise → remediate → human approval → sandbox validation → report) is implemented: **[docs/day2.md](docs/day2.md)**. Agent details: **[docs/agentic.md](docs/agentic.md)**.
+> **Agentic AI layer:** `python -m sscg agent <repo>` runs the same pipeline as a **LangGraph multi-agent workflow**: deterministic agents wrap the modules below, a **Triage agent** (Claude, Gemini, Groq, DeepSeek or Grok) judges the suspicious changes rules cannot decide on their own, gathering more evidence when it needs it, and a **Narrator agent** writes the summary. AI output is kept apart from the evidence, grounding-checked, and falls back to rules when no API key is set. With `--remediate` the same run continues: prioritise → remediate → human approval → sandbox validation → report (**[docs/remediation.md](docs/remediation.md)**). Agent details: **[docs/agentic.md](docs/agentic.md)**.
 
 ---
 
 ## Table of contents
 
-1. [Scope: the five Day 1 columns](#1-scope-the-five-day-1-columns)
+1. [Scope: the Guardian workflow](#1-scope-the-guardian-workflow)
 2. [Quick start](#2-quick-start)
 3. [How it works](#3-how-it-works)
 4. [Command-line reference](#4-command-line-reference)
 5. [Outputs](#5-outputs)
-6. [Column 1 + 2: components, SBOM, graph, containers, CI/CD](#6-column-1--2-components-sbom-graph-containers-cicd)
-7. [Column 3: Detect vulnerabilities](#7-column-3-detect-vulnerabilities)
-8. [Column 4: Detect suspicious changes](#8-column-4-detect-suspicious-changes)
-9. [Column 5: Present evidence](#9-column-5-present-evidence)
+6. [Discover: components, SBOM, graph, containers, CI/CD](#6-discover-components-sbom-graph-containers-cicd)
+7. [Detect: vulnerabilities](#7-detect-vulnerabilities)
+8. [Detect: suspicious changes](#8-detect-suspicious-changes)
+9. [Evidence](#9-evidence)
 10. [The dashboard](#10-the-dashboard)
 11. [Results on the sample applications](#11-results-on-the-sample-applications)
 12. [How the results were verified](#12-how-the-results-were-verified)
@@ -34,38 +35,38 @@ SSCG scans a repository **without installing or running anything** and answers t
 14. [Tech stack](#14-tech-stack)
 15. [Safety and responsible use](#15-safety-and-responsible-use)
 16. [Known limitations](#16-known-limitations)
-17. [Day 2: Brain & Shield](#17-day-2-brain--shield)
+17. [Prioritise, remediate and validate](#17-prioritise-remediate-and-validate)
 18. [Troubleshooting](#18-troubleshooting)
 
 ---
 
-## 1. Scope: the five Day 1 columns
+## 1. Scope: the Guardian workflow
 
-| Day 1 column | Slide requirement | Status | Where |
+| Stage | Requirement (problem statement) | Status | Where |
 |---|---|---|---|
-| **1 · Discover Components** | Analyze package manifests and lockfiles | ✅ | `discover/npm.py`, `pypi.py`, `maven.py` |
-| | Identify direct and transitive dependencies | ✅ | lockfiles; [deps.dev](https://deps.dev) when no lockfile exists |
-| | Capture component names and versions | ✅ | `graph.json`, `sbom.cdx.json` |
-| **2 · Build the Supply Chain View** | Generate **or** consume an SBOM (CycloneDX or SPDX) | ✅ both | `sbom.py` (CycloneDX 1.5) |
-| | Build the dependency graph | ✅ | `graph.py`, `export.py` |
-| | Identify where each component originates | ✅ | download URL / registry per component |
-| | Inspect at least one container image **or** CI/CD workflow | ✅ both | `discover/docker.py`, `discover/gha.py` |
-| **3 · Detect Vulnerabilities** | Correlate components with known vulnerabilities | ✅ | `vulns.py` ([OSV.dev](https://osv.dev)) |
-| | Capture CVE, severity and available fixes | ✅ | CVE aliases, CVSS score / label, fixed version per advisory |
+| **1 · Discover** | Analyze package manifests and lockfiles; direct and transitive dependencies; names and versions | ✅ | `discover/npm.py`, `pypi.py`, `maven.py`; [deps.dev](https://deps.dev) when no lockfile exists |
+| | Generate **or** consume an SBOM (CycloneDX or SPDX) | ✅ both | `sbom.py` (CycloneDX 1.5) |
+| | Build the dependency graph; identify where each component originates | ✅ | `graph.py`, `export.py`; download URL / registry per component |
+| | Inspect container images and CI/CD workflows | ✅ both | `discover/docker.py`, `discover/gha.py` |
+| **2 · Detect** | Correlate components with known vulnerabilities; capture CVE, severity and fixes | ✅ | `vulns.py` ([OSV.dev](https://osv.dev)) |
 | | Trace vulnerable transitive dependencies back to their source | ✅ | dependency paths + "introduced via" direct dependency |
-| **4 · Detect Suspicious Changes** | Identify at least one supply-chain anomaly | ✅ 19 rules | `rules/` + `diff.py` ("what changed") |
-| | unexpected dependency · typosquatted package · suspicious package update · unsafe install script · untrusted image · modified lockfile | ✅ all six | see [§8](#8-column-4-detect-suspicious-changes) |
-| **5 · Present Evidence** | what was detected, which component, dependency path, supporting evidence, initial risk level | ✅ | `findings.py` → `findings.json`, `report.py` → `report.md`, dashboard ⑤ |
+| | Suspicious changes: unexpected dependency · typosquat · suspicious update · unsafe install script · untrusted image · modified lockfile | ✅ 19 rules | `rules/` + `diff.py` ("what changed"), see [§8](#8-detect-suspicious-changes) |
+| | Present evidence: what, which component, dependency path, supporting evidence, initial risk | ✅ | `findings.py` → `findings.json`, `report.py` → `report.md` |
+| **3 · Analyze** | Combine severity with exploitability, reachability and exposure; explainable score and confidence | ✅ | `intel.py` (CISA KEV, EPSS), `reachability.py`, `agents/prioritizer.py` |
+| | Investigate non-CVE risks; keep verified evidence apart from AI inference | ✅ | `agents/triage.py` (evidence loop, grounding check) |
+| **4 · Remediate** | Upgrade · replace · remove · pin · update base image · block · escalate, with risk reduction, compatibility and rollback | ✅ | `remediation.py`, `registry.py`, `agents/remediator.py` |
+| | No change without human approval | ✅ | LangGraph interrupt, `python -m sscg approve`, dashboard approval board |
+| **5 · Validate & report** | Apply in a sandbox; build, test, rescan; compare SBOMs; detect newly introduced problems | ✅ | `validation.py` |
+| | Report: finding, approved action, build/test results, before/after risk, remaining risk, audit trail | ✅ | `remediation_report.py` |
 
-**Expected Day 1 outcome** from the slide: `Repository → SBOM → Dependency Graph → Risk Detection → Evidence`. Every scan produces all of them.
-
-Day 1 is *visibility and detection*. Remediation, exploitability (CISA KEV / EPSS), reachability and AI prioritisation are **Day 2** (see [§17](#17-roadmap-day-2)).
+Every scan produces `Repository → SBOM → Dependency graph → Risk detection → Evidence`. `python -m sscg agent --remediate`
+continues with `Prioritized risk → Recommended fix → Human approval → Build & test → Rescan → Verified remediation`.
 
 ---
 
 ## 2. Quick start
 
-**Requirements:** Python **3.11.4+** (developed and tested on Windows 11 with Python 3.12.4; the code is portable but macOS/Linux are untested). Node, npm, Maven and Docker are **not** needed to scan.
+**Requirements:** Python **3.11.4+** (developed and tested on Windows 11 with Python 3.12.4; the code is portable but macOS/Linux are untested). Node, npm, Maven and Docker are **not** needed to scan. **Node.js 18+** is needed once, to build the web dashboard; npm, Maven and Docker are used by sandbox validation when installed.
 
 ```powershell
 # 1. get the code
@@ -77,18 +78,21 @@ python -m venv .venv
 .\.venv\Scripts\Activate.ps1          # macOS/Linux: source .venv/bin/activate
 pip install -r requirements.txt
 
-# 3. scan a sample application (full Day 1 pipeline)
+# 3. scan a sample application (discover, detect, evidence)
 python -m sscg scan ..\targets\sscg-demo-target
 
 # 4. look at the results
 start out\sscg-demo-target\report.md  # evidence report (also report.html, report.pdf)
 start out\sscg-demo-target\graph.html # interactive graph
-streamlit run ui/app.py               # dashboard at http://localhost:8501
 
-# 5. optional: the agentic version (LangGraph agents + LLM triage; see docs/agentic.md)
+# 5. the web dashboard (React + FastAPI): build the UI once, then serve it
+cd web; npm install; npm run build; cd ..
+python -m sscg serve                  # dashboard at http://127.0.0.1:8000
+
+# 6. optional: the agentic version (LangGraph agents + LLM triage; see docs/agentic.md)
 copy .env.example .env                # then put ONE real API key (Claude, Gemini, Groq, DeepSeek or Grok) into .env
 python -m sscg agent ..\targets\sscg-demo-target            # no key = rules-only fallback, still works
-python -m sscg agent ..\targets\sscg-demo-target --day2           # + Day 2 (docs/day2.md)
+python -m sscg agent ..\targets\sscg-demo-target --remediate      # + prioritise, remediate, approve, validate (docs/remediation.md)
 ```
 
 The repository ships with cached API responses (`sscg/.cache/`), so `--offline` works for all three sample apps without internet.
@@ -106,24 +110,29 @@ git clone --depth 1 https://github.com/juice-shop/juice-shop.git targets\juice-s
 
 ```mermaid
 flowchart LR
-    R[(Repository<br/>read-only)] --> D["① Discover<br/>npm · PyPI · Maven<br/>(+ deps.dev)"]
-    R --> C["② Inspect<br/>Dockerfile · compose<br/>GitHub Actions"]
-    D --> G[("② Dependency graph")]
+    R[(Repository<br/>read-only)] --> D["Discover<br/>npm · PyPI · Maven<br/>(+ deps.dev)"]
+    R --> C["Inspect<br/>Dockerfile · compose<br/>GitHub Actions"]
+    D --> G[("Dependency graph")]
     C --> G
     SB[/Existing SBOM/] -- consume --> G
-    G --> SBOM["② sbom.cdx.json<br/>CycloneDX 1.5"]
-    G --> V["③ Vulnerabilities<br/>OSV.dev: CVE, CVSS, fix"]
-    B[(Base commit<br/>git archive)] --> X["④ What changed<br/>base vs head"]
+    G --> SBOM["sbom.cdx.json<br/>CycloneDX 1.5"]
+    G --> V["Vulnerabilities<br/>OSV.dev: CVE, CVSS, fix"]
+    B[(Base commit<br/>git archive)] --> X["What changed<br/>base vs head"]
     G --> X
-    G --> A["④ 19 anomaly rules"]
+    G --> A["19 anomaly rules"]
     X --> A
-    V --> E["⑤ Findings<br/>evidence + initial risk"]
+    V --> E["Findings<br/>evidence + initial risk"]
     A --> E
     E --> OUT["findings.json · report.md<br/>graph.html · dashboard"]
+    E --> P["Prioritise<br/>KEV · EPSS · reachability"]
+    P --> M["Remediation proposals<br/>exact patches"]
+    M --> H{{Human approval}}
+    H --> S["Sandbox: build · test · rescan"]
+    S --> RR["remediation report<br/>before / after"]
 ```
 
 **Design principles**
-1. **Deterministic detection.** Parsers and rules produce facts; the same input always gives the same findings. No AI on Day 1.
+1. **Deterministic detection.** Parsers and rules produce facts; the same input always gives the same findings. Findings never come from AI.
 2. **Evidence first.** Every finding cites a `file:line`, an advisory record, a lockfile before/after, or a git commit.
 3. **Diff-aware.** "What changed" is first-class: findings that did not exist in the base commit are marked 🆕.
 4. **Facts kept apart from judgement.** Official severity (CVSS) and our heuristic risk score live in separate fields, and each finding says whether it is a *verified fact* or a *heuristic*.
@@ -210,20 +219,24 @@ python -m sscg scan ..\targets\juice-shop --offline                   # no netwo
 
 Every scan writes to `out/<repo name>/`:
 
-| File | Column | Content |
+| File | Stage | Content |
 |---|---|---|
-| `sbom.cdx.json` | 2 | **CycloneDX 1.5 SBOM**: every component with purl, version, scope, hashes, origin, and the full dependency tree |
-| `graph.html` | 2 | Interactive graph (offline). Red = published advisories, ◆ = suspicious. |
-| `graph.json` | 2 | All nodes and edges with every attribute (incl. advisories and finding IDs) |
-| `summary.json` | 1–2 | Counts, depth, origins, duplicates, blast radius, container and CI inventory, finding counts |
-| `findings.json` | 3–5 | **All findings** with evidence, severity, fixes, paths and risk, plus the "what changed" comparison |
-| `report.md` | 5 | **Human-readable evidence report**: what is in it, what changed, what appears risky, evidence per finding |
-| `report.html` · `report.pdf` | 5 | The same report as a standalone web page (offline, light/dark) and an A4 PDF, rendered from `report.md` by `report_export.py` |
-| `graph.mmd` | 2 | Mermaid diagram (graphs ≤ 80 nodes) |
+| `sbom.cdx.json` | discover | **CycloneDX 1.5 SBOM**: every component with purl, version, scope, hashes, origin, and the full dependency tree |
+| `graph.html` | discover | Interactive graph (offline). Red = published advisories, ◆ = suspicious. |
+| `graph.json` | discover | All nodes and edges with every attribute (incl. advisories and finding IDs) |
+| `summary.json` | discover | Counts, depth, origins, duplicates, blast radius, container and CI inventory, finding counts |
+| `findings.json` | detect | **All findings** with evidence, severity, fixes, paths and risk, plus the "what changed" comparison |
+| `report.md` | evidence | **Human-readable evidence report**: what is in it, what changed, what appears risky, evidence per finding |
+| `report.html` · `report.pdf` | evidence | The same report as a standalone web page (offline, light/dark) and an A4 PDF, rendered from `report.md` by `report_export.py` |
+| `graph.mmd` | discover | Mermaid diagram (graphs ≤ 80 nodes) |
+| `agentic.json` | analyze | `agent` command: AI triage, tool evidence, summary, agent runs and audit trail |
+| `remediation/pending.json` | remediate | `--remediate`: the proposals of a run waiting for human approval |
+| `remediation/remediation_report.{md,html,pdf}` | validate & report | finding → approved action → build/test → before/after risk → remaining risk → audit trail |
+| `remediation/remediation.json` · `remediation.patch` | validate & report | the same, machine-readable, and every approved change as one patch |
 
 ---
 
-## 6. Column 1 + 2: components, SBOM, graph, containers, CI/CD
+## 6. Discover: components, SBOM, graph, containers, CI/CD
 
 ### 6.1 SBOM (generate and consume)
 
@@ -257,7 +270,7 @@ Triggers, token `permissions`, every `uses:` action with its ref and whether it 
 
 ---
 
-## 7. Column 3: Detect vulnerabilities
+## 7. Detect: vulnerabilities
 
 | Step | How |
 |---|---|
@@ -279,11 +292,11 @@ F-007  org.apache.logging.log4j:log4j-core@2.14.1: 8 known vulnerabilities (high
 F-009  minimist@0.0.8 (transitive): acme-orders → mkdirp@0.5.1 → minimist@0.0.8   introduced via mkdirp
 ```
 
-**OSV `MAL-*` records** (known malicious packages) are not treated as vulnerabilities; they become rule R02 in column 4.
+**OSV `MAL-*` records** (known malicious packages) are not treated as vulnerabilities; they become rule R02 (suspicious changes).
 
 ---
 
-## 8. Column 4: Detect suspicious changes
+## 8. Detect: suspicious changes
 
 ### 8.1 What changed
 
@@ -325,7 +338,7 @@ Wording follows "investigate, not accuse": rule findings describe what was obser
 
 ---
 
-## 9. Column 5: Present evidence
+## 9. Evidence
 
 Every finding in `findings.json` answers the slide's five questions:
 
@@ -353,7 +366,7 @@ Level: **≥ 9 Critical · ≥ 7 High · ≥ 4 Medium · ≥ 2 Low · else Info*
 
 ### 9.2 The report
 
-`report.md` follows the checkpoint question:
+`report.md` answers three questions, then lists the evidence:
 1. **What is in the application:** inventory and SBOM
 2. **What changed:** base → head, author (first-time?), files, components added / removed / changed, number of new findings
 3. **What appears risky:** counts per level and one table row per finding (risk, type, finding, location, 🆕)
@@ -364,22 +377,33 @@ Level: **≥ 9 Critical · ≥ 7 High · ≥ 4 Medium · ≥ 2 Low · else Info*
 
 ## 10. The dashboard
 
+A React single-page app (`sscg/web`, Vite + TypeScript + Tailwind CSS) served by a small FastAPI server (`sscg/sscg/server.py`).
+
 ```powershell
-cd sscg
-streamlit run ui/app.py
+cd sscg\web
+npm install
+npm run build          # once, and after UI changes: writes sscg/web/dist
+cd ..
+python -m sscg serve   # http://127.0.0.1:8000  (--port N to change it)
 ```
 
-📖 A full walkthrough of every control, tab, table and graph symbol is in **[docs/dashboard.md](docs/dashboard.md)**.
+For UI development, run `python -m sscg serve` and, in a second terminal, `npm run dev` in `sscg/web` (http://localhost:5173, hot reload, `/api` is proxied to port 8000).
 
-| Section | Shows |
+📖 A walkthrough of every page is in **[docs/dashboard.md](docs/dashboard.md)**.
+
+| Page | Shows |
 |---|---|
-| Controls | repository picker (3 sample apps or any folder), vulnerability detection, offline, **compare with commit**, graph focus, **Scan** |
-| Pipeline + headline | `Repository → SBOM → Dependency graph → Risk detection → Evidence`; components, vulnerable components, suspicious changes, Critical, High, **new in latest change** |
-| **①** Components | inventory numbers, manifests, ecosystems, resolution |
-| **②** Supply chain view | **direct vs transitive**: level chart + 3 graph views (by level, direct only with "+N transitive", one direct dependency's tree) next to the full graph; "Why is this package here?"; SBOM (download); container images & CI/CD; origins |
-| **③** Vulnerabilities | counts by severity, filterable table (CVEs, CVSS, fix, introduced via, risk), **trace a component**: paths + advisory table with links |
-| **④** Suspicious changes | **what changed** (commit, author, first-time flag, files, components added/removed/changed) + anomaly table |
-| **⑤** Evidence | all findings filterable by level / category / new; **open a finding** for its full evidence card; download `findings.json` and the report as `.md`, `.html` or `.pdf`; full report inline |
+| **New run** (button) | repository picker (sample apps or any folder), pipeline (detect with rules only · detect + AI agents · full detect → remediate), LLM provider (shows which keys are set, never the keys), compare-with commit, graph focus, OSV, offline. Runs as a background job with a **live console** |
+| **Overview** | the five stages Discover → Detect → Analyze → Remediate → Validate with their status; KPIs; findings by level / type; components by ecosystem; AI summary; top findings; what changed; remediation status |
+| **Supply chain** | interactive dependency graph (by level · direct only · one dependency's tree · full risk graph); libraries per level; blast radius; **Why is this package here?**; SBOM table + download; container images & CI/CD; origins and install scripts |
+| **Vulnerabilities** | filterable table (severity, direct/transitive, CVEs, CVSS, fix, introduced via, risk); click a row for paths and the advisory table |
+| **Suspicious changes** | what changed (commit, author, first-time flag, files, component changes) + anomaly table |
+| **Evidence** | every finding, filterable; a side panel with component, dependency path, evidence, initial risk, priority and the separated AI triage; downloads |
+| **AI triage** | narrative, verdicts, grounding check, tool evidence per finding, LLM usage and agent runs |
+| **Remediation** | while a run is paused: **the human-approval board** (per-proposal approve / reject / accept risk / request changes, bulk actions, diffs, approver + reason) → validation job. Afterwards: verdict, prioritised risks, proposals & decisions, build/test/rescan before vs after, SBOM diff, new findings, report |
+| **Reports** | all output files (JSON, CycloneDX, Markdown, HTML, PDF, patch) and an inline preview of the evidence and remediation reports |
+
+The server listens on `127.0.0.1` only. It reads `out/<repo>/` and starts the same CLI commands you would type (`scan`, `agent`, `approve`), so the dashboard can do nothing the CLI cannot. Report and graph pages are shown in sandboxed iframes.
 
 ---
 
@@ -436,8 +460,8 @@ What a "routine dependency refresh" really did, and what SSCG found:
 
 | Check | How | Result |
 |---|---|---|
-| **Ground truth (columns 3–5)** | the 9 planted anomalies and the vulnerability list in `docs/blueprint.md` §7.2–7.3 | ✅ all 9 anomalies, all listed vulnerable components (Log4Shell, Text4Shell, minimist, follow-redirects, …) |
-| **Ground truth (columns 1–2)** | expected components in `docs/blueprint.md` §7.1 | ✅ npm 7, image, 3 actions |
+| **Ground truth (detect, evidence)** | the 9 planted anomalies and the vulnerability list in `docs/blueprint.md` §7.2–7.3 | ✅ all 9 anomalies, all listed vulnerable components (Log4Shell, Text4Shell, minimist, follow-redirects, …) |
+| **Ground truth (discover)** | expected components in `docs/blueprint.md` §7.1 | ✅ npm 7, image, 3 actions |
 | **CVSS calculator** | 7 reference CVSS 3.0/3.1 vectors (incl. 10.0, 9.8, 0.0, scope-changed cases) | ✅ 7/7 |
 | **Fix-version logic** | multiple ranges, `last_affected`, open ranges, pre-releases, 4-part / qualifier versions | ✅ |
 | **"New in change" logic** | compare HEAD with itself | ✅ 0 new findings, change-only rules silent |
@@ -448,7 +472,7 @@ What a "routine dependency refresh" really did, and what SSCG found:
 | **Cross-check with npm** | nodejs-goof vs `npm ls` | ✅ 980 packages, 35 direct, depth 10 |
 | **Container / CI parser edge cases** | hand-written fixture (ARG in FROM, multi-stage chains, inherited USER, digest-only images, reusable workflows, SHA pins, `docker://`, `${{ }}` URLs …) | ✅ 16/16 |
 | **Offline mode** | rerun with `--offline` | ✅ identical findings |
-| **Dashboard** | headless Streamlit `AppTest`, live scan on all 3 targets | ✅ no exceptions or errors |
+| **Dashboard** | API smoke test (FastAPI `TestClient`, path-traversal attempts); headless Chrome (Puppeteer) through every page; full run → approval → sandbox validation driven through the API | ✅ all pages render, no console errors; run verified |
 
 ---
 
@@ -462,7 +486,8 @@ Bosch-Hackathon/
 │   ├── README.md                 short quick-start
 │   ├── requirements.txt
 │   ├── sscg/
-│   │   ├── __main__.py           CLI: python -m sscg scan <repo> · python -m sscg agent <repo>
+│   │   ├── __main__.py           CLI: python -m sscg scan | agent | approve | serve
+│   │   ├── server.py             FastAPI backend of the web dashboard (JSON API + background jobs)
 │   │   ├── pipeline.py           build · detect · emit: the pipeline steps shared by scan and the agents
 │   │   ├── model.py              graph model (DepGraph, purl)
 │   │   ├── cache.py              cached HTTP (deps.dev, OSV) for offline use
@@ -479,16 +504,16 @@ Bosch-Hackathon/
 │   │   ├── data/                 ④ popular_npm.txt · popular_pypi.txt · known_malicious.json
 │   │   ├── findings.py           ⑤ finding envelope, paths, initial risk, counts
 │   │   ├── report.py             ⑤ report.md (+ the separate AI section when the agents ran)
-│   │   └── agents/               LangGraph agents (docs/agentic.md): graph · workers · triage · narrator · day2
+│   │   └── agents/               LangGraph agents (docs/agentic.md): graph · workers · triage · narrator · prioritizer · remediator · remediation_flow
 │   │                             · tools · guard · kb + knowledge/ (playbooks, attack patterns, policy) · llm · config
 │   ├── .env.example              LLM keys template (copy to .env, which is git-ignored)
-│   ├── ui/app.py                 dashboard (all five columns + ⑥ AI triage)
+│   ├── web/                      React dashboard (Vite + TypeScript + Tailwind): src/pages · src/components
 │   ├── .cache/                   cached API responses
 │   └── out/<repo>/               scan results
 ├── targets/                      sample applications (scanned, never run)
 │   ├── sscg-demo-target/  ·  nodejs-goof/  ·  juice-shop/
 ├── docs/                         agentic.md · blueprint.md · graph_blueprint.md · dashboard.md · report.md · screenshots/
-└── archive/                      earlier prototypes (depgraph-v0, npm-ls-prototype)
+└── archive/                      earlier prototypes (depgraph-v0, npm-ls-prototype, streamlit-ui)
 ```
 
 ---
@@ -500,10 +525,11 @@ Bosch-Hackathon/
 | Language | Python 3.12 | everything |
 | Graph | networkx 3.4 | graph model, paths, ancestors/descendants |
 | Visualisation | pyvis 0.3 (vis-network) | `graph.html` |
-| Dashboard | Streamlit 1.42 + pandas | `ui/app.py` |
+| Dashboard UI | React 18 + TypeScript 5 · Vite 5 · Tailwind CSS 3 · Recharts · lucide-react | `sscg/web` |
+| Dashboard API | FastAPI + uvicorn | `sscg/sscg/server.py` (`python -m sscg serve`) |
 | Parsing | `json`, `tomllib`, `xml.etree`, PyYAML 6 | manifests, lockfiles, workflows, compose |
 | Similarity | rapidfuzz 3 (Levenshtein) | typosquat rule R01 |
-| Versions | packaging 25 (PEP 440) + fallback | fixed-version selection |
+| Versions | packaging 24 (PEP 440) + fallback | fixed-version selection |
 | HTTP | requests | API calls (cached on disk) |
 | Git | git CLI (`log`, `diff`, `archive`) | what changed, commit evidence |
 | Standards | CycloneDX 1.5 · purl · CVSS v3.1 (FIRST) | SBOM, identities, scoring |
@@ -535,30 +561,30 @@ Bosch-Hackathon/
 | Typosquat (R01) | name similarity against a bundled list of ~300 npm and ~200 PyPI names; scoped npm names are not checked; needs human review |
 | Known malicious (R02) | OSV `MAL-*` records + a small seed list of documented incidents; not a complete malware feed |
 | Severity | CVSS v3 is scored; CVSS v4-only / v2-only advisories use the published label |
-| Initial risk | Day 1 heuristic: no exploitability (KEV/EPSS), reachability or production exposure yet (Day 2) |
+| Initial risk | a heuristic from severity and evidence; exploitability (KEV/EPSS), reachability and exposure are added by prioritisation (`--remediate`) |
 | CI/CD | GitHub Actions only |
 | npm peer dependencies | not drawn as edges |
 | Large graphs | `graph.html` cut to 2 levels above 600 nodes (vulnerable / suspicious nodes kept); JSON and SBOM always complete |
 
 ---
 
-## 17. Day 2: Brain & Shield
+## 17. Prioritise, remediate and validate
 
-Implemented; see **[docs/day2.md](docs/day2.md)**. One LangGraph run takes findings from detection to verified remediation:
+See **[docs/remediation.md](docs/remediation.md)**. One LangGraph run takes findings from detection to verified remediation:
 
 1. **Prioritize:** CISA KEV, EPSS, import-level reachability and exposure feed an explainable score (P0–P3, urgent,
    confidence).
-2. **Investigate:** the Day 1 triage agent with its evidence loop.
+2. **Investigate:** the triage agent with its evidence loop.
 3. **Recommend:** a safe version (fewest remaining OSV advisories, installable) and an exact patch per package or file,
    with risk reduction, compatibility and rollback, plus an optional grounded LLM rationale.
 4. **Human approval:** the run pauses (LangGraph interrupt with a SQLite checkpoint). Decide with
    `python -m sscg approve` or in the dashboard.
 5. **Validate:** in a sandbox copy, build and test before and after (npm/pip/Maven/Docker, install scripts off,
    secrets scrubbed), rescan, then compare.
-6. **Report:** `out/<repo>/day2/remediation_report.{md,html,pdf}`, `day2.json`, `remediation.patch`.
+6. **Report:** `out/<repo>/remediation/remediation_report.{md,html,pdf}`, `remediation.json`, `remediation.patch`.
 
 ```powershell
-python -m sscg agent ..\targets\sscg-demo-target --day2 --decisions later
+python -m sscg agent ..\targets\sscg-demo-target --remediate --decisions later
 python -m sscg approve ..\targets\sscg-demo-target --approve all-patchable --by "Your Name"
 ```
 

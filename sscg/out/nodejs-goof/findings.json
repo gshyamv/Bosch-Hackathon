@@ -2,7 +2,7 @@
  "scan": {
   "application": "nodejs-goof",
   "tool": "sscg 0.1.0",
-  "scanned_at": "2026-11-23T13:10:40+00:00",
+  "scanned_at": "2026-11-24T04:39:18+00:00",
   "head": null,
   "base": null,
   "risk_label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"

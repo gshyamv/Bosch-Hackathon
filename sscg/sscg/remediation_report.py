@@ -1,4 +1,4 @@
-"""Day 2 column 5, "Verify & report: show the complete story" -> day2/remediation_report.md (+ .html, .pdf).
+"""Validate & report stage, "show the complete story" -> remediation/remediation_report.md (+ .html, .pdf).
 
 Sections follow the slide: original finding + evidence, recommended and approved action, build and test results,
 before-and-after risk status, remaining or accepted risk, final confidence and audit trail.
@@ -37,14 +37,14 @@ def render(s: dict, app: str) -> str:
           f"- **Patch:** `{val['patch_file']}`" if val.get("patch_file") else "- **Patch:** none (nothing validated)", ""]
 
     L += ["## 2. Prioritized risks", "",
-          "*Day 1 initial risk + signed points for exploitability (CISA KEV, EPSS), reachability, exposure and the "
+          "*Initial risk + signed points for exploitability (CISA KEV, EPSS), reachability, exposure and the "
           "triage verdict. Deterministic: the same input gives the same order.*", "",
           "| Priority | Score | Finding | Component | Why | Confidence |", "|---|---|---|---|---|---|"]
     for p in pri[:20]:
         L.append(f"| {p['priority']}{' 🔥' if p['urgent'] else ''} | {p['score']} | {p['finding_id']} {_c(p['title'])[:70]} | "
                  f"{_c(p['component']) or '-'} | {_c('; '.join(p['reasons'][1:4]))[:220]} | {p['confidence']} |")
     if len(pri) > 20:
-        L.append(f"| | | *{len(pri) - 20} more in day2.json* | | | |")
+        L.append(f"| | | *{len(pri) - 20} more in remediation.json* | | | |")
     L.append("")
 
     L += ["## 3. Recommended fixes and decisions", ""]

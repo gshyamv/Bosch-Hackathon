@@ -1,4 +1,4 @@
-"""Day 2 column 3, "Recommend safe remediation": deterministic planner + small, verifiable file edits.
+"""Remediate stage, "Recommend safe remediation": deterministic planner + small, verifiable file edits.
 
 1. Edits  - each change is an operation on one file (set a version, remove a dependency, add an npm override,
             restore a lockfile entry, pin an action to a SHA, replace a base image, comment a line ...).
@@ -28,7 +28,7 @@ from .versions import compare, sort_versions
 NPM_SECTIONS = ("dependencies", "devDependencies", "optionalDependencies", "peerDependencies")
 VALIDATION_PLAN = ["copy the repository to a sandbox", "apply the approved edits", "regenerate lockfiles",
                    "install / build (install scripts disabled)", "run the project's tests if it has any",
-                   "docker build if Docker is running", "rescan with the Day 1 pipeline",
+                   "docker build if Docker is running", "rescan with the detection pipeline",
                    "compare SBOM and findings before / after, flag anything new"]
 TYPO_RE = re.compile(r"looks like the popular package '([^']+)'")
 IMPERSONATES_RE = re.compile(r"impersonates '([^']+)'")

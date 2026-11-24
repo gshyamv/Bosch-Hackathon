@@ -1,6 +1,6 @@
 """CLI runners.
 
-`python -m sscg agent <repo> [--day2]`  run the agent graph. With --day2 the run stops at the human-approval
+`python -m sscg agent <repo> [--remediate]`  run the agent graph. With --remediate the run stops at the human-approval
                                         interrupt; the state is checkpointed in SQLite (out/<repo>/.sscg-state/),
                                         so the approval can happen later, in another process or in the dashboard.
 `python -m sscg approve <repo> ...`     record human decisions and resume the paused run: validation + report.
@@ -30,7 +30,7 @@ STATE_DIR = ".sscg-state"
 
 
 def checkpointer(out: Path):
-    """SQLite checkpointer in out/<repo>/.sscg-state/: a paused Day 2 run survives this process."""
+    """SQLite checkpointer in out/<repo>/.sscg-state/: a run paused for approval survives this process."""
     from langgraph.checkpoint.sqlite import SqliteSaver
     d = out / STATE_DIR
     d.mkdir(parents=True, exist_ok=True)
@@ -105,7 +105,7 @@ def _drive(graph, cfg, mode: str, first_input) -> dict:
 
 
 def _write_pending(rt, request: dict) -> Path:
-    d = rt.out / "day2"
+    d = rt.out / "remediation"
     d.mkdir(parents=True, exist_ok=True)
     f = d / "pending.json"
     f.write_text(json.dumps({"run_id": rt.run_id, "repo": str(rt.repo), "created": now(), **request}, indent=1,
@@ -128,12 +128,12 @@ def run(args) -> int:
 
     print(f"\n=== Guardian agents: {repo.name} (run {run_id}) ===")
     print(f"  engine: {settings.engine}  ({settings.reason})")
-    graph = build_graph(day2_preview=args.day2_preview, checkpointer=checkpointer(out) if args.day2_preview else None)
+    graph = build_graph(remediate=args.remediate, checkpointer=checkpointer(out) if args.remediate else None)
     cfg = {"configurable": {"thread_id": run_id}, "max_concurrency": settings.concurrency, "recursion_limit": 80}
     init = {"run_id": run_id, "repo": str(repo), "out": str(out),
             "options": {"base": args.base, "no_diff": args.no_diff, "sbom": str(args.sbom) if args.sbom else None,
                         "no_vulns": args.no_vulns, "offline": args.offline, "focus": args.focus,
-                        "max_depth": args.max_depth, "why": args.why, "day2": args.day2_preview,
+                        "max_depth": args.max_depth, "why": args.why, "remediation": args.remediate,
                         "no_baseline": getattr(args, "no_baseline", False)}}
     try:
         res = _drive(graph, cfg, args.decisions, init)
@@ -147,7 +147,7 @@ def run(args) -> int:
             props = res["request"]["proposals"]
             patch = [p["proposal_id"] for p in props if p["patchable"]]
             print(f"\n  PAUSED for human approval: {len(props)} proposal(s), {len(patch)} with a patch ({f}).")
-            print("  Decide in the dashboard (streamlit run ui/app.py) or on the command line, e.g.:")
+            print("  Decide in the dashboard (python -m sscg serve -> Remediation page) or on the command line, e.g.:")
             out_opt = f' --out "{out}"' if args.out else ""
             print(f"    python -m sscg approve {args.repo}{out_opt} --approve {','.join(patch[:3]) or 'P-001'} "
                   f"--by \"<your name>\"")
@@ -167,16 +167,16 @@ def _ids(spec: str | None, props: list) -> list[str]:
 
 
 def resume(args) -> int:
-    """`python -m sscg approve <repo> ...`: record the human decisions and resume the paused Day 2 run."""
+    """`python -m sscg approve <repo> ...`: record the human decisions and resume the paused run."""
     config.load_env()
     cache.OFFLINE = args.offline
     repo = args.repo.resolve()
     out = args.out or cache.ROOT / "out" / repo.name
-    pend_file = out / "day2" / "pending.json"
+    pend_file = out / "remediation" / "pending.json"
     pending = json.loads(pend_file.read_text(encoding="utf-8")) if pend_file.exists() else {}
     run_id = args.run or pending.get("run_id")
     if not run_id:
-        print(f"No paused Day 2 run for {repo.name}: run `python -m sscg agent {args.repo} --day2` first.")
+        print(f"No run waiting for approval for {repo.name}: run `python -m sscg agent {args.repo} --remediate` first.")
         return 1
     props = pending.get("proposals", [])
     who = args.by or _approver()
@@ -195,13 +195,13 @@ def resume(args) -> int:
     settings = dataclasses.replace(config.resolve("none"), reason="resume: validation and report need no LLM")
     rt = register(Runtime(run_id=run_id, repo=repo, out=out, settings=settings, kb=kb.load(), llm=None))
     try:
-        graph = build_graph(day2_preview=True, checkpointer=checkpointer(out))
+        graph = build_graph(remediate=True, checkpointer=checkpointer(out))
         cfg = {"configurable": {"thread_id": run_id}, "recursion_limit": 80}
         snap = graph.get_state(cfg)
         if "human_approval" not in (snap.next or ()):
             print(f"Run {run_id} is not waiting for approval (next: {snap.next or 'finished'}).")
             return 1
-        print(f"\n=== Guardian Day 2: resuming run {run_id} for {repo.name} ===")
+        print(f"\n=== Guardian: resuming run {run_id} for {repo.name} ===")
         print("  decisions: " + (", ".join(f"{d['proposal_id']} {d['decision']}" for d in decisions
                                            if d["decision"] != "defer") or "none (all deferred)") + f" (by {who})")
         from ..pipeline import build     # the live dependency graph is not checkpointed: rebuild it (cached)
@@ -259,14 +259,14 @@ def _summary(state: dict, payload: dict) -> None:
     pri = state.get("priorities") or []
     if pri:
         n = collections.Counter(x["priority"] for x in pri)
-        print("\n  Day 2 priorities: " + " · ".join(f"{k} {n.get(k, 0)}" for k in ("P0", "P1", "P2", "P3"))
+        print("\n  Priorities: " + " · ".join(f"{k} {n.get(k, 0)}" for k in ("P0", "P1", "P2", "P3"))
               + f" · urgent {sum(x['urgent'] for x in pri)}")
         for x in pri[:6]:
             print(f"    {x['priority']} {x['score']:>4} {'URGENT ' if x['urgent'] else '       '}{x['finding_id']} "
                   f"{(x['component'] or x['title'])[:48]:<48} conf {x['confidence']}")
     props = state.get("proposals") or []
     if props:
-        print(f"\n  Day 2 proposals: {len(props)} ({sum(x['patchable'] for x in props)} with a patch)")
+        print(f"\n  Remediation proposals: {len(props)} ({sum(x['patchable'] for x in props)} with a patch)")
         for x in props:
             print(f"    {x['proposal_id']} {x['status']:<13} {x['action']:<17} {(x['component'] or '')[:42]:<42} "
                   f"{(x['from_version'] or '')[:14]} -> {(x['to_version'] or '')[:24]}")
@@ -276,7 +276,7 @@ def _summary(state: dict, payload: dict) -> None:
             print(f"    - {r[:150]}")
         if val.get("patch_file"):
             print(f"    patch: {val['patch_file']}")
-    files = (state.get("artifacts") or {}).get("day2")
+    files = (state.get("artifacts") or {}).get("remediation")
     if files:
-        print("  Day 2 report: " + ", ".join(Path(f).name for f in files) + f" in {Path(files[0]).parent}")
-    print("  wrote agentic.json (triage, tool evidence, narrative, Day 2 state, audit trail)")
+        print("  Remediation report: " + ", ".join(Path(f).name for f in files) + f" in {Path(files[0]).parent}")
+    print("  wrote agentic.json (triage, tool evidence, narrative, remediation state, audit trail)")

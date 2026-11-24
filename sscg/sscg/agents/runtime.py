@@ -2,7 +2,7 @@
 
 The state is checkpointed (MemorySaver now, SQLite/Postgres later), so it holds only JSON-safe data. The live
 DepGraph, the diff.Change object and the LLM client live here, looked up by the run_id stored in the state.
-If a run is resumed in a new process (Day 2: approval hours later), rebuild the Runtime from out/<repo>/ files.
+If a run is resumed in a new process (e.g. approval hours later), rebuild the Runtime from out/<repo>/ files.
 """
 from __future__ import annotations
 

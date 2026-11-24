@@ -1,4 +1,4 @@
-# Dependency Graph: Blueprint for the 4 PM Checkpoint
+# Dependency Graph: Blueprint
 
 > **Deliverable:** a dependency graph for *any* repository the team picks. It shows what is in the application, how each component got there, and where risk sits in the graph.
 > **Status at 13:51:** a working, tested builder already exists at **`graph/depgraph.py`**. The rest of today is about **running it on the team's repos, putting it in the UI, and rehearsing.** Don't rewrite it.
@@ -49,7 +49,7 @@ Second runs are instant because every API call is cached in `graph/.cache/`, and
 
 ---
 
-## 2. Graph data model (the contract for UI, agent and Day-2 code)
+## 2. Graph data model (the contract for UI, agent and remediation code)
 
 ```
 repo:<name>  ──▶  app:<manifest path>  ──▶  pkg:<purl>  ──▶  pkg:<purl> ...
@@ -68,7 +68,7 @@ repo:<name>  ──▶  app:<manifest path>  ──▶  pkg:<purl>  ──▶  p
 | `dependents` | `1` | In-degree (direct parents) |
 | `scope` | `prod` / `dev` / `optional` / `test` / `build` | Where it's used |
 | `source` | `package-lock.json`, `worker/requirements.txt:4` | Evidence: which file declared it |
-| `resolved`, `integrity` | `https://registry.npmjs.org/...tgz`, `sha512-...` | **Origin**, plus a hash for Day-1 tamper checks |
+| `resolved`, `integrity` | `https://registry.npmjs.org/...tgz`, `sha512-...` | **Origin**, plus a hash for tamper checks |
 | `install_script` | `true` | npm `hasInstallScript` |
 | `resolution` | `lockfile` / `deps.dev` / `deps.dev-approx` / `sbom` / `unresolved` / `internal-module` | **How confident we are.** Say this out loud: honesty scores points |
 | `vulns` | `["GHSA-…", …]` | OSV advisory IDs (with `--osv`) |
@@ -174,7 +174,7 @@ Demo value (1-5) + why:        (story? scale? multi-ecosystem? Dockerfile/CI pre
 - ✅ Has a **lockfile** (exact graph, fast, no network)
 - ✅ Transitive vulnerability **2+ levels deep** (shows "trace back to source")
 - ✅ 200–1,500 packages (impressive, still renders)
-- ✅ Also has a Dockerfile and a `.github/workflows/` (reused for other Day-1 pillars)
+- ✅ Also has a Dockerfile and a `.github/workflows/` (reused for the other detection stages)
 - ✅ Bonus: git history with dependency bumps (for "what changed")
 - ❌ Avoid: repos without manifests, monorepos with 50+ packages (slow), yarn berry or pnpm only (approximate)
 

@@ -1,9 +1,9 @@
-"""Day 2 column 1, "Prioritize risks: focus on what truly matters".
+"""Analyze stage, "Prioritize risks: focus on what truly matters".
 
 Three nodes, the first two run in parallel:
   exploit_intel     CISA KEV + FIRST EPSS for every CVE of every vulnerability finding      (intel.py)
   reachability_scan import-level reachability of every package + network-service exposure  (reachability.py)
-  prioritize        explainable score = Day 1 initial risk + signed points per factor -> P0..P3, urgent flag,
+  prioritize        explainable score = initial risk + signed points per factor -> P0..P3, urgent flag,
                     confidence. Deterministic: same input, same ranking. Every point is listed with its reason.
 
 Works for any scanned application: npm, PyPI, Maven code imports; containers / CI fall back to "unknown".
@@ -49,7 +49,7 @@ def reachability_scan(state: dict) -> dict:
     return {"reachability": res, "_run": res["summary"]}
 
 
-# Calibrated on the three sample apps (2026-11-24): P0 = urgent or clearly above the Day 1 maximum of 10.
+# Calibrated on the three sample apps (2026-11-24): P0 = urgent or clearly above the initial-risk maximum of 10.
 TIERS = (("P0", 10.5), ("P1", 8.5), ("P2", 5.5))
 
 
@@ -62,7 +62,7 @@ def _tier(score: float, urgent: bool) -> str:
 def score_finding(f: dict, ex: dict, reach: dict, tri: dict | None, exposure: dict) -> PriorityItem:
     base = f["risk"]["score"]
     factors = {"initial_risk": {"value": f["risk"]["level"], "points": base}}
-    reasons, unknowns, urgent = [f"Day 1 initial risk {base}"], [], False
+    reasons, unknowns, urgent = [f"initial risk {base}"], [], False
     comp = f.get("component") or {}
     scope = comp.get("scope")
 
@@ -119,7 +119,7 @@ def score_finding(f: dict, ex: dict, reach: dict, tri: dict | None, exposure: di
                 unknowns.append("triage by rules-only fallback")
             urgent = tri["verdict"] == "likely_malicious" and tri["confidence"] in ("medium", "high")
         urgent = urgent or f["rule"] in ALWAYS_URGENT
-    # no upper cap: context must be able to separate findings that all start at the Day 1 maximum of 10
+    # no upper cap: context must be able to separate findings that all start at the initial-risk maximum of 10
     score = round(max(0.0, base + sum(v["points"] for k, v in factors.items() if k != "initial_risk")), 1)
     pr = _tier(score, urgent)
     conf = "high" if not unknowns else "medium" if len(unknowns) == 1 else "low"

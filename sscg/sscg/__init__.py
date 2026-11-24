@@ -1,4 +1,4 @@
-"""Software Supply Chain Guardian (SSCG): Day 1, pillars 1-2.
+"""Software Supply Chain Guardian (SSCG): discover, detect, analyze, remediate, validate.
 
 1 Discover components  -> sscg.discover  (npm, PyPI, Maven manifests + lockfiles)
 2 Supply chain view    -> sscg.sbom      (CycloneDX 1.5: generate + consume)

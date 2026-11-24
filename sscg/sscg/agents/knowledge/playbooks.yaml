@@ -1,6 +1,6 @@
 # Rule playbooks: one entry per detector rule in sscg/rules/common.py (RULES).
 # Used by the Triage agent (what confirms / refutes a finding), the Evidence Gatherer (which tools to run first),
-# the rules-only fallback (fallback_verdict) and, on Day 2, the Remediation agent (remediation_options).
+# the rules-only fallback (fallback_verdict) and the Remediation agent (remediation_options).
 #
 # triage: true  -> the rule flags something that needs judgement in context; the finding goes to the Triage agent.
 # triage: false -> the finding is a verified fact (documented malicious package, swapped hash, unsafe CI config);

@@ -1,10 +1,10 @@
-"""Day 2 columns 4-5 and the approval gate ("Build the Guardian's Brain & Shield").
+"""The human approval gate, validation and the remediation report.
 
 human_approval  LangGraph interrupt(): the run pauses until a human decides each proposal. With the SQLite
                 checkpointer the pause survives the process: `python -m sscg approve <repo> ...` (or the
                 dashboard) resumes it later. Out-of-scope rule: nothing is applied without an ApprovalRecord.
-validate        sandbox copy -> approved edits -> build / test (before and after) -> Day 1 rescan -> compare
-                (sscg/validation.py). Writes day2/remediation.patch. Nothing in the original repository changes.
+validate        sandbox copy -> approved edits -> build / test (before and after) -> rescan -> compare
+                (sscg/validation.py). Writes remediation/remediation.patch. Nothing in the original repository changes.
 """
 from __future__ import annotations
 
@@ -63,7 +63,7 @@ def validate(state: dict) -> dict:
                               baseline=not state["options"].get("no_baseline"),
                               log=lambda m: rt.log("Validation", m))
     v, conf, reasons = validation.verdict(res)
-    out = rt.out / "day2"
+    out = rt.out / "remediation"
     out.mkdir(parents=True, exist_ok=True)
     patch = out / "remediation.patch"
     patch.write_text(res["patch"], encoding="utf-8")
@@ -77,15 +77,15 @@ def validate(state: dict) -> dict:
                                                         "new": len(res["new"])}}
 
 
-@traced("Day 2 Reporter", "deterministic")
-def day2_report(state: dict) -> dict:
-    """Column 5: remediation_report.md / .html / .pdf + machine-readable day2.json in out/<repo>/day2/."""
+@traced("Remediation Reporter", "deterministic")
+def remediation_report(state: dict) -> dict:
+    """remediation_report.md / .html / .pdf + machine-readable remediation.json in out/<repo>/remediation/."""
     import json
 
-    from .. import day2_report as render_mod
+    from .. import remediation_report as render_mod
     from ..report_export import to_html, to_pdf
     rt = get(state["run_id"])
-    out = rt.out / "day2"
+    out = rt.out / "remediation"
     out.mkdir(parents=True, exist_ok=True)
     s = {**state, "generated_at": now(), "engine": rt.settings.engine, "kb_version": rt.kb.version}
     md = render_mod.render(s, rt.repo.name)
@@ -97,15 +97,15 @@ def day2_report(state: dict) -> dict:
         (out / "remediation_report.pdf").write_bytes(to_pdf(md))
         files.append("remediation_report.pdf")
     except Exception as e:  # noqa: BLE001  (a PDF problem never breaks the run)
-        rt.log("Day 2 Reporter", f"PDF not written: {type(e).__name__}: {e}")
+        rt.log("Remediation Reporter", f"PDF not written: {type(e).__name__}: {e}")
     doc = {"run_id": state["run_id"], "application": rt.repo.name, "generated_at": s["generated_at"],
            "exploitability_sources": (state.get("exploitability") or {}).get("sources"),
            "exposure": (state.get("reachability") or {}).get("exposure"),
            "reachability_summary": (state.get("reachability") or {}).get("summary"),
            **{k: state.get(k, []) for k in ("priorities", "proposals", "approvals", "validations")}}
-    (out / "day2.json").write_text(json.dumps(doc, indent=1, default=str), encoding="utf-8")
-    files.append("day2.json")
+    (out / "remediation.json").write_text(json.dumps(doc, indent=1, default=str), encoding="utf-8")
+    files.append("remediation.json")
     if (out / "remediation.patch").exists():
         files.append("remediation.patch")
-    rt.log("Day 2 Reporter", f"wrote {', '.join(files)} to {out}")
-    return {"artifacts": {**(state.get("artifacts") or {}), "day2": [str(out / f) for f in files]}}
+    rt.log("Remediation Reporter", f"wrote {', '.join(files)} to {out}")
+    return {"artifacts": {**(state.get("artifacts") or {}), "remediation": [str(out / f) for f in files]}}

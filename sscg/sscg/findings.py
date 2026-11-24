@@ -1,4 +1,4 @@
-"""Column 5: Present evidence.
+"""Evidence: findings with component, path, evidence and initial risk.
 
 Every finding answers the slide's five questions:
   what was detected (title, type, rule) · which component (component, location) · dependency path

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-depgraph.py - Supply Chain Guardian: multi-ecosystem dependency graph builder (Day 1).
+depgraph.py - Supply Chain Guardian: multi-ecosystem dependency graph builder.
 
 Usage:
   python depgraph.py <repo_dir> [--out out] [--osv] [--offline] [--why NAME ...]

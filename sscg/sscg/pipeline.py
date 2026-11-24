@@ -1,8 +1,8 @@
-"""The Day 1 pipeline steps, shared by the `scan` CLI and the agent graph (agents/workers.py).
+"""The detection pipeline steps, shared by the `scan` CLI and the agent graph (agents/workers.py).
 
-build  : columns 1-3  discover components (or consume an SBOM), OSV vulnerabilities, depth
-detect : columns 3-4  vulnerability + rule findings, "what changed" against a base commit
-emit   : columns 2+5  SBOM, graph, summary, findings.json, report (md / html / pdf)
+build  : discover     components (or consume an SBOM), OSV vulnerabilities, depth
+detect : detect       vulnerability + rule findings, "what changed" against a base commit
+emit   : evidence     SBOM, graph, summary, findings.json, report (md / html / pdf)
 """
 from __future__ import annotations
 
@@ -34,7 +34,7 @@ def build(repo: Path, sbom: Path | None = None, check_vulns: bool = True) -> Dep
 
 
 def detect(repo: Path, dg: DepGraph, base_rev: str | None) -> tuple[list, object]:
-    """Columns 3-4: vulnerability findings + rule findings, marked 'new' if absent in the base commit."""
+    """Vulnerability findings + rule findings, marked 'new' if absent in the base commit."""
     with tempfile.TemporaryDirectory(prefix="sscg-base-") as tmp:
         change = diff.compute(repo, dg, base_rev, Path(tmp)) if base_rev else None
         raws = findings.vulnerability_raws(dg) + run_all(Ctx(repo, dg, change))
@@ -49,7 +49,7 @@ def detect(repo: Path, dg: DepGraph, base_rev: str | None) -> tuple[list, object
 
 def emit(repo: Path, out: Path, dg: DepGraph, fs: list, change, *, focus: str | None = None,
          max_depth: int | None = None, why_q=(), agentic: dict | None = None) -> dict:
-    """Write every Day 1 artifact. `agentic` (optional) adds the clearly separated AI section to the report.
+    """Write every detection artifact. `agentic` (optional) adds the clearly separated AI section to the report.
 
     Shared by the plain `scan` command and the agent graph's Reporter node, so both produce identical evidence.
     """

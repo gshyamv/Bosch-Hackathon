@@ -1,4 +1,4 @@
-"""Column 3: Detect vulnerabilities with OSV.dev.
+"""Detect vulnerabilities with OSV.dev.
 
 1. querybatch: which advisory IDs affect each package version
 2. details:    for every advisory: CVE aliases, CVSS vector + score / severity label, fixed version

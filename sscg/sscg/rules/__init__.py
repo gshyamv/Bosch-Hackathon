@@ -1,4 +1,4 @@
-"""Column 4: Detect suspicious changes. Every detector is deterministic and returns findings with evidence."""
+"""Detect suspicious changes. Every detector is deterministic and returns findings with evidence."""
 from __future__ import annotations
 
 from . import cicd, container, lockfile, packages, provenance

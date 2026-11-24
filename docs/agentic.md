@@ -1,57 +1,55 @@
 # Agentic AI layer (LangGraph)
 
-*What we added to the Guardian on Day 1 so that it is an agentic AI solution, why it is built this way, and how to
-extend it on Day 2.*
+*What makes the Guardian an agentic AI solution, why it is built this way, and how to extend it.*
 
 ---
 
 ## 0. In short
 
-* `python -m sscg agent <repo>` runs the **same Day 1 pipeline** as `python -m sscg scan`, but as a **LangGraph
+* `python -m sscg agent <repo>` runs the **same detection pipeline** as `python -m sscg scan`, but as a **LangGraph
   multi-agent workflow**. All outputs from `scan` are produced unchanged. Two things are added: `agentic.json` and a
   clearly labelled **AI section** in the report and dashboard.
 * **Deterministic agents** (Orchestrator, Discovery, Vulnerability Intel, Detection, Evidence Gatherer, Reporter)
   wrap the existing modules as tools. **LLM agents** are used only where judgement is needed:
   * The **Triage agent** judges each suspicious change *in context*. It can ask for more evidence, which sends the
     finding back through the evidence loop.
-  * The **Narrator agent** answers the Day 1 checkpoint question in prose.
+  * The **Narrator agent** answers "what is in the application, what changed, what appears risky" in prose.
 * **Providers:** Claude, Gemini, Groq, DeepSeek or Grok (xAI), selected in `sscg/.env`. **No key means a rules-only fallback**, so the
   demo never depends on an API.
 * **Guards:** secrets are redacted before anything is sent. Every reply is validated against a schema. A grounding
   check downgrades any answer that mentions an ID or version that is not in the evidence. AI output never changes a
   finding or its risk score.
-* **Day 2 is implemented** (`--day2`, see **[docs/day2.md](day2.md)**): prioritise → propose remediation → **human approval (LangGraph
-  `interrupt`)** → validate. The nodes are simple placeholders with TODOs, so Day 2 work means *filling in nodes*,
-  not redesigning the system.
+* **Remediation** (`--remediate`, see **[docs/remediation.md](remediation.md)**): prioritise → propose remediation → **human approval (LangGraph
+  `interrupt`)** → validate in a sandbox → report, as further nodes of the same graph and state.
 
 ```powershell
 cd sscg
 pip install -r requirements.txt
 copy .env.example .env                     # put ONE real key in .env (or none: rules-only fallback)
 python -m sscg agent ..\targets\sscg-demo-target
-python -m sscg agent ..\targets\sscg-demo-target --llm claude --day2          # Day 2: docs/day2.md
-streamlit run ui/app.py                    # toggle "Agentic AI" → section ⑥ AI triage and summary
+python -m sscg agent ..\targets\sscg-demo-target --llm claude --remediate     # docs/remediation.md
+python -m sscg serve                       # dashboard: New run → "Detect + AI agents" → AI triage page
 ```
 
 ---
 
-## 1. Where the agents sit in Day 1
+## 1. Where the agents sit in the detection stages
 
-The Day 1 slide has five columns and says *"Day 1 is about visibility and detection."* Columns 1-3 have exact
-answers, so they stay deterministic: an LLM parsing `package.json` or recalling CVE ranges would only add
-hallucination risk. Column 4 is where rules flag things they cannot decide on their own, and column 5 is about
-explaining. That is where the LLM agents work.
+Discovering components, building the SBOM and matching vulnerabilities have exact answers, so they stay
+deterministic: an LLM parsing `package.json` or recalling CVE ranges would only add hallucination risk. Suspicious
+changes are where rules flag things they cannot decide on their own, and presenting evidence is about explaining.
+That is where the LLM agents work.
 
-| Day 1 column | Agent (LangGraph node) | Kind | What it does |
+| Stage | Agent (LangGraph node) | Kind | What it does |
 |---|---|---|---|
 | (start) | **Orchestrator** (`orchestrator`) | deterministic | Looks at the repo (manifests, git, container, CI), decides what runs, whether "what changed" is possible, and which LLM engine is in use |
-| ① Discover components · ② SBOM view | **Discovery** (`discovery`) | deterministic | `pipeline.build()`: manifests, lockfiles, Dockerfiles, workflows → `DepGraph` (or consumes an SBOM) |
-| ③ Detect vulnerabilities | **Vulnerability Intel** (`vuln_intel`) | deterministic | OSV.dev advisories, CVSS, fixed versions (`vulns.py`) |
-| ④ Detect suspicious changes | **Detection** (`detection`) | deterministic | 19 rules + "what changed" vs the base commit (`pipeline.detect()`); picks the findings that need judgement |
-| ④ (judgement) | **Evidence Gatherer** (`gather_evidence`) | deterministic tools | Runs read-only tools for each finding: registry metadata, file context, commit history, graph context |
-| ④ (judgement) | **Triage** (`triage_one` ×N in parallel, `triage_join`) | **LLM** | Verdict + confidence + rationale citing evidence IDs; may request more evidence |
-| ⑤ Present evidence | **Narrator** (`narrate`) | **LLM** | "What is in the application, what changed, what appears risky", citing finding IDs |
-| ⑤ Present evidence | **Reporter** (`report`) | deterministic | `pipeline.emit()`: SBOM, graph, findings.json, report md/html/pdf + `agentic.json` |
+| Discover: components, SBOM | **Discovery** (`discovery`) | deterministic | `pipeline.build()`: manifests, lockfiles, Dockerfiles, workflows → `DepGraph` (or consumes an SBOM) |
+| Detect: vulnerabilities | **Vulnerability Intel** (`vuln_intel`) | deterministic | OSV.dev advisories, CVSS, fixed versions (`vulns.py`) |
+| Detect: suspicious changes | **Detection** (`detection`) | deterministic | 19 rules + "what changed" vs the base commit (`pipeline.detect()`); picks the findings that need judgement |
+| Detect (judgement) | **Evidence Gatherer** (`gather_evidence`) | deterministic tools | Runs read-only tools for each finding: registry metadata, file context, commit history, graph context |
+| Detect (judgement) | **Triage** (`triage_one` ×N in parallel, `triage_join`) | **LLM** | Verdict + confidence + rationale citing evidence IDs; may request more evidence |
+| Evidence | **Narrator** (`narrate`) | **LLM** | "What is in the application, what changed, what appears risky", citing finding IDs |
+| Evidence | **Reporter** (`report`) | deterministic | `pipeline.emit()`: SBOM, graph, findings.json, report md/html/pdf + `agentic.json` |
 
 Which findings go to triage is decided by the knowledge base (`playbooks.yaml`, `triage: true`). These are the rules
 whose result depends on context: typosquat (R01), install scripts (R03/R04), untrusted lockfile source (R05),
@@ -78,7 +76,7 @@ flowchart TD
     J -->|done| N[Narrator agent<br/>LLM, col 5 summary]
     N --> R[Reporter<br/>findings.json, report, agentic.json]
     R -->|default| E([end])
-    R -->|--day2| P[Prioritizer]
+    R -->|--remediate| P[Prioritizer]
     P --> RM[Remediation proposals]
     RM --> H{{Human approval<br/>LangGraph interrupt}}
     H --> VA[Validation stub]
@@ -90,13 +88,13 @@ flowchart TD
     LLM -.-> N
 ```
 
-*The node structure matches `build_graph(day2_preview=True).get_graph().draw_mermaid()`.*
+*The node structure matches `build_graph(remediate=True).get_graph().draw_mermaid()`.*
 
 **Key design decisions**
 
 | Decision | Why |
 |---|---|
-| **LangGraph** for orchestration | We need a conditional loop (triage ↔ evidence), parallel fan-out (`Send`), and a pause for a human (`interrupt` + checkpointer). The Day 2 human-approval requirement makes the last one essential. |
+| **LangGraph** for orchestration | We need a conditional loop (triage ↔ evidence), parallel fan-out (`Send`), and a pause for a human (`interrupt` + checkpointer). The human-approval requirement makes the last one essential. |
 | **Deterministic routing** (plain Python functions on edges) | Auditable and repeatable. The LLM decides *what it concludes* and *what evidence it wants*, never which code runs or what gets changed. |
 | **Official provider SDKs**, not LangChain chat wrappers | One small interface (`agents/llm.py`) over `anthropic`, `google-genai` and `openai` (xAI's API is OpenAI-compatible). This avoids the LangChain version mismatch in our environment (`langchain` 0.3 vs `langchain-core` 1.2) and keeps dependencies small. Only the SDK for the provider in use needs to be installed. |
 | **Existing code is reused, not rewritten** | `scan()` was split into `pipeline.build / detect / emit`. Both `scan` and the agents call these, so findings are identical either way (verified, §10). |
@@ -221,7 +219,7 @@ token. They are not billed numbers.
 
 `agentic.json → llm_usage` records the real counts for every run.
 
-**CLI options of `agent`**: all `scan` options, plus `--llm`, `--list-models`, `--max-triage N`, `--day2`, `--no-baseline`,
+**CLI options of `agent`**: all `scan` options, plus `--llm`, `--list-models`, `--max-triage N`, `--remediate`, `--no-baseline`,
 `--decisions ask|defer|reject`.
 
 ---
@@ -230,9 +228,9 @@ token. They are not billed numbers.
 
 | File | Content | Used by |
 |---|---|---|
-| `playbooks.yaml` | One entry per rule R01–R19: `triage` (needs judgement?), `checks`, `confirms` (evidence that confirms the risk), `false_positives`, `default_tools`, `fallback_verdict`, `remediation_options` (Day 2) | Detection (what to triage), Evidence Gatherer (first tools), Triage (what to weigh), fallback, Day 2 Remediation |
+| `playbooks.yaml` | One entry per rule R01–R19: `triage` (needs judgement?), `checks`, `confirms` (evidence that confirms the risk), `false_positives`, `default_tools`, `fallback_verdict`, `remediation_options` (remediation) | Detection (what to triage), Evidence Gatherer (first tools), Triage (what to weigh), fallback, Remediation |
 | `attack_patterns.yaml` | 10 real incidents written as indicators (AP-01 … AP-10): typosquats (crossenv), maintainer hand-over (event-stream), hijacked accounts with install scripts (ua-parser-js, coa/rc), dependency confusion, lockfile injection, CI compromise (Codecov, tj-actions), pwn requests, xz-utils, malicious Docker Hub images, protestware (colors/faker, node-ipc) | Triage (`matched_patterns` may only use these IDs) |
-| `policy.yaml` | Sample organisation policy: allowed registries and corporate mirrors, trusted image publishers, CI pinning, install-script allow-list, approval rules | Triage (e.g. "this host is our mirror" → benign); Day 2 policy-as-code (OPA/Conftest) |
+| `policy.yaml` | Sample organisation policy: allowed registries and corporate mirrors, trusted image publishers, CI pinning, install-script allow-list, approval rules | Triage (e.g. "this host is our mirror" → benign); policy-as-code (OPA/Conftest) |
 
 **Deliberately not in the knowledge base:**
 * **Vulnerability data.** Affected ranges, fixed versions and CVSS come live or cached from OSV, so the model never
@@ -286,7 +284,7 @@ the SBOM and the initial risk score are deterministic.
 5. **Conservative verdicts.** The prompt forbids `likely_malicious` without evidence of malicious behaviour or a
    documented malicious package.
 
-**Human approval.** Nothing is changed, merged or deployed by the agents. In Day 2 ([docs/day2.md](day2.md)), the graph *stops* at
+**Human approval.** Nothing is changed, merged or deployed by the agents. With `--remediate` ([docs/remediation.md](remediation.md)), the graph *stops* at
 `human_approval` (LangGraph `interrupt`) and records an `ApprovalRecord` (who, decision, reason, time). Validation
 runs only for approved proposals. In a non-interactive run, proposals are deferred or rejected, never approved.
 
@@ -313,10 +311,10 @@ an advisory verdict at most, and that verdict never triggers an action.
 
 | Where | What |
 |---|---|
-| `out/<repo>/agentic.json` | `engine`, `kb_version`, `plan`, `triage` (per finding), `tool_evidence`, `narrative`, `llm_usage`, `agent_runs` (audit trail), `day2` (if run), `notes` |
+| `out/<repo>/agentic.json` | `engine`, `kb_version`, `plan`, `triage` (per finding), `tool_evidence`, `narrative`, `llm_usage`, `agent_runs` (audit trail), `remediation` (if run), `notes` |
 | `out/<repo>/report.md/.html/.pdf` | New section **"5. AI triage and summary (inference, not evidence)"**: summary, "look at first", triage table with verdict, confidence, grounding and patterns. Notes become section 6. |
-| Dashboard (`streamlit run ui/app.py`) | Toggle **Agentic AI** and pick a provider. Section **⑥ AI triage and summary**: narrative, triage table, per-finding details with tool evidence, LLM usage. It warns if the triage is older than the findings. |
-| `out/<repo>/day2/` | (`--day2`) remediation report (md / html / pdf), `day2.json`, `remediation.patch`, `pending.json` while paused: see [docs/day2.md](day2.md) |
+| Dashboard (`python -m sscg serve`) | **New run** → *Detect + AI agents* and pick a provider. The **AI triage** page: narrative, triage table, per-finding details with tool evidence, LLM usage and agent runs. It warns if the triage is older than the findings. Each finding's side panel also shows its AI verdict, kept apart from the evidence. |
+| `out/<repo>/remediation/` | (`--remediate`) remediation report (md / html / pdf), `remediation.json`, `remediation.patch`, `pending.json` while paused: see [docs/remediation.md](remediation.md) |
 | Console | Live `[Agent] …` progress lines, the usual scan summary, then the AI summary and per-agent timings |
 
 `findings.json`, `summary.json`, the SBOM and the graph files are the same as from `scan` (apart from timestamps);
@@ -324,15 +322,15 @@ only the report gains the AI section.
 
 ---
 
-## 9. Day 2: how to extend the graph
+## 9. Remediation nodes and how to extend the graph
 
-Day 2 is implemented: see **[docs/day2.md](day2.md)** for the full description. In short:
+See **[docs/remediation.md](remediation.md)** for the full description. In short:
 
 * **Prioritise:** `agents/prioritizer.py`, using KEV, EPSS, reachability and exposure.
 * **Recommend:** `agents/remediator.py` + `sscg/remediation.py`, with exact patches and an LLM rationale.
 * **Approve:** a LangGraph interrupt with a SQLite checkpoint, then `python -m sscg approve` or the dashboard.
 * **Validate:** `sscg/validation.py`, a sandbox build/test before and after, then a rescan.
-* **Report:** `sscg/day2_report.py`.
+* **Report:** `sscg/remediation_report.py`.
 
 **Recipe: adding an agent node**
 
@@ -361,9 +359,9 @@ Next ideas:
 | Quota stop (mock Groq answering 429 mid-run; fake Gemini 429 at start) | Exactly one request gets the 429; no further request reaches the endpoint; the run finishes rules-only ✔ |
 | Live Gemini (free tier, 2026-11-23) | Key and model listing work; `gemini-3.5-flash` answers; the free tier's 5 requests/minute limit was hit during a full run, which led to the quota-stop and pacing settings above |
 | Provider unreachable | Every call falls back to rules (`status: llm_error_fallback`), summary caveat added, run completes ✔ |
-| Day 2 approval (see also docs/day2.md §10) | Non-interactive → deferred. `--decisions reject` → rejected. Simulated console approver: approve, reject with reason, defer → `ApprovalRecord`s with name and reason; only the approved proposal reaches validation ✔ |
+| Human approval (see also docs/remediation.md §10) | Non-interactive → deferred. `--decisions reject` → rejected. Simulated console approver: approve, reject with reason, defer → `ApprovalRecord`s with name and reason; only the approved proposal reaches validation ✔ |
 | Secret redaction unit checks | npm, GitHub and AWS tokens, URL credentials, `password:` values and PEM keys masked. `${{ secrets.X }}`, authors, hashes and token counts untouched ✔ |
-| Dashboard (Streamlit `AppTest`, headless) | Section ⑥ renders, no exceptions; grounding warning and tool-evidence expanders shown ✔ |
+| Dashboard (headless Chrome) | AI triage page renders, no console errors; grounding warning and tool-evidence panels shown ✔ |
 
 **Not tested:** a complete live run with real model verdicts (the Gemini free-tier limit was reached first), and live
 Claude, Groq or Grok calls (no keys at the time). Judge the quality of real model verdicts yourself. Do one live run per provider and check `agentic.json` before the demo.
@@ -377,7 +375,7 @@ Claude, Groq or Grok calls (no keys at the time). Judge the quality of real mode
 | Grounding checks identifiers, not meaning | A rationale can cite real evidence and still reason badly. Verdicts are advisory, shown as inference, and never trigger actions. |
 | Redaction is pattern-based | It catches common secret formats, not every possible one. Only ±4-line excerpts are sent; use `--llm none` for sensitive repos. |
 | Rules-only fallback verdicts are coarse | Good enough to keep the demo running; not a substitute for the LLM triage. |
-| Checkpointer is in-memory, `Runtime` is per-process | A paused Day 2 approval cannot resume in a new process yet (§9). |
+| `Runtime` is per-process | A run paused for approval is saved in SQLite; on resume the live objects are rebuilt from `out/<repo>/` (cached). |
 | Registry metadata | npm, PyPI and Docker Hub only (no Maven, no other container registries) |
 | Cache stores non-200 answers (existing `cache.py` behaviour) | A rate-limited registry reply would be remembered as "not found". Delete that cache file to retry. |
 | Triage cap | Only the top `SSCG_LLM_MAX_TRIAGE` (15) judgement findings are triaged; the rest are noted in `agentic.json`. |
@@ -399,18 +397,18 @@ sscg/
     ├── report.py                + separate "AI triage and summary (inference, not evidence)" section
     ├── cache.py                 + answered(): tell "not found" from "offline / unreachable"
     └── agents/                  NEW
-        ├── graph.py             the orchestrator: StateGraph wiring, conditional edges, Send fan-out, Day 2 branch
-        ├── state.py             GuardianState (JSON-only) + reducers; Day 2 fields
+        ├── graph.py             the orchestrator: StateGraph wiring, conditional edges, Send fan-out, remediation branch
+        ├── state.py             GuardianState (JSON-only) + reducers; remediation fields
         ├── runtime.py           per-run live objects (DepGraph, LLM client), @traced audit decorator
         ├── workers.py           Orchestrator plan, Discovery, Vulnerability Intel, Detection, Evidence Gatherer, Reporter
         ├── triage.py            Triage agent: packet, fan-out, LLM call, guards, fallback, join/loop
         ├── narrator.py          Narrator agent
-        ├── prioritizer.py       Day 2: exploit intel, reachability, prioritize (docs/day2.md)
-        ├── remediator.py        Day 2: remediation planner + LLM advisor
-        ├── day2.py              Day 2: human approval (interrupt), validation, Day 2 report
+        ├── prioritizer.py       exploit intel, reachability, prioritize (docs/remediation.md)
+        ├── remediator.py        remediation planner + LLM advisor
+        ├── remediation_flow.py human approval (interrupt), validation, remediation report
         ├── tools.py             read-only evidence tools
         ├── guard.py             redact() before, ground() after every LLM call
-        ├── schemas.py           pydantic contracts (Day 1 + Day 2)
+        ├── schemas.py           pydantic contracts (detection + remediation)
         ├── llm.py               Claude / Gemini / Groq / DeepSeek / Grok via official SDKs; pacing, quota stop, model check
         ├── config.py            .env loading, provider selection, limits
         ├── kb.py                knowledge base loader + retrieve(finding)

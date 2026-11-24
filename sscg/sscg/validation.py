@@ -1,11 +1,11 @@
-"""Day 2 column 4, "Validate the proposed fix: test before you trust". Generic for any repository.
+"""Validate stage, "Validate the proposed fix: test before you trust". Generic for any repository.
 
   1. sandbox   copy the repository (with .git, without installed dependencies) to a temporary folder
   2. apply     only the human-approved edits (remediation.apply_edits); regenerate npm lockfiles
   3. build     per detected project: npm ci/install --ignore-scripts, pip install (wheels only) in a venv,
                mvn (if installed), docker build (if the Docker engine is running)
   4. test      the project's own tests when it has them (npm test / pytest / mvn test), else a smoke check
-  5. rescan    the Day 1 pipeline on the sandbox -> findings + SBOM after the change
+  5. rescan    the detection pipeline on the sandbox -> findings + SBOM after the change
   6. compare   resolved / remaining / NEW findings, SBOM component changes, before-vs-after build results
 
 The unchanged repository is built the same way as a baseline, so a failure that already existed is not blamed on
@@ -205,7 +205,7 @@ def validate(repo: Path, before_findings: list, before_dg, proposals: list, base
         steps_before = build_and_test(before_dir, "before", docker=use_docker)
     log("building the remediated repository ...")
     steps_after = build_and_test(after_dir, "after", relock=applied["relock"], docker=use_docker)
-    log("rescanning the remediated repository with the Day 1 pipeline ...")
+    log("rescanning the remediated repository ...")
     dg_after = build(after_dir, None, check_vulns=True)
     fs_after, _ = detect(after_dir, dg_after, base_rev)
     before_k = {fkey(f): f for f in before_findings}

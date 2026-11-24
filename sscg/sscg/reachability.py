@@ -1,4 +1,4 @@
-"""Day 2 column 1 (and stretch goal 1): is a vulnerable package actually used by the application's code?
+"""Analyze stage (stretch goal 1): is a vulnerable package actually used by the application's code?
 
 Static, import-level analysis for any repository (nothing is executed):
   npm   : require('x') / import ... from 'x' / import('x') in .js .mjs .cjs .jsx .ts .tsx .vue

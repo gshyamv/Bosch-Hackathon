@@ -56,7 +56,7 @@ def plan(state: dict) -> dict:
         "llm": {"engine": s.engine, "reason": s.reason, "max_triage": s.max_triage, "max_rounds": s.max_rounds},
         "steps": ["discovery", *([] if o.get("no_vulns") else ["vulnerability_intel"]), "detection",
                   "evidence_gatherer <-> triage (loop)", "narrator", "reporter",
-                  *(["prioritize", "propose_remediation", "human_approval", "validate"] if o.get("day2") else [])],
+                  *(["prioritize", "propose_remediation", "human_approval", "validate"] if o.get("remediation") else [])],
     }
     rt.log("Orchestrator", f"plan: {', '.join(p['detected']) or 'no manifests seen at top level'}; "
                            f"compare with {compare or 'nothing (' + str(p['compare_skipped_because']) + ')'}; "
@@ -160,7 +160,7 @@ def agentic_payload(state: dict, rt) -> dict:
                       "input_tokens": sum(r.get("input_tokens", 0) for r in runs),
                       "output_tokens": sum(r.get("output_tokens", 0) for r in runs),
                       "secrets_redacted": sum(r.get("redactions", 0) for r in runs)},
-        "day2": {k: state.get(k) for k in ("priorities", "proposals", "approvals", "validations") if state.get(k)},
+        "remediation": {k: state.get(k) for k in ("priorities", "proposals", "approvals", "validations") if state.get(k)},
         "agent_runs": runs, "notes": state.get("notes", []),
         "basis": "AI inference over findings.json evidence. It never replaces the evidence or the initial risk score.",
     }

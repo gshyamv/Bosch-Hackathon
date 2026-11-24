@@ -1,6 +1,6 @@
 """Typed contracts between agents (pydantic). LLM replies are validated against these before they enter the state.
 
-Day 1: TriageAssessment, Narrative.  Day 2 (already wired into the graph state): PriorityItem, RemediationProposal,
+Detection: TriageAssessment, Narrative.  Remediation (wired into the graph state): PriorityItem, RemediationProposal,
 ApprovalRecord, ValidationReport. Fields marked "set by the system" are overwritten after the LLM call.
 """
 from __future__ import annotations
@@ -47,7 +47,7 @@ class Concern(BaseModel):
 
 
 class Narrative(BaseModel):
-    """Narrator agent output: the Day 1 checkpoint answer, in prose, citing finding IDs."""
+    """Narrator agent output: what is in the app, what changed, what appears risky, in prose, citing finding IDs."""
     headline: str = Field()
     what_is_in_the_app: str = Field()
     what_changed: str = Field()
@@ -59,13 +59,13 @@ class Narrative(BaseModel):
     grounding: dict = Field(default_factory=dict)
 
 
-# ------------------------------------------------------------------------------------------------ Day 2 contracts
+# ------------------------------------------------------------------------------------- remediation contracts
 Priority = Literal["P0", "P1", "P2", "P3"]
 Action = Literal["upgrade", "replace", "pin", "remove", "mitigate", "block", "update_base_image", "escalate_review"]
 
 
 class PriorityItem(BaseModel):
-    """Explainable priority: Day 1 initial risk + signed points per factor (agents/prioritizer.py)."""
+    """Explainable priority: initial risk + signed points per factor (agents/prioritizer.py)."""
     finding_id: str
     priority: Priority
     score: float

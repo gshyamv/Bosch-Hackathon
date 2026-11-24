@@ -1,4 +1,4 @@
-"""Day 2: read-only registry lookups used to recommend a safe change (all cached via cache.http_json).
+"""Read-only registry lookups used to recommend a safe change (all cached via cache.http_json).
 
   versions(eco, name)        published, non-prerelease, non-yanked/deprecated versions (npm, PyPI, Maven)
   remaining_advisories(...)  OSV advisories still affecting candidate versions (one querybatch call)

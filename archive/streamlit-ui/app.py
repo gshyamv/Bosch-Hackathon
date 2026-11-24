@@ -1,4 +1,4 @@
-"""Streamlit dashboard: Day 1 "Build the Guardian's Eyes", all five columns.
+"""Streamlit dashboard (archived; replaced by the React dashboard in sscg/web): discover, detect, evidence, remediation.
 
 ① Discover components · ② Build the supply chain view · ③ Detect vulnerabilities
 ④ Detect suspicious changes (+ what changed) · ⑤ Present evidence
@@ -99,7 +99,7 @@ ICON = {"Critical": "🟥", "High": "🟧", "Medium": "🟨", "Low": "🟦", "In
 
 st.set_page_config(page_title="Supply Chain Guardian", layout="wide")
 st.title("🛡️ Supply Chain Guardian")
-st.caption("Day 1 · Build the Guardian's Eyes: show what is in the application, what changed, and what appears risky.")
+st.caption("Show what is in the application, what changed, what appears risky, and how to fix it safely.")
 
 # ------------------------------------------------------------------ controls
 choice = st.selectbox("Repository", list(PRESETS) + ["Other path..."])
@@ -119,7 +119,7 @@ agentic = a1.toggle("Agentic AI (LangGraph agents)", value=False,
 llm_choice = a2.selectbox("LLM provider", ["auto", "claude", "gemini", "groq", "deepseek", "grok", "none"],
                           disabled=not agentic,
                           help="groq = Groq / GroqCloud; grok = xAI Grok")
-day2 = a3.toggle("Day 2: prioritise & remediate", value=False, disabled=not agentic,
+remediate = a3.toggle("Prioritise & remediate", value=False, disabled=not agentic,
                  help="Adds exploitability (KEV/EPSS), reachability, prioritisation and remediation proposals. The run "
                       "then pauses for your approval below; approved fixes are validated in a sandbox copy.")
 
@@ -128,7 +128,7 @@ if st.button("Scan repository", type="primary"):
     cmd += (["--base", base] if base.strip() else ["--no-diff"]) + ([] if osv else ["--no-vulns"])
     cmd += ["--offline"] * offline + (["--focus", focus] if focus else [])
     cmd += ["--llm", llm_choice] if agentic else []
-    cmd += ["--day2", "--decisions", "later"] if agentic and day2 else []
+    cmd += ["--remediate", "--decisions", "later"] if agentic and remediate else []
     with st.spinner("Agents at work: discovery, detection, AI triage, summary..." if agentic else
                     "Discovering components, building the SBOM and graph, detecting risks..."):
         r = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", cwd=ROOT)
@@ -544,12 +544,12 @@ if ag_path.exists():
     st.download_button("Download agentic.json", ag_path.read_bytes(), file_name=f"{name}.agentic.json",
                        mime="application/json")
 
-# ================================================================== Day 2: Brain & Shield
-D2 = out / "day2"
-pending_f, day2_f = D2 / "pending.json", D2 / "day2.json"
-if pending_f.exists() or day2_f.exists():
+# ================================================================== Prioritise, remediate, validate
+D2 = out / "remediation"
+pending_f, rem_f = D2 / "pending.json", D2 / "remediation.json"
+if pending_f.exists() or rem_f.exists():
     st.divider()
-    st.header("Day 2 · Brain & Shield")
+    st.header("Remediation")
     st.caption("Prioritize risks → recommend safe remediation → human approval → build & test in a sandbox → rescan → "
                "verified remediation. The original repository is never modified.")
     PRIO_ICON = {"P0": "🟥", "P1": "🟧", "P2": "🟨", "P3": "🟦"}
@@ -605,8 +605,8 @@ if pending_f.exists() or day2_f.exists():
                 else:
                     st.rerun()
 
-    if day2_f.exists() and not pending_f.exists():   # ------------------------ results of the last Day 2 run
-        d2 = json.loads(day2_f.read_text(encoding="utf-8"))
+    if rem_f.exists() and not pending_f.exists():   # ------------------------ results of the last remediation run
+        d2 = json.loads(rem_f.read_text(encoding="utf-8"))
         val = (d2.get("validations") or [{}])[-1]
         verdict = val.get("verdict", "not_run")
         k = st.columns(5)
@@ -683,7 +683,7 @@ if pending_f.exists() or day2_f.exists():
             if (D2 / "remediation.patch").exists():
                 b3.download_button("remediation.patch", (D2 / "remediation.patch").read_bytes(),
                                    file_name=f"{name}.remediation.patch", mime="text/x-diff")
-            b4.download_button("day2.json", day2_f.read_bytes(), file_name=f"{name}.day2.json", mime="application/json")
+            b4.download_button("remediation.json", rem_f.read_bytes(), file_name=f"{name}.remediation.json", mime="application/json")
             if (D2 / "remediation_report.md").exists():
                 with st.expander("Show the full remediation report", expanded=False):
                     st.markdown((D2 / "remediation_report.md").read_text(encoding="utf-8"))

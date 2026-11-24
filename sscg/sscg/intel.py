@@ -1,4 +1,4 @@
-"""Day 2 column 1: exploitability intelligence for CVEs (free, no key, read-only).
+"""Analyze stage: exploitability intelligence for CVEs (free, no key, read-only).
 
 * CISA KEV  - Known Exploited Vulnerabilities catalog: the CVE is being exploited in the wild.
 * FIRST EPSS - Exploit Prediction Scoring System: probability (0-1) of exploitation in the next 30 days.

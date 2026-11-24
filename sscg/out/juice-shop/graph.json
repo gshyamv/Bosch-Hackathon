@@ -2077,6 +2077,8 @@
    "scope": "prod",
    "source": "frontend/package.json",
    "resolution": "deps.dev-approx",
+   "depth": 3,
+   "dependents": 5,
    "vulns": [
     "GHSA-g3hv-75wg-m249"
    ],
@@ -2105,8 +2107,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-g3hv-75wg-m249"
     }
    ],
-   "depth": 3,
-   "dependents": 5,
    "findings": [
     "F-055"
    ]
@@ -5496,6 +5496,8 @@
    "scope": "dev",
    "source": "frontend/package.json",
    "resolution": "deps.dev-approx",
+   "depth": 3,
+   "dependents": 2,
    "vulns": [
     "GHSA-g3hv-75wg-m249"
    ],
@@ -5524,8 +5526,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-g3hv-75wg-m249"
     }
    ],
-   "depth": 3,
-   "dependents": 2,
    "findings": [
     "F-056"
    ]
@@ -5541,6 +5541,8 @@
    "scope": "dev",
    "source": "frontend/package.json",
    "resolution": "deps.dev-approx",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-82fw-gwwq-j7x9"
    ],
@@ -5570,8 +5572,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-82fw-gwwq-j7x9"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-040"
    ]
@@ -5881,6 +5881,8 @@
    "scope": "dev",
    "source": "frontend/package.json",
    "resolution": "deps.dev-approx",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-82fw-gwwq-j7x9",
     "GHSA-qxg6-89mg-rqv8"
@@ -5935,8 +5937,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-qxg6-89mg-rqv8"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-038"
    ]
@@ -6456,6 +6456,8 @@
    "scope": "prod",
    "source": "frontend/package.json",
    "resolution": "deps.dev-approx",
+   "depth": 2,
+   "dependents": 2,
    "vulns": [
     "GHSA-4x5r-pxfx-6jf8"
    ],
@@ -6485,8 +6487,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-4x5r-pxfx-6jf8"
     }
    ],
-   "depth": 2,
-   "dependents": 2,
    "findings": [
     "F-066"
    ]
@@ -6586,6 +6586,8 @@
    "scope": "prod",
    "source": "frontend/package.json",
    "resolution": "deps.dev-approx",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-g7r4-m6w7-qqqr"
    ],
@@ -6610,8 +6612,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-g7r4-m6w7-qqqr"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-083"
    ]
@@ -6711,6 +6711,8 @@
    "scope": "prod",
    "source": "frontend/package.json",
    "resolution": "deps.dev-approx",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-67c8-pqhq-4rmx",
     "GHSA-x9g3-xrwr-cwfg"
@@ -6767,8 +6769,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-67c8-pqhq-4rmx"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-016"
    ]
@@ -6854,6 +6854,8 @@
    "scope": "prod",
    "source": "frontend/package.json",
    "resolution": "deps.dev-approx",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-587h-7wmj-h5pm",
     "GHSA-698v-4r3x-3vcv",
@@ -7050,8 +7052,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-v6wh-96g9-6wx3"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-023"
    ]
@@ -8523,6 +8523,8 @@
    "scope": "prod",
    "source": "frontend/package.json",
    "resolution": "deps.dev-approx",
+   "depth": 2,
+   "dependents": 2,
    "vulns": [
     "GHSA-g7r4-m6w7-qqqr"
    ],
@@ -8547,8 +8549,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-g7r4-m6w7-qqqr"
     }
    ],
-   "depth": 2,
-   "dependents": 2,
    "findings": [
     "F-082"
    ]
@@ -9978,6 +9978,8 @@
    "scope": "prod",
    "source": "frontend/package.json",
    "resolution": "deps.dev-approx",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-22jm-h49p-29qw",
     "GHSA-46jr-4wx8-v453",
@@ -10122,8 +10124,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-rvq5-wwqv-78pq"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-010"
    ]
@@ -10209,6 +10209,8 @@
    "scope": "prod",
    "source": "frontend/package.json",
    "resolution": "deps.dev-approx",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-w4pp-8pjf-rmxw"
    ],
@@ -10237,8 +10239,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-w4pp-8pjf-rmxw"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-030"
    ]
@@ -10268,6 +10268,8 @@
    "scope": "prod",
    "source": "frontend/package.json",
    "resolution": "deps.dev-approx",
+   "depth": 2,
+   "dependents": 2,
    "vulns": [
     "GHSA-mrhx-c7xc-m3w5"
    ],
@@ -10296,8 +10298,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-mrhx-c7xc-m3w5"
     }
    ],
-   "depth": 2,
-   "dependents": 2,
    "findings": [
     "F-035"
    ]
@@ -10467,6 +10467,8 @@
    "scope": "prod",
    "source": "frontend/package.json",
    "resolution": "deps.dev-approx",
+   "depth": 3,
+   "dependents": 1,
    "vulns": [
     "GHSA-rmxm-3fg6-px4f"
    ],
@@ -10495,8 +10497,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-rmxm-3fg6-px4f"
     }
    ],
-   "depth": 3,
-   "dependents": 1,
    "findings": [
     "F-057"
    ]
@@ -11688,6 +11688,8 @@
    "scope": "prod",
    "source": "frontend/package.json",
    "resolution": "deps.dev-approx",
+   "depth": 4,
+   "dependents": 2,
    "vulns": [
     "GHSA-3g3m-2fjr-6pw4"
    ],
@@ -11716,8 +11718,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-3g3m-2fjr-6pw4"
     }
    ],
-   "depth": 4,
-   "dependents": 2,
    "findings": [
     "F-054"
    ]
@@ -12881,6 +12881,8 @@
    "scope": "prod",
    "source": "frontend/package.json",
    "resolution": "deps.dev-approx",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-jhpw-976m-542j",
     "GHSA-p297-fm68-3q8c"
@@ -12937,8 +12939,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-jhpw-976m-542j"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-062"
    ]
@@ -12954,6 +12954,8 @@
    "scope": "prod",
    "source": "frontend/package.json",
    "resolution": "deps.dev-approx",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-hh8m-fm6v-7cvg"
    ],
@@ -12984,8 +12986,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-hh8m-fm6v-7cvg"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-050"
    ]
@@ -13085,6 +13085,8 @@
    "scope": "prod",
    "source": "frontend/package.json",
    "resolution": "deps.dev-approx",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-hh8m-fm6v-7cvg"
    ],
@@ -13115,8 +13117,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-hh8m-fm6v-7cvg"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-051"
    ]
@@ -13188,6 +13188,8 @@
    "scope": "prod",
    "source": "frontend/package.json",
    "resolution": "deps.dev-approx",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-57xq-rjx2-v5xh",
     "GHSA-62vg-58rm-qff7",
@@ -13269,8 +13271,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-ff3f-86qr-9cv3"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-021"
    ]
@@ -14840,6 +14840,8 @@
    "scope": "prod",
    "source": "frontend/package.json",
    "resolution": "deps.dev-approx",
+   "depth": 3,
+   "dependents": 1,
    "vulns": [
     "GHSA-434g-2637-qmqr",
     "GHSA-49q7-c7j4-3p7m",
@@ -15006,8 +15008,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-vjh7-7g9h-fjfh"
     }
    ],
-   "depth": 3,
-   "dependents": 1,
    "findings": [
     "F-041"
    ]
@@ -15107,6 +15107,8 @@
    "scope": "prod",
    "source": "frontend/package.json",
    "resolution": "deps.dev-approx",
+   "depth": 3,
+   "dependents": 1,
    "vulns": [
     "GHSA-3h5v-q93c-6h6q",
     "GHSA-96hv-2xvq-fx4p"
@@ -15165,8 +15167,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-96hv-2xvq-fx4p"
     }
    ],
-   "depth": 3,
-   "dependents": 1,
    "findings": [
     "F-033"
    ]
@@ -15224,6 +15224,8 @@
    "scope": "prod",
    "source": "frontend/package.json",
    "resolution": "deps.dev-approx",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-r5fr-rjxr-66jc",
     "GHSA-xxjr-mmjv-4gpg"
@@ -15276,8 +15278,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-xxjr-mmjv-4gpg"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-015"
    ]
@@ -15670,6 +15670,8 @@
    "scope": "dev",
    "source": "package.json",
    "resolution": "deps.dev-approx",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-q69g-4hcv-6jg4"
    ],
@@ -15698,8 +15700,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-q69g-4hcv-6jg4"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-022"
    ]
@@ -15771,6 +15771,8 @@
    "scope": "dev",
    "source": "package.json",
    "resolution": "deps.dev-approx",
+   "depth": 3,
+   "dependents": 1,
    "vulns": [
     "GHSA-78h3-pg4x-j8cv"
    ],
@@ -15797,8 +15799,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-78h3-pg4x-j8cv"
     }
    ],
-   "depth": 3,
-   "dependents": 1,
    "findings": [
     "F-014"
    ]
@@ -15870,6 +15870,8 @@
    "scope": "dev",
    "source": "package.json",
    "resolution": "deps.dev-approx",
+   "depth": 3,
+   "dependents": 1,
    "vulns": [
     "GHSA-2883-xcg3-v3hh",
     "GHSA-52cp-r559-cp3m",
@@ -15995,8 +15997,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-mh29-5h37-fv8m"
     }
    ],
-   "depth": 3,
-   "dependents": 1,
    "findings": [
     "F-027"
    ]
@@ -16138,6 +16138,8 @@
    "scope": "dev",
    "source": "package.json",
    "resolution": "deps.dev-approx",
+   "depth": 5,
+   "dependents": 2,
    "vulns": [
     "GHSA-3g3m-2fjr-6pw4"
    ],
@@ -16166,8 +16168,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-3g3m-2fjr-6pw4"
     }
    ],
-   "depth": 5,
-   "dependents": 2,
    "findings": [
     "F-053"
    ]
@@ -16225,6 +16225,8 @@
    "scope": "prod",
    "source": "package.json",
    "resolution": "deps.dev-approx",
+   "depth": 2,
+   "dependents": 5,
    "vulns": [
     "GHSA-23hp-3jrh-7fpw",
     "GHSA-34x7-hfp2-rc4v",
@@ -16517,8 +16519,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-vmf3-w455-68vh"
     }
    ],
-   "depth": 2,
-   "dependents": 5,
    "findings": [
     "F-008"
    ]
@@ -22358,6 +22358,8 @@
    "scope": "prod",
    "source": "package.json",
    "resolution": "deps.dev-approx",
+   "depth": 2,
+   "dependents": 2,
    "vulns": [
     "GHSA-w5hq-g745-h8pq"
    ],
@@ -22390,8 +22392,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-w5hq-g745-h8pq"
     }
    ],
-   "depth": 2,
-   "dependents": 2,
    "findings": [
     "F-032"
    ]
@@ -22785,6 +22785,8 @@
    "scope": "prod",
    "source": "package.json",
    "resolution": "deps.dev-approx",
+   "depth": 2,
+   "dependents": 3,
    "vulns": [
     "GHSA-866g-f22w-33x8"
    ],
@@ -22815,8 +22817,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-866g-f22w-33x8"
     }
    ],
-   "depth": 2,
-   "dependents": 3,
    "findings": [
     "F-061"
    ]
@@ -23266,6 +23266,8 @@
    "scope": "prod",
    "source": "package.json",
    "resolution": "deps.dev-approx",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-vc2v-76pw-4v95"
    ],
@@ -23294,8 +23296,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-vc2v-76pw-4v95"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-025"
    ]
@@ -23549,6 +23549,8 @@
    "scope": "prod",
    "source": "package.json",
    "resolution": "deps.dev-approx",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-58qx-3vcg-4xpx",
     "GHSA-96hv-2xvq-fx4p"
@@ -23604,8 +23606,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-96hv-2xvq-fx4p"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-034"
    ]
@@ -23803,6 +23803,8 @@
    "scope": "prod",
    "source": "package.json",
    "resolution": "deps.dev-approx",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-4mjr-xmp4-gh2g",
     "GHSA-6pq8-jhm2-2vcw",
@@ -23903,8 +23905,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-x5fp-wj9c-mxmx"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-060"
    ]
@@ -24032,6 +24032,8 @@
    "scope": "prod",
    "source": "package.json",
    "resolution": "deps.dev-approx",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-2p57-rm9w-gvfp"
    ],
@@ -24058,8 +24060,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-2p57-rm9w-gvfp"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-011"
    ]
@@ -24103,6 +24103,8 @@
    "scope": "prod",
    "source": "package.json",
    "resolution": "deps.dev-approx",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-6g6m-m6h5-w9gf"
    ],
@@ -24131,8 +24133,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-6g6m-m6h5-w9gf"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-024"
    ]
@@ -24148,6 +24148,8 @@
    "scope": "prod",
    "source": "package.json",
    "resolution": "deps.dev-approx",
+   "depth": 3,
+   "dependents": 2,
    "vulns": [
     "GHSA-rvg8-pwq2-xj7q"
    ],
@@ -24172,8 +24174,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-rvg8-pwq2-xj7q"
     }
    ],
-   "depth": 3,
-   "dependents": 2,
    "findings": [
     "F-052"
    ]
@@ -24189,6 +24189,8 @@
    "scope": "prod",
    "source": "package.json",
    "resolution": "deps.dev-approx",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-8cf7-32gw-wr33",
     "GHSA-c7hr-j4mj-j2w6",
@@ -24289,8 +24291,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-c7hr-j4mj-j2w6"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-012"
    ]
@@ -24320,6 +24320,8 @@
    "scope": "prod",
    "source": "package.json",
    "resolution": "deps.dev-approx",
+   "depth": 2,
+   "dependents": 2,
    "vulns": [
     "GHSA-869p-cjfg-cm3x",
     "GHSA-gjcw-v447-2w7q"
@@ -24373,8 +24375,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-gjcw-v447-2w7q"
     }
    ],
-   "depth": 2,
-   "dependents": 2,
    "findings": [
     "F-009"
    ]
@@ -24390,6 +24390,8 @@
    "scope": "prod",
    "source": "package.json",
    "resolution": "deps.dev-approx",
+   "depth": 3,
+   "dependents": 1,
    "vulns": [
     "GHSA-446m-mv8f-q348",
     "GHSA-87vv-r9j6-g5qv",
@@ -24466,8 +24468,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-8hfj-j24r-96c4"
     }
    ],
-   "depth": 3,
-   "dependents": 1,
    "findings": [
     "F-028"
    ]
@@ -24553,6 +24553,8 @@
    "scope": "prod",
    "source": "package.json",
    "resolution": "deps.dev-approx",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-5v7r-6r5c-r473"
    ],
@@ -24581,8 +24583,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-5v7r-6r5c-r473"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-058"
    ]
@@ -24794,6 +24794,8 @@
    "scope": "prod",
    "source": "package.json",
    "resolution": "deps.dev-approx",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-7f5c-rpf4-86p8"
    ],
@@ -24820,8 +24822,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-7f5c-rpf4-86p8"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-063"
    ]
@@ -24851,6 +24851,8 @@
    "scope": "prod",
    "source": "package.json",
    "resolution": "deps.dev-approx",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-2qvq-rjwj-gvw9",
     "GHSA-2w6w-674q-4c4q",
@@ -25111,8 +25113,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-p8wg-vrv2-v86f"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-001"
    ]
@@ -25268,6 +25268,8 @@
    "scope": "prod",
    "source": "package.json",
    "resolution": "deps.dev-approx",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-xfqm-j7pc-xrfc"
    ],
@@ -25296,8 +25298,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-xfqm-j7pc-xrfc"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-081"
    ]
@@ -25369,6 +25369,8 @@
    "scope": "prod",
    "source": "package.json",
    "resolution": "deps.dev-approx",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-2883-xcg3-v3hh",
     "GHSA-52cp-r559-cp3m",
@@ -25494,8 +25496,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-mh29-5h37-fv8m"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-026"
    ]
@@ -25511,6 +25511,8 @@
    "scope": "prod",
    "source": "package.json",
    "resolution": "deps.dev-approx",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-8cf7-32gw-wr33",
     "GHSA-c7hr-j4mj-j2w6",
@@ -25611,8 +25613,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-c7hr-j4mj-j2w6"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-013"
    ]
@@ -25642,6 +25642,8 @@
    "scope": "prod",
    "source": "package.json",
    "resolution": "deps.dev-approx",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-5mrr-rgp6-x4gr"
    ],
@@ -25664,8 +25666,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-5mrr-rgp6-x4gr"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-005"
    ]
@@ -25765,6 +25765,8 @@
    "scope": "prod",
    "source": "package.json",
    "resolution": "deps.dev-approx",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-4vj7-5mj6-jm8m",
     "GHSA-9f6g-j8ch-79g4",
@@ -25841,8 +25843,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-jxfw-x594-9x9m"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-059"
    ]
@@ -25886,6 +25886,8 @@
    "scope": "prod",
    "source": "package.json",
    "resolution": "deps.dev-approx",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-76c9-3jph-rj3q"
    ],
@@ -25914,8 +25916,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-76c9-3jph-rj3q"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-064"
    ]
@@ -25945,6 +25945,8 @@
    "scope": "prod",
    "source": "package.json",
    "resolution": "deps.dev-approx",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-q7qp-rjg7-q26m"
    ],
@@ -25973,8 +25975,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-q7qp-rjg7-q26m"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-029"
    ]
@@ -26032,6 +26032,8 @@
    "scope": "prod",
    "source": "package.json",
    "resolution": "deps.dev-approx",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-8g4m-cjm2-96wq"
    ],
@@ -26058,8 +26060,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-8g4m-cjm2-96wq"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-037"
    ]
@@ -26313,6 +26313,8 @@
    "scope": "prod",
    "source": "package.json",
    "resolution": "deps.dev-approx",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-rg76-677x-56q9",
     "GHSA-xwcq-pm8m-c4vf"
@@ -26365,8 +26367,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-xwcq-pm8m-c4vf"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-006"
    ]
@@ -26662,6 +26662,8 @@
    "scope": "prod",
    "source": "package.json",
    "resolution": "deps.dev-approx",
+   "depth": 4,
+   "dependents": 1,
    "vulns": [
     "GHSA-5pm8-86m8-9m6r",
     "GHSA-c475-qrg2-pj4r",
@@ -26738,8 +26740,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-c475-qrg2-pj4r"
     }
    ],
-   "depth": 4,
-   "dependents": 1,
    "findings": [
     "F-039"
    ]
@@ -27357,6 +27357,8 @@
    "scope": "prod",
    "source": "package.json",
    "resolution": "deps.dev-approx",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-3j7m-hmh3-9jmp",
     "GHSA-cgfm-xwp7-2cvr",
@@ -27601,8 +27603,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-xc6g-ggrc-qq4r"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-031"
    ]
@@ -27716,6 +27716,8 @@
    "scope": "prod",
    "source": "package.json",
    "resolution": "deps.dev-approx",
+   "depth": 2,
+   "dependents": 1,
    "vulns": [
     "GHSA-35jh-r3h4-6jhm",
     "GHSA-4xc9-xhrj-v574",
@@ -27817,8 +27819,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-4xc9-xhrj-v574"
     }
    ],
-   "depth": 2,
-   "dependents": 1,
    "findings": [
     "F-007"
    ]
@@ -27876,6 +27876,8 @@
    "scope": "prod",
    "source": "package.json",
    "resolution": "deps.dev-approx",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-6457-6jrx-69cr",
     "GHSA-v8fg-2rw7-q452"
@@ -27928,8 +27930,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-v8fg-2rw7-q452"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-002"
    ]
@@ -28295,6 +28295,8 @@
    "scope": "prod",
    "source": "package.json",
    "resolution": "deps.dev-approx",
+   "depth": 5,
+   "dependents": 1,
    "vulns": [
     "GHSA-vpq2-c234-7xj6"
    ],
@@ -28324,8 +28326,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-vpq2-c234-7xj6"
     }
    ],
-   "depth": 5,
-   "dependents": 1,
    "findings": [
     "F-065"
    ]
@@ -29237,6 +29237,8 @@
    "scope": "prod",
    "source": "package.json",
    "resolution": "deps.dev-approx",
+   "depth": 1,
+   "dependents": 1,
    "vulns": [
     "GHSA-mrhx-c7xc-m3w5"
    ],
@@ -29265,8 +29267,6 @@
      "url": "https://osv.dev/vulnerability/GHSA-mrhx-c7xc-m3w5"
     }
    ],
-   "depth": 1,
-   "dependents": 1,
    "findings": [
     "F-036"
    ]
