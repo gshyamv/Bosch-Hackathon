@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html { -webkit-font-smoothing: antialiased; }
+body { @apply bg-slate-50 text-slate-800; font-feature-settings: "cv11", "ss01"; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 8px; border: 2px solid transparent; background-clip: content-box; }
+details > summary { list-style: none; }
+details > summary::-webkit-details-marker { display: none; }

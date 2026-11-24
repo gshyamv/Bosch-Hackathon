@@ -1,4 +1,4 @@
-"""Shared pieces for the column 4 detectors: rule catalogue, context, finding constructor, file helpers."""
+"""Shared pieces for the suspicious-change detectors: rule catalogue, context, finding constructor, file helpers."""
 from __future__ import annotations
 
 import json

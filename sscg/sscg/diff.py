@@ -1,4 +1,4 @@
-"""Column 4 input: "what changed" between a base commit and the scanned working tree.
+"""Detect stage input: "what changed" between a base commit and the scanned working tree.
 
 The base commit is extracted to a temp folder and scanned with the same discovery code, so both sides are
 compared component by component (name, version, download URL, integrity hash, install script).

@@ -1,0 +1,93 @@
+# Attack-pattern catalogue: real supply-chain incidents written as indicators.
+# The Triage agent may say "this matches pattern AP-xx" only by citing an ID from this file.
+# Facts are kept short and conservative; re-check each entry against its reference before quoting it externally.
+
+- id: AP-01
+  name: Typosquatting of a popular package
+  example: "crossenv and ~40 similar npm packages (2017) imitated cross-env and stole environment variables on install"
+  year: 2017
+  ecosystems: [npm, pypi]
+  indicators: [name one or two edits away from a popular package, new package, install script, no real repository]
+  rules: [R01_TYPOSQUAT, R02_KNOWN_MALICIOUS, R03_INSTALL_SCRIPT, R08_UNEXPECTED_DEPENDENCY]
+  reference: "npm security advisories, August 2017 ('hacktask' packages)"
+
+- id: AP-02
+  name: Malicious transitive dependency after a maintainer hand-over
+  example: "event-stream (2018): a new maintainer added flatmap-stream, whose obfuscated code targeted a bitcoin wallet app"
+  year: 2018
+  ecosystems: [npm]
+  indicators: [new maintainer on an established package, new transitive dependency, obfuscated code, small patch release]
+  rules: [R08_UNEXPECTED_DEPENDENCY, R19_SUSPICIOUS_UPDATE, R18_NEW_AUTHOR_SENSITIVE_CHANGE]
+  reference: "github.com/dominictarr/event-stream issue #116 (Nov 2018)"
+
+- id: AP-03
+  name: Hijacked maintainer account publishes versions with install scripts
+  example: "ua-parser-js (Oct 2021), coa and rc (Nov 2021): malicious versions ran preinstall scripts that dropped credential stealers / miners"
+  year: 2021
+  ecosystems: [npm]
+  indicators: [new install script in a patch release, script downloads and runs a binary, unusual release timing]
+  rules: [R03_INSTALL_SCRIPT, R04_INSTALL_SCRIPT_CONTENT, R19_SUSPICIOUS_UPDATE]
+  reference: "CISA alert on ua-parser-js (Oct 2021); npm advisories for coa / rc (Nov 2021)"
+
+- id: AP-04
+  name: Dependency confusion
+  example: "Public packages named like internal ones were installed instead of the private ones (Birsan, 2021); PyTorch nightly 'torchtriton' (Dec 2022)"
+  year: 2021
+  ecosystems: [npm, pypi]
+  indicators: [package resolved from an unexpected index / host, name matches an internal package, very high version number]
+  rules: [R05_LOCKFILE_UNTRUSTED_SOURCE, R08_UNEXPECTED_DEPENDENCY]
+  reference: "Alex Birsan, 'Dependency Confusion' (Feb 2021); PyTorch blog (Dec 2022)"
+
+- id: AP-05
+  name: Lockfile injection
+  example: "A pull request edits only the lockfile so 'resolved' points to an attacker tarball; reviewers rarely read lockfiles"
+  year: 2019
+  ecosystems: [npm]
+  indicators: [lockfile changed without a manifest change, resolved host is not the registry, integrity hash changed]
+  rules: [R05_LOCKFILE_UNTRUSTED_SOURCE, R06_LOCKFILE_INTEGRITY_CHANGED, R07_LOCKFILE_DRIFT]
+  reference: "Liran Tal, 'Why npm lockfiles can be a security blindspot' (2019); lockfile-lint"
+
+- id: AP-06
+  name: Compromised CI script or action exfiltrates secrets
+  example: "Codecov Bash Uploader (2021) was modified to send CI environment variables out; tj-actions/changed-files (2025, CVE-2025-30066) tags were moved to a commit that dumped secrets into logs"
+  year: 2021
+  ecosystems: [github-actions, url]
+  indicators: [curl | bash in CI, third-party action referenced by tag, secrets passed to that step]
+  rules: [R12_REMOTE_SCRIPT_EXEC, R15_CI_UNPINNED_ACTION, R17_CI_SECRET_EXPOSURE]
+  reference: "Codecov security update (Apr 2021); CISA alert on tj-actions/changed-files (Mar 2025)"
+
+- id: AP-07
+  name: Pwn request
+  example: "Workflows triggered by pull_request_target that check out and build the PR's code run attacker code with repository secrets"
+  year: 2021
+  ecosystems: [github-actions]
+  indicators: [pull_request_target trigger, checkout of github.event.pull_request.head, write token or secrets]
+  rules: [R14_CI_PWN_REQUEST, R16_CI_EXCESSIVE_PERMISSIONS]
+  reference: "GitHub Security Lab, 'Keeping your GitHub Actions and workflows secure: Preventing pwn requests' (2021)"
+
+- id: AP-08
+  name: Long-term maintainer takeover with a hidden backdoor
+  example: "xz-utils (2024, CVE-2024-3094): a contributor who gained maintainer trust over years shipped a backdoor in release tarballs only"
+  year: 2024
+  ecosystems: [os-packages]
+  indicators: [new maintainer gaining release rights, build-script changes, release artifact differs from source repository]
+  rules: [R18_NEW_AUTHOR_SENSITIVE_CHANGE, R06_LOCKFILE_INTEGRITY_CHANGED]
+  reference: "CVE-2024-3094; Openwall oss-security disclosure (Mar 2024)"
+
+- id: AP-09
+  name: Malicious or untrusted container images
+  example: "Docker Hub account 'docker123321' published backdoored / cryptomining images pulled millions of times before removal (2018)"
+  year: 2018
+  ecosystems: [docker]
+  indicators: [base image from a personal namespace, mutable tag, no digest, image not maintained by the vendor]
+  rules: [R10_UNTRUSTED_BASE_IMAGE, R11_MUTABLE_IMAGE_TAG]
+  reference: "Kromtech Security Center report (June 2018)"
+
+- id: AP-10
+  name: Maintainer sabotage / protestware pulled in by a version range
+  example: "colors and faker (Jan 2022) and node-ipc (Mar 2022): maintainers published destructive versions; projects with open ranges installed them automatically"
+  year: 2022
+  ecosystems: [npm]
+  indicators: [unpinned / caret range, no lockfile, sudden release after a long gap]
+  rules: [R09_UNPINNED_DEPENDENCY, R19_SUSPICIOUS_UPDATE]
+  reference: "npm / GitHub advisories for colors, faker and node-ipc (2022)"

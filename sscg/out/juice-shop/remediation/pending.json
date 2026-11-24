@@ -1,0 +1,359 @@
+{
+ "run_id": "80cded0857a6",
+ "repo": "C:\\Users\\VICTUS\\Desktop\\Bosch Hack\\targets\\juice-shop",
+ "created": "2026-11-24T04:34:30+00:00",
+ "type": "approval_request",
+ "proposals": [
+  {
+   "proposal_id": "P-001",
+   "action": "upgrade",
+   "component": "marsdb@0.6.11",
+   "from_version": "0.6.11",
+   "to_version": "0.6.11",
+   "priority": "P0",
+   "urgent": false,
+   "patchable": true,
+   "compatibility_level": "low",
+   "compatibility_impact": "patch version change (0.6.11 -> 0.6.11)",
+   "rationale": "Upgrade marsdb 0.6.11 -> 0.6.11: fixes the 1 published advisories on 0.6.11; 1 advisory(ies) remain on 0.6.11 (no cleaner release).",
+   "ai_rationale": "P-001 pins the direct dependency marsdb from the floating ^0.6.11 range to the exact version 0.6.11 in response to F-005 (1 known vulnerability, highest CRITICAL), addressing the single published advisory reachable from this package. The trade-off is explicitly partial: per the planner, 1 advisory (GHSA-5mrr-rgp6-x4gr) remains on 0.6.11 because no cleaner release exists, and the version number itself is unchanged, so the fix comes from tightening the range and regenerating the lockfile rather than from new upstream code. Approval should weigh that residual advisory against the low compatibility risk of the change.",
+   "residual_advisories": [
+    "GHSA-5mrr-rgp6-x4gr"
+   ],
+   "finding_ids": [
+    "F-005"
+   ],
+   "files_affected": [
+    "package.json"
+   ],
+   "diff": "--- a/package.json\n+++ b/package.json\n@@ -122,7 +122,7 @@\n     \"js-yaml\": \"^3.14.0\",\n     \"jsonwebtoken\": \"0.4.0\",\n     \"libxml2-wasm\": \"^0.7.1\",\n-    \"marsdb\": \"^0.6.11\",\n+    \"marsdb\": \"0.6.11\",\n     \"material-icons\": \"^1.13.14\",\n     \"morgan\": \"^1.10.0\",\n     \"multer\": \"^2.4.0\",\n# + package-lock.json regenerated from the registry during validation (npm --package-lock-only)\n",
+   "status": "proposed"
+  },
+  {
+   "proposal_id": "P-002",
+   "action": "upgrade",
+   "component": "handlebars@4.7.7",
+   "from_version": "4.7.7",
+   "to_version": "4.7.10",
+   "priority": "P1",
+   "urgent": false,
+   "patchable": true,
+   "compatibility_level": "low",
+   "compatibility_impact": "patch version change (4.7.7 -> 4.7.10)",
+   "rationale": "Override the transitive copies handlebars 4.7.7 -> 4.7.10: fixes the 11 published advisories on 4.7.7; no known advisories remain on the target.",
+   "ai_rationale": "P-002 adds an npm overrides entry forcing transitive handlebars copies to 4.7.10, clearing all 11 advisories reported in F-001 (highest CRITICAL, CVSS 9.8) with no residual advisories on the target. It is a patch-level change (4.7.7 -> 4.7.10), so compatibility risk is low, but the override applies globally and could affect any dependent that pinned a different handlebars line. The main trade-off is accepting a slightly looser control over transitive resolution in exchange for eliminating the whole advisory set.",
+   "residual_advisories": [],
+   "finding_ids": [
+    "F-001"
+   ],
+   "files_affected": [
+    "package.json"
+   ],
+   "diff": "--- a/package.json\n+++ b/package.json\n@@ -214,5 +214,8 @@\n     \"esbuild@0.28.1\": true,\n     \"@scarf/scarf\": false,\n     \"cypress@16.2.0\": true\n+  },\n+  \"overrides\": {\n+    \"handlebars\": \"4.7.10\"\n   }\n }\n# + package-lock.json regenerated from the registry during validation (npm --package-lock-only)\n",
+   "status": "proposed"
+  },
+  {
+   "proposal_id": "P-003",
+   "action": "upgrade",
+   "component": "sequelize@6.37.3",
+   "from_version": "6.37.3",
+   "to_version": "6.37.8",
+   "priority": "P1",
+   "urgent": false,
+   "patchable": true,
+   "compatibility_level": "low",
+   "compatibility_impact": "patch version change (6.37.3 -> 6.37.8)",
+   "rationale": "Upgrade sequelize 6.37.3 -> 6.37.8: fixes the 2 published advisories on 6.37.3; no known advisories remain on the target.",
+   "ai_rationale": "P-003 upgrades the direct dependency sequelize from ^6.37.3 to the exact version 6.37.8, resolving both advisories in F-002 (highest CRITICAL, CVSS 9.8) with no residual advisories on the target. It is a patch-level change within the same major line, so compatibility risk is described as low, though pinning to an exact version also ends caret-range updates for this package. The trade-off is that any behavior change in 6.37.4-6.37.8 lands at once while the vulnerability exposure goes to zero.",
+   "residual_advisories": [],
+   "finding_ids": [
+    "F-002"
+   ],
+   "files_affected": [
+    "package.json"
+   ],
+   "diff": "--- a/package.json\n+++ b/package.json\n@@ -135,7 +135,7 @@\n     \"sanitize-filename\": \"^1.6.3\",\n     \"sanitize-html\": \"1.4.2\",\n     \"semver\": \"^7.6.3\",\n-    \"sequelize\": \"^6.37.3\",\n+    \"sequelize\": \"6.37.8\",\n     \"serve-index\": \"^1.9.1\",\n     \"socket.io\": \"^4.8.4\",\n     \"sqlite3\": \"^5.1.7\",\n# + package-lock.json regenerated from the registry during validation (npm --package-lock-only)\n",
+   "status": "proposed"
+  },
+  {
+   "proposal_id": "P-004",
+   "action": "upgrade",
+   "component": "lodash@2.4.2",
+   "from_version": "2.4.2",
+   "to_version": "4.18.1",
+   "priority": "P1",
+   "urgent": false,
+   "patchable": true,
+   "compatibility_level": "high",
+   "compatibility_impact": "major version change (2.4.2 -> 4.18.1): breaking API changes are possible, run the tests",
+   "rationale": "Override the transitive copies lodash 2.4.2 -> 4.18.1: fixes the 4 published advisories on 2.4.2; no known advisories remain on the target.",
+   "ai_rationale": "P-004 uses an npm override to move transitive lodash copies from 2.4.2 to 4.18.1, clearing all 4 advisories in F-007 (highest CRITICAL, CVSS 9.1) with no residual advisories. The cost is material: this is a major-version jump (2.4.2 -> 4.18.1) with known breaking API changes, so the override could silently alter behavior in any dependent that used removed or renamed lodash functions. This trade-off favors full remediation over change risk and therefore requires real test coverage before approval.",
+   "residual_advisories": [],
+   "finding_ids": [
+    "F-007"
+   ],
+   "files_affected": [
+    "package.json"
+   ],
+   "diff": "--- a/package.json\n+++ b/package.json\n@@ -214,5 +214,8 @@\n     \"esbuild@0.28.1\": true,\n     \"@scarf/scarf\": false,\n     \"cypress@16.2.0\": true\n+  },\n+  \"overrides\": {\n+    \"lodash\": \"4.18.1\"\n   }\n }\n# + package-lock.json regenerated from the registry during validation (npm --package-lock-only)\n",
+   "status": "proposed"
+  },
+  {
+   "proposal_id": "P-005",
+   "action": "escalate_review",
+   "component": ".github/workflows/ci.yml",
+   "from_version": null,
+   "to_version": null,
+   "priority": "P1",
+   "urgent": false,
+   "patchable": false,
+   "compatibility_level": "low",
+   "compatibility_impact": "",
+   "rationale": "Stop passing the secret to downloaded / mutable code (see the related proposals) and rotate the secret: it may already be exposed.",
+   "ai_rationale": "",
+   "residual_advisories": [],
+   "finding_ids": [
+    "F-003"
+   ],
+   "files_affected": [
+    ".github/workflows/ci.yml"
+   ],
+   "diff": "",
+   "status": "manual"
+  },
+  {
+   "proposal_id": "P-006",
+   "action": "escalate_review",
+   "component": ".github/workflows/image_actions.yml",
+   "from_version": null,
+   "to_version": null,
+   "priority": "P1",
+   "urgent": false,
+   "patchable": false,
+   "compatibility_level": "low",
+   "compatibility_impact": "",
+   "rationale": "Stop passing the secret to downloaded / mutable code (see the related proposals) and rotate the secret: it may already be exposed.",
+   "ai_rationale": "",
+   "residual_advisories": [],
+   "finding_ids": [
+    "F-004"
+   ],
+   "files_affected": [
+    ".github/workflows/image_actions.yml"
+   ],
+   "diff": "",
+   "status": "manual"
+  },
+  {
+   "proposal_id": "P-007",
+   "action": "upgrade",
+   "component": "jws@0.2.6",
+   "from_version": "0.2.6",
+   "to_version": "3.2.3",
+   "priority": "P1",
+   "urgent": false,
+   "patchable": true,
+   "compatibility_level": "high",
+   "compatibility_impact": "major version change (0.2.6 -> 3.2.3): breaking API changes are possible, run the tests",
+   "rationale": "Override the transitive copies jws 0.2.6 -> 3.2.3: fixes the 2 published advisories on 0.2.6; no known advisories remain on the target.",
+   "ai_rationale": "P-007 overrides transitive jws copies from 0.2.6 to 3.2.3, resolving both advisories in F-009 (highest HIGH, CVSS 8.7) with no residual advisories on the target. The trade-off is a major-version change (0.2.6 -> 3.2.3) in a security-sensitive JWT signing/verification library, where API and algorithm-handling differences could break token flows. It is prioritized P1 rather than P0, but the breakage surface is the main thing to validate before approval.",
+   "residual_advisories": [],
+   "finding_ids": [
+    "F-009"
+   ],
+   "files_affected": [
+    "package.json"
+   ],
+   "diff": "--- a/package.json\n+++ b/package.json\n@@ -214,5 +214,8 @@\n     \"esbuild@0.28.1\": true,\n     \"@scarf/scarf\": false,\n     \"cypress@16.2.0\": true\n+  },\n+  \"overrides\": {\n+    \"jws\": \"3.2.3\"\n   }\n }\n# + package-lock.json regenerated from the registry during validation (npm --package-lock-only)\n",
+   "status": "proposed"
+  },
+  {
+   "proposal_id": "P-008",
+   "action": "escalate_review",
+   "component": "crypto-js@3.3.0",
+   "from_version": "3.3.0",
+   "to_version": null,
+   "priority": "P1",
+   "urgent": false,
+   "patchable": false,
+   "compatibility_level": "low",
+   "compatibility_impact": "",
+   "rationale": "No safe version of crypto-js could be determined (no version list from the npm registry (offline or unknown package)): mitigate in code or replace the library.",
+   "ai_rationale": "",
+   "residual_advisories": [],
+   "finding_ids": [
+    "F-006"
+   ],
+   "files_affected": [
+    "package.json"
+   ],
+   "diff": "",
+   "status": "manual"
+  },
+  {
+   "proposal_id": "P-009",
+   "action": "upgrade",
+   "component": "jsonwebtoken@0.1.0, 0.4.0",
+   "from_version": "0.1.0, 0.4.0",
+   "to_version": "9.0.0",
+   "priority": "P1",
+   "urgent": false,
+   "patchable": true,
+   "compatibility_level": "high",
+   "compatibility_impact": "major version change (0.1.0, 0.4.0 -> 9.0.0): breaking API changes are possible, run the tests",
+   "rationale": "Upgrade and make the transitive copies use the direct dependency's version jsonwebtoken 0.1.0, 0.4.0 -> 9.0.0: fixes the 4 published advisories on 0.1.0, 0.4.0; no known advisories remain on the target.",
+   "ai_rationale": "P-009 upgrades jsonwebtoken from 0.4.0 to 9.0.0 and adds an override using $jsonwebtoken so transitive 0.1.0 copies align to the same version, resolving F-012 and F-013 (each 4 advisories, highest CRITICAL, CVSS 8.1) with no residual advisories. This is the highest-risk proposal in the packet: a multi-major jump (0.x -> 9.0.0) in a security-critical library, where callback-based APIs, algorithm defaults and option names changed substantially. The trade-off is full advisory clearance at the cost of potentially significant application code changes in token handling.",
+   "residual_advisories": [],
+   "finding_ids": [
+    "F-012",
+    "F-013"
+   ],
+   "files_affected": [
+    "package.json"
+   ],
+   "diff": "--- a/package.json\n+++ b/package.json\n@@ -120,7 +120,7 @@\n     \"html-entities\": \"^1.4.0\",\n     \"i18n\": \"^0.11.1\",\n     \"js-yaml\": \"^3.14.0\",\n-    \"jsonwebtoken\": \"0.4.0\",\n+    \"jsonwebtoken\": \"9.0.0\",\n     \"libxml2-wasm\": \"^0.7.1\",\n     \"marsdb\": \"^0.6.11\",\n     \"material-icons\": \"^1.13.14\",\n@@ -214,5 +214,8 @@\n     \"esbuild@0.28.1\": true,\n     \"@scarf/scarf\": false,\n     \"cypress@16.2.0\": true\n+  },\n+  \"overrides\": {\n+    \"jsonwebtoken\": \"$jsonwebtoken\"\n   }\n }\n# + package-lock.json regenerated from the registry during validation (npm --package-lock-only)\n",
+   "status": "proposed"
+  },
+  {
+   "proposal_id": "P-010",
+   "action": "upgrade",
+   "component": "lodash-es@4.17.21",
+   "from_version": "4.17.21",
+   "to_version": "4.18.1",
+   "priority": "P1",
+   "urgent": false,
+   "patchable": true,
+   "compatibility_level": "medium",
+   "compatibility_impact": "minor version change (4.17.21 -> 4.18.1)",
+   "rationale": "Upgrade lodash-es 4.17.21 -> 4.18.1: fixes the 2 published advisories on 4.17.21; no known advisories remain on the target.",
+   "ai_rationale": "Upgrading lodash-es from 4.17.21 to 4.18.1 resolves the 2 published advisories behind finding F-015 (highest HIGH, CVSS 8.1) and the planner records no residual advisories on the target. The trade-off is a minor-version bump (medium compatibility), so the main risk is subtle behavior changes in the frontend bundle rather than API breakage. The dependency is pinned exactly (^4.17.21 -> 4.18.1) so the resolution is deterministic and reversible per the rollback plan.",
+   "residual_advisories": [],
+   "finding_ids": [
+    "F-015"
+   ],
+   "files_affected": [
+    "frontend/package.json"
+   ],
+   "diff": "--- a/frontend/package.json\n+++ b/frontend/package.json\n@@ -51,7 +51,7 @@\n     \"flag-icons\": \"^6.9.2\",\n     \"font-mfizz\": \"^2.4.1\",\n     \"jwt-decode\": \"^4.0.0\",\n-    \"lodash-es\": \"^4.17.21\",\n+    \"lodash-es\": \"4.18.1\",\n     \"material-icons\": \"^1.13.14\",\n     \"ng-gallery\": \"^12.0.0\",\n     \"ng2-file-upload\": \"^10.0.0\",\n# + package-lock.json regenerated from the registry during validation (npm --package-lock-only)\n",
+   "status": "proposed"
+  },
+  {
+   "proposal_id": "P-011",
+   "action": "upgrade",
+   "component": "express-jwt@0.1.3",
+   "from_version": "0.1.3",
+   "to_version": "6.0.0",
+   "priority": "P1",
+   "urgent": false,
+   "patchable": true,
+   "compatibility_level": "high",
+   "compatibility_impact": "major version change (0.1.3 -> 6.0.0): breaking API changes are possible, run the tests",
+   "rationale": "Upgrade express-jwt 0.1.3 -> 6.0.0: fixes the 1 published advisories on 0.1.3; no known advisories remain on the target.",
+   "ai_rationale": "Upgrading express-jwt from 0.1.3 to 6.0.0 clears the advisory in finding F-024 (HIGH, CVSS 7.7) with no residual advisories reported on the target. This is a major-version jump flagged as high compatibility risk, so breaking API changes in how the JWT middleware is configured and invoked are the key trade-off. The change is limited to the version specifier in package.json plus a regenerated lockfile, and is revertible via the recorded rollback.",
+   "residual_advisories": [],
+   "finding_ids": [
+    "F-024"
+   ],
+   "files_affected": [
+    "package.json"
+   ],
+   "diff": "--- a/package.json\n+++ b/package.json\n@@ -106,7 +106,7 @@\n     \"ethers\": \"^6.16.0\",\n     \"express\": \"^4.22.1\",\n     \"express-ipfilter\": \"^1.3.2\",\n-    \"express-jwt\": \"0.1.3\",\n+    \"express-jwt\": \"6.0.0\",\n     \"express-rate-limit\": \"^7.5.1\",\n     \"express-robots-txt\": \"^0.5.0\",\n     \"express-security.txt\": \"^2.0.0\",\n# + package-lock.json regenerated from the registry during validation (npm --package-lock-only)\n",
+   "status": "proposed"
+  },
+  {
+   "proposal_id": "P-012",
+   "action": "upgrade",
+   "component": "ip@2.0.1",
+   "from_version": "2.0.1",
+   "to_version": "2.0.1",
+   "priority": "P1",
+   "urgent": false,
+   "patchable": true,
+   "compatibility_level": "low",
+   "compatibility_impact": "patch version change (2.0.1 -> 2.0.1)",
+   "rationale": "Override the transitive copies ip 2.0.1 -> 2.0.1: fixes the 1 published advisories on 2.0.1; 1 advisory(ies) remain on 2.0.1 (no cleaner release).",
+   "ai_rationale": "Finding F-011 flags ip@2.0.1 (transitive, HIGH, CVSS 8.1); the planner's chosen action is an npm `overrides` entry pinning ip to 2.0.1 so all transitive copies resolve to one version. The packet records that 1 advisory (GHSA-2p57-rm9w-gvfp) remains on 2.0.1 because no cleaner release exists, so approving this accepts a documented residual risk rather than a fully clean target. Compatibility is assessed as low (patch-level, same version), keeping the blast radius small.",
+   "residual_advisories": [
+    "GHSA-2p57-rm9w-gvfp"
+   ],
+   "finding_ids": [
+    "F-011"
+   ],
+   "files_affected": [
+    "package.json"
+   ],
+   "diff": "--- a/package.json\n+++ b/package.json\n@@ -214,5 +214,8 @@\n     \"esbuild@0.28.1\": true,\n     \"@scarf/scarf\": false,\n     \"cypress@16.2.0\": true\n+  },\n+  \"overrides\": {\n+    \"ip\": \"2.0.1\"\n   }\n }\n# + package-lock.json regenerated from the registry during validation (npm --package-lock-only)\n",
+   "status": "proposed"
+  },
+  {
+   "proposal_id": "P-013",
+   "action": "upgrade",
+   "component": "@angular/router@22.0.1",
+   "from_version": "22.0.1",
+   "to_version": "22.2.1",
+   "priority": "P1",
+   "urgent": false,
+   "patchable": true,
+   "compatibility_level": "medium",
+   "compatibility_impact": "minor version change (22.0.1 -> 22.2.1)",
+   "rationale": "Upgrade @angular/router 22.0.1 -> 22.2.1: fixes the 3 published advisories on 22.0.1; no known advisories remain on the target.",
+   "ai_rationale": "Upgrading @angular/router from 22.0.1 to 22.2.1 resolves the 3 advisories in finding F-021 (highest HIGH) with no residual advisories on the target. The trade-off is a minor-version bump (medium compatibility) applied as an exact pin (^22.0.1 -> 22.2.1) while the other @angular packages keep their ^22.0.1 ranges, so peer alignment within the Angular set is the main thing to watch. Rollback is a simple revert of the package.json and lockfile change.",
+   "residual_advisories": [],
+   "finding_ids": [
+    "F-021"
+   ],
+   "files_affected": [
+    "frontend/package.json"
+   ],
+   "diff": "--- a/frontend/package.json\n+++ b/frontend/package.json\n@@ -29,7 +29,7 @@\n     \"@angular/forms\": \"^22.0.1\",\n     \"@angular/material\": \"^22.0.1\",\n     \"@angular/platform-browser\": \"^22.0.1\",\n-    \"@angular/router\": \"^22.0.1\",\n+    \"@angular/router\": \"22.2.1\",\n     \"@codemirror/lang-javascript\": \"^6.2.5\",\n     \"@codemirror/lang-json\": \"^6.0.2\",\n     \"@codemirror/lang-yaml\": \"^6.1.2\",\n# + package-lock.json regenerated from the registry during validation (npm --package-lock-only)\n",
+   "status": "proposed"
+  },
+  {
+   "proposal_id": "P-014",
+   "action": "upgrade",
+   "component": "sanitize-html@1.4.2",
+   "from_version": "1.4.2",
+   "to_version": "2.18.1",
+   "priority": "P1",
+   "urgent": false,
+   "patchable": true,
+   "compatibility_level": "high",
+   "compatibility_impact": "major version change (1.4.2 -> 2.18.1): breaking API changes are possible, run the tests",
+   "rationale": "Upgrade sanitize-html 1.4.2 -> 2.18.1: fixes the 10 published advisories on 1.4.2; no known advisories remain on the target.",
+   "ai_rationale": "Upgrading sanitize-html from 1.4.2 to 2.18.1 clears the 10 advisories behind finding F-031 (highest HIGH, CVSS 7.5) with no residual advisories on the target. This is a major-version change flagged as high compatibility risk, so the trade-off is possible breaking changes in sanitization options and defaults versus a large reduction in HTML-injection exposure. The edit is confined to the version specifier plus a regenerated lockfile and can be reverted via the remediation commit.",
+   "residual_advisories": [],
+   "finding_ids": [
+    "F-031"
+   ],
+   "files_affected": [
+    "package.json"
+   ],
+   "diff": "--- a/package.json\n+++ b/package.json\n@@ -133,7 +133,7 @@\n     \"proxy-agent\": \"^8.0.2\",\n     \"pug\": \"^3.0.3\",\n     \"sanitize-filename\": \"^1.6.3\",\n-    \"sanitize-html\": \"1.4.2\",\n+    \"sanitize-html\": \"2.18.1\",\n     \"semver\": \"^7.6.3\",\n     \"sequelize\": \"^6.37.3\",\n     \"serve-index\": \"^1.9.1\",\n# + package-lock.json regenerated from the registry during validation (npm --package-lock-only)\n",
+   "status": "proposed"
+  },
+  {
+   "proposal_id": "P-015",
+   "action": "upgrade",
+   "component": "zod@4.4.2, 4.4.3",
+   "from_version": "4.4.2, 4.4.3",
+   "to_version": "4.6.6",
+   "priority": "P1",
+   "urgent": false,
+   "patchable": true,
+   "compatibility_level": "medium",
+   "compatibility_impact": "minor version change (4.4.2, 4.4.3 -> 4.6.6)",
+   "rationale": "Upgrade and make the transitive copies use the direct dependency's version zod 4.4.2, 4.4.3 -> 4.6.6: fixes the 1 published advisories on 4.4.2, 4.4.3; no known advisories remain on the target.",
+   "ai_rationale": "Upgrading zod from 4.4.2 and 4.4.3 to 4.6.6 resolves the advisories in findings F-035 (transitive, HIGH, CVSS 7.5) and F-036 (direct, HIGH, CVSS 7.5), with no residual advisories on the target. The change pins the direct dependency exactly and adds an override (`\"zod\": \"$zod\"`) so transitive copies follow the direct version, trading a small amount of version flexibility for a single deduplicated zod. Compatibility is assessed as medium (minor-version change), so schema/runtime behavior is the thing to validate.",
+   "residual_advisories": [],
+   "finding_ids": [
+    "F-035",
+    "F-036"
+   ],
+   "files_affected": [
+    "package.json"
+   ],
+   "diff": "--- a/package.json\n+++ b/package.json\n@@ -144,7 +144,7 @@\n     \"unzipper\": \"^0.12.3\",\n     \"winston\": \"^3.16.0\",\n     \"z85\": \"^0.0.2\",\n-    \"zod\": \"^4.4.3\"\n+    \"zod\": \"4.6.6\"\n   },\n   \"devDependencies\": {\n     \"@cyclonedx/cyclonedx-npm\": \"^2.0.0||^3.0.0||^4.00\",\n@@ -214,5 +214,8 @@\n     \"esbuild@0.28.1\": true,\n     \"@scarf/scarf\": false,\n     \"cypress@16.2.0\": true\n+  },\n+  \"overrides\": {\n+    \"zod\": \"$zod\"\n   }\n }\n# + package-lock.json regenerated from the registry during validation (npm --package-lock-only)\n",
+   "status": "proposed"
+  }
+ ]
+}

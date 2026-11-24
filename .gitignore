@@ -1,0 +1,10 @@
+# API keys for the agent LLM providers (see sscg/.env.example)
+.env
+.env.*
+!.env.example
+
+# Python bytecode (files already tracked stay tracked until removed with git rm --cached)
+__pycache__/
+
+# saved state of agent runs paused for approval (local SQLite checkpoints)
+.sscg-state/

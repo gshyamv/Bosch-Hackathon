@@ -1,0 +1,37 @@
+# Sample organisation policy (a hackathon example, edit for your team).
+# Detection: the Triage agent uses it to tell "allowed by policy" from "suspicious" (e.g. a corporate npm mirror).
+# Remediation: the same rules can be enforced as policy-as-code (OPA / Conftest) and read by the Remediation agent.
+
+registries:
+  npm: [registry.npmjs.org, registry.yarnpkg.com]
+  pypi: [pypi.org, files.pythonhosted.org]
+  maven: [repo.maven.apache.org, repo1.maven.org]
+  corporate_mirrors: []          # add internal mirrors here (Artifactory / Nexus / Verdaccio hosts)
+
+container_images:
+  trusted_publishers: [docker.io/library, gcr.io/distroless, cgr.dev/chainguard, mcr.microsoft.com, public.ecr.aws/docker/library]
+  require_digest: true
+  forbidden_tags: [latest]
+  run_as_non_root: true
+
+ci_cd:
+  third_party_actions_pinned_to_sha: true
+  first_party_action_owners: [actions, github]
+  default_token_permissions: read
+  forbid_pull_request_target_checkout: true
+  forbid_curl_pipe_shell: true
+
+dependencies:
+  require_lockfile: true
+  python_exact_pins: true
+  new_direct_dependency_requires_review: true
+  install_scripts: "blocked unless the package is on the allow-list"
+  install_script_allowlist: [node-gyp, esbuild, sharp, bcrypt, sqlite3, puppeteer, husky, core-js]
+
+change_management:
+  first_time_contributor_build_changes_need_second_reviewer: true
+
+remediation:                     # out-of-scope rule from the problem statement: no change without a human
+  requires_human_approval: true
+  auto_merge: false
+  sandbox_only_validation: true

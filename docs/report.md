@@ -1,7 +1,7 @@
 # Dependency Graph: Progress Report
 
-**Project:** Software Supply Chain Guardian (Bosch Hackathon, Day 1)
-**Checkpoint:** Dependency graph at 4 PM
+**Project:** Software Supply Chain Guardian (Bosch Hackathon)
+**Milestone:** dependency graph
 **Date:** 23 Nov 2026
 **Status:** Graph delivered and checked. Only the GitHub push is left.
 

@@ -7,7 +7,7 @@
 
 Your master prompt is huge (8 agents, 14 dashboard pages, cost module, multi-tenant). The Bosch slides say:
 
-- **Day 1 = "Build the Guardian's Eyes"** (visibility + detection). Remediation comes on Day 2.
+- **Detection** (visibility + evidence) comes first; **remediation** builds on it, in the same workflow.
 - **Core capabilities show completeness. Stretch goals show innovation.**
 - Judges want a **working end-to-end workflow** (Discover > Detect > Analyze > Remediate > Validate), not 14 half-finished pages.
 
@@ -15,7 +15,7 @@ So the plan is tiered. **Build the thin end-to-end slice first, then deepen.**
 
 | Tier | Meaning | Rule |
 |---|---|---|
-| **P0 - MUST** | Bosch core + Day 1 checkpoint | Done before anything else. Demo fails without it. |
+| **P0 - MUST** | Bosch core + the detection question | Done before anything else. Demo fails without it. |
 | **P1 - SHOULD** | Bosch stretch goals + your differentiators | Only after P0 works end-to-end. |
 | **P2 - COULD** | Nice-to-have from your master prompt | Only if time remains; otherwise list as "Roadmap" in the deck. |
 
@@ -69,8 +69,8 @@ Use as "according to X (year)". Most are vendor-reported with different methodol
 | 4 | Detect >=1 supply-chain anomaly (typosquat, unexpected dep, suspicious update/install script, untrusted image, modified lockfile) | P0 | Agent 3 |
 | 5 | Inspect >=1 container image or CI/CD workflow | P0 | Agent 1 + 3 |
 | 6 | Analyze & prioritize with AI (exploitability, exposure, provenance, app context) | P0 | Agents 4-5 |
-| 7 | Recommend safe remediation (upgrade/replace/pin/remove/mitigate/block/review) | P0 (Day 2) | Agent 6 |
-| 8 | Validate: build, test, rescan, verify risk reduced, detect new problems, evidence report | P0 (Day 2) | Agent 7 |
+| 7 | Recommend safe remediation (upgrade/replace/pin/remove/mitigate/block/review) | P0 | Agent 6 |
+| 8 | Validate: build, test, rescan, verify risk reduced, detect new problems, evidence report | P0 | Agent 7 |
 | 9 | Present evidence: what, which component, dependency path, evidence, initial risk | P0 | Dashboard + Agent 8 |
 
 ### 1.2 Bosch stretch goals
@@ -111,7 +111,7 @@ Criteria: free OSS, public repo, package.json + lockfile, Dockerfile, existing t
 |---|---|---|
 | **OWASP Juice Shop** (Node) | Large dep tree, Dockerfile, tests, real known vulns in deps, well known to judges | Intentionally vulnerable: judges may see findings as "too easy"; heavy build/test time |
 | **OWASP NodeGoat** | Smaller, simpler | Old deps, build may break on modern Node |
-| **A small Express/React sample app** (e.g. a todo/realworld Express API) | Fast builds and tests (critical for Day 2 validation loop), easy to control | Fewer organic findings; you must pin an older dependency to create vulns |
+| **A small Express/React sample app** (e.g. a todo/realworld Express API) | Fast builds and tests (critical for the validation loop), easy to control | Fewer organic findings; you must pin an older dependency to create vulns |
 
 **Recommendation:** use a **small-to-medium Node/Express app with a lockfile + Dockerfile + tests** that builds in under about 2 minutes, then pin a known-vulnerable older version of a library to create a genuine, reproducible finding (genuine OSV records, not invented). Keep Juice Shop only as a second app for the cross-application demo if time permits. Whatever you pick, record repo URL, commit SHA, and license in `docs/SOURCES.md`.
 
@@ -239,7 +239,7 @@ Never mix: official CVSS lives in `severity`, Guardian's heuristic lives in a se
 ### Agent 1: Discovery
 - **Inputs:** repo path. **Outputs:** `Inventory` + CycloneDX SBOM + NetworkX graph (GraphML/JSON).
 - **Build:** detect manifests (package.json, package-lock.json, requirements.txt, pyproject.toml, Dockerfile, `.github/workflows/*.yml`, docker-compose). Parse `package-lock.json` (v2/v3 `packages` map) for the full tree incl. `resolved` and `integrity` hashes; build edges from each package's `dependencies`. Run Syft/Trivy for the container image SBOM. Record: missing lockfile, unpinned ranges (`^`, `~`, `*`, `latest`), git/URL deps, undocumented components (installed but not declared).
-- **Component origin (Day 1 slide: "identify where each component originates"):** for every component record `origin` = registry/host from `resolved`, source repo URL from package metadata, and how it entered the tree (direct declaration, transitive via X, base image layer, CI action). Show it in the component drawer.
+- **Component origin (problem statement: "identify where each component originates"):** for every component record `origin` = registry/host from `resolved`, source repo URL from package metadata, and how it entered the tree (direct declaration, transitive via X, base image layer, CI action). Show it in the component drawer.
 - **Java/Maven (slide shows pom.xml):** optional P2 connector. Syft/Trivy can read `pom.xml` and emit CycloneDX with no custom code, so list it as "supported via Trivy/Syft, not deeply analyzed."
 - **Dependency path:** `nx.all_simple_paths` / shortest path from root to component. "Why is it included" = path; "introduced by" = first-level ancestor.
 - **Acceptance:** SBOM validates against CycloneDX schema; component count matches `npm ls --all`; every transitive component has >=1 path to root.
@@ -341,8 +341,8 @@ Use branches: `baseline` (clean-ish), `scenario/supply-chain-incident` (introduc
 
 ## 8. Dashboard plan (Streamlit; build in this order)
 
-**P0 pages (Day 1):** (1) Security Overview, (2) Software Inventory, (3) Interactive Dependency Graph, (4) Vulnerabilities, (5) Suspicious Changes, (6) Component Detail drawer, (7) Evidence/Report.
-**P0 pages (Day 2):** (8) Risk Prioritization, (9) Remediation Approval Center, (10) Before/After Validation.
+**P0 pages (detection):** (1) Security Overview, (2) Software Inventory, (3) Interactive Dependency Graph, (4) Vulnerabilities, (5) Suspicious Changes, (6) Component Detail drawer, (7) Evidence/Report.
+**P0 pages (remediation):** (8) Risk Prioritization, (9) Remediation Approval Center, (10) Before/After Validation.
 **P1:** (11) Reachability view, (12) Recent CVE monitoring + timeline ("yesterday vs today"), (13) Cross-application exposure, (14) Cost and Efficiency, (15) Chat assistant.
 
 **Component Detail view must answer (from your prompt):** what is it, why included (path), introduced by, which apps use it, known vulns, what changed, risk + factors, evidence links, recommended action, validation status.
@@ -444,38 +444,38 @@ guardian/
 
 ## 14. Time-boxed schedule
 
-I don't know your exact hackathon hours, so this is by **blocks**. Scale to your real hours; Day 1 = visibility, Day 2 = remediation (per the Bosch slides). Today is Mon 23 Nov; confirm submission deadlines with the organizers.
+I don't know your exact hackathon hours, so this is by **blocks**. Scale to your real hours; detection first, then remediation. Today is Mon 23 Nov; confirm submission deadlines with the organizers.
 
 ### Block 0: Kickoff (about 1-2 h)
 - Choose app, clone to isolated folder, record SHA/license. Install Docker, Trivy, Syft, Cosign, OPA, Python env. Verify the app builds/tests locally. Freeze data contracts (Sec 4). Assign owners. Create repo, CI for lint/tests.
 - **Gate:** app builds and tests green; contracts agreed.
 
-### Day 1: "Build the Guardian's Eyes" (target: Day 1 Checkpoint)
-Checkpoint line: *"Show us what is in the application, what changed, and what appears risky."*
+### Detection blocks (discover, detect, evidence)
+Question to answer: *"Show us what is in the application, what changed, and what appears risky."*
 
 | Block | Work | Output |
 |---|---|---|
-| D1-A | Agent 1: parse lockfile, SBOM, graph, Dockerfile + CI discovery | `sbom.cdx.json`, graph JSON |
-| D1-B | Agent 2: OSV + Trivy + KEV/EPSS, 90-day flag, caching | vuln findings with evidence |
+| A-A | Agent 1: parse lockfile, SBOM, graph, Dockerfile + CI discovery | `sbom.cdx.json`, graph JSON |
+| A-B | Agent 2: OSV + Trivy + KEV/EPSS, 90-day flag, caching | vuln findings with evidence |
 | D1-C (parallel) | Agent 3: git-diff anomalies (lockfile, new dep, install script, typosquat, Docker) + scenario branch | anomaly report |
-| D1-D | Skeleton orchestrator (parallel fan-out + evidence store) | one command runs A>B>C |
-| D1-E | Dashboard P0 pages 1-7 incl. graph + component drawer | demoable UI |
-| D1-F | Simple (formula) risk level + evidence view; write Day-1 demo script; rehearse | Day 1 demo |
-- **Gate (must pass before Day 2):** repo > SBOM > graph > vulns > >=1 anomaly > evidence on screen; transitive path displayed.
+| A-D | Skeleton orchestrator (parallel fan-out + evidence store) | one command runs A>B>C |
+| A-E | Dashboard P0 pages 1-7 incl. graph + component drawer | demoable UI |
+| A-F | Simple (formula) risk level + evidence view; write the detection demo script; rehearse | detection demo |
+- **Gate (must pass before remediation):** repo > SBOM > graph > vulns > >=1 anomaly > evidence on screen; transitive path displayed.
 
-### Day 2: Remediate, validate, deepen
+### Remediation blocks: remediate, validate, deepen
 | Block | Work |
 |---|---|
-| D2-A | Agent 6 proposals + patch branch generation |
-| D2-B | Approval gate (UI + persistence + enforcement) |
-| D2-C | Agent 7 sandbox validation + before/after diff + verdict logic |
-| D2-D | Agent 4 reachability (simple) + Agent 5 full scoring + LLM narratives |
-| D2-E | Agent 8 report (PDF/JSON/SBOM) |
-| D2-F | Yesterday-vs-today snapshots/diff + scheduler |
-| D2-G | OPA policy gate (Sec 9) |
-| D2-H | Chat assistant, cross-app view, cost page (as time permits, in this order) |
-| D2-I | Docs, Responsible AI note, architecture diagrams, deck, demo rehearsals x3, backup recording |
-- **Feature freeze** at about 75% of Day 2 time. Remaining time = integration, bug fixes, docs, rehearsal.
+| B-A | Agent 6 proposals + patch branch generation |
+| B-B | Approval gate (UI + persistence + enforcement) |
+| B-C | Agent 7 sandbox validation + before/after diff + verdict logic |
+| B-D | Agent 4 reachability (simple) + Agent 5 full scoring + LLM narratives |
+| B-E | Agent 8 report (PDF/JSON/SBOM) |
+| B-F | Yesterday-vs-today snapshots/diff + scheduler |
+| B-G | OPA policy gate (Sec 9) |
+| B-H | Chat assistant, cross-app view, cost page (as time permits, in this order) |
+| B-I | Docs, Responsible AI note, architecture diagrams, deck, demo rehearsals x3, backup recording |
+- **Feature freeze** at about 75% of the remaining time. Remaining time = integration, bug fixes, docs, rehearsal.
 
 ### Cut list if behind schedule (cut in this order)
 1. Multi-org tenancy UI (keep data column + slide)
