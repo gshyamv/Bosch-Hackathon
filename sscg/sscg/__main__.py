@@ -62,7 +62,7 @@ def main(argv=None):
     ag = sub.add_parser("agent", help="the same Day 1 pipeline run as a LangGraph multi-agent workflow, "
                                       "with AI triage of suspicious changes and an AI evidence summary")
     _scan_args(ag)
-    ag.add_argument("--llm", choices=["auto", "claude", "gemini", "groq", "grok", "none"],
+    ag.add_argument("--llm", choices=["auto", "claude", "gemini", "groq", "deepseek", "grok", "none"],
                     help="LLM provider (default: SSCG_LLM_PROVIDER from .env, else auto = first provider with a key; "
                          "groq = Groq/GroqCloud, grok = xAI; 'none' = rules-only fallback, no data leaves the machine)")
     ag.add_argument("--list-models", action="store_true",

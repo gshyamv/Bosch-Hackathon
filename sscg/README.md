@@ -15,7 +15,7 @@ python -m sscg scan <repo> --offline                     # cached API answers on
 streamlit run ui/app.py                                  # dashboard
 
 # agentic version (LangGraph agents + LLM triage): ../docs/agentic.md
-copy .env.example .env                                   # put ONE API key (Claude / Gemini / Groq / Grok) in .env
+copy .env.example .env                                   # put ONE API key (Claude / Gemini / Groq / DeepSeek / Grok) in .env
 python -m sscg agent ..\targets\sscg-demo-target          # no key: rules-only fallback
 python -m sscg agent ..\targets\sscg-demo-target --llm groq --day2 --decisions later   # Day 2: ../docs/day2.md
 python -m sscg approve ..\targets\sscg-demo-target --approve all-patchable --by "Your Name"

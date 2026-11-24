@@ -20,6 +20,7 @@ from .config import AgentSettings, api_key
 
 XAI_BASE_URL = "https://api.x.ai/v1"                  # Grok (xAI): OpenAI-compatible
 GROQ_BASE_URL = "https://api.groq.com/openai/v1"       # Groq (GroqCloud): OpenAI-compatible
+DEEPSEEK_BASE_URL = "https://api.deepseek.com/v1"       # DeepSeek: OpenAI-compatible
 
 
 class LLMError(RuntimeError):
@@ -29,7 +30,7 @@ class LLMError(RuntimeError):
         self.fatal = fatal
 
 
-FATAL_STATUS = {400, 401, 403, 404}
+FATAL_STATUS = {400, 401, 402, 403, 404}   # 402 = payment required (e.g. DeepSeek: insufficient balance)
 
 
 class QuotaStop(RuntimeError):
@@ -210,7 +211,7 @@ class GeminiLLM(LLM):
 
 
 class OpenAICompatLLM(LLM):
-    """Any OpenAI-compatible chat-completions API (Grok, Groq). Subclasses set provider + base URL."""
+    """Any OpenAI-compatible chat-completions API (Groq, DeepSeek, Grok). Subclasses set provider + base URL."""
     base_url = ""
 
     def __init__(self, s: AgentSettings):
@@ -248,7 +249,15 @@ class GroqLLM(OpenAICompatLLM):
         return GROQ_BASE_URL
 
 
-IMPLEMENTATIONS = {"claude": ClaudeLLM, "gemini": GeminiLLM, "groq": GroqLLM, "grok": GrokLLM}
+class DeepSeekLLM(OpenAICompatLLM):
+    """DeepSeek (platform.deepseek.com). deepseek-chat answers directly; deepseek-reasoner thinks first (slower)."""
+    provider = "deepseek"
+
+    def endpoint(self) -> str:
+        return DEEPSEEK_BASE_URL
+
+
+IMPLEMENTATIONS = {"claude": ClaudeLLM, "gemini": GeminiLLM, "groq": GroqLLM, "deepseek": DeepSeekLLM, "grok": GrokLLM}
 
 
 def list_models(s: AgentSettings) -> list[str]:

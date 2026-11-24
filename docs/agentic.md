@@ -15,7 +15,7 @@ extend it on Day 2.*
   * The **Triage agent** judges each suspicious change *in context*. It can ask for more evidence, which sends the
     finding back through the evidence loop.
   * The **Narrator agent** answers the Day 1 checkpoint question in prose.
-* **Providers:** Claude, Gemini, Groq or Grok (xAI), selected in `sscg/.env`. **No key means a rules-only fallback**, so the
+* **Providers:** Claude, Gemini, Groq, DeepSeek or Grok (xAI), selected in `sscg/.env`. **No key means a rules-only fallback**, so the
   demo never depends on an API.
 * **Guards:** secrets are redacted before anything is sent. Every reply is validated against a schema. A grounding
   check downgrades any answer that mentions an ID or version that is not in the evidence. AI output never changes a
@@ -86,7 +86,7 @@ flowchart TD
 
     KB[(Knowledge base<br/>playbooks · attack patterns · policy)] -.-> G
     KB -.-> TR
-    LLM[(Claude / Gemini / Groq / Grok<br/>or rules-only fallback)] -.-> TR
+    LLM[(Claude / Gemini / Groq / DeepSeek / Grok<br/>or rules-only fallback)] -.-> TR
     LLM -.-> N
 ```
 
@@ -161,9 +161,14 @@ start time, seconds, status, tokens, redactions) to `state["agent_runs"]`.
 | Claude (`claude`) | `ANTHROPIC_API_KEY` | `CLAUDE_MODEL` (`claude-opus-5-5`) | console.anthropic.com |
 | Gemini (`gemini`) | `GEMINI_API_KEY` (or `GOOGLE_API_KEY`) | `GEMINI_MODEL` (`gemini-3.5-flash,gemini-3.8-flash`) | aistudio.google.com |
 | Groq / GroqCloud (`groq`) | `GROQ_API_KEY` | `GROQ_MODEL` (`openai/gpt-oss-120b,llama-3.3-70b-versatile`) | console.groq.com/keys |
+| DeepSeek (`deepseek`) | `DEEPSEEK_API_KEY` | `DEEPSEEK_MODEL` (`deepseek-chat,deepseek-reasoner`) | platform.deepseek.com/api_keys |
 | Grok, xAI (`grok`) | `XAI_API_KEY` | `GROK_MODEL` (`grok-4`) | console.x.ai |
 
-> **Groq ≠ Grok.** Groq (GroqCloud) hosts open models; Grok is xAI's model. Both use an OpenAI-compatible API, so
+> **DeepSeek** is prepaid: with no balance it answers HTTP 402, which stops the LLM for the run like a quota error.
+> `deepseek-chat` answers directly; `deepseek-reasoner` thinks first (slower, more output tokens).
+>
+> **Groq ≠ Grok.** Groq (GroqCloud) hosts open models; Grok is xAI's model. Groq, DeepSeek and Grok all use an
+> OpenAI-compatible API, so
 > both go through the `openai` SDK with a different base URL (`agents/llm.py`).
 
 * **Model lists with fallbacks.** A model variable may list several models, comma-separated. At startup one tiny
@@ -179,7 +184,7 @@ start time, seconds, status, tokens, redactions) to `state["agent_runs"]`.
   `claude-sonnet-5-5` or `claude-haiku-5-5` also work.
 
 3. Provider choice: `SSCG_LLM_PROVIDER=auto` (default) uses the first provider that has a key, in the order claude,
-   gemini, groq, grok. You can force one with `--llm claude|gemini|groq|grok`, or use `--llm none` for rules-only
+   gemini, groq, deepseek, grok. You can force one with `--llm claude|gemini|groq|deepseek|grok`, or use `--llm none` for rules-only
    (no data leaves the machine). Values starting with `your-` count as "not set".
 4. Limits (in `.env`): `SSCG_LLM_MAX_TRIAGE` (15 findings per scan), `SSCG_LLM_MAX_ROUNDS` (2),
    `SSCG_LLM_MAX_TOKENS` (4096), `SSCG_LLM_CONCURRENCY` (4), `SSCG_LLM_TEMPERATURE` (unset = provider default).
@@ -376,7 +381,7 @@ Claude, Groq or Grok calls (no keys at the time). Judge the quality of real mode
 | Registry metadata | npm, PyPI and Docker Hub only (no Maven, no other container registries) |
 | Cache stores non-200 answers (existing `cache.py` behaviour) | A rate-limited registry reply would be remembered as "not found". Delete that cache file to retry. |
 | Triage cap | Only the top `SSCG_LLM_MAX_TRIAGE` (15) judgement findings are triaged; the rest are noted in `agentic.json`. |
-| Default model names | Gemini checked live (§4); Groq / Grok not verified, so check with `--list-models`. |
+| Default model names | Gemini and Groq checked live; DeepSeek tested against a mock of its API only; Grok not verified. Check with `--list-models`. |
 | Free-tier quotas | A 429 stops the LLM for the rest of the run (by design). Lower `SSCG_LLM_MAX_TRIAGE` or the `*_RPM` values for free keys. |
 
 ---
@@ -406,7 +411,7 @@ sscg/
         ├── tools.py             read-only evidence tools
         ├── guard.py             redact() before, ground() after every LLM call
         ├── schemas.py           pydantic contracts (Day 1 + Day 2)
-        ├── llm.py               Claude / Gemini / Groq / Grok via official SDKs; pacing, quota stop, model check, complete_json()
+        ├── llm.py               Claude / Gemini / Groq / DeepSeek / Grok via official SDKs; pacing, quota stop, model check
         ├── config.py            .env loading, provider selection, limits
         ├── kb.py                knowledge base loader + retrieve(finding)
         ├── runner.py            CLI runner: invoke, interrupt/resume loop, console summary

@@ -116,7 +116,8 @@ a1, a2, a3, _ = st.columns([1, 1, 1, 1])
 agentic = a1.toggle("Agentic AI (LangGraph agents)", value=False,
                     help="Runs `python -m sscg agent`: the same pipeline plus AI triage of suspicious changes and an "
                          "AI summary. Uses the API key in sscg/.env; without one it runs the rules-only fallback.")
-llm_choice = a2.selectbox("LLM provider", ["auto", "claude", "gemini", "groq", "grok", "none"], disabled=not agentic,
+llm_choice = a2.selectbox("LLM provider", ["auto", "claude", "gemini", "groq", "deepseek", "grok", "none"],
+                          disabled=not agentic,
                           help="groq = Groq / GroqCloud; grok = xAI Grok")
 day2 = a3.toggle("Day 2: prioritise & remediate", value=False, disabled=not agentic,
                  help="Adds exploitability (KEV/EPSS), reachability, prioritisation and remediation proposals. The run "

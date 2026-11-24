@@ -12,7 +12,7 @@ SSCG scans a repository **without installing or running anything** and answers t
 * **What changed:** a component-by-component comparison with the previous commit, including who changed it.
 * **What appears risky:** **known vulnerabilities** (CVE, severity, fix, path back to the source) and **supply-chain anomalies** (typosquats, malicious packages, install scripts, tampered lockfiles, untrusted images, unsafe CI). Every finding carries **evidence** and an **initial risk level**.
 
-> **Agentic AI layer:** `python -m sscg agent <repo>` runs the same pipeline as a **LangGraph multi-agent workflow**: deterministic agents wrap the modules below, a **Triage agent** (Claude, Gemini, Groq or Grok) judges the suspicious changes rules cannot decide on their own, gathering more evidence when it needs it, and a **Narrator agent** writes the checkpoint summary. AI output is kept apart from the evidence, grounding-checked, and falls back to rules when no API key is set. **Day 2** (prioritise → remediate → human approval → sandbox validation → report) is implemented: **[docs/day2.md](docs/day2.md)**. Agent details: **[docs/agentic.md](docs/agentic.md)**.
+> **Agentic AI layer:** `python -m sscg agent <repo>` runs the same pipeline as a **LangGraph multi-agent workflow**: deterministic agents wrap the modules below, a **Triage agent** (Claude, Gemini, Groq, DeepSeek or Grok) judges the suspicious changes rules cannot decide on their own, gathering more evidence when it needs it, and a **Narrator agent** writes the checkpoint summary. AI output is kept apart from the evidence, grounding-checked, and falls back to rules when no API key is set. **Day 2** (prioritise → remediate → human approval → sandbox validation → report) is implemented: **[docs/day2.md](docs/day2.md)**. Agent details: **[docs/agentic.md](docs/agentic.md)**.
 
 ---
 
@@ -86,7 +86,7 @@ start out\sscg-demo-target\graph.html # interactive graph
 streamlit run ui/app.py               # dashboard at http://localhost:8501
 
 # 5. optional: the agentic version (LangGraph agents + LLM triage; see docs/agentic.md)
-copy .env.example .env                # then put ONE real API key (Claude, Gemini, Groq or Grok) into .env
+copy .env.example .env                # then put ONE real API key (Claude, Gemini, Groq, DeepSeek or Grok) into .env
 python -m sscg agent ..\targets\sscg-demo-target            # no key = rules-only fallback, still works
 python -m sscg agent ..\targets\sscg-demo-target --day2           # + Day 2 (docs/day2.md)
 ```
@@ -509,7 +509,7 @@ Bosch-Hackathon/
 | Standards | CycloneDX 1.5 · purl · CVSS v3.1 (FIRST) | SBOM, identities, scoring |
 | Data | [OSV.dev](https://osv.dev) · [deps.dev](https://deps.dev) (free, no key) | advisories incl. `MAL-*`; transitive resolution |
 | Agents | LangGraph 0.4 (StateGraph, Send, interrupt, MemorySaver) + pydantic 2 | orchestration, parallel triage, human approval, typed contracts |
-| LLMs | official SDKs: `anthropic` (Claude) · `google-genai` (Gemini) · `openai` → Groq and xAI (Grok) APIs | triage + summary (`agent` command only) |
+| LLMs | official SDKs: `anthropic` (Claude) · `google-genai` (Gemini) · `openai` → Groq, DeepSeek and xAI (Grok) APIs | triage + summary (`agent` command only) |
 
 ---
 

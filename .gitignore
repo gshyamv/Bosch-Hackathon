@@ -5,3 +5,6 @@
 
 # Python bytecode (files already tracked stay tracked until removed with git rm --cached)
 __pycache__/
+
+# Day 2: saved state of paused agent runs (local SQLite checkpoints)
+.sscg-state/
