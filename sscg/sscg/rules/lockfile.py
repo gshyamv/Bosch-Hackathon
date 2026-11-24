@@ -8,7 +8,7 @@ from urllib.parse import urlparse
 from ..graph import TRUSTED_NPM_HOSTS
 from .common import Ctx, file_ev, line_of, mk, read
 
-LIBS = ("npm", "pypi", "maven")
+LIBS = ("npm", "pypi", "maven", "rubygems", "cargo", "go", "nuget")
 
 
 def _host(url) -> str:

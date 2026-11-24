@@ -23,12 +23,14 @@ import sys
 from pathlib import Path
 
 from . import cache
+from .safety import SafetyError
+from .target import as_target
 from .pipeline import build, detect, emit, print_console  # noqa: F401  (kept importable from here)
 
 
 def scan(args):
     cache.OFFLINE = args.offline
-    repo = args.repo.resolve()
+    repo = args.target = as_target(args.repo)
     out = args.out or cache.ROOT / "out" / repo.name
 
     dg = build(repo, args.sbom, not args.no_vulns)
@@ -38,11 +40,13 @@ def scan(args):
 
 
 def _scan_args(sc):
-    sc.add_argument("repo", type=Path, help="repository folder to scan (read only; nothing is installed or run)")
+    sc.add_argument("repo", help="folder, https://github.com/owner/repo[@ref] or page URL to scan (read only; nothing is run)")
     sc.add_argument("--out", type=Path, help="output folder (default: out/<repo name>)")
     sc.add_argument("--base", default="HEAD~1", help="commit to compare against for 'what changed' (default HEAD~1)")
     sc.add_argument("--no-diff", action="store_true", help="skip the base-commit comparison")
     sc.add_argument("--sbom", type=Path, help="consume this CycloneDX JSON SBOM instead of scanning manifests")
+    sc.add_argument("--resolve-npm", action="store_true",
+                    help="no lockfile: resolve the exact npm tree in the sandbox container (needs Docker)")
     sc.add_argument("--no-vulns", action="store_true", help="skip vulnerability detection (OSV.dev)")
     sc.add_argument("--osv", action="store_true", help=argparse.SUPPRESS)  # kept for old commands; now the default
     sc.add_argument("--offline", action="store_true", help="answer API calls from .cache only")
@@ -64,7 +68,7 @@ def main(argv=None):
     ag = sub.add_parser("agent", help="the same pipeline run as a LangGraph multi-agent workflow, "
                                       "with AI triage of suspicious changes and an AI evidence summary")
     _scan_args(ag)
-    ag.add_argument("--llm", choices=["auto", "claude", "gemini", "groq", "deepseek", "grok", "none"],
+    ag.add_argument("--llm", choices=["auto", "claude", "gemini", "groq", "deepseek", "grok", "ollama", "none"],
                     help="LLM provider (default: SSCG_LLM_PROVIDER from .env, else auto = first provider with a key; "
                          "groq = Groq/GroqCloud, grok = xAI; 'none' = rules-only fallback, no data leaves the machine)")
     ag.add_argument("--list-models", action="store_true",
@@ -83,7 +87,7 @@ def main(argv=None):
 
     apv = sub.add_parser("approve", help="record human decisions for a paused run and resume it "
                                          "(validation in a sandbox + remediation report)")
-    apv.add_argument("repo", type=Path, help="the repository the paused run scanned")
+    apv.add_argument("repo", help="the repository the paused run scanned")
     apv.add_argument("--out", type=Path, help="output folder used by the run (default: out/<repo name>)")
     apv.add_argument("--run", help="run id (default: the paused run in out/<repo>/remediation/pending.json)")
     for flag in ("approve", "reject", "accept-risk", "request-changes"):
@@ -92,10 +96,23 @@ def main(argv=None):
     apv.add_argument("--reason", help="reason recorded with the decisions")
     apv.add_argument("--offline", action="store_true", help="answer API calls from .cache only")
 
+    sub.add_parser("okf", help="lint the OKF context bundle and rebuild its indexes")
     srv = sub.add_parser("serve", help="start the web dashboard (React UI + API) at http://127.0.0.1:8000")
     srv.add_argument("--host", default="127.0.0.1", help="interface to listen on (default 127.0.0.1: this machine only)")
     srv.add_argument("--port", type=int, default=8000)
     args = ap.parse_args(argv)
+    from .agents.config import load_env
+    load_env()          # GITHUB_TOKEN
+    if getattr(args, "resolve_npm", False):
+        from .discover import npm
+        npm.RESOLVE = True
+    if args.cmd == "okf":
+        from .okf import Store
+        st = Store()
+        st.index()
+        errs = st.lint()
+        print("\n".join(errs) or f"okf lint: {len(st.ids())} concepts, no problems")
+        return 1 if errs else 0
     if args.cmd == "serve":
         from .server import serve  # imported lazily: scan / agent never need FastAPI
         return serve(args.host, args.port)
@@ -109,4 +126,9 @@ def main(argv=None):
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    from .intake.github import FetchError
+    try:
+        sys.exit(main())
+    except (SafetyError, FetchError) as e:
+        print(f"error: {e}", file=sys.stderr)
+        sys.exit(2)

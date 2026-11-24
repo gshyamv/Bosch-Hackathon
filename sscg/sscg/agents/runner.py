@@ -19,6 +19,8 @@ from pathlib import Path
 from langgraph.types import Command
 
 from .. import cache
+from .. import context
+from ..target import as_target
 from ..pipeline import print_console
 from . import config, kb, llm
 from .graph import build_graph
@@ -108,7 +110,7 @@ def _write_pending(rt, request: dict) -> Path:
     d = rt.out / "remediation"
     d.mkdir(parents=True, exist_ok=True)
     f = d / "pending.json"
-    f.write_text(json.dumps({"run_id": rt.run_id, "repo": str(rt.repo), "created": now(), **request}, indent=1,
+    f.write_text(json.dumps({"run_id": rt.run_id, "repo": rt.target.source, "created": now(), **request}, indent=1,
                             default=str), encoding="utf-8")
     return f
 
@@ -120,17 +122,20 @@ def run(args) -> int:
     if getattr(args, "list_models", False):
         return _list_models(settings)
     client, settings = _select_llm(settings)
-    repo = args.repo.resolve()
-    out = args.out or cache.ROOT / "out" / repo.name
+    target = as_target(args.repo)
+    repo = target.head_dir()
+    out = args.out or cache.ROOT / "out" / target.name
     out.mkdir(parents=True, exist_ok=True)
     run_id = uuid.uuid4().hex[:12]
-    rt = register(Runtime(run_id=run_id, repo=repo, out=out, settings=settings, kb=kb.load(), llm=client))
+    rt = register(Runtime(run_id=run_id, repo=repo, target=target, out=out, settings=settings, kb=kb.load(), llm=client))
+    rt.ctx = context.open_safe(run_id)
+    rt.note(lambda c: c.start(target))
 
-    print(f"\n=== Guardian agents: {repo.name} (run {run_id}) ===")
+    print(f"\n=== Guardian agents: {target.name} (run {run_id}) ===")
     print(f"  engine: {settings.engine}  ({settings.reason})")
     graph = build_graph(remediate=args.remediate, checkpointer=checkpointer(out) if args.remediate else None)
     cfg = {"configurable": {"thread_id": run_id}, "max_concurrency": settings.concurrency, "recursion_limit": 80}
-    init = {"run_id": run_id, "repo": str(repo), "out": str(out),
+    init = {"run_id": run_id, "repo": target.source, "out": str(out),
             "options": {"base": args.base, "no_diff": args.no_diff, "sbom": str(args.sbom) if args.sbom else None,
                         "no_vulns": args.no_vulns, "offline": args.offline, "focus": args.focus,
                         "max_depth": args.max_depth, "why": args.why, "remediation": args.remediate,
@@ -140,7 +145,7 @@ def run(args) -> int:
         final = res["state"]
         payload = agentic_payload(final, rt)
         (out / "agentic.json").write_text(json.dumps(payload, indent=1, default=str), encoding="utf-8")
-        print_console(repo, out, rt.dg, rt.fs, rt.change, rt.emitted, args.top)
+        print_console(target, out, rt.dg, rt.fs, rt.change, rt.emitted, args.top)
         _summary(final, payload)
         if res["paused"]:
             f = _write_pending(rt, res["request"])
@@ -149,7 +154,7 @@ def run(args) -> int:
             print(f"\n  PAUSED for human approval: {len(props)} proposal(s), {len(patch)} with a patch ({f}).")
             print("  Decide in the dashboard (python -m sscg serve -> Remediation page) or on the command line, e.g.:")
             out_opt = f' --out "{out}"' if args.out else ""
-            print(f"    python -m sscg approve {args.repo}{out_opt} --approve {','.join(patch[:3]) or 'P-001'} "
+            print(f"    python -m sscg approve {target.source}{out_opt} --approve {','.join(patch[:3]) or 'P-001'} "
                   f"--by \"<your name>\"")
             print("  (--approve / --reject / --accept-risk / --request-changes take ID,ID,... or all-patchable;"
                   " --reason TEXT)")
@@ -170,13 +175,14 @@ def resume(args) -> int:
     """`python -m sscg approve <repo> ...`: record the human decisions and resume the paused run."""
     config.load_env()
     cache.OFFLINE = args.offline
-    repo = args.repo.resolve()
-    out = args.out or cache.ROOT / "out" / repo.name
+    target = as_target(args.repo)
+    repo = target.head_dir()
+    out = args.out or cache.ROOT / "out" / target.name
     pend_file = out / "remediation" / "pending.json"
     pending = json.loads(pend_file.read_text(encoding="utf-8")) if pend_file.exists() else {}
     run_id = args.run or pending.get("run_id")
     if not run_id:
-        print(f"No run waiting for approval for {repo.name}: run `python -m sscg agent {args.repo} --remediate` first.")
+        print(f"No run waiting for approval for {target.name}: run `python -m sscg agent {args.repo} --remediate` first.")
         return 1
     props = pending.get("proposals", [])
     who = args.by or _approver()
@@ -193,7 +199,8 @@ def resume(args) -> int:
     decisions += [{"proposal_id": p["proposal_id"], "decision": "defer", "approver": who, "reason": "not decided"}
                   for p in props if p["proposal_id"] not in seen]
     settings = dataclasses.replace(config.resolve("none"), reason="resume: validation and report need no LLM")
-    rt = register(Runtime(run_id=run_id, repo=repo, out=out, settings=settings, kb=kb.load(), llm=None))
+    rt = register(Runtime(run_id=run_id, repo=repo, target=target, out=out, settings=settings, kb=kb.load(), llm=None))
+    rt.ctx = context.open_safe(run_id)
     try:
         graph = build_graph(remediate=True, checkpointer=checkpointer(out))
         cfg = {"configurable": {"thread_id": run_id}, "recursion_limit": 80}
@@ -201,12 +208,12 @@ def resume(args) -> int:
         if "human_approval" not in (snap.next or ()):
             print(f"Run {run_id} is not waiting for approval (next: {snap.next or 'finished'}).")
             return 1
-        print(f"\n=== Guardian: resuming run {run_id} for {repo.name} ===")
+        print(f"\n=== Guardian: resuming run {run_id} for {target.name} ===")
         print("  decisions: " + (", ".join(f"{d['proposal_id']} {d['decision']}" for d in decisions
                                            if d["decision"] != "defer") or "none (all deferred)") + f" (by {who})")
         from ..pipeline import build     # the live dependency graph is not checkpointed: rebuild it (cached)
         opts = snap.values["options"]
-        rt.dg = build(repo, Path(opts["sbom"]) if opts.get("sbom") else None, check_vulns=not opts.get("no_vulns"))
+        rt.dg = build(target, Path(opts["sbom"]) if opts.get("sbom") else None, check_vulns=not opts.get("no_vulns"))
         rt.labels = {str(a.get("label")) for _, a in rt.dg.G.nodes(data=True)}
         graph.invoke(Command(resume=decisions), cfg)
         final = graph.get_state(cfg).values

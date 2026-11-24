@@ -5,7 +5,7 @@ import { Button, Callout, Field, inputCls, Segmented, Toggle } from "./ui";
 
 const LLM_LABEL: Record<string, string> = {
   auto: "Auto (first key found)", claude: "Claude (Anthropic)", gemini: "Gemini (Google)", groq: "Groq",
-  deepseek: "DeepSeek", grok: "Grok (xAI)", none: "None: rules only, nothing leaves the machine",
+  deepseek: "DeepSeek", grok: "Grok (xAI)", ollama: "Ollama (local)", none: "None: rules only, nothing leaves the machine",
 };
 
 export function RunPanel({ meta, targets, initialRepo, onStarted }:
@@ -34,7 +34,7 @@ export function RunPanel({ meta, targets, initialRepo, onStarted }:
 
   return (
     <div className="space-y-5">
-      <Field label="Repository">
+      <Field label="Target: folder, GitHub URL or page URL">
         <div className="mb-2 flex flex-wrap gap-1.5">
           {presets.map((p) => (
             <button key={p.path} type="button" onClick={() => setRepo(p.path)}
@@ -43,7 +43,7 @@ export function RunPanel({ meta, targets, initialRepo, onStarted }:
             </button>
           ))}
         </div>
-        <input className={inputCls + " font-mono text-xs"} value={repo} onChange={(e) => setRepo(e.target.value)} placeholder="C:\path\to\repository" />
+        <input className={inputCls + " font-mono text-xs"} value={repo} onChange={(e) => setRepo(e.target.value)} placeholder="https://github.com/owner/repo  or  C:\path\to\repository" />
       </Field>
 
       <div>

@@ -12,7 +12,7 @@ from __future__ import annotations
 import os
 import re
 
-from .. import remediation
+from .. import okf, relevance, remediation
 from .guard import ground, known_ids, redact
 from .llm import LLMError, complete_json
 from .runtime import get, traced
@@ -35,9 +35,13 @@ def plan_remediation(state: dict) -> dict:
     levels = tuple(x.strip() for x in os.getenv("SSCG_REMEDIATE_LEVELS", "P0,P1").split(","))
     cap = int(os.getenv("SSCG_MAX_PROPOSALS", "20") or 20)
     planner = remediation.Planner(rt.repo, rt.dg, state["findings"], state.get("priorities", []),
-                                  state.get("reachability", {}), state.get("change"), rt.kb, state.get("triage", {}))
+                                  state.get("reachability", {}), state.get("change"), rt.kb, state.get("triage", {}), target=rt.target)
     props = [RemediationProposal(**p, generated_by="rules (remediation planner)").model_dump()
              for p in planner.plan(levels=levels, max_proposals=cap)]
+    relevance.annotate(props, state.get("clusters", []))
+    for p in props:
+        rt.note(lambda c, p=p: c.write("RemediationPlan", {**p, "patch": p["diff"], "risk_reduction": p["expected_risk_reduction"],
+                                                           "compatibility": p["compatibility_impact"]}))
     n_patch = sum(p["patchable"] for p in props)
     rt.log("Remediation", f"{len(props)} proposal(s) for {'/'.join(levels)} findings: {n_patch} with an exact patch, "
                           f"{len(props) - n_patch} for manual review (nothing applied yet)")
@@ -82,7 +86,10 @@ def advise_remediation(state: dict) -> dict:
     by_id = {p["proposal_id"]: p for p in props}
     for i in range(0, len(todo), BATCH):
         chunk = todo[i:i + BATCH]
-        packet, _ = redact(_packet(chunk, findings, state.get("reachability", {})))
+        packet, _ = redact({
+            **_packet(chunk, findings, state.get("reachability", {})),
+            "context": okf.pack(rt.ctx.store, [findings[f] for p in chunk for f in p["finding_ids"] if f in findings])
+            if rt.ctx else []})
         try:
             adv, usage = complete_json(client, SYSTEM, packet, Advice)
         except LLMError as e:

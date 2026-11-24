@@ -45,6 +45,12 @@ RULES = {
                                "A secret is handed to code that was downloaded at run time or comes from a mutable third-party action."),
     "R18_NEW_AUTHOR_SENSITIVE_CHANGE": ("Suspicious package update", "High",
                                         "A first-time contributor changed files that control what gets built and installed."),
+    "R20_MISSING_SRI": ("Unsafe page script", "Medium",
+                        "Without an integrity hash, a compromised CDN can run any code in the page."),
+    "R21_INSECURE_SCRIPT": ("Unsafe page script", "High",
+                            "A script loaded over http on an https page can be replaced by anyone on the network."),
+    "R22_OUTDATED_JS_LIBRARY": ("Outdated JavaScript library", "Low",
+                                "Old library releases stop receiving security fixes."),
     "R19_SUSPICIOUS_UPDATE": ("Suspicious package update", "High",
                               "A version update that also changed where the package comes from or added an install script."),
 }

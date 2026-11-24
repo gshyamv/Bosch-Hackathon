@@ -1,0 +1,33 @@
+version = 3
+
+[[package]]
+name = "app"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "time 0.1.45",
+]
+
+[[package]]
+name = "serde"
+version = "1.0.100"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "abc"
+
+[[package]]
+name = "time"
+version = "0.1.45"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "libc",
+]
+
+[[package]]
+name = "time"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
+name = "libc"
+version = "0.2.100"
+source = "registry+https://github.com/rust-lang/crates.io-index"

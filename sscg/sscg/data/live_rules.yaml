@@ -1,0 +1,39 @@
+# Passive JavaScript library detection for live pages (tools/live.py). Each match gives (name, version).
+# name: npm package name used for the PURL and the OSV lookup.
+cdn_paths:
+  - {pattern: '/ajax/libs/(?P<name>[A-Za-z0-9._-]+)/(?P<version>\d[\w.-]*)/', note: cdnjs / Google Hosted Libraries}
+  - {pattern: 'cdn\.jsdelivr\.net/npm/(?P<name>(?:@[^/@]+/)?[^/@]+)@(?P<version>\d[\w.-]*)', note: jsDelivr}
+  - {pattern: 'unpkg\.com/(?P<name>(?:@[^/@]+/)?[^/@]+)@(?P<version>\d[\w.-]*)', note: unpkg}
+  - {pattern: 'code\.jquery\.com/(?P<name>jquery)-(?P<version>\d[\d.]*\d)(?:\.slim)?(?:\.min)?\.js', note: jQuery CDN}
+  - {pattern: 'code\.jquery\.com/ui/(?P<version>\d[\d.]*\d)/', name: jquery-ui, note: jQuery UI CDN}
+  - {pattern: '(?:stackpath|maxcdn|netdna)\.bootstrapcdn\.com/bootstrap/(?P<version>\d[\d.]*\d)/', name: bootstrap, note: BootstrapCDN}
+filenames:
+  - {pattern: '(?:^|/)(?P<name>jquery|jquery-ui|angular|bootstrap|lodash|underscore|moment|handlebars|knockout|backbone|vue|react|react-dom|dompurify|axios|socket\.io|d3|chart|highcharts|select2|datatables|cookieconsent)[-.](?P<version>\d+\.\d+(?:\.\d+)?)(?:[.-]min)?\.js(?:\?|$)'}
+banners:
+  # searched in the first 4 KB of each downloaded script
+  - {pattern: '/\*!?\s*jQuery (?:JavaScript Library )?v(?P<version>\d+\.\d+\.\d+)', name: jquery}
+  - {pattern: 'jQuery UI - v(?P<version>\d+\.\d+\.\d+)', name: jquery-ui}
+  - {pattern: '@license AngularJS v(?P<version>\d+\.\d+\.\d+)', name: angular}
+  - {pattern: 'Bootstrap v(?P<version>\d+\.\d+\.\d+)', name: bootstrap}
+  - {pattern: 'Vue\.js v(?P<version>\d+\.\d+\.\d+)', name: vue}
+  - {pattern: 'lodash(?: lodash\.com/license)?.{0,200}?VERSION\s*=\s*.(?P<version>\d+\.\d+\.\d+)', name: lodash}
+  # anchored: lodash's licence header also mentions "Underscore.js 1.8.3" and must not count
+  - {pattern: '(?m)^//\s+Underscore\.js (?P<version>\d+\.\d+\.\d+)\s*$', name: underscore}
+  - {pattern: '(?:^|\s)moment\.js.{0,40}?version\s*:\s*(?P<version>\d+\.\d+\.\d+)', name: moment}
+  - {pattern: 'handlebars v(?P<version>\d+\.\d+\.\d+)', name: handlebars}
+  - {pattern: 'DOMPurify (?P<version>\d+\.\d+\.\d+)', name: dompurify}
+  - {pattern: 'Cookie Consent plugin.{0,40}?v(?P<version>\d+\.\d+\.\d+)', name: cookieconsent}
+# CDN / filename names that differ from the npm package name
+npm_names:
+  angular.js: angular
+  angularjs: angular
+  jqueryui: jquery-ui
+  cookieconsent2: cookieconsent
+  twitter-bootstrap: bootstrap
+  vue.js: vue
+  chart: chart.js
+  socket.io: socket.io-client
+  lodash.js: lodash
+  underscore.js: underscore
+  moment.js: moment
+  handlebars.js: handlebars

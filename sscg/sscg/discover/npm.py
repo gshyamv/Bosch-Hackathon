@@ -127,6 +127,37 @@ def _direct_specs(manifest: dict) -> dict:
     return out
 
 
+RESOLVE = False     # --resolve-npm
+
+
+def resolve_lock(pkg_json: Path, manifest: dict) -> dict | None:
+    """npm install --package-lock-only in the sandbox container; answer cached by package.json content."""
+    import hashlib
+
+    from .. import cache, sandbox
+    text = json.dumps({k: manifest[k] for k in ("name", "version", "dependencies", "devDependencies", "optionalDependencies",
+                                                "overrides") if k in manifest}, sort_keys=True)
+    f = cache.CACHE / f"npm-resolve-{hashlib.sha1(text.encode()).hexdigest()}.json"
+    if f.exists():
+        return json.loads(f.read_text(encoding="utf-8"))
+    if cache.OFFLINE or not sandbox.available():
+        return None
+    import tempfile
+    try:
+        with tempfile.TemporaryDirectory() as tmp, sandbox.Sandbox() as sb:
+            (Path(tmp) / "package.json").write_text(text, encoding="utf-8")
+            sb.put(Path(tmp), "r")
+            r = sb.run("npm", ["npm", "install", "--package-lock-only", "--ignore-scripts", "--no-audit", "--no-fund",
+                               "--legacy-peer-deps"], "r", net=True)
+            lock = json.loads(sb.read("r/package-lock.json") or "null") if r["status"] == "ok" else None
+    except (RuntimeError, OSError, ValueError):
+        return None
+    if lock:
+        cache.CACHE.mkdir(exist_ok=True)
+        f.write_text(json.dumps(lock), encoding="utf-8")
+    return lock
+
+
 def scan(dg, repo: Path, pkg_json: Path):
     rel = pkg_json.relative_to(repo).as_posix()
     try:
@@ -153,6 +184,14 @@ def scan(dg, repo: Path, pkg_json: Path):
             npm_yarn_v1(dg, rid, manifest, text, yl.relative_to(repo).as_posix())
             return
         dg.notes.append(f"{rel}: yarn berry lockfile not supported -> deps.dev fallback")
+    lock = resolve_lock(pkg_json, manifest) if RESOLVE else None
+    if lock:
+        npm_lock_v2(dg, rid, manifest, lock, rel)
+        for _, a in dg.G.nodes(data=True):
+            if a.get("source") == rel and a.get("resolution") == "lockfile":
+                a["resolution"] = "npm-resolved"
+        dg.notes.append(f"{rel}: no lockfile -> resolved exactly with npm in the sandbox container")
+        return
     dg.notes.append(f"{rel}: no lockfile -> transitive deps resolved via deps.dev (approximate)")
     dev = set(manifest.get("devDependencies") or {})
     for name, spec in _direct_specs(manifest).items():

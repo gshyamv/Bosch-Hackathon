@@ -9,9 +9,10 @@ import json
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
-from .. import gitutil, vulns
+from .. import vulns
 from ..graph import compute_depth, summarize
 from ..pipeline import build, detect, emit
+from .. import relevance
 from .guard import redact
 from .runtime import get, now, traced
 from .tools import run_tool
@@ -36,7 +37,7 @@ def plan(state: dict) -> dict:
     """Decide what runs and why. Routing is deterministic on purpose: auditable and repeatable."""
     rt = get(state["run_id"])
     o = state["options"]
-    is_git = gitutil.is_repo_root(rt.repo)
+    is_git = rt.target.kind == "github" or getattr(rt.target, "is_git", False)
     base = None if (o.get("no_diff") or o.get("sbom")) else o.get("base")
     why_no_base = ("--no-diff" if o.get("no_diff") else "an SBOM was supplied" if o.get("sbom") else
                    None if is_git else "not a git repository root")
@@ -44,12 +45,12 @@ def plan(state: dict) -> dict:
         base = None
     # Shallow clones (e.g. juice-shop, nodejs-goof) have no HEAD~1. `base` is still passed on to Detection so that
     # diff.compute writes the same note into findings.json as `scan` does; the plan just reports it honestly.
-    if base and not gitutil.resolve(rt.repo, base):
+    if base and not rt.target.resolve(base):
         why_no_base = f"base revision '{base}' not found (shallow clone or first commit)"
     s = rt.settings
     compare = base if base and not why_no_base else None
     p = {
-        "repo": str(rt.repo), "detected": _present(rt.repo), "git_repository": is_git,
+        "repo": rt.target.display, "detected": _present(rt.repo), "git_repository": is_git,
         "compare_with": base, "compare_available": bool(compare),
         "compare_skipped_because": None if compare else why_no_base,
         "sbom_input": o.get("sbom"), "vulnerability_lookup": not o.get("no_vulns"), "offline": o.get("offline"),
@@ -68,7 +69,7 @@ def plan(state: dict) -> dict:
 def discovery(state: dict) -> dict:
     rt = get(state["run_id"])
     sbom = state["options"].get("sbom")
-    rt.dg = build(rt.repo, Path(sbom) if sbom else None, check_vulns=False)
+    rt.dg = build(rt.target, Path(sbom) if sbom else None, check_vulns=False)
     s = summarize(rt.dg)
     inv = {k: s[k] for k in ("components_total", "packages", "direct", "transitive", "max_depth", "by_ecosystem",
                              "by_scope", "untrusted_origins", "install_scripts")}
@@ -104,17 +105,19 @@ def _json_safe(x):
 @traced("Detection", "deterministic")
 def detection(state: dict) -> dict:
     rt = get(state["run_id"])
-    fs, change = detect(rt.repo, rt.dg, state["plan"]["compare_with"])
+    fs, change = detect(rt.target, rt.dg, state["plan"]["compare_with"])
     rt.fs, rt.change = fs, change
     rt.labels = {str(a.get("label")) for _, a in rt.dg.G.nodes(data=True)}
     findings = _json_safe([{k: v for k, v in f.items() if not k.startswith("_")} for f in fs])
+    cls = relevance.clusters(rt.dg, findings)
+    rt.note(lambda c: c.on_detection(findings, cls))
     # Only findings whose rule needs judgement go to triage (knowledge base: playbook.triage), highest risk first.
     queue = [f["finding_id"] for f in findings if f["category"] == "anomaly" and rt.kb.needs_triage(f["rule"])]
     skipped = max(0, len(queue) - rt.settings.max_triage)
     queue = queue[:rt.settings.max_triage]
     rt.log("Detection", f"{len(findings)} findings; {len(queue)} need judgement -> triage"
                         + (f" ({skipped} more over the SSCG_LLM_MAX_TRIAGE cap)" if skipped else ""))
-    return {"findings": findings, "change": _json_safe(change.as_dict()) if change else None,
+    return {"findings": findings, "clusters": cls, "change": _json_safe(change.as_dict()) if change else None,
             "triage_queue": queue, "triage_round": 0,
             "notes": [f"{skipped} findings needing judgement were not triaged (cap SSCG_LLM_MAX_TRIAGE)"] if skipped else []}
 
@@ -126,18 +129,20 @@ def gather_evidence(state: dict) -> dict:
     rnd = state.get("triage_round", 0)
     by_id = {f["finding_id"]: f for f in state["findings"]}
     have = state.get("tool_evidence", {})
-    jobs = []
+    jobs, queries = [], {}
     for fid in state["triage_queue"]:
         f = by_id[fid]
         done = {e["tool"] for e in have.get(fid, [])}
         if rnd == 0:
             wanted = rt.kb.playbook(f["rule"]).get("default_tools", [])
         else:
-            wanted = [r["tool"] for r in state.get("triage", {}).get(fid, {}).get("evidence_requests", [])]
+            reqs = state.get("triage", {}).get(fid, {}).get("evidence_requests", [])
+            wanted = [r["tool"] for r in reqs]
+            queries.update({(fid, r["tool"]): r.get("query", "") for r in reqs})
         for tool in dict.fromkeys(t for t in wanted if t not in done):
             jobs.append((fid, tool))
     with ThreadPoolExecutor(max_workers=6) as ex:
-        results = list(ex.map(lambda j: run_tool(j[1], rt, by_id[j[0]], state), jobs))
+        results = list(ex.map(lambda j: run_tool(j[1], rt, by_id[j[0]], state, queries.get(j, "")), jobs))
     new: dict = {}
     for (fid, tool), res in zip(jobs, results):
         n = len(have.get(fid, [])) + len(new.get(fid, [])) + 1
@@ -154,7 +159,7 @@ def agentic_payload(state: dict, rt) -> dict:
         "run_id": state["run_id"], "generated_at": now(), "engine": rt.settings.engine,
         "provider": rt.settings.provider, "model": rt.settings.model, "engine_reason": rt.settings.reason,
         "kb_version": rt.kb.version, "plan": state.get("plan"),
-        "narrative": state.get("narrative"), "triage": state.get("triage", {}),
+        "narrative": state.get("narrative"), "clusters": state.get("clusters", []), "triage": state.get("triage", {}),
         "tool_evidence": state.get("tool_evidence", {}),
         "llm_usage": {"calls": sum(r.get("llm_calls", 0) for r in runs),
                       "input_tokens": sum(r.get("input_tokens", 0) for r in runs),
@@ -171,7 +176,7 @@ def reporter(state: dict) -> dict:
     rt = get(state["run_id"])
     o = state["options"]
     payload = agentic_payload(state, rt)
-    rt.emitted = emit(rt.repo, rt.out, rt.dg, rt.fs, rt.change, focus=o.get("focus"), max_depth=o.get("max_depth"),
+    rt.emitted = emit(rt.target, rt.out, rt.dg, rt.fs, rt.change, focus=o.get("focus"), max_depth=o.get("max_depth"),
                       why_q=o.get("why") or (), agentic=payload)
     (rt.out / "agentic.json").write_text(json.dumps(payload, indent=1, default=str), encoding="utf-8")
     files = rt.emitted["files"] + ["agentic.json"]

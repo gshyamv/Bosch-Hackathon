@@ -37,6 +37,7 @@ function ProposalBody({ pr }: { pr: Proposal }) {
         <DetailRow label="Why (verified)">{pr.rationale}</DetailRow>
         {pr.expected_risk_reduction && <DetailRow label="Risk reduction">{pr.expected_risk_reduction}</DetailRow>}
         <DetailRow label="Compatibility"><Badge className={pr.compatibility_level === "high" ? "bg-red-50 text-red-700 ring-red-600/20" : pr.compatibility_level === "medium" ? "bg-amber-50 text-amber-800 ring-amber-600/20" : "bg-emerald-50 text-emerald-700 ring-emerald-600/20"}>{pr.compatibility_level}</Badge> <span className="text-slate-600">{pr.compatibility_impact}</span></DetailRow>
+        {!!pr.cluster_ids?.length && <DetailRow label="Root cause">{pr.cluster_ids.map((c) => <Code key={c}>{c}</Code>)}</DetailRow>}
         {pr.rollback && <DetailRow label="Rollback">{pr.rollback}</DetailRow>}
         <DetailRow label="Findings">{pr.finding_ids.map((f) => <Code key={f}>{f}</Code>).reduce((a: any[], c, i) => (i ? [...a, " ", c] : [c]), [])}</DetailRow>
         {pr.files_affected?.length > 0 && <DetailRow label="Files">{pr.files_affected.map((f) => <Code key={f}>{f}</Code>)}</DetailRow>}

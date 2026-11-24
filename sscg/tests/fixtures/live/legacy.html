@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Legacy Shop (VulnerabilityVision fixture)</title>
+  <!-- Known answer: old jQuery + AngularJS from CDNs WITHOUT SRI; Bootstrap WITH SRI; lodash bundled locally -->
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+          integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="/js/vendor.js"></script>
+</head>
+<body>
+  <h1>Legacy Shop</h1>
+  <form action="/login" method="post"><input name="user"><input name="pass" type="password"></form>
+  <script>console.log("inline");</script>
+</body>
+</html>

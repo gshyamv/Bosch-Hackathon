@@ -13,10 +13,8 @@ import hashlib
 from functools import lru_cache
 from pathlib import Path
 
-import yaml
-
-DIR = Path(__file__).resolve().parent / "knowledge"
-FILES = ("playbooks.yaml", "attack_patterns.yaml", "policy.yaml")
+from ..okf import KNOWLEDGE as DIR
+from ..okf import parse
 
 # policy sections relevant to each rule family (keeps the prompt small)
 POLICY_FOR = {"R05": ["registries"], "R07": ["registries"], "R10": ["container_images"], "R11": ["container_images"],
@@ -28,11 +26,17 @@ POLICY_FOR = {"R05": ["registries"], "R07": ["registries"], "R10": ["container_i
 
 class KnowledgeBase:
     def __init__(self, directory: Path = DIR):
-        texts = {f: (directory / f).read_text(encoding="utf-8") for f in FILES}
-        self.playbooks: dict = yaml.safe_load(texts["playbooks.yaml"]) or {}
-        self.patterns: list = yaml.safe_load(texts["attack_patterns.yaml"]) or []
-        self.policy: dict = yaml.safe_load(texts["policy.yaml"]) or {}
-        self.version = hashlib.sha256("".join(texts[f] for f in FILES).encode()).hexdigest()[:12]
+        texts = {p.relative_to(directory).with_suffix("").as_posix(): p.read_text(encoding="utf-8")
+                 for p in sorted(directory.rglob("*.md"))}
+
+        def load_dir(d):
+            return {k.split("/")[1]: parse(t)[0]["vv"] for k, t in texts.items() if k.startswith(d + "/")}
+
+        self.playbooks: dict = load_dir("playbooks")
+        pats = sorted(load_dir("patterns").values(), key=lambda p: p["order"])
+        self.patterns: list = [{k: v for k, v in p.items() if k != "order"} for p in pats]
+        self.policy: dict = load_dir("policy")
+        self.version = hashlib.sha256("".join(texts.values()).encode()).hexdigest()[:12]
 
     def playbook(self, rule: str) -> dict:
         return self.playbooks.get(rule, {})

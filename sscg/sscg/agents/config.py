@@ -9,16 +9,17 @@ from dataclasses import dataclass
 
 from ..cache import ROOT
 
-PROVIDERS = ("claude", "gemini", "groq", "deepseek", "grok")   # order used by provider=auto
+PROVIDERS = ("claude", "gemini", "groq", "deepseek", "grok", "ollama")   # order used by provider=auto
 # groq = Groq / GroqCloud (console.groq.com); grok = xAI Grok (console.x.ai). Two different services.
 KEY_ENV = {"claude": ("ANTHROPIC_API_KEY",), "gemini": ("GEMINI_API_KEY", "GOOGLE_API_KEY"),
-           "groq": ("GROQ_API_KEY",), "deepseek": ("DEEPSEEK_API_KEY",), "grok": ("XAI_API_KEY",)}
+           "groq": ("GROQ_API_KEY",), "deepseek": ("DEEPSEEK_API_KEY",), "grok": ("XAI_API_KEY",),
+           "ollama": ("OLLAMA_MODEL",)}      # local, no key: setting OLLAMA_MODEL enables it
 MODEL_ENV = {"claude": "CLAUDE_MODEL", "gemini": "GEMINI_MODEL", "groq": "GROQ_MODEL", "deepseek": "DEEPSEEK_MODEL",
-             "grok": "GROK_MODEL"}
+             "grok": "GROK_MODEL", "ollama": "OLLAMA_MODEL"}
 # a value may list fallbacks, comma-separated; runner.preflight() picks the first that answers
 DEFAULT_MODEL = {"claude": "claude-opus-5-5", "gemini": "gemini-3.5-flash,gemini-3.8-flash",
                  "groq": "openai/gpt-oss-120b,openai/gpt-oss-20b", "deepseek": "deepseek-chat,deepseek-reasoner",
-                 "grok": "grok-4"}
+                 "grok": "grok-4", "ollama": "qwen2.5:7b"}
 
 
 def load_env() -> None:

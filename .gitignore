@@ -8,3 +8,18 @@ __pycache__/
 
 # saved state of agent runs paused for approval (local SQLite checkpoints)
 .sscg-state/
+*.pyc
+.venv/
+.sscg-venv-*
+.pytest_cache/
+node_modules/
+sscg/web/dist/
+
+# run state created by SSCG: fetched GitHub files, context store, live OKF bundle
+sscg/.work/
+sscg/.context/
+sscg/.okf/
+
+# scan results: only the demo snapshot is kept in git
+sscg/out/*
+!sscg/out/sscg-demo-target/

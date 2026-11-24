@@ -9,7 +9,6 @@ import collections
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from . import gitutil
 from .discover import discover
 from .graph import compute_depth
 from .model import DepGraph
@@ -54,30 +53,29 @@ def _index(dg: DepGraph) -> dict:
     return idx
 
 
-def compute(repo: Path, dg: DepGraph, base_rev: str, workdir: Path) -> Change | None:
+def compute(target, dg: DepGraph, base_rev: str, workdir: Path) -> Change | None:
     """None (with a note) when the repo has no git history for `base_rev`."""
-    if not gitutil.is_repo_root(repo):
+    if target.kind == "local" and not target.is_git:
         dg.notes.append("what changed: not a git repository root, change analysis skipped")
         return None
-    base_sha = gitutil.resolve(repo, base_rev)
+    base_sha = target.resolve(base_rev)
     if not base_sha:
         dg.notes.append(f"what changed: base revision '{base_rev}' not found (shallow clone or first commit), "
                         "change analysis skipped")
         return None
-    head = gitutil.commit_info(repo, "HEAD")
-    base = gitutil.commit_info(repo, base_sha)
-    base_dir = workdir / "base"
-    base_dir.mkdir(parents=True, exist_ok=True)
-    if not gitutil.extract(repo, base_sha, base_dir):
+    head = target.commit_info("HEAD")
+    base = target.commit_info(base_sha)
+    base_dir = target.base_dir(base_sha, workdir / "base")
+    if base_dir is None:
         dg.notes.append("what changed: could not extract the base commit, change analysis skipped")
         return None
-    base_dg = DepGraph(repo.name)
+    base_dg = DepGraph(target.name)
     discover(base_dir, base_dg)
     compute_depth(base_dg)
 
-    ch = Change(base_rev=base_rev, base=base, head=head, head_dirty=gitutil.is_dirty(repo),
-                first_time_author=gitutil.first_time_author(repo, head["sha"], head["email"]),
-                files=gitutil.changed_files(repo, base_sha), base_dg=base_dg, base_dir=base_dir)
+    ch = Change(base_rev=base_rev, base=base, head=head, head_dirty=target.is_dirty(),
+                first_time_author=target.first_time_author(head["sha"], head["email"]),
+                files=target.changed_files(base_sha), base_dg=base_dg, base_dir=base_dir)
     b, h = _index(base_dg), _index(dg)
     for key in sorted(h.keys() - b.keys()):
         ch.added += list(h[key].values())

@@ -146,6 +146,20 @@ def build(dg, raws: list, change, base_keys: set | None) -> list:
     return out
 
 
+def add_permalinks(fs: list, target) -> None:
+    """Exact-line links at the pinned commit (GitHub targets), next to the file:line locations."""
+    for f in fs:
+        loc = f.get("location") or ""
+        path, _, ln = loc.rpartition(":") if loc.rpartition(":")[2].isdigit() else (loc, "", "")
+        link = target.permalink(path, int(ln) if ln else None) if path else None
+        if link:
+            f["permalink"] = link
+        for e in f["evidence"]:
+            link = target.permalink(e["path"], e.get("line")) if e.get("type") == "file" else None
+            if link:
+                e["permalink"] = link
+
+
 def counts(findings: list) -> dict:
     by = lambda key: dict(sorted(((k, sum(1 for f in findings if key(f) == k)) for k in {key(f) for f in findings}),
                                  key=lambda kv: -kv[1]))
