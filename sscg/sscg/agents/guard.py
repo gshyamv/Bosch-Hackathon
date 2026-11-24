@@ -75,9 +75,12 @@ def known_ids(packet) -> set:
     return found
 
 
+HYPHENS = re.compile(r"[‐-―−﹣－]")   # models sometimes write non-ASCII hyphens
+
+
 def ground(texts: list[str], cited: list[str], allowed: set, labels: set) -> dict:
     """Check model output. `allowed` = IDs in the packet, `labels` = every component label in the scan."""
-    blob = " ".join(t for t in texts if t)
+    blob = HYPHENS.sub("-", " ".join(t for t in texts if t))
     unknown = set()
     for kind, pat in ID_RE.items():
         for m in pat.findall(blob):

@@ -65,15 +65,24 @@ Action = Literal["upgrade", "replace", "pin", "remove", "mitigate", "block", "up
 
 
 class PriorityItem(BaseModel):
+    """Explainable priority: Day 1 initial risk + signed points per factor (agents/prioritizer.py)."""
     finding_id: str
     priority: Priority
     score: float
-    factors: dict = Field(default_factory=dict)       # severity, exploitability (KEV/EPSS), reachability, exposure ...
+    urgent: bool = False                              # KEV + reachable, likely malicious, swapped hash ...
+    bucket: str = ""                                  # fix now / fix this sprint / plan the fix / monitor
+    title: str = ""
+    category: str = ""
+    component: str | None = None
+    factors: dict = Field(default_factory=dict)       # {name: {value, points}}: KEV, EPSS, reachability, exposure, triage
+    reasons: list[str] = Field(default_factory=list)  # one human-readable line per factor
+    unknowns: list[str] = Field(default_factory=list) # what lowered the confidence
     explanation: str = ""
     confidence: Confidence = "medium"
 
 
 class RemediationProposal(BaseModel):
+    """One remediation, built by the deterministic planner (sscg/remediation.py). `ai_*` fields are LLM inference."""
     proposal_id: str
     finding_ids: list[str]
     action: Action
@@ -81,13 +90,33 @@ class RemediationProposal(BaseModel):
     from_version: str | None = None
     to_version: str | None = None
     files_affected: list[str] = Field(default_factory=list)
-    rationale: str = ""
+    edits: list[dict] = Field(default_factory=list)       # exact operations the Validation agent applies
+    diff: str = ""                                        # unified diff of the edits against the repository
+    patchable: bool = False                               # False: manual / escalate_review, nothing to apply
+    priority: str | None = None
+    urgent: bool = False
+    rationale: str = ""                                   # deterministic, from verified facts
     expected_risk_reduction: str = ""
+    compatibility_level: Literal["low", "medium", "high"] = "low"
     compatibility_impact: str = ""
+    residual_advisories: list[str] = Field(default_factory=list)
     rollback: str = ""
     validation_plan: list[str] = Field(default_factory=list)
+    notes: list[str] = Field(default_factory=list)
+    ai_rationale: str = ""                                # Remediation Advisor (LLM), grounded, inference only
+    ai_reviewer_checklist: list[str] = Field(default_factory=list)
     generated_by: str = ""
-    status: Literal["proposed", "approved", "rejected", "needs_changes", "risk_accepted", "pending"] = "proposed"
+    status: Literal["proposed", "manual", "approved", "rejected", "needs_changes", "risk_accepted", "pending"] = "proposed"
+
+
+class AdviceItem(BaseModel):
+    proposal_id: str
+    rationale: str = Field(description="2-3 sentences: why this action is the right one, the trade-off, cite F-/P- IDs")
+    reviewer_checklist: list[str] = Field(default_factory=list, description="up to 3 concrete checks for the approver")
+
+
+class Advice(BaseModel):
+    items: list[AdviceItem]
 
 
 class ApprovalRecord(BaseModel):
@@ -101,11 +130,21 @@ class ApprovalRecord(BaseModel):
 
 
 class ValidationReport(BaseModel):
-    proposal_id: str
-    verdict: Literal["verified", "failed", "not_run"]
-    build_ok: bool | None = None
-    tests_ok: bool | None = None
-    before: dict = Field(default_factory=dict)        # finding counts / SBOM hash before the change
-    after: dict = Field(default_factory=dict)
-    new_findings: list[str] = Field(default_factory=list)
-    notes: str = ""
+    """One sandbox validation of all approved, patchable proposals together (sscg/validation.py)."""
+    proposal_ids: list[str] = Field(default_factory=list)
+    verdict: Literal["verified", "partially_verified", "failed", "not_run"]
+    confidence: Confidence = "low"
+    reasons: list[str] = Field(default_factory=list)
+    steps_before: list[dict] = Field(default_factory=list)   # baseline build / test of the unchanged repository
+    steps_after: list[dict] = Field(default_factory=list)    # build / test of the remediated sandbox
+    findings_before: int = 0
+    findings_after: int = 0
+    resolved: list[str] = Field(default_factory=list)        # finding IDs (of the original scan) that are gone
+    remaining: list[str] = Field(default_factory=list)
+    new: list[dict] = Field(default_factory=list)            # findings that only exist after the change
+    per_proposal: dict = Field(default_factory=dict)
+    sbom_diff: dict = Field(default_factory=dict)
+    applied_files: list[str] = Field(default_factory=list)
+    patch_file: str | None = None
+    workdir: str | None = None
+    docker: bool = False

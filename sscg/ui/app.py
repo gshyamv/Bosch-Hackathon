@@ -112,18 +112,22 @@ offline = c2.checkbox("Offline (cache only)", value=False)
 base = c3.text_input("Compare with commit (what changed)", "HEAD~1",
                      help="Base commit for 'what changed'. Leave empty to skip the comparison.")
 focus = c4.text_input("Focus graph on package (optional)")
-a1, a2, _ = st.columns([1, 1, 2])
+a1, a2, a3, _ = st.columns([1, 1, 1, 1])
 agentic = a1.toggle("Agentic AI (LangGraph agents)", value=False,
                     help="Runs `python -m sscg agent`: the same pipeline plus AI triage of suspicious changes and an "
                          "AI summary. Uses the API key in sscg/.env; without one it runs the rules-only fallback.")
 llm_choice = a2.selectbox("LLM provider", ["auto", "claude", "gemini", "groq", "grok", "none"], disabled=not agentic,
                           help="groq = Groq / GroqCloud; grok = xAI Grok")
+day2 = a3.toggle("Day 2: prioritise & remediate", value=False, disabled=not agentic,
+                 help="Adds exploitability (KEV/EPSS), reachability, prioritisation and remediation proposals. The run "
+                      "then pauses for your approval below; approved fixes are validated in a sandbox copy.")
 
 if st.button("Scan repository", type="primary"):
     cmd = [sys.executable, "-m", "sscg", "agent" if agentic else "scan", repo, "--out", str(out), "--top", "0"]
     cmd += (["--base", base] if base.strip() else ["--no-diff"]) + ([] if osv else ["--no-vulns"])
     cmd += ["--offline"] * offline + (["--focus", focus] if focus else [])
     cmd += ["--llm", llm_choice] if agentic else []
+    cmd += ["--day2", "--decisions", "later"] if agentic and day2 else []
     with st.spinner("Agents at work: discovery, detection, AI triage, summary..." if agentic else
                     "Discovering components, building the SBOM and graph, detecting risks..."):
         r = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", cwd=ROOT)
@@ -538,3 +542,147 @@ if ag_path.exists():
                + " · ".join(f"{r['agent']} {r['seconds']}s" for r in ag.get("agent_runs", []) if r["kind"] != "llm"))
     st.download_button("Download agentic.json", ag_path.read_bytes(), file_name=f"{name}.agentic.json",
                        mime="application/json")
+
+# ================================================================== Day 2: Brain & Shield
+D2 = out / "day2"
+pending_f, day2_f = D2 / "pending.json", D2 / "day2.json"
+if pending_f.exists() or day2_f.exists():
+    st.divider()
+    st.header("Day 2 · Brain & Shield")
+    st.caption("Prioritize risks → recommend safe remediation → human approval → build & test in a sandbox → rescan → "
+               "verified remediation. The original repository is never modified.")
+    PRIO_ICON = {"P0": "🟥", "P1": "🟧", "P2": "🟨", "P3": "🟦"}
+
+    if pending_f.exists():   # ---------------------------------------------- the run is paused: human approval
+        pend = json.loads(pending_f.read_text(encoding="utf-8"))
+        props = pend["proposals"]
+        st.subheader("⏸️ Waiting for your approval")
+        st.caption(f"Run `{pend['run_id']}` paused at the human-approval step ({pend['created']}). Only approved "
+                   "proposals with a patch are applied, in a sandbox copy; manual proposals can be acknowledged or "
+                   "risk-accepted.")
+        OPTIONS = ["defer", "approve", "reject", "accept_risk", "request_changes"]
+        LABEL = {"defer": "⏳ defer", "approve": "✅ approve", "reject": "🚫 reject", "accept_risk": "⚖️ accept risk",
+                 "request_changes": "✏️ request changes"}
+        with st.form("approval"):
+            decisions = {}
+            for p in props:
+                head = (f"{p['proposal_id']} · {PRIO_ICON.get(p['priority'], '')} {p['priority']}"
+                        f"{' 🔥' if p['urgent'] else ''} · {p['action'].replace('_', ' ')} · {p['component'] or ''} "
+                        f"{p['from_version'] or ''} → {p['to_version'] or ''}" + ("" if p["patchable"] else " · manual"))
+                with st.expander(head, expanded=bool(p["urgent"])):
+                    st.markdown(f"**Why (verified):** {p['rationale']}")
+                    if p.get("ai_rationale"):
+                        st.markdown(f"**Advisor (AI inference):** {p['ai_rationale']}")
+                    st.markdown(f"**Compatibility:** {p['compatibility_level']}: {p.get('compatibility_impact') or '-'}  \n"
+                                f"**Findings:** {', '.join(p['finding_ids'])}"
+                                + (f"  \n**Residual advisories:** {', '.join(p['residual_advisories'])}"
+                                   if p.get("residual_advisories") else ""))
+                    if p.get("diff"):
+                        st.code(p["diff"][:4000], language="diff")
+                    decisions[p["proposal_id"]] = st.radio(
+                        "Decision", OPTIONS, horizontal=True, key=f"dec-{pend['run_id']}-{p['proposal_id']}",
+                        index=0, format_func=lambda x: LABEL[x])
+            f1, f2 = st.columns([1, 2])
+            approver = f1.text_input("Approver (recorded in the audit trail)")
+            reason = f2.text_input("Reason / comment (optional)")
+            submitted = st.form_submit_button("Submit decisions and validate", type="primary")
+        if submitted:
+            if not approver.strip():
+                st.error("Enter the approver's name: every decision is recorded with who made it.")
+            else:
+                cmd = [sys.executable, "-m", "sscg", "approve", repo, "--out", str(out), "--by", approver.strip(),
+                       "--reason", reason or "decided in the dashboard"]
+                for d in ("approve", "reject", "accept_risk", "request_changes"):
+                    ids = [k for k, v in decisions.items() if v == d]
+                    if ids:
+                        cmd += [f"--{d.replace('_', '-')}", ",".join(ids)]
+                with st.spinner("Applying the approved fixes in a sandbox, building, testing and rescanning... "
+                                "(can take a few minutes)"):
+                    r = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", cwd=ROOT)
+                if r.returncode != 0:
+                    st.error((r.stdout + r.stderr)[-2500:])
+                else:
+                    st.rerun()
+
+    if day2_f.exists() and not pending_f.exists():   # ------------------------ results of the last Day 2 run
+        d2 = json.loads(day2_f.read_text(encoding="utf-8"))
+        val = (d2.get("validations") or [{}])[-1]
+        verdict = val.get("verdict", "not_run")
+        k = st.columns(5)
+        k[0].metric("Verdict", {"verified": "✅ verified", "partially_verified": "🟨 partial", "failed": "❌ failed",
+                                "not_run": "⏸️ not run"}.get(verdict, verdict), help="; ".join(val.get("reasons", [])))
+        k[1].metric("Confidence", val.get("confidence", "-"))
+        k[2].metric("Findings before → after", f"{val.get('findings_before', '-')} → {val.get('findings_after', '-')}")
+        k[3].metric("Resolved", len(val.get("resolved", [])))
+        k[4].metric("New after the fix", len([n for n in val.get("new", []) if n.get("kind") == "introduced"]),
+                    help="excluding expected changes (e.g. the replacement package) and packages that are still "
+                         "vulnerable at a new version")
+        for r_ in val.get("reasons", []):
+            st.caption("• " + r_)
+        t1, t2, t3, t4 = st.tabs(["① Priorities", "③ Proposals & decisions", "④ Validation", "⑤ Report & patch"])
+        with t1:
+            st.dataframe(pd.DataFrame([{
+                "Priority": f"{PRIO_ICON.get(p['priority'], '')} {p['priority']}", "Urgent": "🔥" if p["urgent"] else "",
+                "Score": p["score"], "ID": p["finding_id"], "Component": p["component"] or "", "Finding": p["title"],
+                "Why": "; ".join(p["reasons"][1:4]), "Confidence": p["confidence"]} for p in d2.get("priorities", [])]),
+                hide_index=True, use_container_width=True)
+            src = d2.get("exploitability_sources") or {}
+            st.caption(f"CISA KEV {((src.get('kev') or {}).get('date') or 'n/a')} · EPSS "
+                       f"{((src.get('epss') or {}).get('date') or 'n/a')} · reachability {d2.get('reachability_summary')}"
+                       f" · network service: {(d2.get('exposure') or {}).get('network_service')}")
+        with t2:
+            appr = {a["proposal_id"]: a for a in d2.get("approvals", [])}
+            st.dataframe(pd.DataFrame([{
+                "ID": p["proposal_id"], "Status": p["status"], "Priority": p["priority"], "Action": p["action"],
+                "Component": p["component"], "From": p["from_version"], "To": p["to_version"],
+                "Compatibility": p["compatibility_level"],
+                "Decision": f"{appr[p['proposal_id']]['decision']} by {appr[p['proposal_id']]['approver']}"
+                if p["proposal_id"] in appr else "",
+                "Validation": (val.get("per_proposal") or {}).get(p["proposal_id"], {}).get("status", "")}
+                for p in d2.get("proposals", [])]), hide_index=True, use_container_width=True)
+            pick_p = st.selectbox("Open a proposal", [p["proposal_id"] for p in d2.get("proposals", [])] or ["-"])
+            pp = next((p for p in d2.get("proposals", []) if p["proposal_id"] == pick_p), None)
+            if pp:
+                st.markdown(f"**Why (verified):** {pp['rationale']}  \n**Expected risk reduction:** "
+                            f"{pp.get('expected_risk_reduction') or '-'}  \n**Rollback:** {pp.get('rollback') or '-'}")
+                if pp.get("ai_rationale"):
+                    st.markdown(f"**Advisor (AI inference):** {pp['ai_rationale']}")
+                if pp.get("diff"):
+                    st.code(pp["diff"][:6000], language="diff")
+        with t3:
+            if verdict == "not_run":
+                st.info("No approved proposal with a patch was validated.")
+            else:
+                before = {s["step"].split(": ", 1)[1]: s for s in val.get("steps_before", [])}
+                st.dataframe(pd.DataFrame([{
+                    "Step": s["step"].split(": ", 1)[1],
+                    "Before (unchanged)": before.get(s["step"].split(": ", 1)[1], {}).get("status", "-"),
+                    "After (remediated)": s["status"], "Seconds": s["seconds"]} for s in val.get("steps_after", [])]),
+                    hide_index=True, use_container_width=True)
+                for s in val.get("steps_after", []) + val.get("steps_before", []):
+                    if s["status"] in ("failed", "timeout"):
+                        with st.expander(f"{s['step']}: {s['status']} (log)"):
+                            st.code(s.get("log", ""))
+                sd = val.get("sbom_diff") or {}
+                c1, c2 = st.columns(2)
+                c1.markdown("**SBOM changes**  \n" + "  \n".join(f"↕ {x}" for x in sd.get("changed", [])[:20]))
+                KIND = {"introduced": "🆕 introduced", "still_vulnerable": "➡️ still vulnerable", "expected": "✔️ expected"}
+                c2.markdown("**Findings that only exist after the fix**  \n" + "  \n".join(
+                    f"{KIND.get(n.get('kind'), n.get('kind'))}: {n['title'][:90]}" for n in val.get("new", [])))
+                st.caption(f"Resolved: {', '.join(val.get('resolved', []))}  \nRemaining: "
+                           f"{', '.join(val.get('remaining', []))}")
+        with t4:
+            b1, b2, b3, b4 = st.columns(4)
+            if (D2 / "remediation_report.html").exists():
+                b1.download_button("remediation_report.html", (D2 / "remediation_report.html").read_bytes(),
+                                   file_name=f"{name}.remediation_report.html", mime="text/html")
+            if (D2 / "remediation_report.pdf").exists():
+                b2.download_button("remediation_report.pdf", (D2 / "remediation_report.pdf").read_bytes(),
+                                   file_name=f"{name}.remediation_report.pdf", mime="application/pdf")
+            if (D2 / "remediation.patch").exists():
+                b3.download_button("remediation.patch", (D2 / "remediation.patch").read_bytes(),
+                                   file_name=f"{name}.remediation.patch", mime="text/x-diff")
+            b4.download_button("day2.json", day2_f.read_bytes(), file_name=f"{name}.day2.json", mime="application/json")
+            if (D2 / "remediation_report.md").exists():
+                with st.expander("Show the full remediation report", expanded=False):
+                    st.markdown((D2 / "remediation_report.md").read_text(encoding="utf-8"))

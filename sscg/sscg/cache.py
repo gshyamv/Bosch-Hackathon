@@ -23,6 +23,35 @@ def answered(method: str, url: str, body=None) -> bool:
     return _path(method, url, body).exists()
 
 
+def http_json_daily(url: str):
+    """GET JSON for feeds that change every day (CISA KEV, EPSS): cached per calendar day.
+
+    Offline, or when the service fails: the newest earlier cached copy is used, so scans stay reproducible.
+    Returns (data, date_of_data) or (None, None).
+    """
+    from datetime import date
+    stem = hashlib.sha1(f"daily GET {url}".encode()).hexdigest()
+    today = date.today().isoformat()
+    path = CACHE / f"{stem}-{today}.json"
+    if path.exists():
+        return json.loads(path.read_text(encoding="utf-8")), today
+    data = None
+    if not OFFLINE:
+        try:
+            r = requests.get(url, timeout=60)
+            data = r.json() if r.status_code == 200 else None
+        except (requests.RequestException, ValueError):
+            data = None
+    if data is not None:
+        CACHE.mkdir(exist_ok=True)
+        path.write_text(json.dumps(data), encoding="utf-8")
+        return data, today
+    older = sorted(CACHE.glob(f"{stem}-*.json"))
+    if older:  # file name: <sha1>-YYYY-MM-DD.json
+        return json.loads(older[-1].read_text(encoding="utf-8")), "-".join(older[-1].stem.split("-")[-3:])
+    return None, None
+
+
 def http_json(method: str, url: str, body=None):
     path = _path(method, url, body)
     if path.exists():
@@ -34,6 +63,8 @@ def http_json(method: str, url: str, body=None):
         data = r.json() if r.status_code == 200 else None
     except (requests.RequestException, ValueError):
         return None  # transient error: don't cache
+    if r.status_code not in (200, 404, 410):
+        return None  # rate limit / server error: transient, never cache it (a retry later may succeed)
     CACHE.mkdir(exist_ok=True)
     path.write_text(json.dumps(data), encoding="utf-8")
     return data

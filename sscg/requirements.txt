@@ -11,6 +11,7 @@ reportlab==4.4.5
 
 # ---- agentic layer: python -m sscg agent (docs/agentic.md). The plain `scan` command does not need these.
 langgraph==0.4.8
+langgraph-checkpoint-sqlite==2.0.11   # Day 2: a paused run (human approval) survives across processes
 pydantic==2.11.7
 python-dotenv==1.2.1
 # LLM provider SDKs: only the one you use is required (no key at all = rules-only fallback)

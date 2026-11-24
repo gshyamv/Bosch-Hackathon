@@ -39,7 +39,9 @@ class GuardianState(TypedDict, total=False):
     triage: Annotated[dict, merge_dict]               # finding_id -> TriageAssessment (dict)
     narrative: dict                  # Narrator
     artifacts: dict                  # Reporter: files written
-    # ---- Day 2 (filled by agents/day2.py nodes)
+    # ---- Day 2 (agents/prioritizer.py, agents/day2.py)
+    exploitability: dict             # Exploit Intel: CISA KEV + EPSS per vulnerability finding
+    reachability: dict               # Reachability: status per package node + network-service exposure
     priorities: list                 # [PriorityItem]
     proposals: list                  # [RemediationProposal]
     approvals: Annotated[list, operator.add]          # [ApprovalRecord]  (human decisions, never generated)

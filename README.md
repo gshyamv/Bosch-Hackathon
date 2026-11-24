@@ -12,7 +12,7 @@ SSCG scans a repository **without installing or running anything** and answers t
 * **What changed:** a component-by-component comparison with the previous commit, including who changed it.
 * **What appears risky:** **known vulnerabilities** (CVE, severity, fix, path back to the source) and **supply-chain anomalies** (typosquats, malicious packages, install scripts, tampered lockfiles, untrusted images, unsafe CI). Every finding carries **evidence** and an **initial risk level**.
 
-> **Agentic AI layer:** `python -m sscg agent <repo>` runs the same pipeline as a **LangGraph multi-agent workflow**: deterministic agents wrap the modules below, a **Triage agent** (Claude, Gemini, Groq or Grok) judges the suspicious changes rules cannot decide on their own, gathering more evidence when it needs it, and a **Narrator agent** writes the checkpoint summary. AI output is kept apart from the evidence, grounding-checked, and falls back to rules when no API key is set. The Day 2 graph (prioritise → remediate → human approval → validate) is already wired in as a scaffold. Details: **[docs/agentic.md](docs/agentic.md)**.
+> **Agentic AI layer:** `python -m sscg agent <repo>` runs the same pipeline as a **LangGraph multi-agent workflow**: deterministic agents wrap the modules below, a **Triage agent** (Claude, Gemini, Groq or Grok) judges the suspicious changes rules cannot decide on their own, gathering more evidence when it needs it, and a **Narrator agent** writes the checkpoint summary. AI output is kept apart from the evidence, grounding-checked, and falls back to rules when no API key is set. **Day 2** (prioritise → remediate → human approval → sandbox validation → report) is implemented: **[docs/day2.md](docs/day2.md)**. Agent details: **[docs/agentic.md](docs/agentic.md)**.
 
 ---
 
@@ -34,7 +34,7 @@ SSCG scans a repository **without installing or running anything** and answers t
 14. [Tech stack](#14-tech-stack)
 15. [Safety and responsible use](#15-safety-and-responsible-use)
 16. [Known limitations](#16-known-limitations)
-17. [Roadmap: Day 2](#17-roadmap-day-2)
+17. [Day 2: Brain & Shield](#17-day-2-brain--shield)
 18. [Troubleshooting](#18-troubleshooting)
 
 ---
@@ -88,7 +88,7 @@ streamlit run ui/app.py               # dashboard at http://localhost:8501
 # 5. optional: the agentic version (LangGraph agents + LLM triage; see docs/agentic.md)
 copy .env.example .env                # then put ONE real API key (Claude, Gemini, Groq or Grok) into .env
 python -m sscg agent ..\targets\sscg-demo-target            # no key = rules-only fallback, still works
-python -m sscg agent ..\targets\sscg-demo-target --day2-preview   # + Day 2 scaffold with human approval
+python -m sscg agent ..\targets\sscg-demo-target --day2           # + Day 2 (docs/day2.md)
 ```
 
 The repository ships with cached API responses (`sscg/.cache/`), so `--offline` works for all three sample apps without internet.
@@ -542,14 +542,25 @@ Bosch-Hackathon/
 
 ---
 
-## 17. Roadmap: Day 2
+## 17. Day 2: Brain & Shield
 
-Day 2 ("Build the Guardian's Brain & Shield") builds on `findings.json`. The agent graph already runs these steps as a scaffold (`python -m sscg agent <repo> --day2-preview`, see [docs/agentic.md §9](docs/agentic.md#9-day-2-how-to-extend-the-graph)):
-1. **Prioritize:** combine severity with exploitability (CISA KEV, EPSS), **reachability** (is the vulnerable code imported? e.g. `node-fetch` is declared but never imported in the demo) and production exposure.
-2. **Investigate:** AI-assisted explanation that may only cite finding IDs and evidence from this pipeline.
-3. **Recommend safe remediation:** upgrade / replace / pin / remove / block, using the captured fixed versions.
-4. **Human approval → build → test → rescan:** compare before/after SBOMs and findings.
-5. **Verify and report:** remaining or accepted risk, audit trail.
+Implemented; see **[docs/day2.md](docs/day2.md)**. One LangGraph run takes findings from detection to verified remediation:
+
+1. **Prioritize:** CISA KEV, EPSS, import-level reachability and exposure feed an explainable score (P0–P3, urgent,
+   confidence).
+2. **Investigate:** the Day 1 triage agent with its evidence loop.
+3. **Recommend:** a safe version (fewest remaining OSV advisories, installable) and an exact patch per package or file,
+   with risk reduction, compatibility and rollback, plus an optional grounded LLM rationale.
+4. **Human approval:** the run pauses (LangGraph interrupt with a SQLite checkpoint). Decide with
+   `python -m sscg approve` or in the dashboard.
+5. **Validate:** in a sandbox copy, build and test before and after (npm/pip/Maven/Docker, install scripts off,
+   secrets scrubbed), rescan, then compare.
+6. **Report:** `out/<repo>/day2/remediation_report.{md,html,pdf}`, `day2.json`, `remediation.patch`.
+
+```powershell
+python -m sscg agent ..\targets\sscg-demo-target --day2 --decisions later
+python -m sscg approve ..\targets\sscg-demo-target --approve all-patchable --by "Your Name"
+```
 
 ---
 

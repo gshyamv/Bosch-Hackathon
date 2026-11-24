@@ -8,18 +8,20 @@
                        +----(more evidence requested, round < max)---- triage_join
                                                                               |
                                                               narrate -> report -> END
-                                       (--day2-preview: report -> prioritize -> propose_remediation
-                                                         -> human_approval [interrupt] -> validate -> END)
+                    (--day2: report -> [exploit_intel || reachability_scan] -> prioritize -> plan_remediation
+                              -> advise_remediation -> human_approval [interrupt: pause, resume with `sscg approve`]
+                              -> validate (sandbox build/test/rescan) -> day2_report -> END)
 
-Routing is deterministic (plain Python functions); LLMs only work inside the triage and narrator nodes.
-A checkpointer is always attached so the human-approval interrupt can pause and resume the run.
+Routing is deterministic (plain Python functions); LLMs only work inside the triage, narrator and remediation
+advisor nodes. A checkpointer is always attached (SQLite for --day2), so the human-approval interrupt can pause the
+run and another process (CLI `approve` or the dashboard) can resume it.
 """
 from __future__ import annotations
 
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import END, START, StateGraph
 
-from . import day2, narrator, triage, workers
+from . import day2, narrator, prioritizer, remediator, triage, workers
 from .state import GuardianState
 
 
@@ -54,15 +56,23 @@ def build_graph(day2_preview: bool = False, checkpointer=None):
     g.add_edge("narrate", "report")
 
     if day2_preview:
-        g.add_node("prioritize", day2.prioritize)
-        g.add_node("propose_remediation", day2.propose_remediation)
+        g.add_node("exploit_intel", prioritizer.exploit_intel)
+        g.add_node("reachability_scan", prioritizer.reachability_scan)
+        g.add_node("prioritize", prioritizer.prioritize)
+        g.add_node("plan_remediation", remediator.plan_remediation)
+        g.add_node("advise_remediation", remediator.advise_remediation)
         g.add_node("human_approval", day2.human_approval)
         g.add_node("validate", day2.validate)
-        g.add_edge("report", "prioritize")
-        g.add_edge("prioritize", "propose_remediation")
-        g.add_edge("propose_remediation", "human_approval")
+        g.add_node("day2_report", day2.day2_report)
+        g.add_edge("report", "exploit_intel")                     # these two run in parallel
+        g.add_edge("report", "reachability_scan")
+        g.add_edge(["exploit_intel", "reachability_scan"], "prioritize")   # join: waits for both
+        g.add_edge("prioritize", "plan_remediation")
+        g.add_edge("plan_remediation", "advise_remediation")
+        g.add_edge("advise_remediation", "human_approval")        # interrupt: pauses until a human decides
         g.add_edge("human_approval", "validate")
-        g.add_edge("validate", END)
+        g.add_edge("validate", "day2_report")
+        g.add_edge("day2_report", END)
     else:
         g.add_edge("report", END)
     return g.compile(checkpointer=checkpointer or MemorySaver())

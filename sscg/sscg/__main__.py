@@ -68,16 +68,34 @@ def main(argv=None):
     ag.add_argument("--list-models", action="store_true",
                     help="print the models the --llm provider's API key can use, then exit (no generation quota used)")
     ag.add_argument("--max-triage", type=int, help="max findings sent to the triage agent (default 15)")
-    ag.add_argument("--day2-preview", action="store_true",
-                    help="also run the Day 2 scaffold: prioritise -> propose remediation -> human approval "
-                         "(interrupt) -> validation stub. Nothing is changed in the repository.")
-    ag.add_argument("--decisions", choices=["ask", "defer", "reject"], default="ask",
-                    help="--day2-preview approval step: ask on the console (default, falls back to defer when not "
-                         "interactive), defer (leave pending), or reject all")
+    ag.add_argument("--day2", "--day2-preview", dest="day2_preview", action="store_true",
+                    help="also run Day 2: exploitability (KEV/EPSS) + reachability -> prioritise -> recommend "
+                         "remediation -> human approval -> validate in a sandbox -> report. The repository itself "
+                         "is never modified.")
+    ag.add_argument("--decisions", choices=["ask", "later", "defer", "reject"], default="ask",
+                    help="--day2 approval step: ask on the console (default; becomes 'later' when not interactive), "
+                         "later = pause and decide with `python -m sscg approve` or the dashboard, "
+                         "defer = leave all pending, reject = reject all")
+    ag.add_argument("--no-baseline", action="store_true",
+                    help="--day2 validation: skip building the unchanged repository for the before/after comparison")
+
+    apv = sub.add_parser("approve", help="Day 2: record human decisions for a paused run and resume it "
+                                         "(validation in a sandbox + remediation report)")
+    apv.add_argument("repo", type=Path, help="the repository the paused run scanned")
+    apv.add_argument("--out", type=Path, help="output folder used by the run (default: out/<repo name>)")
+    apv.add_argument("--run", help="run id (default: the paused run in out/<repo>/day2/pending.json)")
+    for flag in ("approve", "reject", "accept-risk", "request-changes"):
+        apv.add_argument(f"--{flag}", metavar="IDS", help="comma-separated proposal ids, or all-patchable / all")
+    apv.add_argument("--by", help="approver name recorded in the audit trail (default: git user.name)")
+    apv.add_argument("--reason", help="reason recorded with the decisions")
+    apv.add_argument("--offline", action="store_true", help="answer API calls from .cache only")
     args = ap.parse_args(argv)
     if args.cmd == "agent":
         from .agents.runner import run  # imported lazily: plain `scan` never needs LangGraph or an LLM SDK
         return run(args)
+    if args.cmd == "approve":
+        from .agents.runner import resume
+        return resume(args)
     scan(args)
 
 
