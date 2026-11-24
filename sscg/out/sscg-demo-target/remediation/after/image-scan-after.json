@@ -1,0 +1,3440 @@
+{
+ "label": "after",
+ "dockerfile": ".",
+ "tool": "aquasec/trivy:0.58.1",
+ "status": "ok",
+ "os": "debian 13.7",
+ "packages": 260,
+ "by_severity": {
+  "CRITICAL": 0,
+  "HIGH": 58,
+  "MEDIUM": 112,
+  "LOW": 79,
+  "UNKNOWN": 16
+ },
+ "vulnerabilities": [
+  {
+   "id": "CVE-2026-76642",
+   "package": "bsdutils",
+   "installed": "1:2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-78408",
+   "package": "bsdutils",
+   "installed": "1:2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-78409",
+   "package": "bsdutils",
+   "installed": "1:2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-78410",
+   "package": "bsdutils",
+   "installed": "1:2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-54369",
+   "package": "libacl1",
+   "installed": "2.3.2-2+b1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-76642",
+   "package": "libblkid1",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-78408",
+   "package": "libblkid1",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-78409",
+   "package": "libblkid1",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-78410",
+   "package": "libblkid1",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-76642",
+   "package": "liblastlog2-2",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-78408",
+   "package": "liblastlog2-2",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-78409",
+   "package": "liblastlog2-2",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-78410",
+   "package": "liblastlog2-2",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-76642",
+   "package": "libmount1",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-78408",
+   "package": "libmount1",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-78409",
+   "package": "libmount1",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-78410",
+   "package": "libmount1",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-76642",
+   "package": "libsmartcols1",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-78408",
+   "package": "libsmartcols1",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-78409",
+   "package": "libsmartcols1",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-78410",
+   "package": "libsmartcols1",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-119373",
+   "package": "libsqlite3-0",
+   "installed": "3.46.1-7+deb13u2",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-119374",
+   "package": "libsqlite3-0",
+   "installed": "3.46.1-7+deb13u2",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-119379",
+   "package": "libsqlite3-0",
+   "installed": "3.46.1-7+deb13u2",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-107494",
+   "package": "libssl3t64",
+   "installed": "3.5.7-1~deb13u3",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-124709",
+   "package": "libssl3t64",
+   "installed": "3.5.7-1~deb13u3",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-16742",
+   "package": "libsystemd0",
+   "installed": "257.13-1~deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2025-69720",
+   "package": "libtinfo6",
+   "installed": "6.5+20250216-2",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-16742",
+   "package": "libudev1",
+   "installed": "257.13-1~deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-76642",
+   "package": "libuuid1",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-78408",
+   "package": "libuuid1",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-78409",
+   "package": "libuuid1",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-78410",
+   "package": "libuuid1",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-76642",
+   "package": "login",
+   "installed": "1:4.16.0-2+really2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-78408",
+   "package": "login",
+   "installed": "1:4.16.0-2+really2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-78409",
+   "package": "login",
+   "installed": "1:4.16.0-2+really2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-78410",
+   "package": "login",
+   "installed": "1:4.16.0-2+really2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-76642",
+   "package": "mount",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-78408",
+   "package": "mount",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-78409",
+   "package": "mount",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-78410",
+   "package": "mount",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2025-69720",
+   "package": "ncurses-base",
+   "installed": "6.5+20250216-2",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2025-69720",
+   "package": "ncurses-bin",
+   "installed": "6.5+20250216-2",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-107494",
+   "package": "openssl-provider-legacy",
+   "installed": "3.5.7-1~deb13u3",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-124709",
+   "package": "openssl-provider-legacy",
+   "installed": "3.5.7-1~deb13u3",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-9538",
+   "package": "perl-base",
+   "installed": "5.40.1-6+deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-76642",
+   "package": "util-linux",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-78408",
+   "package": "util-linux",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-78409",
+   "package": "util-linux",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-78410",
+   "package": "util-linux",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-85091",
+   "package": "zlib1g",
+   "installed": "1:1.3.dfsg+really1.3.1-1+b1",
+   "fixed": "1:1.3.dfsg+really1.3.1-1+deb13u1",
+   "severity": "HIGH",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-102276",
+   "package": "brace-expansion",
+   "installed": "5.0.9",
+   "fixed": "5.0.10, 3.0.7, 2.1.5, 1.1.19",
+   "severity": "HIGH",
+   "type": "node-pkg"
+  },
+  {
+   "id": "CVE-2026-102278",
+   "package": "brace-expansion",
+   "installed": "5.0.9",
+   "fixed": "5.0.11, 3.0.8, 2.1.6, 1.1.20",
+   "severity": "HIGH",
+   "type": "node-pkg"
+  },
+  {
+   "id": "CVE-2022-0235",
+   "package": "node-fetch",
+   "installed": "2.6.0",
+   "fixed": "3.1.1, 2.6.7",
+   "severity": "HIGH",
+   "type": "node-pkg"
+  },
+  {
+   "id": "CVE-2026-109383",
+   "package": "undici",
+   "installed": "6.28.0",
+   "fixed": "6.29.1, 7.30.1, 8.12.2",
+   "severity": "HIGH",
+   "type": "node-pkg"
+  },
+  {
+   "id": "CVE-2026-109869",
+   "package": "undici",
+   "installed": "6.28.0",
+   "fixed": "6.29.1, 7.30.1, 8.12.2",
+   "severity": "HIGH",
+   "type": "node-pkg"
+  },
+  {
+   "id": "CVE-2026-19534",
+   "package": "undici",
+   "installed": "6.28.0",
+   "fixed": "6.28.1, 7.29.1, 8.10.2",
+   "severity": "HIGH",
+   "type": "node-pkg"
+  },
+  {
+   "id": "CVE-2026-87018",
+   "package": "undici",
+   "installed": "6.28.0",
+   "fixed": "6.29.1, 7.30.1, 8.12.2",
+   "severity": "HIGH",
+   "type": "node-pkg"
+  },
+  {
+   "id": "CVE-2026-3184",
+   "package": "bsdutils",
+   "installed": "1:2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-102010",
+   "package": "gcc-14-base",
+   "installed": "14.2.0-19",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-114690",
+   "package": "gcc-14-base",
+   "installed": "14.2.0-19",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-114691",
+   "package": "gcc-14-base",
+   "installed": "14.2.0-19",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-115455",
+   "package": "gcc-14-base",
+   "installed": "14.2.0-19",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-125709",
+   "package": "gcc-14-base",
+   "installed": "14.2.0-19",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-95619",
+   "package": "gcc-14-base",
+   "installed": "14.2.0-19",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-54370",
+   "package": "libacl1",
+   "installed": "2.3.2-2+b1",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-102010",
+   "package": "libatomic1",
+   "installed": "14.2.0-19",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-114690",
+   "package": "libatomic1",
+   "installed": "14.2.0-19",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-114691",
+   "package": "libatomic1",
+   "installed": "14.2.0-19",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-115455",
+   "package": "libatomic1",
+   "installed": "14.2.0-19",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-125709",
+   "package": "libatomic1",
+   "installed": "14.2.0-19",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-95619",
+   "package": "libatomic1",
+   "installed": "14.2.0-19",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-54371",
+   "package": "libattr1",
+   "installed": "1:2.5.2-3",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-3184",
+   "package": "libblkid1",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-42250",
+   "package": "libbz2-1.0",
+   "installed": "1.0.8-6",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-115819",
+   "package": "libc-bin",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-18374",
+   "package": "libc-bin",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "2.41-12+deb13u5",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-19499",
+   "package": "libc-bin",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "2.41-12+deb13u5",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-19542",
+   "package": "libc-bin",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "2.41-12+deb13u5",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-5435",
+   "package": "libc-bin",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "2.41-12+deb13u5",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-6238",
+   "package": "libc-bin",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "2.41-12+deb13u5",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-6368",
+   "package": "libc-bin",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "2.41-12+deb13u5",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-6791",
+   "package": "libc-bin",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "2.41-12+deb13u5",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-77117",
+   "package": "libc-bin",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "2.41-12+deb13u5",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-80489",
+   "package": "libc-bin",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "2.41-12+deb13u5",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-84243",
+   "package": "libc-bin",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-8674",
+   "package": "libc-bin",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "2.41-12+deb13u5",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-86805",
+   "package": "libc-bin",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "2.41-12+deb13u5",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-89092",
+   "package": "libc-bin",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "2.41-12+deb13u5",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-95818",
+   "package": "libc-bin",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "2.41-12+deb13u5",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-115819",
+   "package": "libc6",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-18374",
+   "package": "libc6",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "2.41-12+deb13u5",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-19499",
+   "package": "libc6",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "2.41-12+deb13u5",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-19542",
+   "package": "libc6",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "2.41-12+deb13u5",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-5435",
+   "package": "libc6",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "2.41-12+deb13u5",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-6238",
+   "package": "libc6",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "2.41-12+deb13u5",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-6368",
+   "package": "libc6",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "2.41-12+deb13u5",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-6791",
+   "package": "libc6",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "2.41-12+deb13u5",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-77117",
+   "package": "libc6",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "2.41-12+deb13u5",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-80489",
+   "package": "libc6",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "2.41-12+deb13u5",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-84243",
+   "package": "libc6",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-8674",
+   "package": "libc6",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "2.41-12+deb13u5",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-86805",
+   "package": "libc6",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "2.41-12+deb13u5",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-89092",
+   "package": "libc6",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "2.41-12+deb13u5",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-95818",
+   "package": "libc6",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "2.41-12+deb13u5",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-102010",
+   "package": "libgcc-s1",
+   "installed": "14.2.0-19",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-114690",
+   "package": "libgcc-s1",
+   "installed": "14.2.0-19",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-114691",
+   "package": "libgcc-s1",
+   "installed": "14.2.0-19",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-115455",
+   "package": "libgcc-s1",
+   "installed": "14.2.0-19",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-125709",
+   "package": "libgcc-s1",
+   "installed": "14.2.0-19",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-95619",
+   "package": "libgcc-s1",
+   "installed": "14.2.0-19",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-3184",
+   "package": "liblastlog2-2",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-3184",
+   "package": "libmount1",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-54411",
+   "package": "libpam-modules",
+   "installed": "1.7.0-5",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-54411",
+   "package": "libpam-modules-bin",
+   "installed": "1.7.0-5",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-54411",
+   "package": "libpam-runtime",
+   "installed": "1.7.0-5",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-54411",
+   "package": "libpam0g",
+   "installed": "1.7.0-5",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-3184",
+   "package": "libsmartcols1",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-119371",
+   "package": "libsqlite3-0",
+   "installed": "3.46.1-7+deb13u2",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-119372",
+   "package": "libsqlite3-0",
+   "installed": "3.46.1-7+deb13u2",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-119375",
+   "package": "libsqlite3-0",
+   "installed": "3.46.1-7+deb13u2",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-119376",
+   "package": "libsqlite3-0",
+   "installed": "3.46.1-7+deb13u2",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-119378",
+   "package": "libsqlite3-0",
+   "installed": "3.46.1-7+deb13u2",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-119591",
+   "package": "libsqlite3-0",
+   "installed": "3.46.1-7+deb13u2",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-50812",
+   "package": "libsqlite3-0",
+   "installed": "3.46.1-7+deb13u2",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-50813",
+   "package": "libsqlite3-0",
+   "installed": "3.46.1-7+deb13u2",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-107496",
+   "package": "libssl3t64",
+   "installed": "3.5.7-1~deb13u3",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-121482",
+   "package": "libssl3t64",
+   "installed": "3.5.7-1~deb13u3",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-35190",
+   "package": "libssl3t64",
+   "installed": "3.5.7-1~deb13u3",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-84786",
+   "package": "libssl3t64",
+   "installed": "3.5.7-1~deb13u3",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-95690",
+   "package": "libssl3t64",
+   "installed": "3.5.7-1~deb13u3",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-95691",
+   "package": "libssl3t64",
+   "installed": "3.5.7-1~deb13u3",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-95692",
+   "package": "libssl3t64",
+   "installed": "3.5.7-1~deb13u3",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-102010",
+   "package": "libstdc++6",
+   "installed": "14.2.0-19",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-114690",
+   "package": "libstdc++6",
+   "installed": "14.2.0-19",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-114691",
+   "package": "libstdc++6",
+   "installed": "14.2.0-19",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-115455",
+   "package": "libstdc++6",
+   "installed": "14.2.0-19",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-125709",
+   "package": "libstdc++6",
+   "installed": "14.2.0-19",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-95619",
+   "package": "libstdc++6",
+   "installed": "14.2.0-19",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-15059",
+   "package": "libsystemd0",
+   "installed": "257.13-1~deb13u1",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-15059",
+   "package": "libudev1",
+   "installed": "257.13-1~deb13u1",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-3184",
+   "package": "libuuid1",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-3184",
+   "package": "login",
+   "installed": "1:4.16.0-2+really2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-3184",
+   "package": "mount",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-107496",
+   "package": "openssl-provider-legacy",
+   "installed": "3.5.7-1~deb13u3",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-121482",
+   "package": "openssl-provider-legacy",
+   "installed": "3.5.7-1~deb13u3",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-35190",
+   "package": "openssl-provider-legacy",
+   "installed": "3.5.7-1~deb13u3",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-84786",
+   "package": "openssl-provider-legacy",
+   "installed": "3.5.7-1~deb13u3",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-95690",
+   "package": "openssl-provider-legacy",
+   "installed": "3.5.7-1~deb13u3",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-95691",
+   "package": "openssl-provider-legacy",
+   "installed": "3.5.7-1~deb13u3",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-95692",
+   "package": "openssl-provider-legacy",
+   "installed": "3.5.7-1~deb13u3",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-15534",
+   "package": "perl-base",
+   "installed": "5.40.1-6+deb13u1",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-82560",
+   "package": "perl-base",
+   "installed": "5.40.1-6+deb13u1",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-18477",
+   "package": "tar",
+   "installed": "1.35+dfsg-3.1",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-18508",
+   "package": "tar",
+   "installed": "1.35+dfsg-3.1",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-5704",
+   "package": "tar",
+   "installed": "1.35+dfsg-3.1",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-3184",
+   "package": "util-linux",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-27171",
+   "package": "zlib1g",
+   "installed": "1:1.3.dfsg+really1.3.1-1+b1",
+   "fixed": "1:1.3.dfsg+really1.3.1-1+deb13u1",
+   "severity": "MEDIUM",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-102277",
+   "package": "brace-expansion",
+   "installed": "5.0.9",
+   "fixed": "5.0.12, 3.0.9, 2.1.7, 1.1.21",
+   "severity": "MEDIUM",
+   "type": "node-pkg"
+  },
+  {
+   "id": "CVE-2026-118773",
+   "package": "glob",
+   "installed": "13.0.6",
+   "fixed": "14.0.2",
+   "severity": "MEDIUM",
+   "type": "node-pkg"
+  },
+  {
+   "id": "CVE-2026-101910",
+   "package": "ip-address",
+   "installed": "10.5.0",
+   "fixed": "10.5.1",
+   "severity": "MEDIUM",
+   "type": "node-pkg"
+  },
+  {
+   "id": "CVE-2026-101911",
+   "package": "ip-address",
+   "installed": "10.5.0",
+   "fixed": "10.7.1",
+   "severity": "MEDIUM",
+   "type": "node-pkg"
+  },
+  {
+   "id": "CVE-2026-101912",
+   "package": "ip-address",
+   "installed": "10.5.0",
+   "fixed": "10.7.1",
+   "severity": "MEDIUM",
+   "type": "node-pkg"
+  },
+  {
+   "id": "CVE-2026-101913",
+   "package": "ip-address",
+   "installed": "10.5.0",
+   "fixed": "10.5.1",
+   "severity": "MEDIUM",
+   "type": "node-pkg"
+  },
+  {
+   "id": "CVE-2026-111997",
+   "package": "ip-address",
+   "installed": "10.5.0",
+   "fixed": "10.7.4",
+   "severity": "MEDIUM",
+   "type": "node-pkg"
+  },
+  {
+   "id": "CVE-2026-118764",
+   "package": "minimatch",
+   "installed": "10.2.5",
+   "fixed": "11.0.1",
+   "severity": "MEDIUM",
+   "type": "node-pkg"
+  },
+  {
+   "id": "CVE-2026-104844",
+   "package": "postcss-selector-parser",
+   "installed": "7.1.4",
+   "fixed": "7.1.6, 6.1.5",
+   "severity": "MEDIUM",
+   "type": "node-pkg"
+  },
+  {
+   "id": "CVE-2026-109924",
+   "package": "undici",
+   "installed": "6.28.0",
+   "fixed": "6.29.1, 7.30.1, 8.12.2",
+   "severity": "MEDIUM",
+   "type": "node-pkg"
+  },
+  {
+   "id": "CVE-2026-109932",
+   "package": "undici",
+   "installed": "6.28.0",
+   "fixed": "6.29.1, 7.30.1, 8.12.2",
+   "severity": "MEDIUM",
+   "type": "node-pkg"
+  },
+  {
+   "id": "CVE-2026-85024",
+   "package": "undici",
+   "installed": "6.28.0",
+   "fixed": "6.28.1, 7.29.1, 8.10.2",
+   "severity": "MEDIUM",
+   "type": "node-pkg"
+  },
+  {
+   "id": "CVE-2011-3374",
+   "package": "apt",
+   "installed": "3.0.4",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "TEMP-0841856-B18BAF",
+   "package": "bash",
+   "installed": "5.2.37-2+b10",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2022-0563",
+   "package": "bsdutils",
+   "installed": "1:2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2017-18018",
+   "package": "coreutils",
+   "installed": "9.7-3",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2025-5278",
+   "package": "coreutils",
+   "installed": "9.7-3",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-56391",
+   "package": "coreutils",
+   "installed": "9.7-3",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-56392",
+   "package": "coreutils",
+   "installed": "9.7-3",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-102473",
+   "package": "dash",
+   "installed": "0.5.12-12",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-102474",
+   "package": "dash",
+   "installed": "0.5.12-12",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-53910",
+   "package": "diffutils",
+   "installed": "1:3.10-4",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-115456",
+   "package": "gcc-14-base",
+   "installed": "14.2.0-19",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2011-3374",
+   "package": "libapt-pkg7.0",
+   "installed": "3.0.4",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-115456",
+   "package": "libatomic1",
+   "installed": "14.2.0-19",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2022-0563",
+   "package": "libblkid1",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2010-4756",
+   "package": "libc-bin",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2018-20796",
+   "package": "libc-bin",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2019-1010022",
+   "package": "libc-bin",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2019-1010023",
+   "package": "libc-bin",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2019-1010024",
+   "package": "libc-bin",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2019-1010025",
+   "package": "libc-bin",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2019-9192",
+   "package": "libc-bin",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-100290",
+   "package": "libc-bin",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-126765",
+   "package": "libc-bin",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-97399",
+   "package": "libc-bin",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "2.41-12+deb13u5",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2010-4756",
+   "package": "libc6",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2018-20796",
+   "package": "libc6",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2019-1010022",
+   "package": "libc6",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2019-1010023",
+   "package": "libc6",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2019-1010024",
+   "package": "libc6",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2019-1010025",
+   "package": "libc6",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2019-9192",
+   "package": "libc6",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-100290",
+   "package": "libc6",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-126765",
+   "package": "libc6",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-97399",
+   "package": "libc6",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "2.41-12+deb13u5",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-115456",
+   "package": "libgcc-s1",
+   "installed": "14.2.0-19",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2022-0563",
+   "package": "liblastlog2-2",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2022-0563",
+   "package": "libmount1",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2022-0563",
+   "package": "libsmartcols1",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2021-45346",
+   "package": "libsqlite3-0",
+   "installed": "3.46.1-7+deb13u2",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2025-70873",
+   "package": "libsqlite3-0",
+   "installed": "3.46.1-7+deb13u2",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-119377",
+   "package": "libsqlite3-0",
+   "installed": "3.46.1-7+deb13u2",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-107493",
+   "package": "libssl3t64",
+   "installed": "3.5.7-1~deb13u3",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-121481",
+   "package": "libssl3t64",
+   "installed": "3.5.7-1~deb13u3",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-88822",
+   "package": "libssl3t64",
+   "installed": "3.5.7-1~deb13u3",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-88823",
+   "package": "libssl3t64",
+   "installed": "3.5.7-1~deb13u3",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-115456",
+   "package": "libstdc++6",
+   "installed": "14.2.0-19",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2013-4392",
+   "package": "libsystemd0",
+   "installed": "257.13-1~deb13u1",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2023-31437",
+   "package": "libsystemd0",
+   "installed": "257.13-1~deb13u1",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2023-31438",
+   "package": "libsystemd0",
+   "installed": "257.13-1~deb13u1",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2023-31439",
+   "package": "libsystemd0",
+   "installed": "257.13-1~deb13u1",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-40228",
+   "package": "libsystemd0",
+   "installed": "257.13-1~deb13u1",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2025-6141",
+   "package": "libtinfo6",
+   "installed": "6.5+20250216-2",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2013-4392",
+   "package": "libudev1",
+   "installed": "257.13-1~deb13u1",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2023-31437",
+   "package": "libudev1",
+   "installed": "257.13-1~deb13u1",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2023-31438",
+   "package": "libudev1",
+   "installed": "257.13-1~deb13u1",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2023-31439",
+   "package": "libudev1",
+   "installed": "257.13-1~deb13u1",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-40228",
+   "package": "libudev1",
+   "installed": "257.13-1~deb13u1",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2022-0563",
+   "package": "libuuid1",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2022-0563",
+   "package": "login",
+   "installed": "1:4.16.0-2+really2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2007-5686",
+   "package": "login.defs",
+   "installed": "1:4.17.4-2",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2024-56433",
+   "package": "login.defs",
+   "installed": "1:4.17.4-2",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "TEMP-0628843-DBAD28",
+   "package": "login.defs",
+   "installed": "1:4.17.4-2",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2022-0563",
+   "package": "mount",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2025-6141",
+   "package": "ncurses-base",
+   "installed": "6.5+20250216-2",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2025-6141",
+   "package": "ncurses-bin",
+   "installed": "6.5+20250216-2",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-107493",
+   "package": "openssl-provider-legacy",
+   "installed": "3.5.7-1~deb13u3",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-121481",
+   "package": "openssl-provider-legacy",
+   "installed": "3.5.7-1~deb13u3",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-88822",
+   "package": "openssl-provider-legacy",
+   "installed": "3.5.7-1~deb13u3",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-88823",
+   "package": "openssl-provider-legacy",
+   "installed": "3.5.7-1~deb13u3",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2007-5686",
+   "package": "passwd",
+   "installed": "1:4.17.4-2",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2024-56433",
+   "package": "passwd",
+   "installed": "1:4.17.4-2",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "TEMP-0628843-DBAD28",
+   "package": "passwd",
+   "installed": "1:4.17.4-2",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2011-4116",
+   "package": "perl-base",
+   "installed": "5.40.1-6+deb13u1",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "TEMP-0517018-A83CE6",
+   "package": "sysvinit-utils",
+   "installed": "3.14-4",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2005-2541",
+   "package": "tar",
+   "installed": "1.35+dfsg-3.1",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "TEMP-0290435-0B57B5",
+   "package": "tar",
+   "installed": "1.35+dfsg-3.1",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2022-0563",
+   "package": "util-linux",
+   "installed": "2.41.5-0+deb13u1",
+   "fixed": "",
+   "severity": "LOW",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2020-15168",
+   "package": "node-fetch",
+   "installed": "2.6.0",
+   "fixed": "2.6.1, 3.0.0-beta.9",
+   "severity": "LOW",
+   "type": "node-pkg"
+  },
+  {
+   "id": "CVE-2026-18540",
+   "package": "undici",
+   "installed": "6.28.0",
+   "fixed": "6.28.1, 7.29.1, 8.10.2",
+   "severity": "LOW",
+   "type": "node-pkg"
+  },
+  {
+   "id": "CVE-2026-91094",
+   "package": "dpkg",
+   "installed": "1.22.22",
+   "fixed": "",
+   "severity": "UNKNOWN",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-121757",
+   "package": "libc-bin",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "",
+   "severity": "UNKNOWN",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-121758",
+   "package": "libc-bin",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "",
+   "severity": "UNKNOWN",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-124024",
+   "package": "libc-bin",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "",
+   "severity": "UNKNOWN",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-121757",
+   "package": "libc6",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "",
+   "severity": "UNKNOWN",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-121758",
+   "package": "libc6",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "",
+   "severity": "UNKNOWN",
+   "type": "debian"
+  },
+  {
+   "id": "CVE-2026-124024",
+   "package": "libc6",
+   "installed": "2.41-12+deb13u4",
+   "fixed": "",
+   "severity": "UNKNOWN",
+   "type": "debian"
+  },
+  {
+   "id": "TEMP-0000000-402D17",
+   "package": "libseccomp2",
+   "installed": "2.6.0-2",
+   "fixed": "",
+   "severity": "UNKNOWN",
+   "type": "debian"
+  },
+  {
+   "id": "TEMP-0000000-414660",
+   "package": "libseccomp2",
+   "installed": "2.6.0-2",
+   "fixed": "",
+   "severity": "UNKNOWN",
+   "type": "debian"
+  },
+  {
+   "id": "TEMP-0000000-43231F",
+   "package": "libseccomp2",
+   "installed": "2.6.0-2",
+   "fixed": "",
+   "severity": "UNKNOWN",
+   "type": "debian"
+  },
+  {
+   "id": "TEMP-0000000-AE2C66",
+   "package": "libseccomp2",
+   "installed": "2.6.0-2",
+   "fixed": "",
+   "severity": "UNKNOWN",
+   "type": "debian"
+  },
+  {
+   "id": "TEMP-0000000-ED49F3",
+   "package": "libseccomp2",
+   "installed": "2.6.0-2",
+   "fixed": "",
+   "severity": "UNKNOWN",
+   "type": "debian"
+  },
+  {
+   "id": "TEMP-0000000-F88C7E",
+   "package": "libseccomp2",
+   "installed": "2.6.0-2",
+   "fixed": "",
+   "severity": "UNKNOWN",
+   "type": "debian"
+  },
+  {
+   "id": "TEMP-0000000-FCA4C0",
+   "package": "libseccomp2",
+   "installed": "2.6.0-2",
+   "fixed": "",
+   "severity": "UNKNOWN",
+   "type": "debian"
+  },
+  {
+   "id": "TEMP-1154946-473926",
+   "package": "login.defs",
+   "installed": "1:4.17.4-2",
+   "fixed": "",
+   "severity": "UNKNOWN",
+   "type": "debian"
+  },
+  {
+   "id": "TEMP-1154946-473926",
+   "package": "passwd",
+   "installed": "1:4.17.4-2",
+   "fixed": "",
+   "severity": "UNKNOWN",
+   "type": "debian"
+  }
+ ],
+ "package_list": [
+  {
+   "name": "adduser",
+   "version": "3.152",
+   "type": "debian"
+  },
+  {
+   "name": "apt",
+   "version": "3.0.4",
+   "type": "debian"
+  },
+  {
+   "name": "base-files",
+   "version": "13.8+deb13u7",
+   "type": "debian"
+  },
+  {
+   "name": "base-passwd",
+   "version": "3.6.7",
+   "type": "debian"
+  },
+  {
+   "name": "bash",
+   "version": "5.2.37",
+   "type": "debian"
+  },
+  {
+   "name": "bsdutils",
+   "version": "2.41.5",
+   "type": "debian"
+  },
+  {
+   "name": "coreutils",
+   "version": "9.7",
+   "type": "debian"
+  },
+  {
+   "name": "dash",
+   "version": "0.5.12",
+   "type": "debian"
+  },
+  {
+   "name": "debconf",
+   "version": "1.5.91",
+   "type": "debian"
+  },
+  {
+   "name": "debian-archive-keyring",
+   "version": "2025.1",
+   "type": "debian"
+  },
+  {
+   "name": "debianutils",
+   "version": "5.23.2",
+   "type": "debian"
+  },
+  {
+   "name": "diffutils",
+   "version": "3.10",
+   "type": "debian"
+  },
+  {
+   "name": "dpkg",
+   "version": "1.22.22",
+   "type": "debian"
+  },
+  {
+   "name": "findutils",
+   "version": "4.10.0",
+   "type": "debian"
+  },
+  {
+   "name": "gcc-14-base",
+   "version": "14.2.0",
+   "type": "debian"
+  },
+  {
+   "name": "grep",
+   "version": "3.11",
+   "type": "debian"
+  },
+  {
+   "name": "gzip",
+   "version": "1.13",
+   "type": "debian"
+  },
+  {
+   "name": "hostname",
+   "version": "3.25",
+   "type": "debian"
+  },
+  {
+   "name": "init-system-helpers",
+   "version": "1.69~deb13u1",
+   "type": "debian"
+  },
+  {
+   "name": "libacl1",
+   "version": "2.3.2",
+   "type": "debian"
+  },
+  {
+   "name": "libapt-pkg7.0",
+   "version": "3.0.4",
+   "type": "debian"
+  },
+  {
+   "name": "libatomic1",
+   "version": "14.2.0",
+   "type": "debian"
+  },
+  {
+   "name": "libattr1",
+   "version": "2.5.2",
+   "type": "debian"
+  },
+  {
+   "name": "libaudit-common",
+   "version": "4.0.2",
+   "type": "debian"
+  },
+  {
+   "name": "libaudit1",
+   "version": "4.0.2",
+   "type": "debian"
+  },
+  {
+   "name": "libblkid1",
+   "version": "2.41.5",
+   "type": "debian"
+  },
+  {
+   "name": "libbsd0",
+   "version": "0.12.2",
+   "type": "debian"
+  },
+  {
+   "name": "libbz2-1.0",
+   "version": "1.0.8",
+   "type": "debian"
+  },
+  {
+   "name": "libc-bin",
+   "version": "2.41",
+   "type": "debian"
+  },
+  {
+   "name": "libc6",
+   "version": "2.41",
+   "type": "debian"
+  },
+  {
+   "name": "libcap-ng0",
+   "version": "0.8.5",
+   "type": "debian"
+  },
+  {
+   "name": "libcap2",
+   "version": "2.75",
+   "type": "debian"
+  },
+  {
+   "name": "libcrypt1",
+   "version": "4.4.38",
+   "type": "debian"
+  },
+  {
+   "name": "libdb5.3t64",
+   "version": "5.3.28+dfsg2",
+   "type": "debian"
+  },
+  {
+   "name": "libdebconfclient0",
+   "version": "0.280",
+   "type": "debian"
+  },
+  {
+   "name": "libgcc-s1",
+   "version": "14.2.0",
+   "type": "debian"
+  },
+  {
+   "name": "libgmp10",
+   "version": "6.3.0+dfsg",
+   "type": "debian"
+  },
+  {
+   "name": "libhogweed6t64",
+   "version": "3.10.1",
+   "type": "debian"
+  },
+  {
+   "name": "liblastlog2-2",
+   "version": "2.41.5",
+   "type": "debian"
+  },
+  {
+   "name": "liblz4-1",
+   "version": "1.10.0",
+   "type": "debian"
+  },
+  {
+   "name": "liblzma5",
+   "version": "5.8.1",
+   "type": "debian"
+  },
+  {
+   "name": "libmd0",
+   "version": "1.1.0",
+   "type": "debian"
+  },
+  {
+   "name": "libmount1",
+   "version": "2.41.5",
+   "type": "debian"
+  },
+  {
+   "name": "libnettle8t64",
+   "version": "3.10.1",
+   "type": "debian"
+  },
+  {
+   "name": "libpam-modules",
+   "version": "1.7.0",
+   "type": "debian"
+  },
+  {
+   "name": "libpam-modules-bin",
+   "version": "1.7.0",
+   "type": "debian"
+  },
+  {
+   "name": "libpam-runtime",
+   "version": "1.7.0",
+   "type": "debian"
+  },
+  {
+   "name": "libpam0g",
+   "version": "1.7.0",
+   "type": "debian"
+  },
+  {
+   "name": "libpcre2-8-0",
+   "version": "10.46",
+   "type": "debian"
+  },
+  {
+   "name": "libseccomp2",
+   "version": "2.6.0",
+   "type": "debian"
+  },
+  {
+   "name": "libselinux1",
+   "version": "3.8.1",
+   "type": "debian"
+  },
+  {
+   "name": "libsemanage-common",
+   "version": "3.8.1",
+   "type": "debian"
+  },
+  {
+   "name": "libsemanage2",
+   "version": "3.8.1",
+   "type": "debian"
+  },
+  {
+   "name": "libsepol2",
+   "version": "3.8.1",
+   "type": "debian"
+  },
+  {
+   "name": "libsmartcols1",
+   "version": "2.41.5",
+   "type": "debian"
+  },
+  {
+   "name": "libsqlite3-0",
+   "version": "3.46.1",
+   "type": "debian"
+  },
+  {
+   "name": "libssl3t64",
+   "version": "3.5.7",
+   "type": "debian"
+  },
+  {
+   "name": "libstdc++6",
+   "version": "14.2.0",
+   "type": "debian"
+  },
+  {
+   "name": "libsystemd0",
+   "version": "257.13",
+   "type": "debian"
+  },
+  {
+   "name": "libtinfo6",
+   "version": "6.5+20250216",
+   "type": "debian"
+  },
+  {
+   "name": "libudev1",
+   "version": "257.13",
+   "type": "debian"
+  },
+  {
+   "name": "libuuid1",
+   "version": "2.41.5",
+   "type": "debian"
+  },
+  {
+   "name": "libxxhash0",
+   "version": "0.8.3",
+   "type": "debian"
+  },
+  {
+   "name": "libzstd1",
+   "version": "1.5.7+dfsg",
+   "type": "debian"
+  },
+  {
+   "name": "login",
+   "version": "4.16.0-2+really2.41.5",
+   "type": "debian"
+  },
+  {
+   "name": "login.defs",
+   "version": "4.17.4",
+   "type": "debian"
+  },
+  {
+   "name": "mawk",
+   "version": "1.3.4.20250131",
+   "type": "debian"
+  },
+  {
+   "name": "mount",
+   "version": "2.41.5",
+   "type": "debian"
+  },
+  {
+   "name": "ncurses-base",
+   "version": "6.5+20250216",
+   "type": "debian"
+  },
+  {
+   "name": "ncurses-bin",
+   "version": "6.5+20250216",
+   "type": "debian"
+  },
+  {
+   "name": "openssl-provider-legacy",
+   "version": "3.5.7",
+   "type": "debian"
+  },
+  {
+   "name": "passwd",
+   "version": "4.17.4",
+   "type": "debian"
+  },
+  {
+   "name": "perl-base",
+   "version": "5.40.1",
+   "type": "debian"
+  },
+  {
+   "name": "sed",
+   "version": "4.9",
+   "type": "debian"
+  },
+  {
+   "name": "sqv",
+   "version": "1.3.0",
+   "type": "debian"
+  },
+  {
+   "name": "sysvinit-utils",
+   "version": "3.14",
+   "type": "debian"
+  },
+  {
+   "name": "tar",
+   "version": "1.35+dfsg",
+   "type": "debian"
+  },
+  {
+   "name": "tzdata",
+   "version": "2026f",
+   "type": "debian"
+  },
+  {
+   "name": "util-linux",
+   "version": "2.41.5",
+   "type": "debian"
+  },
+  {
+   "name": "zlib1g",
+   "version": "1.3.dfsg+really1.3.1",
+   "type": "debian"
+  },
+  {
+   "name": "@epic-web/invariant",
+   "version": "1.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "@gar/promise-retry",
+   "version": "1.0.3",
+   "type": "node-pkg"
+  },
+  {
+   "name": "@isaacs/fs-minipass",
+   "version": "4.0.1",
+   "type": "node-pkg"
+  },
+  {
+   "name": "@isaacs/string-locale-compare",
+   "version": "1.1.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "@npmcli/agent",
+   "version": "4.0.2",
+   "type": "node-pkg"
+  },
+  {
+   "name": "@npmcli/arborist",
+   "version": "9.9.2",
+   "type": "node-pkg"
+  },
+  {
+   "name": "@npmcli/config",
+   "version": "10.13.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "@npmcli/fs",
+   "version": "5.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "@npmcli/git",
+   "version": "7.0.2",
+   "type": "node-pkg"
+  },
+  {
+   "name": "@npmcli/installed-package-contents",
+   "version": "4.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "@npmcli/map-workspaces",
+   "version": "5.0.3",
+   "type": "node-pkg"
+  },
+  {
+   "name": "@npmcli/metavuln-calculator",
+   "version": "9.0.3",
+   "type": "node-pkg"
+  },
+  {
+   "name": "@npmcli/name-from-folder",
+   "version": "4.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "@npmcli/node-gyp",
+   "version": "5.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "@npmcli/package-json",
+   "version": "7.0.5",
+   "type": "node-pkg"
+  },
+  {
+   "name": "@npmcli/promise-spawn",
+   "version": "9.0.1",
+   "type": "node-pkg"
+  },
+  {
+   "name": "@npmcli/query",
+   "version": "5.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "@npmcli/redact",
+   "version": "4.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "@npmcli/run-script",
+   "version": "10.0.4",
+   "type": "node-pkg"
+  },
+  {
+   "name": "@sigstore/bundle",
+   "version": "4.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "@sigstore/core",
+   "version": "3.2.1",
+   "type": "node-pkg"
+  },
+  {
+   "name": "@sigstore/protobuf-specs",
+   "version": "0.5.1",
+   "type": "node-pkg"
+  },
+  {
+   "name": "@sigstore/sign",
+   "version": "4.1.1",
+   "type": "node-pkg"
+  },
+  {
+   "name": "@sigstore/tuf",
+   "version": "4.0.2",
+   "type": "node-pkg"
+  },
+  {
+   "name": "@sigstore/verify",
+   "version": "3.1.1",
+   "type": "node-pkg"
+  },
+  {
+   "name": "@tufjs/canonical-json",
+   "version": "2.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "@tufjs/models",
+   "version": "4.1.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "abbrev",
+   "version": "4.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "acme-orders",
+   "version": "1.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "agent-base",
+   "version": "7.1.4",
+   "type": "node-pkg"
+  },
+  {
+   "name": "aproba",
+   "version": "2.1.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "archy",
+   "version": "1.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "asynckit",
+   "version": "0.4.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "axios",
+   "version": "0.34.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "balanced-match",
+   "version": "4.0.4",
+   "type": "node-pkg"
+  },
+  {
+   "name": "bin-links",
+   "version": "6.0.2",
+   "type": "node-pkg"
+  },
+  {
+   "name": "binary-extensions",
+   "version": "3.1.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "brace-expansion",
+   "version": "5.0.9",
+   "type": "node-pkg"
+  },
+  {
+   "name": "cacache",
+   "version": "20.0.4",
+   "type": "node-pkg"
+  },
+  {
+   "name": "call-bind-apply-helpers",
+   "version": "1.0.2",
+   "type": "node-pkg"
+  },
+  {
+   "name": "chalk",
+   "version": "5.6.2",
+   "type": "node-pkg"
+  },
+  {
+   "name": "chownr",
+   "version": "3.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "ci-info",
+   "version": "4.4.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "cidr-regex",
+   "version": "5.0.5",
+   "type": "node-pkg"
+  },
+  {
+   "name": "cmd-shim",
+   "version": "8.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "combined-stream",
+   "version": "1.0.8",
+   "type": "node-pkg"
+  },
+  {
+   "name": "common-ancestor-path",
+   "version": "2.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "cross-env",
+   "version": "10.1.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "cross-spawn",
+   "version": "7.0.6",
+   "type": "node-pkg"
+  },
+  {
+   "name": "cssesc",
+   "version": "3.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "debug",
+   "version": "4.4.3",
+   "type": "node-pkg"
+  },
+  {
+   "name": "delayed-stream",
+   "version": "1.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "diff",
+   "version": "8.0.4",
+   "type": "node-pkg"
+  },
+  {
+   "name": "dunder-proto",
+   "version": "1.0.1",
+   "type": "node-pkg"
+  },
+  {
+   "name": "env-paths",
+   "version": "2.2.1",
+   "type": "node-pkg"
+  },
+  {
+   "name": "es-define-property",
+   "version": "1.0.1",
+   "type": "node-pkg"
+  },
+  {
+   "name": "es-errors",
+   "version": "1.3.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "es-object-atoms",
+   "version": "1.1.2",
+   "type": "node-pkg"
+  },
+  {
+   "name": "es-set-tostringtag",
+   "version": "2.1.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "exponential-backoff",
+   "version": "3.1.3",
+   "type": "node-pkg"
+  },
+  {
+   "name": "fastest-levenshtein",
+   "version": "1.0.16",
+   "type": "node-pkg"
+  },
+  {
+   "name": "fdir",
+   "version": "6.5.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "follow-redirects",
+   "version": "1.16.2",
+   "type": "node-pkg"
+  },
+  {
+   "name": "form-data",
+   "version": "4.0.6",
+   "type": "node-pkg"
+  },
+  {
+   "name": "fs-minipass",
+   "version": "3.0.3",
+   "type": "node-pkg"
+  },
+  {
+   "name": "function-bind",
+   "version": "1.1.2",
+   "type": "node-pkg"
+  },
+  {
+   "name": "get-intrinsic",
+   "version": "1.3.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "get-proto",
+   "version": "1.0.1",
+   "type": "node-pkg"
+  },
+  {
+   "name": "glob",
+   "version": "13.0.6",
+   "type": "node-pkg"
+  },
+  {
+   "name": "gopd",
+   "version": "1.2.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "graceful-fs",
+   "version": "4.2.11",
+   "type": "node-pkg"
+  },
+  {
+   "name": "has-symbols",
+   "version": "1.1.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "has-tostringtag",
+   "version": "1.0.2",
+   "type": "node-pkg"
+  },
+  {
+   "name": "hasown",
+   "version": "2.0.4",
+   "type": "node-pkg"
+  },
+  {
+   "name": "hosted-git-info",
+   "version": "9.0.3",
+   "type": "node-pkg"
+  },
+  {
+   "name": "http-cache-semantics",
+   "version": "4.2.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "http-proxy-agent",
+   "version": "7.0.2",
+   "type": "node-pkg"
+  },
+  {
+   "name": "https-proxy-agent",
+   "version": "7.0.6",
+   "type": "node-pkg"
+  },
+  {
+   "name": "iconv-lite",
+   "version": "0.7.2",
+   "type": "node-pkg"
+  },
+  {
+   "name": "ignore-walk",
+   "version": "8.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "ini",
+   "version": "6.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "init-package-json",
+   "version": "8.2.5",
+   "type": "node-pkg"
+  },
+  {
+   "name": "ip-address",
+   "version": "10.5.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "is-cidr",
+   "version": "6.0.4",
+   "type": "node-pkg"
+  },
+  {
+   "name": "isexe",
+   "version": "2.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "isexe",
+   "version": "4.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "json-parse-even-better-errors",
+   "version": "5.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "json-stringify-nice",
+   "version": "1.1.4",
+   "type": "node-pkg"
+  },
+  {
+   "name": "jsonparse",
+   "version": "1.3.1",
+   "type": "node-pkg"
+  },
+  {
+   "name": "just-diff",
+   "version": "6.0.2",
+   "type": "node-pkg"
+  },
+  {
+   "name": "just-diff-apply",
+   "version": "5.5.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "libnpmaccess",
+   "version": "10.0.3",
+   "type": "node-pkg"
+  },
+  {
+   "name": "libnpmdiff",
+   "version": "8.1.13",
+   "type": "node-pkg"
+  },
+  {
+   "name": "libnpmexec",
+   "version": "10.3.3",
+   "type": "node-pkg"
+  },
+  {
+   "name": "libnpmfund",
+   "version": "7.0.27",
+   "type": "node-pkg"
+  },
+  {
+   "name": "libnpmorg",
+   "version": "8.0.1",
+   "type": "node-pkg"
+  },
+  {
+   "name": "libnpmpack",
+   "version": "9.1.14",
+   "type": "node-pkg"
+  },
+  {
+   "name": "libnpmpublish",
+   "version": "11.2.1",
+   "type": "node-pkg"
+  },
+  {
+   "name": "libnpmsearch",
+   "version": "9.0.1",
+   "type": "node-pkg"
+  },
+  {
+   "name": "libnpmteam",
+   "version": "8.0.2",
+   "type": "node-pkg"
+  },
+  {
+   "name": "libnpmversion",
+   "version": "8.0.4",
+   "type": "node-pkg"
+  },
+  {
+   "name": "lodash",
+   "version": "4.18.1",
+   "type": "node-pkg"
+  },
+  {
+   "name": "lru-cache",
+   "version": "11.5.1",
+   "type": "node-pkg"
+  },
+  {
+   "name": "make-fetch-happen",
+   "version": "15.0.6",
+   "type": "node-pkg"
+  },
+  {
+   "name": "math-intrinsics",
+   "version": "1.1.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "mime-db",
+   "version": "1.52.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "mime-types",
+   "version": "2.1.35",
+   "type": "node-pkg"
+  },
+  {
+   "name": "minimatch",
+   "version": "10.2.5",
+   "type": "node-pkg"
+  },
+  {
+   "name": "minimist",
+   "version": "0.2.4",
+   "type": "node-pkg"
+  },
+  {
+   "name": "minipass",
+   "version": "3.3.6",
+   "type": "node-pkg"
+  },
+  {
+   "name": "minipass",
+   "version": "7.1.3",
+   "type": "node-pkg"
+  },
+  {
+   "name": "minipass-collect",
+   "version": "2.0.1",
+   "type": "node-pkg"
+  },
+  {
+   "name": "minipass-fetch",
+   "version": "5.0.2",
+   "type": "node-pkg"
+  },
+  {
+   "name": "minipass-flush",
+   "version": "1.0.6",
+   "type": "node-pkg"
+  },
+  {
+   "name": "minipass-pipeline",
+   "version": "1.2.4",
+   "type": "node-pkg"
+  },
+  {
+   "name": "minipass-sized",
+   "version": "2.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "minizlib",
+   "version": "3.1.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "mkdirp",
+   "version": "0.5.1",
+   "type": "node-pkg"
+  },
+  {
+   "name": "ms",
+   "version": "2.1.3",
+   "type": "node-pkg"
+  },
+  {
+   "name": "mute-stream",
+   "version": "3.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "negotiator",
+   "version": "1.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "node-fetch",
+   "version": "2.6.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "node-gyp",
+   "version": "12.4.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "nopt",
+   "version": "9.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "npm",
+   "version": "11.20.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "npm-audit-report",
+   "version": "7.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "npm-bundled",
+   "version": "5.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "npm-install-checks",
+   "version": "8.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "npm-normalize-package-bin",
+   "version": "5.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "npm-package-arg",
+   "version": "13.0.2",
+   "type": "node-pkg"
+  },
+  {
+   "name": "npm-packlist",
+   "version": "10.0.4",
+   "type": "node-pkg"
+  },
+  {
+   "name": "npm-pick-manifest",
+   "version": "11.0.3",
+   "type": "node-pkg"
+  },
+  {
+   "name": "npm-profile",
+   "version": "12.0.2",
+   "type": "node-pkg"
+  },
+  {
+   "name": "npm-registry-fetch",
+   "version": "19.1.1",
+   "type": "node-pkg"
+  },
+  {
+   "name": "npm-user-validate",
+   "version": "4.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "p-map",
+   "version": "7.0.4",
+   "type": "node-pkg"
+  },
+  {
+   "name": "pacote",
+   "version": "21.5.1",
+   "type": "node-pkg"
+  },
+  {
+   "name": "parse-conflict-json",
+   "version": "5.0.1",
+   "type": "node-pkg"
+  },
+  {
+   "name": "path-key",
+   "version": "3.1.1",
+   "type": "node-pkg"
+  },
+  {
+   "name": "path-scurry",
+   "version": "2.0.2",
+   "type": "node-pkg"
+  },
+  {
+   "name": "picomatch",
+   "version": "4.0.4",
+   "type": "node-pkg"
+  },
+  {
+   "name": "postcss-selector-parser",
+   "version": "7.1.4",
+   "type": "node-pkg"
+  },
+  {
+   "name": "proc-log",
+   "version": "6.1.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "proggy",
+   "version": "4.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "promise-all-reject-late",
+   "version": "1.0.1",
+   "type": "node-pkg"
+  },
+  {
+   "name": "promise-call-limit",
+   "version": "3.0.2",
+   "type": "node-pkg"
+  },
+  {
+   "name": "promzard",
+   "version": "3.0.1",
+   "type": "node-pkg"
+  },
+  {
+   "name": "proxy-from-env",
+   "version": "1.1.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "qrcode-terminal",
+   "version": "0.12.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "read",
+   "version": "5.0.1",
+   "type": "node-pkg"
+  },
+  {
+   "name": "read-cmd-shim",
+   "version": "6.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "safer-buffer",
+   "version": "2.1.2",
+   "type": "node-pkg"
+  },
+  {
+   "name": "semver",
+   "version": "7.8.5",
+   "type": "node-pkg"
+  },
+  {
+   "name": "shebang-command",
+   "version": "2.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "shebang-regex",
+   "version": "3.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "signal-exit",
+   "version": "4.1.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "sigstore",
+   "version": "4.1.1",
+   "type": "node-pkg"
+  },
+  {
+   "name": "smart-buffer",
+   "version": "4.2.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "socks",
+   "version": "2.8.9",
+   "type": "node-pkg"
+  },
+  {
+   "name": "socks-proxy-agent",
+   "version": "8.0.5",
+   "type": "node-pkg"
+  },
+  {
+   "name": "spdx-exceptions",
+   "version": "2.5.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "spdx-expression-parse",
+   "version": "4.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "spdx-license-ids",
+   "version": "3.0.23",
+   "type": "node-pkg"
+  },
+  {
+   "name": "ssri",
+   "version": "13.0.1",
+   "type": "node-pkg"
+  },
+  {
+   "name": "supports-color",
+   "version": "10.2.2",
+   "type": "node-pkg"
+  },
+  {
+   "name": "tar",
+   "version": "7.5.22",
+   "type": "node-pkg"
+  },
+  {
+   "name": "text-table",
+   "version": "0.2.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "tiny-relative-date",
+   "version": "2.0.2",
+   "type": "node-pkg"
+  },
+  {
+   "name": "tinyglobby",
+   "version": "0.2.17",
+   "type": "node-pkg"
+  },
+  {
+   "name": "treeverse",
+   "version": "3.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "tuf-js",
+   "version": "4.1.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "undici",
+   "version": "6.28.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "util-deprecate",
+   "version": "1.0.2",
+   "type": "node-pkg"
+  },
+  {
+   "name": "validate-npm-package-name",
+   "version": "7.0.2",
+   "type": "node-pkg"
+  },
+  {
+   "name": "walk-up-path",
+   "version": "4.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "which",
+   "version": "2.0.2",
+   "type": "node-pkg"
+  },
+  {
+   "name": "which",
+   "version": "6.0.1",
+   "type": "node-pkg"
+  },
+  {
+   "name": "write-file-atomic",
+   "version": "7.0.1",
+   "type": "node-pkg"
+  },
+  {
+   "name": "yallist",
+   "version": "4.0.0",
+   "type": "node-pkg"
+  },
+  {
+   "name": "yallist",
+   "version": "5.0.0",
+   "type": "node-pkg"
+  }
+ ],
+ "seconds": 15.7
+}

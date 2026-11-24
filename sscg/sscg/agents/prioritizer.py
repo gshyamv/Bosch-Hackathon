@@ -19,11 +19,14 @@ INSTALL_TIME = {"R01_TYPOSQUAT", "R02_KNOWN_MALICIOUS", "R03_INSTALL_SCRIPT", "R
                 "R19_SUSPICIOUS_UPDATE"}         # risk materialises at install time, imports do not matter
 ALWAYS_URGENT = {"R02_KNOWN_MALICIOUS", "R06_LOCKFILE_INTEGRITY_CHANGED"}
 NON_PROD = {"dev", "test", "build"}
-REACH_POINTS = {"imported": (0.5, "imported by application code"),
-                "referenced": (0.0, "named in application code (loaded by name)"),
-                "transitive": (0.0, "pulled in by an imported dependency (potentially reachable)"),
-                "tests_only": (-1.5, "imported only from tests"),
-                "not_imported": (-2.0, "not imported by application code"),
+# static, import-level evidence: "imported" means potentially reachable, and a missing import is not proof that the
+# code never runs (dynamic loading, build tools, CLIs), so the discount for it is moderate
+REACH_POINTS = {"imported": (0.5, "imported by application code: potentially reachable"),
+                "referenced": (0.0, "named in application code (loaded by name): potentially reachable"),
+                "transitive": (0.0, "pulled in by an imported dependency: potentially reachable"),
+                "tests_only": (-1.5, "import found only in tests (static check)"),
+                "not_imported": (-1.0, "no import found in application code (static check; it may still be loaded "
+                                       "dynamically or by build tools)"),
                 "unknown": (0.0, "reachability unknown")}
 VERDICT_POINTS = {"likely_malicious": 1.0, "suspicious": 0.5, "needs_human_review": 0.0, "likely_benign": -2.0}
 BUCKET = {"P0": "fix now", "P1": "fix this sprint", "P2": "plan the fix", "P3": "monitor / accept"}
@@ -93,9 +96,10 @@ def score_finding(f: dict, ex: dict, reach: dict, tri: dict | None, exposure: di
         if r["status"] == "unknown":
             unknowns.append("reachability unknown")
         if scope in NON_PROD:
-            add("exposure", scope, -1.5, f"{scope}-only dependency, not shipped")
+            add("exposure", scope, -1.5, f"{scope}-only dependency: not shipped, but it runs on developer / CI machines")
         elif exposure.get("network_service"):
-            add("exposure", "network service", 0.5, "shipped in a network-facing service")
+            add("exposure", "network service", 0.5, "production dependency; network-service indicators in the app ("
+                + ", ".join((exposure.get("evidence") or [])[:2]) + ")")
         urgent = bool(e.get("kev")) and r["status"] in ("imported", "referenced", "transitive")
         if f["risk"].get("factors", {}).get("introduced_in_latest_change"):
             reasons.append("introduced in the latest change")
@@ -117,6 +121,12 @@ def score_finding(f: dict, ex: dict, reach: dict, tri: dict | None, exposure: di
                 f"triage: {tri['verdict'].replace('_', ' ')}, {tri['confidence']} confidence (AI inference)")
             if tri.get("generated_by", "").startswith("rules"):
                 unknowns.append("triage by rules-only fallback")
+            if tri["confidence"] == "low":
+                unknowns.append("AI triage confidence low")
+            if not grounded:
+                unknowns.append("AI triage failed the grounding check")
+        elif f.get("classification") == "heuristic":
+            unknowns.append("heuristic finding not triaged")
             urgent = tri["verdict"] == "likely_malicious" and tri["confidence"] in ("medium", "high")
         urgent = urgent or f["rule"] in ALWAYS_URGENT
     # no upper cap: context must be able to separate findings that all start at the initial-risk maximum of 10

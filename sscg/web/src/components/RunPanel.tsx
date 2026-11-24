@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Bot, Play, ShieldCheck } from "lucide-react";
+import { Bot, FolderOpen, GitBranch, Play, ShieldCheck } from "lucide-react";
 import { api, Meta, Targets } from "../api";
 import { Button, Callout, Field, inputCls, Segmented, Toggle } from "./ui";
 
@@ -8,10 +8,20 @@ const LLM_LABEL: Record<string, string> = {
   deepseek: "DeepSeek", grok: "Grok (xAI)", none: "None: rules only, nothing leaves the machine",
 };
 
+const EXAMPLES = ["https://github.com/snyk-labs/nodejs-goof", "https://github.com/juice-shop/juice-shop", "https://github.com/OWASP/NodeGoat"];
+const isUrl = (s: string) => /^https:\/\/[^/\s]+\/[^/\s]+\/[^/\s]+/i.test(s.trim())
+  || /^(github\.com|gitlab\.com|bitbucket\.org)\/[\w.-]+\/[\w.-]+/i.test(s.trim());
+
 export function RunPanel({ meta, targets, initialRepo, onStarted }:
   { meta: Meta | null; targets: Targets | null; initialRepo?: string; onStarted: (jobId: string, project: string) => void }) {
   const presets = targets?.presets || [];
-  const [repo, setRepo] = useState(initialRepo || presets.find((p) => p.name === "sscg-demo-target")?.path || presets[0]?.path || "");
+  const startsRemote = !initialRepo || isUrl(initialRepo);
+  const [source, setSource] = useState<"url" | "folder">(startsRemote ? "url" : "folder");
+  const [url, setUrl] = useState(startsRemote ? initialRepo || "" : "");
+  const [folder, setFolder] = useState(!startsRemote ? initialRepo! : presets.find((p) => p.name === "sscg-demo-target")?.path || presets[0]?.path || "");
+  const repo = source === "url" ? url.trim() : folder.trim();
+  const examples = [...new Set([...(targets?.fetched || []).map((f) => f.url), ...EXAMPLES])].slice(0, 6);
+  const urlInvalid = source === "url" && !!url.trim() && !isUrl(url);
   const [mode, setMode] = useState<"scan" | "agent" | "remediation">("remediation");
   const [llm, setLlm] = useState(meta?.llm_default || "auto");
   const [osv, setOsv] = useState(true);
@@ -34,17 +44,45 @@ export function RunPanel({ meta, targets, initialRepo, onStarted }:
 
   return (
     <div className="space-y-5">
-      <Field label="Repository">
-        <div className="mb-2 flex flex-wrap gap-1.5">
-          {presets.map((p) => (
-            <button key={p.path} type="button" onClick={() => setRepo(p.path)}
-              className={`rounded-full px-3 py-1 text-xs font-medium ring-1 ring-inset ${repo === p.path ? "bg-brand-600 text-white ring-brand-600" : "bg-white text-slate-600 ring-slate-300 hover:bg-slate-50"}`}>
-              {p.name}
-            </button>
-          ))}
+      <div>
+        <div className="mb-2 flex items-center justify-between gap-3">
+          <span className="text-xs font-medium text-slate-600">Repository</span>
+          <Segmented value={source} onChange={setSource} options={[
+            { id: "url", label: <span className="inline-flex items-center gap-1"><GitBranch className="h-3 w-3" /> Repository URL</span> },
+            { id: "folder", label: <span className="inline-flex items-center gap-1"><FolderOpen className="h-3 w-3" /> Local folder</span> },
+          ]} />
         </div>
-        <input className={inputCls + " font-mono text-xs"} value={repo} onChange={(e) => setRepo(e.target.value)} placeholder="C:\path\to\repository" />
-      </Field>
+        {source === "url" ? (
+          <>
+            <input className={inputCls + " font-mono text-xs"} value={url} onChange={(e) => setUrl(e.target.value)} autoFocus
+              placeholder="https://github.com/owner/repository" />
+            <p className={`mt-1.5 text-xs ${urlInvalid ? "text-red-600" : "text-slate-500"}`}>
+              {urlInvalid ? "Use an https link, e.g. https://github.com/owner/repository"
+                : "Any public https git repository (GitHub, GitLab, Bitbucket, …). Add /tree/<branch|tag|commit> for a specific version. It is fetched into sscg/repos/ with its full history; no credentials are used."}
+            </p>
+            <div className="mt-2 flex flex-wrap gap-1.5">
+              {examples.map((u) => (
+                <button key={u} type="button" onClick={() => setUrl(u)}
+                  className={`rounded-full px-3 py-1 font-mono text-[11px] ring-1 ring-inset ${url === u ? "bg-brand-600 text-white ring-brand-600" : "bg-white text-slate-600 ring-slate-300 hover:bg-slate-50"}`}>
+                  {u.replace(/^https:\/\//, "")}
+                </button>
+              ))}
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="mb-2 flex flex-wrap gap-1.5">
+              {presets.map((p) => (
+                <button key={p.path} type="button" onClick={() => setFolder(p.path)}
+                  className={`rounded-full px-3 py-1 text-xs font-medium ring-1 ring-inset ${folder === p.path ? "bg-brand-600 text-white ring-brand-600" : "bg-white text-slate-600 ring-slate-300 hover:bg-slate-50"}`}>
+                  {p.name}
+                </button>
+              ))}
+            </div>
+            <input className={inputCls + " font-mono text-xs"} value={folder} onChange={(e) => setFolder(e.target.value)} placeholder="C:\path\to\repository" />
+          </>
+        )}
+      </div>
 
       <div>
         <span className="mb-1.5 block text-xs font-medium text-slate-600">Pipeline</span>
@@ -85,11 +123,11 @@ export function RunPanel({ meta, targets, initialRepo, onStarted }:
       </div>
 
       <Callout tone="info" icon={<ShieldCheck className="mt-0.5 h-4 w-4 shrink-0" />}>
-        Read-only: the repository is never modified. Fixes are applied and built only in a sandbox copy, and only after human approval.
+        Read-only: nothing from the repository is installed or run, and it is never modified. Fixes are applied only after human approval, in a temporary copy whose builds and tests run as local processes (secrets removed): validate only repositories you are authorised to run.
       </Callout>
       {err && <Callout tone="error">{err}</Callout>}
       <div className="flex justify-end">
-        <Button variant="primary" onClick={start} disabled={busy || !repo.trim()}>
+        <Button variant="primary" onClick={start} disabled={busy || !repo || urlInvalid}>
           {mode === "scan" ? <Play className="h-4 w-4" /> : <Bot className="h-4 w-4" />} Start
         </Button>
       </div>

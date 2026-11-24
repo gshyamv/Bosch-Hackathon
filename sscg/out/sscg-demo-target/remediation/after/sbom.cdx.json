@@ -1,0 +1,3922 @@
+{
+ "bomFormat": "CycloneDX",
+ "specVersion": "1.5",
+ "serialNumber": "urn:uuid:efc4028a-1bea-4b5e-9a93-67872c4d90ed",
+ "version": 1,
+ "metadata": {
+  "timestamp": "2026-11-24T06:29:57+00:00",
+  "tools": {
+   "components": [
+    {
+     "type": "application",
+     "name": "sscg",
+     "version": "0.1.0"
+    }
+   ]
+  },
+  "component": {
+   "type": "application",
+   "bom-ref": "repo:after",
+   "name": "after"
+  }
+ },
+ "components": [
+  {
+   "type": "application",
+   "bom-ref": "app:.github/workflows/ci.yml",
+   "name": "ci",
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "app"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "github-actions"
+    },
+    {
+     "name": "sscg:source",
+     "value": ".github/workflows/ci.yml"
+    },
+    {
+     "name": "sscg:triggers",
+     "value": "push, pull_request_target"
+    },
+    {
+     "name": "sscg:permissions",
+     "value": "read-all"
+    }
+   ]
+  },
+  {
+   "type": "application",
+   "bom-ref": "pkg:github/actions/checkout@v4",
+   "name": "actions/checkout",
+   "version": "v4",
+   "scope": "excluded",
+   "purl": "pkg:github/actions/checkout@v4",
+   "externalReferences": [
+    {
+     "type": "vcs",
+     "url": "https://github.com/actions/checkout"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "github-actions"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "true"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "1"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "ci"
+    },
+    {
+     "name": "sscg:source",
+     "value": ".github/workflows/ci.yml:14"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "workflow"
+    },
+    {
+     "name": "sscg:owner",
+     "value": "actions"
+    },
+    {
+     "name": "sscg:ref",
+     "value": "v4"
+    },
+    {
+     "name": "sscg:pinned_to_sha",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "application",
+   "bom-ref": "pkg:github/actions/setup-node@v4",
+   "name": "actions/setup-node",
+   "version": "v4",
+   "scope": "excluded",
+   "purl": "pkg:github/actions/setup-node@v4",
+   "externalReferences": [
+    {
+     "type": "vcs",
+     "url": "https://github.com/actions/setup-node"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "github-actions"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "true"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "1"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "ci"
+    },
+    {
+     "name": "sscg:source",
+     "value": ".github/workflows/ci.yml:17"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "workflow"
+    },
+    {
+     "name": "sscg:owner",
+     "value": "actions"
+    },
+    {
+     "name": "sscg:ref",
+     "value": "v4"
+    },
+    {
+     "name": "sscg:pinned_to_sha",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "application",
+   "bom-ref": "pkg:github/fastbuilds42/cache-helper@main",
+   "name": "fastbuilds42/cache-helper",
+   "version": "main",
+   "scope": "excluded",
+   "purl": "pkg:github/fastbuilds42/cache-helper@main",
+   "externalReferences": [
+    {
+     "type": "vcs",
+     "url": "https://github.com/fastbuilds42/cache-helper"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "github-actions"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "true"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "1"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "ci"
+    },
+    {
+     "name": "sscg:source",
+     "value": ".github/workflows/ci.yml:20"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "workflow"
+    },
+    {
+     "name": "sscg:owner",
+     "value": "fastbuilds42"
+    },
+    {
+     "name": "sscg:ref",
+     "value": "main"
+    },
+    {
+     "name": "sscg:pinned_to_sha",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "application",
+   "bom-ref": "app:Dockerfile",
+   "name": "Dockerfile",
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "app"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "docker"
+    },
+    {
+     "name": "sscg:source",
+     "value": "Dockerfile"
+    },
+    {
+     "name": "sscg:stages",
+     "value": "1"
+    },
+    {
+     "name": "sscg:runs_as",
+     "value": "not set (inherits the base image default)"
+    }
+   ]
+  },
+  {
+   "type": "container",
+   "bom-ref": "pkg:docker/library/node@sha256%3Ae6bedef217677b276c591795e169840edd9096dbf13f29df8ef8d1856b8820bc?repository_url=docker.io",
+   "name": "docker.io/library/node",
+   "version": "sha256:e6bedef217677b276c591795e169840edd9096dbf13f29df8ef8d1856b8820bc",
+   "scope": "required",
+   "purl": "pkg:docker/library/node@sha256%3Ae6bedef217677b276c591795e169840edd9096dbf13f29df8ef8d1856b8820bc?repository_url=docker.io",
+   "hashes": [
+    {
+     "alg": "SHA-256",
+     "content": "e6bedef217677b276c591795e169840edd9096dbf13f29df8ef8d1856b8820bc"
+    }
+   ],
+   "externalReferences": [
+    {
+     "type": "distribution",
+     "url": "docker://docker.io/library/node"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "docker"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "true"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "1"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "Dockerfile:1"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "dockerfile"
+    },
+    {
+     "name": "sscg:registry",
+     "value": "docker.io"
+    },
+    {
+     "name": "sscg:repository",
+     "value": "library/node"
+    },
+    {
+     "name": "sscg:tag",
+     "value": "lts-slim"
+    },
+    {
+     "name": "sscg:tag_implicit",
+     "value": "false"
+    },
+    {
+     "name": "sscg:digest",
+     "value": "sha256:e6bedef217677b276c591795e169840edd9096dbf13f29df8ef8d1856b8820bc"
+    },
+    {
+     "name": "sscg:pinned_by_digest",
+     "value": "true"
+    },
+    {
+     "name": "sscg:official_image",
+     "value": "true"
+    }
+   ]
+  },
+  {
+   "type": "application",
+   "bom-ref": "app:notifier/pom.xml",
+   "name": "com.acme:notifier",
+   "version": "1.0.0",
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "app"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "maven"
+    },
+    {
+     "name": "sscg:source",
+     "value": "notifier/pom.xml"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:maven/org.apache.logging.log4j/log4j-core@2.25.4",
+   "name": "org.apache.logging.log4j:log4j-core",
+   "version": "2.25.4",
+   "scope": "required",
+   "purl": "pkg:maven/org.apache.logging.log4j/log4j-core@2.25.4",
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "maven"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "true"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "1"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "notifier/pom.xml"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "deps.dev"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:maven/biz.aQute.bnd/biz.aQute.bnd.annotation@7.1.0",
+   "name": "biz.aQute.bnd:biz.aQute.bnd.annotation",
+   "version": "7.1.0",
+   "scope": "required",
+   "purl": "pkg:maven/biz.aQute.bnd/biz.aQute.bnd.annotation@7.1.0",
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "maven"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "2"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "notifier/pom.xml"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "deps.dev"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:maven/com.google.errorprone/error_prone_annotations@2.38.0",
+   "name": "com.google.errorprone:error_prone_annotations",
+   "version": "2.38.0",
+   "scope": "required",
+   "purl": "pkg:maven/com.google.errorprone/error_prone_annotations@2.38.0",
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "maven"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "2"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "notifier/pom.xml"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "deps.dev"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:maven/org.apache.logging.log4j/log4j-api@2.25.4",
+   "name": "org.apache.logging.log4j:log4j-api",
+   "version": "2.25.4",
+   "scope": "required",
+   "purl": "pkg:maven/org.apache.logging.log4j/log4j-api@2.25.4",
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "maven"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "2"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "notifier/pom.xml"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "deps.dev"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:maven/org.jspecify/jspecify@1.0.0",
+   "name": "org.jspecify:jspecify",
+   "version": "1.0.0",
+   "scope": "required",
+   "purl": "pkg:maven/org.jspecify/jspecify@1.0.0",
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "maven"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "2"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "notifier/pom.xml"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "deps.dev"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:maven/org.osgi/org.osgi.annotation.bundle@2.0.0",
+   "name": "org.osgi:org.osgi.annotation.bundle",
+   "version": "2.0.0",
+   "scope": "required",
+   "purl": "pkg:maven/org.osgi/org.osgi.annotation.bundle@2.0.0",
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "maven"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "2"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "notifier/pom.xml"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "deps.dev"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:maven/org.osgi/org.osgi.annotation.versioning@1.1.2",
+   "name": "org.osgi:org.osgi.annotation.versioning",
+   "version": "1.1.2",
+   "scope": "required",
+   "purl": "pkg:maven/org.osgi/org.osgi.annotation.versioning@1.1.2",
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "maven"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "2"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "2"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "notifier/pom.xml"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "deps.dev"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:maven/org.osgi/org.osgi.core@6.0.0",
+   "name": "org.osgi:org.osgi.core",
+   "version": "6.0.0",
+   "scope": "required",
+   "purl": "pkg:maven/org.osgi/org.osgi.core@6.0.0",
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "maven"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "2"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "notifier/pom.xml"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "deps.dev"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:maven/org.osgi/org.osgi.resource@1.0.0",
+   "name": "org.osgi:org.osgi.resource",
+   "version": "1.0.0",
+   "scope": "required",
+   "purl": "pkg:maven/org.osgi/org.osgi.resource@1.0.0",
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "maven"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "3"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "notifier/pom.xml"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "deps.dev"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:maven/org.osgi/org.osgi.service.serviceloader@1.0.0",
+   "name": "org.osgi:org.osgi.service.serviceloader",
+   "version": "1.0.0",
+   "scope": "required",
+   "purl": "pkg:maven/org.osgi/org.osgi.service.serviceloader@1.0.0",
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "maven"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "3"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "notifier/pom.xml"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "deps.dev"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:maven/org.apache.commons/commons-text@1.10.0",
+   "name": "org.apache.commons:commons-text",
+   "version": "1.10.0",
+   "scope": "required",
+   "purl": "pkg:maven/org.apache.commons/commons-text@1.10.0",
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "maven"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "true"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "1"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "notifier/pom.xml"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "deps.dev"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:maven/org.apache.commons/commons-lang3@3.12.0",
+   "name": "org.apache.commons:commons-lang3",
+   "version": "3.12.0",
+   "scope": "required",
+   "purl": "pkg:maven/org.apache.commons/commons-lang3@3.12.0",
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "maven"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "2"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "notifier/pom.xml"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "deps.dev"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.18.11",
+   "name": "com.fasterxml.jackson.core:jackson-databind",
+   "version": "2.18.11",
+   "scope": "required",
+   "purl": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.18.11",
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "maven"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "true"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "1"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "notifier/pom.xml"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "deps.dev"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:maven/com.fasterxml.jackson.core/jackson-annotations@2.18.11",
+   "name": "com.fasterxml.jackson.core:jackson-annotations",
+   "version": "2.18.11",
+   "scope": "required",
+   "purl": "pkg:maven/com.fasterxml.jackson.core/jackson-annotations@2.18.11",
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "maven"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "2"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "notifier/pom.xml"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "deps.dev"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.18.11",
+   "name": "com.fasterxml.jackson.core:jackson-core",
+   "version": "2.18.11",
+   "scope": "required",
+   "purl": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.18.11",
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "maven"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "2"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "notifier/pom.xml"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "deps.dev"
+    }
+   ]
+  },
+  {
+   "type": "application",
+   "bom-ref": "app:package.json",
+   "name": "acme-orders",
+   "version": "1.0.0",
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "app"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "npm"
+    },
+    {
+     "name": "sscg:source",
+     "value": "package.json"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:npm/%40epic-web/invariant@1.0.0",
+   "name": "@epic-web/invariant",
+   "version": "1.0.0",
+   "scope": "excluded",
+   "purl": "pkg:npm/%40epic-web/invariant@1.0.0",
+   "hashes": [
+    {
+     "alg": "SHA-512",
+     "content": "96b4cfaa0bdf150b51fde63faa4233a7df0e19d349bb49b98e2deafe7248f2fdd25e444a1275a23b13266ef712a00233bff7068aebd1cb9ee4e2cb8a41201dc0"
+    }
+   ],
+   "externalReferences": [
+    {
+     "type": "distribution",
+     "url": "https://registry.npmjs.org/@epic-web/invariant/-/invariant-1.0.0.tgz"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "npm"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "2"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "dev"
+    },
+    {
+     "name": "sscg:source",
+     "value": "package-lock.json"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "lockfile"
+    },
+    {
+     "name": "sscg:install_script",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:npm/asynckit@0.4.0",
+   "name": "asynckit",
+   "version": "0.4.0",
+   "scope": "required",
+   "purl": "pkg:npm/asynckit@0.4.0",
+   "hashes": [
+    {
+     "alg": "SHA-512",
+     "content": "39e8bd387e2d461d18a94dc6c615fbf5d33f9b0560bdb64969235a464f9bb21923d12e5c7c772061a92b7818eb1f06ad5ca6f3f88a087582f1aca8a6d8c8d6d1"
+    }
+   ],
+   "externalReferences": [
+    {
+     "type": "distribution",
+     "url": "https://registry.npmjs.org/asynckit/-/asynckit-0.4.0.tgz"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "npm"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "3"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "package-lock.json"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "lockfile"
+    },
+    {
+     "name": "sscg:install_script",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:npm/axios@0.34.0",
+   "name": "axios",
+   "version": "0.34.0",
+   "scope": "required",
+   "purl": "pkg:npm/axios@0.34.0",
+   "hashes": [
+    {
+     "alg": "SHA-512",
+     "content": "0a43a6ab2ec1693e150bdfb04549923372d5c0290a2b751873b92812a207591a4e4c9ca9c1d35cb5a54e8273a38473f7e7df546ead8af0aa98c1f0bb73c35d3d"
+    }
+   ],
+   "externalReferences": [
+    {
+     "type": "distribution",
+     "url": "https://registry.npmjs.org/axios/-/axios-0.34.0.tgz"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "npm"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "true"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "1"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "package-lock.json"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "lockfile"
+    },
+    {
+     "name": "sscg:install_script",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:npm/call-bind-apply-helpers@1.0.2",
+   "name": "call-bind-apply-helpers",
+   "version": "1.0.2",
+   "scope": "required",
+   "purl": "pkg:npm/call-bind-apply-helpers@1.0.2",
+   "hashes": [
+    {
+     "alg": "SHA-512",
+     "content": "4a9d5a6e52748af0e44b38dc68977112e9cde7f5ef92c149dac30115fabac74af285057fd9bfcac057b6d5c329987b4f3928a3f0af7dff049fa04b9339b9ae31"
+    }
+   ],
+   "externalReferences": [
+    {
+     "type": "distribution",
+     "url": "https://registry.npmjs.org/call-bind-apply-helpers/-/call-bind-apply-helpers-1.0.2.tgz"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "npm"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "5"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "2"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "package-lock.json"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "lockfile"
+    },
+    {
+     "name": "sscg:install_script",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:npm/combined-stream@1.0.8",
+   "name": "combined-stream",
+   "version": "1.0.8",
+   "scope": "required",
+   "purl": "pkg:npm/combined-stream@1.0.8",
+   "hashes": [
+    {
+     "alg": "SHA-512",
+     "content": "1503783117ee25e1dfedc05b04c2455e12920eafb690002b06599106f72f144e410751d9297b5214048385d973f73398c3187c943767be630e7bffb971da0476"
+    }
+   ],
+   "externalReferences": [
+    {
+     "type": "distribution",
+     "url": "https://registry.npmjs.org/combined-stream/-/combined-stream-1.0.8.tgz"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "npm"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "3"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "package-lock.json"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "lockfile"
+    },
+    {
+     "name": "sscg:install_script",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:npm/cross-env@10.1.0",
+   "name": "cross-env",
+   "version": "10.1.0",
+   "scope": "excluded",
+   "purl": "pkg:npm/cross-env@10.1.0",
+   "hashes": [
+    {
+     "alg": "SHA-512",
+     "content": "1ac628b209c00994c00dc984c8972d909228a808478edb70ed1b05ad5a093576ec596a9aaba626fbb9198eaea64b8e4ed238a3eafb6245ea6929012da96cba0f"
+    }
+   ],
+   "externalReferences": [
+    {
+     "type": "distribution",
+     "url": "https://registry.npmjs.org/cross-env/-/cross-env-10.1.0.tgz"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "npm"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "true"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "1"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "dev"
+    },
+    {
+     "name": "sscg:source",
+     "value": "package-lock.json"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "lockfile"
+    },
+    {
+     "name": "sscg:install_script",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:npm/cross-spawn@7.0.6",
+   "name": "cross-spawn",
+   "version": "7.0.6",
+   "scope": "excluded",
+   "purl": "pkg:npm/cross-spawn@7.0.6",
+   "hashes": [
+    {
+     "alg": "SHA-512",
+     "content": "b95d903963f69d6ceccb668ca7c69189b862f5d9731791e0879487681f4e893184c834e2249cb1d2ecb9d505ddc966ed00736e6b85c9cd429c6b73b3294777bc"
+    }
+   ],
+   "externalReferences": [
+    {
+     "type": "distribution",
+     "url": "https://registry.npmjs.org/cross-spawn/-/cross-spawn-7.0.6.tgz"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "npm"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "2"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "dev"
+    },
+    {
+     "name": "sscg:source",
+     "value": "package-lock.json"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "lockfile"
+    },
+    {
+     "name": "sscg:install_script",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:npm/delayed-stream@1.0.0",
+   "name": "delayed-stream",
+   "version": "1.0.0",
+   "scope": "required",
+   "purl": "pkg:npm/delayed-stream@1.0.0",
+   "hashes": [
+    {
+     "alg": "SHA-512",
+     "content": "672483ecd7fdd5a2c1d11c4be0a1ab28705797b11db350c098475ca156b05e72c3ed20e1a4d82db88236680920edaed04b8d63c4f499d7ba7855d1a730793731"
+    }
+   ],
+   "externalReferences": [
+    {
+     "type": "distribution",
+     "url": "https://registry.npmjs.org/delayed-stream/-/delayed-stream-1.0.0.tgz"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "npm"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "4"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "package-lock.json"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "lockfile"
+    },
+    {
+     "name": "sscg:install_script",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:npm/dunder-proto@1.0.1",
+   "name": "dunder-proto",
+   "version": "1.0.1",
+   "scope": "required",
+   "purl": "pkg:npm/dunder-proto@1.0.1",
+   "hashes": [
+    {
+     "alg": "SHA-512",
+     "content": "28837f9c3241411717c3430b561644f62407986ebca80548060f42aa65188e64088608a3f54e4c16faea9142f915bb72cb366e39e3add3375e45ee1463b72df8"
+    }
+   ],
+   "externalReferences": [
+    {
+     "type": "distribution",
+     "url": "https://registry.npmjs.org/dunder-proto/-/dunder-proto-1.0.1.tgz"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "npm"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "6"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "package-lock.json"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "lockfile"
+    },
+    {
+     "name": "sscg:install_script",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:npm/es-define-property@1.0.1",
+   "name": "es-define-property",
+   "version": "1.0.1",
+   "scope": "required",
+   "purl": "pkg:npm/es-define-property@1.0.1",
+   "hashes": [
+    {
+     "alg": "SHA-512",
+     "content": "7b79d17e07d4678acd18bdb7da05205f4e90372c9ecf4e0a76316b17e2d34683979ab3a014a0e0e0109db235bc1274faf5ea9d606991a49c223d560dac2696de"
+    }
+   ],
+   "externalReferences": [
+    {
+     "type": "distribution",
+     "url": "https://registry.npmjs.org/es-define-property/-/es-define-property-1.0.1.tgz"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "npm"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "5"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "package-lock.json"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "lockfile"
+    },
+    {
+     "name": "sscg:install_script",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:npm/es-errors@1.3.0",
+   "name": "es-errors",
+   "version": "1.3.0",
+   "scope": "required",
+   "purl": "pkg:npm/es-errors@1.3.0",
+   "hashes": [
+    {
+     "alg": "SHA-512",
+     "content": "65fe47d8ac6ddb18d3bdb26f3f66562c4202c40ea3fa1026333225ca9cb8c5c060d6f2959f1f3d5b2d066d2fa47f9730095145cdd0858765d20853542d2e9cb3"
+    }
+   ],
+   "externalReferences": [
+    {
+     "type": "distribution",
+     "url": "https://registry.npmjs.org/es-errors/-/es-errors-1.3.0.tgz"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "npm"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "4"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "5"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "package-lock.json"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "lockfile"
+    },
+    {
+     "name": "sscg:install_script",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:npm/es-object-atoms@1.1.2",
+   "name": "es-object-atoms",
+   "version": "1.1.2",
+   "scope": "required",
+   "purl": "pkg:npm/es-object-atoms@1.1.2",
+   "hashes": [
+    {
+     "alg": "SHA-512",
+     "content": "1d6701a0de8d8a57aab52c9d2b616a1db4bf2e80ddda9aab9d01cbc89cc18f890ea7f932d8c58c37af78c4e7e42bcfd29d4b16d831fb11fc9597274a0ac9b567"
+    }
+   ],
+   "externalReferences": [
+    {
+     "type": "distribution",
+     "url": "https://registry.npmjs.org/es-object-atoms/-/es-object-atoms-1.1.2.tgz"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "npm"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "5"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "2"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "package-lock.json"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "lockfile"
+    },
+    {
+     "name": "sscg:install_script",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:npm/es-set-tostringtag@2.1.0",
+   "name": "es-set-tostringtag",
+   "version": "2.1.0",
+   "scope": "required",
+   "purl": "pkg:npm/es-set-tostringtag@2.1.0",
+   "hashes": [
+    {
+     "alg": "SHA-512",
+     "content": "8fabd6cdfac655fc97c607be3b4c79b21e9cbf10288346bfe1175dd8adfacc2315e5e27effeb4e0278113bc70e0cc3566d545d5659866502f6612df247c6c850"
+    }
+   ],
+   "externalReferences": [
+    {
+     "type": "distribution",
+     "url": "https://registry.npmjs.org/es-set-tostringtag/-/es-set-tostringtag-2.1.0.tgz"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "npm"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "3"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "package-lock.json"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "lockfile"
+    },
+    {
+     "name": "sscg:install_script",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:npm/follow-redirects@1.16.2",
+   "name": "follow-redirects",
+   "version": "1.16.2",
+   "scope": "required",
+   "purl": "pkg:npm/follow-redirects@1.16.2",
+   "hashes": [
+    {
+     "alg": "SHA-512",
+     "content": "fe454fd94f33e7de886b483016bc3221ea3be2d6b9695992794d457c050c0267043f910fef3c9d99a83748b88deb835a44a79fde5c6cabb8bf83b96d2500c6a3"
+    }
+   ],
+   "externalReferences": [
+    {
+     "type": "distribution",
+     "url": "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.16.2.tgz"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "npm"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "2"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "package-lock.json"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "lockfile"
+    },
+    {
+     "name": "sscg:install_script",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:npm/form-data@4.0.6",
+   "name": "form-data",
+   "version": "4.0.6",
+   "scope": "required",
+   "purl": "pkg:npm/form-data@4.0.6",
+   "hashes": [
+    {
+     "alg": "SHA-512",
+     "content": "bca6ad021e129557e06eff98b66862463844309b18a6c1b5636acc42d47e49549bcadb120f5606cc321cac026674579cf3cbbff95a069b19e5fbcd202f5b5109"
+    }
+   ],
+   "externalReferences": [
+    {
+     "type": "distribution",
+     "url": "https://registry.npmjs.org/form-data/-/form-data-4.0.6.tgz"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "npm"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "2"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "package-lock.json"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "lockfile"
+    },
+    {
+     "name": "sscg:install_script",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:npm/function-bind@1.1.2",
+   "name": "function-bind",
+   "version": "1.1.2",
+   "scope": "required",
+   "purl": "pkg:npm/function-bind@1.1.2",
+   "hashes": [
+    {
+     "alg": "SHA-512",
+     "content": "ed71cdc47eea5fdc46e66230c6486e993a31fcc21135c3a00ebc56b0cb76a40af6dd61e9e8cad194dec50521690a9afea153b417be38894811f369c931f1b648"
+    }
+   ],
+   "externalReferences": [
+    {
+     "type": "distribution",
+     "url": "https://registry.npmjs.org/function-bind/-/function-bind-1.1.2.tgz"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "npm"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "4"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "3"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "package-lock.json"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "lockfile"
+    },
+    {
+     "name": "sscg:install_script",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:npm/get-intrinsic@1.3.0",
+   "name": "get-intrinsic",
+   "version": "1.3.0",
+   "scope": "required",
+   "purl": "pkg:npm/get-intrinsic@1.3.0",
+   "hashes": [
+    {
+     "alg": "SHA-512",
+     "content": "f5f4a349aa2cfdf448548a7ec5226513a95fc21112ecb36d29a08121a987b23af69dad418800493e8d263a38f3f062435116ab9823c6a9a89583999f8dbf7c09"
+    }
+   ],
+   "externalReferences": [
+    {
+     "type": "distribution",
+     "url": "https://registry.npmjs.org/get-intrinsic/-/get-intrinsic-1.3.0.tgz"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "npm"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "4"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "package-lock.json"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "lockfile"
+    },
+    {
+     "name": "sscg:install_script",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:npm/get-proto@1.0.1",
+   "name": "get-proto",
+   "version": "1.0.1",
+   "scope": "required",
+   "purl": "pkg:npm/get-proto@1.0.1",
+   "hashes": [
+    {
+     "alg": "SHA-512",
+     "content": "b1349f063a17069f3d26f20a21e7eac3b53608279bb1cef892263a6b0886a202ada1219b823604fc6ffe97db05dcc5853cd73d21ca0e0b83837ca1dfc459a9d2"
+    }
+   ],
+   "externalReferences": [
+    {
+     "type": "distribution",
+     "url": "https://registry.npmjs.org/get-proto/-/get-proto-1.0.1.tgz"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "npm"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "5"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "package-lock.json"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "lockfile"
+    },
+    {
+     "name": "sscg:install_script",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:npm/gopd@1.2.0",
+   "name": "gopd",
+   "version": "1.2.0",
+   "scope": "required",
+   "purl": "pkg:npm/gopd@1.2.0",
+   "hashes": [
+    {
+     "alg": "SHA-512",
+     "content": "65429187afe4505a0089302d4d83d9277870f70371c7e04804e8a39e51bd3e7ac9b027128ecd70cb20fabc9a5a62d827cc3aca6114aa7f738ee917daf77c6c46"
+    }
+   ],
+   "externalReferences": [
+    {
+     "type": "distribution",
+     "url": "https://registry.npmjs.org/gopd/-/gopd-1.2.0.tgz"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "npm"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "5"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "2"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "package-lock.json"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "lockfile"
+    },
+    {
+     "name": "sscg:install_script",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:npm/has-symbols@1.1.0",
+   "name": "has-symbols",
+   "version": "1.1.0",
+   "scope": "required",
+   "purl": "pkg:npm/has-symbols@1.1.0",
+   "hashes": [
+    {
+     "alg": "SHA-512",
+     "content": "d5c0cd77027625aa2199bdec8383a629a301c2e0b8f2c6278b91d4c360efb02f0b8c64cb2bd87e79bd57e91cae3877b8853d142c25baf22a26863528294aa53d"
+    }
+   ],
+   "externalReferences": [
+    {
+     "type": "distribution",
+     "url": "https://registry.npmjs.org/has-symbols/-/has-symbols-1.1.0.tgz"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "npm"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "5"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "2"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "package-lock.json"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "lockfile"
+    },
+    {
+     "name": "sscg:install_script",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:npm/has-tostringtag@1.0.2",
+   "name": "has-tostringtag",
+   "version": "1.0.2",
+   "scope": "required",
+   "purl": "pkg:npm/has-tostringtag@1.0.2",
+   "hashes": [
+    {
+     "alg": "SHA-512",
+     "content": "36a00307c5633c52ccd95d15bc751ec30c2cc3465605a21d828fa2787b4ade16ac2f3e2a78246361ca9f07a010ac182044aa69285f0be76fd5a9d56c3b8ec397"
+    }
+   ],
+   "externalReferences": [
+    {
+     "type": "distribution",
+     "url": "https://registry.npmjs.org/has-tostringtag/-/has-tostringtag-1.0.2.tgz"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "npm"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "4"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "package-lock.json"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "lockfile"
+    },
+    {
+     "name": "sscg:install_script",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:npm/hasown@2.0.4",
+   "name": "hasown",
+   "version": "2.0.4",
+   "scope": "required",
+   "purl": "pkg:npm/hasown@2.0.4",
+   "hashes": [
+    {
+     "alg": "SHA-512",
+     "content": "4f651b7db044177db089ea5722c3254d6f7e743602eb0321fedfef600e2db8e30aa96cff9f7bebd4d152c508b23fece4da65eca0c03f8bfeea57a2cabadd6dd4"
+    }
+   ],
+   "externalReferences": [
+    {
+     "type": "distribution",
+     "url": "https://registry.npmjs.org/hasown/-/hasown-2.0.4.tgz"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "npm"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "3"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "3"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "package-lock.json"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "lockfile"
+    },
+    {
+     "name": "sscg:install_script",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:npm/isexe@2.0.0",
+   "name": "isexe",
+   "version": "2.0.0",
+   "scope": "excluded",
+   "purl": "pkg:npm/isexe@2.0.0",
+   "hashes": [
+    {
+     "alg": "SHA-512",
+     "content": "447c4c2e9f659ca1c61d19e0f5016144231b600715a67ebdb2648672addfdfac638155564e18f8aaa2db4cb96aed2b23f01f9f210d44b8210623694ab3241e23"
+    }
+   ],
+   "externalReferences": [
+    {
+     "type": "distribution",
+     "url": "https://registry.npmjs.org/isexe/-/isexe-2.0.0.tgz"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "npm"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "4"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "dev"
+    },
+    {
+     "name": "sscg:source",
+     "value": "package-lock.json"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "lockfile"
+    },
+    {
+     "name": "sscg:install_script",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:npm/lodash@4.18.1",
+   "name": "lodash",
+   "version": "4.18.1",
+   "scope": "required",
+   "purl": "pkg:npm/lodash@4.18.1",
+   "hashes": [
+    {
+     "alg": "SHA-512",
+     "content": "74c22789c4cf544f1dd5ee68b5fc269a3971919a14a6254bc32793754b22fc26a3fe07f3cdb941702139b111d5fc0b23b829b15abb5ed93346498b82782abed1"
+    }
+   ],
+   "externalReferences": [
+    {
+     "type": "distribution",
+     "url": "https://registry.npmjs.org/lodash/-/lodash-4.18.1.tgz"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "npm"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "true"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "1"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "package-lock.json"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "lockfile"
+    },
+    {
+     "name": "sscg:install_script",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:npm/math-intrinsics@1.1.0",
+   "name": "math-intrinsics",
+   "version": "1.1.0",
+   "scope": "required",
+   "purl": "pkg:npm/math-intrinsics@1.1.0",
+   "hashes": [
+    {
+     "alg": "SHA-512",
+     "content": "fc85ed6f0124e474cfc84c32297ea11a4617c4cf676e3eb807e8a55499c2fd1e81d291f91b85776f4a556cbec3063e2d921040a696d05257fa17a5e5f4b1eed6"
+    }
+   ],
+   "externalReferences": [
+    {
+     "type": "distribution",
+     "url": "https://registry.npmjs.org/math-intrinsics/-/math-intrinsics-1.1.0.tgz"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "npm"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "5"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "package-lock.json"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "lockfile"
+    },
+    {
+     "name": "sscg:install_script",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:npm/mime-db@1.52.0",
+   "name": "mime-db",
+   "version": "1.52.0",
+   "scope": "required",
+   "purl": "pkg:npm/mime-db@1.52.0",
+   "hashes": [
+    {
+     "alg": "SHA-512",
+     "content": "b0f538b95edd625bed589c70c311c3d0fba285536213b4f201b439496c43081f66518bce82ba103b061040e28f27c0886c4fb51135653a82b5502da7537818be"
+    }
+   ],
+   "externalReferences": [
+    {
+     "type": "distribution",
+     "url": "https://registry.npmjs.org/mime-db/-/mime-db-1.52.0.tgz"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "npm"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "4"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "package-lock.json"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "lockfile"
+    },
+    {
+     "name": "sscg:install_script",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:npm/mime-types@2.1.35",
+   "name": "mime-types",
+   "version": "2.1.35",
+   "scope": "required",
+   "purl": "pkg:npm/mime-types@2.1.35",
+   "hashes": [
+    {
+     "alg": "SHA-512",
+     "content": "64363e6cf9b9cd34c5f98a42ac053d9cad148080983d3d10b53d4d65616fe2cfbe4cd91c815693d20ebee11dae238323423cf2b07075cf1b962f9d21cda7978b"
+    }
+   ],
+   "externalReferences": [
+    {
+     "type": "distribution",
+     "url": "https://registry.npmjs.org/mime-types/-/mime-types-2.1.35.tgz"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "npm"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "3"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "package-lock.json"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "lockfile"
+    },
+    {
+     "name": "sscg:install_script",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:npm/minimist@0.2.4",
+   "name": "minimist",
+   "version": "0.2.4",
+   "scope": "required",
+   "purl": "pkg:npm/minimist@0.2.4",
+   "hashes": [
+    {
+     "alg": "SHA-512",
+     "content": "3e4aeb9bc363c90f3256df009bd33ec94b7be331378a8921cdb1b56c554d8cb07ddafc0cef585fe3446412caf283df01ba38553a770a9bf0b5c513b1674df42d"
+    }
+   ],
+   "externalReferences": [
+    {
+     "type": "distribution",
+     "url": "https://registry.npmjs.org/minimist/-/minimist-0.2.4.tgz"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "npm"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "2"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "package-lock.json"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "lockfile"
+    },
+    {
+     "name": "sscg:install_script",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:npm/mkdirp@0.5.1",
+   "name": "mkdirp",
+   "version": "0.5.1",
+   "scope": "required",
+   "purl": "pkg:npm/mkdirp@0.5.1",
+   "hashes": [
+    {
+     "alg": "SHA-512",
+     "content": "4a49c90b9da86cf7c640f9e32245db980ebee47d7913e7d1f84e22476a10df3cc22db77bfce36e6baf51fc6c3b0209132ec446fabe5fce4b18c167b50204f258"
+    }
+   ],
+   "externalReferences": [
+    {
+     "type": "distribution",
+     "url": "https://registry.npmjs.org/mkdirp/-/mkdirp-0.5.1.tgz"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "npm"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "true"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "1"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "package-lock.json"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "lockfile"
+    },
+    {
+     "name": "sscg:install_script",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:npm/node-fetch@2.6.0",
+   "name": "node-fetch",
+   "version": "2.6.0",
+   "scope": "required",
+   "purl": "pkg:npm/node-fetch@2.6.0",
+   "hashes": [
+    {
+     "alg": "SHA-512",
+     "content": "f1d1b81f9ba37ef162a83995bbd7d0e5b387502d7924c8cc63f66e9afdbaa0ebef5498ccebb285f24a0258869b290d462486bdaf698c66c701abf4db74e72634"
+    }
+   ],
+   "externalReferences": [
+    {
+     "type": "distribution",
+     "url": "https://registry.npmjs.org/node-fetch/-/node-fetch-2.6.0.tgz"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "npm"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "true"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "1"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "package-lock.json"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "lockfile"
+    },
+    {
+     "name": "sscg:install_script",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:npm/path-key@3.1.1",
+   "name": "path-key",
+   "version": "3.1.1",
+   "scope": "excluded",
+   "purl": "pkg:npm/path-key@3.1.1",
+   "hashes": [
+    {
+     "alg": "SHA-512",
+     "content": "a2399e374a9dfb2d23b3312da18e3caf43deab97703049089423aee90e5fe3595f92cc17b8ab58ae18284e92e7c887079b6e1486ac7ee53aa6d889d2c0b844e9"
+    }
+   ],
+   "externalReferences": [
+    {
+     "type": "distribution",
+     "url": "https://registry.npmjs.org/path-key/-/path-key-3.1.1.tgz"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "npm"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "3"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "dev"
+    },
+    {
+     "name": "sscg:source",
+     "value": "package-lock.json"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "lockfile"
+    },
+    {
+     "name": "sscg:install_script",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:npm/proxy-from-env@1.1.0",
+   "name": "proxy-from-env",
+   "version": "1.1.0",
+   "scope": "required",
+   "purl": "pkg:npm/proxy-from-env@1.1.0",
+   "hashes": [
+    {
+     "alg": "SHA-512",
+     "content": "0fece439109b03d7f5b5d5912b445a091dc63efe7470cc5caf3e17f24e4b4d2503d43930e3b98a24465036e9c8b514e45b082d6944a8d515454481bd65788562"
+    }
+   ],
+   "externalReferences": [
+    {
+     "type": "distribution",
+     "url": "https://registry.npmjs.org/proxy-from-env/-/proxy-from-env-1.1.0.tgz"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "npm"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "2"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "package-lock.json"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "lockfile"
+    },
+    {
+     "name": "sscg:install_script",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:npm/shebang-command@2.0.0",
+   "name": "shebang-command",
+   "version": "2.0.0",
+   "scope": "excluded",
+   "purl": "pkg:npm/shebang-command@2.0.0",
+   "hashes": [
+    {
+     "alg": "SHA-512",
+     "content": "907c6bdb366962d766acdd6a0e3aeb5ff675ad1d641bc0f1fa09292b51b87979af5ecc26704d614d6056614ce5ada630d7fc99a7a62e0d8efb62dbdb3747660c"
+    }
+   ],
+   "externalReferences": [
+    {
+     "type": "distribution",
+     "url": "https://registry.npmjs.org/shebang-command/-/shebang-command-2.0.0.tgz"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "npm"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "3"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "dev"
+    },
+    {
+     "name": "sscg:source",
+     "value": "package-lock.json"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "lockfile"
+    },
+    {
+     "name": "sscg:install_script",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:npm/shebang-regex@3.0.0",
+   "name": "shebang-regex",
+   "version": "3.0.0",
+   "scope": "excluded",
+   "purl": "pkg:npm/shebang-regex@3.0.0",
+   "hashes": [
+    {
+     "alg": "SHA-512",
+     "content": "efef9d161b5cc77df9dee05aabc0c347836ec417ad0730bb6503a19934089c711de9b4ab5dd884cb30af1b4ed9e3851874b4a1594c97b7933fca1cfc7a471bd4"
+    }
+   ],
+   "externalReferences": [
+    {
+     "type": "distribution",
+     "url": "https://registry.npmjs.org/shebang-regex/-/shebang-regex-3.0.0.tgz"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "npm"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "4"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "dev"
+    },
+    {
+     "name": "sscg:source",
+     "value": "package-lock.json"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "lockfile"
+    },
+    {
+     "name": "sscg:install_script",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:npm/which@2.0.2",
+   "name": "which",
+   "version": "2.0.2",
+   "scope": "excluded",
+   "purl": "pkg:npm/which@2.0.2",
+   "hashes": [
+    {
+     "alg": "SHA-512",
+     "content": "04b2374e5d535b73ef97bd25df2ab763ae22f9ac29c17aac181616924a8cb676d782b303fb28fbae15b492e103c7325a6171a3116e6881aa4a34c10a34c8e26c"
+    }
+   ],
+   "externalReferences": [
+    {
+     "type": "distribution",
+     "url": "https://registry.npmjs.org/which/-/which-2.0.2.tgz"
+    }
+   ],
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "npm"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "3"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "dev"
+    },
+    {
+     "name": "sscg:source",
+     "value": "package-lock.json"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "lockfile"
+    },
+    {
+     "name": "sscg:install_script",
+     "value": "false"
+    }
+   ]
+  },
+  {
+   "type": "application",
+   "bom-ref": "app:worker/requirements.txt",
+   "name": "worker",
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "app"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "pypi"
+    },
+    {
+     "name": "sscg:source",
+     "value": "worker/requirements.txt"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:pypi/requests@2.19.1",
+   "name": "requests",
+   "version": "2.19.1",
+   "scope": "required",
+   "purl": "pkg:pypi/requests@2.19.1",
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "pypi"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "true"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "1"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "worker/requirements.txt:1"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "deps.dev"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:pypi/certifi@2026.10.23",
+   "name": "certifi",
+   "version": "2026.10.23",
+   "scope": "required",
+   "purl": "pkg:pypi/certifi@2026.10.23",
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "pypi"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "2"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "worker/requirements.txt:1"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "deps.dev"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:pypi/chardet@3.0.4",
+   "name": "chardet",
+   "version": "3.0.4",
+   "scope": "required",
+   "purl": "pkg:pypi/chardet@3.0.4",
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "pypi"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "2"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "worker/requirements.txt:1"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "deps.dev"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:pypi/idna@2.7.0",
+   "name": "idna",
+   "version": "2.7.0",
+   "scope": "required",
+   "purl": "pkg:pypi/idna@2.7.0",
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "pypi"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "2"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "worker/requirements.txt:1"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "deps.dev"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:pypi/urllib3@1.23.0",
+   "name": "urllib3",
+   "version": "1.23.0",
+   "scope": "required",
+   "purl": "pkg:pypi/urllib3@1.23.0",
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "pypi"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "2"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "worker/requirements.txt:1"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "deps.dev"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:pypi/pyyaml@6.0.1",
+   "name": "pyyaml",
+   "version": "6.0.1",
+   "scope": "required",
+   "purl": "pkg:pypi/pyyaml@6.0.1",
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "pypi"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "true"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "1"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "worker/requirements.txt:2"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "deps.dev"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:pypi/jinja2@3.1.6",
+   "name": "jinja2",
+   "version": "3.1.6",
+   "scope": "required",
+   "purl": "pkg:pypi/jinja2@3.1.6",
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "pypi"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "true"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "1"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "worker/requirements.txt:3"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "deps.dev"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:pypi/markupsafe@3.0.4",
+   "name": "markupsafe",
+   "version": "3.0.4",
+   "scope": "required",
+   "purl": "pkg:pypi/markupsafe@3.0.4",
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "pypi"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "2"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "worker/requirements.txt:3"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "deps.dev"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:pypi/python-dateutil@4.0.0",
+   "name": "python-dateutil",
+   "version": "4.0.0",
+   "scope": "required",
+   "purl": "pkg:pypi/python-dateutil@4.0.0",
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "pypi"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "true"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "1"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "worker/requirements.txt:4"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "deps.dev"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:pypi/tzdata@2026.6.0",
+   "name": "tzdata",
+   "version": "2026.6.0",
+   "scope": "required",
+   "purl": "pkg:pypi/tzdata@2026.6.0",
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "pypi"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "false"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "2"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "worker/requirements.txt:4"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "deps.dev"
+    }
+   ]
+  },
+  {
+   "type": "library",
+   "bom-ref": "pkg:pypi/urllib3@2.8.0",
+   "name": "urllib3",
+   "version": "2.8.0",
+   "scope": "required",
+   "purl": "pkg:pypi/urllib3@2.8.0",
+   "properties": [
+    {
+     "name": "sscg:kind",
+     "value": "package"
+    },
+    {
+     "name": "sscg:ecosystem",
+     "value": "pypi"
+    },
+    {
+     "name": "sscg:direct",
+     "value": "true"
+    },
+    {
+     "name": "sscg:depth",
+     "value": "1"
+    },
+    {
+     "name": "sscg:dependents",
+     "value": "1"
+    },
+    {
+     "name": "sscg:scope",
+     "value": "prod"
+    },
+    {
+     "name": "sscg:source",
+     "value": "worker/requirements.txt:5"
+    },
+    {
+     "name": "sscg:resolution",
+     "value": "deps.dev-approx"
+    }
+   ]
+  }
+ ],
+ "dependencies": [
+  {
+   "ref": "repo:after",
+   "dependsOn": [
+    "app:.github/workflows/ci.yml",
+    "app:Dockerfile",
+    "app:notifier/pom.xml",
+    "app:package.json",
+    "app:worker/requirements.txt"
+   ]
+  },
+  {
+   "ref": "app:.github/workflows/ci.yml",
+   "dependsOn": [
+    "pkg:github/actions/checkout@v4",
+    "pkg:github/actions/setup-node@v4",
+    "pkg:github/fastbuilds42/cache-helper@main"
+   ]
+  },
+  {
+   "ref": "pkg:github/actions/checkout@v4",
+   "dependsOn": []
+  },
+  {
+   "ref": "pkg:github/actions/setup-node@v4",
+   "dependsOn": []
+  },
+  {
+   "ref": "pkg:github/fastbuilds42/cache-helper@main",
+   "dependsOn": []
+  },
+  {
+   "ref": "app:Dockerfile",
+   "dependsOn": [
+    "pkg:docker/library/node@sha256%3Ae6bedef217677b276c591795e169840edd9096dbf13f29df8ef8d1856b8820bc?repository_url=docker.io"
+   ]
+  },
+  {
+   "ref": "pkg:docker/library/node@sha256%3Ae6bedef217677b276c591795e169840edd9096dbf13f29df8ef8d1856b8820bc?repository_url=docker.io",
+   "dependsOn": []
+  },
+  {
+   "ref": "app:notifier/pom.xml",
+   "dependsOn": [
+    "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.18.11",
+    "pkg:maven/org.apache.commons/commons-text@1.10.0",
+    "pkg:maven/org.apache.logging.log4j/log4j-core@2.25.4"
+   ]
+  },
+  {
+   "ref": "pkg:maven/org.apache.logging.log4j/log4j-core@2.25.4",
+   "dependsOn": [
+    "pkg:maven/biz.aQute.bnd/biz.aQute.bnd.annotation@7.1.0",
+    "pkg:maven/com.google.errorprone/error_prone_annotations@2.38.0",
+    "pkg:maven/org.apache.logging.log4j/log4j-api@2.25.4",
+    "pkg:maven/org.jspecify/jspecify@1.0.0",
+    "pkg:maven/org.osgi/org.osgi.annotation.bundle@2.0.0",
+    "pkg:maven/org.osgi/org.osgi.annotation.versioning@1.1.2",
+    "pkg:maven/org.osgi/org.osgi.core@6.0.0"
+   ]
+  },
+  {
+   "ref": "pkg:maven/biz.aQute.bnd/biz.aQute.bnd.annotation@7.1.0",
+   "dependsOn": [
+    "pkg:maven/org.osgi/org.osgi.resource@1.0.0",
+    "pkg:maven/org.osgi/org.osgi.service.serviceloader@1.0.0"
+   ]
+  },
+  {
+   "ref": "pkg:maven/com.google.errorprone/error_prone_annotations@2.38.0",
+   "dependsOn": []
+  },
+  {
+   "ref": "pkg:maven/org.apache.logging.log4j/log4j-api@2.25.4",
+   "dependsOn": []
+  },
+  {
+   "ref": "pkg:maven/org.jspecify/jspecify@1.0.0",
+   "dependsOn": []
+  },
+  {
+   "ref": "pkg:maven/org.osgi/org.osgi.annotation.bundle@2.0.0",
+   "dependsOn": [
+    "pkg:maven/org.osgi/org.osgi.annotation.versioning@1.1.2"
+   ]
+  },
+  {
+   "ref": "pkg:maven/org.osgi/org.osgi.annotation.versioning@1.1.2",
+   "dependsOn": []
+  },
+  {
+   "ref": "pkg:maven/org.osgi/org.osgi.core@6.0.0",
+   "dependsOn": []
+  },
+  {
+   "ref": "pkg:maven/org.osgi/org.osgi.resource@1.0.0",
+   "dependsOn": []
+  },
+  {
+   "ref": "pkg:maven/org.osgi/org.osgi.service.serviceloader@1.0.0",
+   "dependsOn": []
+  },
+  {
+   "ref": "pkg:maven/org.apache.commons/commons-text@1.10.0",
+   "dependsOn": [
+    "pkg:maven/org.apache.commons/commons-lang3@3.12.0"
+   ]
+  },
+  {
+   "ref": "pkg:maven/org.apache.commons/commons-lang3@3.12.0",
+   "dependsOn": []
+  },
+  {
+   "ref": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.18.11",
+   "dependsOn": [
+    "pkg:maven/com.fasterxml.jackson.core/jackson-annotations@2.18.11",
+    "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.18.11"
+   ]
+  },
+  {
+   "ref": "pkg:maven/com.fasterxml.jackson.core/jackson-annotations@2.18.11",
+   "dependsOn": []
+  },
+  {
+   "ref": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.18.11",
+   "dependsOn": []
+  },
+  {
+   "ref": "app:package.json",
+   "dependsOn": [
+    "pkg:npm/axios@0.34.0",
+    "pkg:npm/cross-env@10.1.0",
+    "pkg:npm/lodash@4.18.1",
+    "pkg:npm/mkdirp@0.5.1",
+    "pkg:npm/node-fetch@2.6.0"
+   ]
+  },
+  {
+   "ref": "pkg:npm/%40epic-web/invariant@1.0.0",
+   "dependsOn": []
+  },
+  {
+   "ref": "pkg:npm/asynckit@0.4.0",
+   "dependsOn": []
+  },
+  {
+   "ref": "pkg:npm/axios@0.34.0",
+   "dependsOn": [
+    "pkg:npm/follow-redirects@1.16.2",
+    "pkg:npm/form-data@4.0.6",
+    "pkg:npm/proxy-from-env@1.1.0"
+   ]
+  },
+  {
+   "ref": "pkg:npm/call-bind-apply-helpers@1.0.2",
+   "dependsOn": [
+    "pkg:npm/es-errors@1.3.0",
+    "pkg:npm/function-bind@1.1.2"
+   ]
+  },
+  {
+   "ref": "pkg:npm/combined-stream@1.0.8",
+   "dependsOn": [
+    "pkg:npm/delayed-stream@1.0.0"
+   ]
+  },
+  {
+   "ref": "pkg:npm/cross-env@10.1.0",
+   "dependsOn": [
+    "pkg:npm/%40epic-web/invariant@1.0.0",
+    "pkg:npm/cross-spawn@7.0.6"
+   ]
+  },
+  {
+   "ref": "pkg:npm/cross-spawn@7.0.6",
+   "dependsOn": [
+    "pkg:npm/path-key@3.1.1",
+    "pkg:npm/shebang-command@2.0.0",
+    "pkg:npm/which@2.0.2"
+   ]
+  },
+  {
+   "ref": "pkg:npm/delayed-stream@1.0.0",
+   "dependsOn": []
+  },
+  {
+   "ref": "pkg:npm/dunder-proto@1.0.1",
+   "dependsOn": [
+    "pkg:npm/call-bind-apply-helpers@1.0.2",
+    "pkg:npm/es-errors@1.3.0",
+    "pkg:npm/gopd@1.2.0"
+   ]
+  },
+  {
+   "ref": "pkg:npm/es-define-property@1.0.1",
+   "dependsOn": []
+  },
+  {
+   "ref": "pkg:npm/es-errors@1.3.0",
+   "dependsOn": []
+  },
+  {
+   "ref": "pkg:npm/es-object-atoms@1.1.2",
+   "dependsOn": [
+    "pkg:npm/es-errors@1.3.0"
+   ]
+  },
+  {
+   "ref": "pkg:npm/es-set-tostringtag@2.1.0",
+   "dependsOn": [
+    "pkg:npm/es-errors@1.3.0",
+    "pkg:npm/get-intrinsic@1.3.0",
+    "pkg:npm/has-tostringtag@1.0.2",
+    "pkg:npm/hasown@2.0.4"
+   ]
+  },
+  {
+   "ref": "pkg:npm/follow-redirects@1.16.2",
+   "dependsOn": []
+  },
+  {
+   "ref": "pkg:npm/form-data@4.0.6",
+   "dependsOn": [
+    "pkg:npm/asynckit@0.4.0",
+    "pkg:npm/combined-stream@1.0.8",
+    "pkg:npm/es-set-tostringtag@2.1.0",
+    "pkg:npm/hasown@2.0.4",
+    "pkg:npm/mime-types@2.1.35"
+   ]
+  },
+  {
+   "ref": "pkg:npm/function-bind@1.1.2",
+   "dependsOn": []
+  },
+  {
+   "ref": "pkg:npm/get-intrinsic@1.3.0",
+   "dependsOn": [
+    "pkg:npm/call-bind-apply-helpers@1.0.2",
+    "pkg:npm/es-define-property@1.0.1",
+    "pkg:npm/es-errors@1.3.0",
+    "pkg:npm/es-object-atoms@1.1.2",
+    "pkg:npm/function-bind@1.1.2",
+    "pkg:npm/get-proto@1.0.1",
+    "pkg:npm/gopd@1.2.0",
+    "pkg:npm/has-symbols@1.1.0",
+    "pkg:npm/hasown@2.0.4",
+    "pkg:npm/math-intrinsics@1.1.0"
+   ]
+  },
+  {
+   "ref": "pkg:npm/get-proto@1.0.1",
+   "dependsOn": [
+    "pkg:npm/dunder-proto@1.0.1",
+    "pkg:npm/es-object-atoms@1.1.2"
+   ]
+  },
+  {
+   "ref": "pkg:npm/gopd@1.2.0",
+   "dependsOn": []
+  },
+  {
+   "ref": "pkg:npm/has-symbols@1.1.0",
+   "dependsOn": []
+  },
+  {
+   "ref": "pkg:npm/has-tostringtag@1.0.2",
+   "dependsOn": [
+    "pkg:npm/has-symbols@1.1.0"
+   ]
+  },
+  {
+   "ref": "pkg:npm/hasown@2.0.4",
+   "dependsOn": [
+    "pkg:npm/function-bind@1.1.2"
+   ]
+  },
+  {
+   "ref": "pkg:npm/isexe@2.0.0",
+   "dependsOn": []
+  },
+  {
+   "ref": "pkg:npm/lodash@4.18.1",
+   "dependsOn": []
+  },
+  {
+   "ref": "pkg:npm/math-intrinsics@1.1.0",
+   "dependsOn": []
+  },
+  {
+   "ref": "pkg:npm/mime-db@1.52.0",
+   "dependsOn": []
+  },
+  {
+   "ref": "pkg:npm/mime-types@2.1.35",
+   "dependsOn": [
+    "pkg:npm/mime-db@1.52.0"
+   ]
+  },
+  {
+   "ref": "pkg:npm/minimist@0.2.4",
+   "dependsOn": []
+  },
+  {
+   "ref": "pkg:npm/mkdirp@0.5.1",
+   "dependsOn": [
+    "pkg:npm/minimist@0.2.4"
+   ]
+  },
+  {
+   "ref": "pkg:npm/node-fetch@2.6.0",
+   "dependsOn": []
+  },
+  {
+   "ref": "pkg:npm/path-key@3.1.1",
+   "dependsOn": []
+  },
+  {
+   "ref": "pkg:npm/proxy-from-env@1.1.0",
+   "dependsOn": []
+  },
+  {
+   "ref": "pkg:npm/shebang-command@2.0.0",
+   "dependsOn": [
+    "pkg:npm/shebang-regex@3.0.0"
+   ]
+  },
+  {
+   "ref": "pkg:npm/shebang-regex@3.0.0",
+   "dependsOn": []
+  },
+  {
+   "ref": "pkg:npm/which@2.0.2",
+   "dependsOn": [
+    "pkg:npm/isexe@2.0.0"
+   ]
+  },
+  {
+   "ref": "app:worker/requirements.txt",
+   "dependsOn": [
+    "pkg:pypi/jinja2@3.1.6",
+    "pkg:pypi/python-dateutil@4.0.0",
+    "pkg:pypi/pyyaml@6.0.1",
+    "pkg:pypi/requests@2.19.1",
+    "pkg:pypi/urllib3@2.8.0"
+   ]
+  },
+  {
+   "ref": "pkg:pypi/requests@2.19.1",
+   "dependsOn": [
+    "pkg:pypi/certifi@2026.10.23",
+    "pkg:pypi/chardet@3.0.4",
+    "pkg:pypi/idna@2.7.0",
+    "pkg:pypi/urllib3@1.23.0"
+   ]
+  },
+  {
+   "ref": "pkg:pypi/certifi@2026.10.23",
+   "dependsOn": []
+  },
+  {
+   "ref": "pkg:pypi/chardet@3.0.4",
+   "dependsOn": []
+  },
+  {
+   "ref": "pkg:pypi/idna@2.7.0",
+   "dependsOn": []
+  },
+  {
+   "ref": "pkg:pypi/urllib3@1.23.0",
+   "dependsOn": []
+  },
+  {
+   "ref": "pkg:pypi/pyyaml@6.0.1",
+   "dependsOn": []
+  },
+  {
+   "ref": "pkg:pypi/jinja2@3.1.6",
+   "dependsOn": [
+    "pkg:pypi/markupsafe@3.0.4"
+   ]
+  },
+  {
+   "ref": "pkg:pypi/markupsafe@3.0.4",
+   "dependsOn": []
+  },
+  {
+   "ref": "pkg:pypi/python-dateutil@4.0.0",
+   "dependsOn": [
+    "pkg:pypi/tzdata@2026.6.0"
+   ]
+  },
+  {
+   "ref": "pkg:pypi/tzdata@2026.6.0",
+   "dependsOn": []
+  },
+  {
+   "ref": "pkg:pypi/urllib3@2.8.0",
+   "dependsOn": []
+  }
+ ]
+}

@@ -1,0 +1,1129 @@
+{
+ "scan": {
+  "scope": "source of the remediated copy (manifests, lockfiles, Dockerfiles, CI workflows) with the same detection pipeline as the original scan; and the built container image(s) ./Dockerfile with Trivy (OS and language packages)",
+  "vulns_checked": true,
+  "image_scanned": true,
+  "notes": []
+ },
+ "findings": [
+  {
+   "finding_id": "F-001",
+   "category": "anomaly",
+   "type": "Unsafe CI/CD component",
+   "rule": "R14_CI_PWN_REQUEST",
+   "title": ".github/workflows/ci.yml: 'pull_request_target' workflow checks out the pull request's own code",
+   "component": null,
+   "is_direct": null,
+   "location": ".github/workflows/ci.yml:16",
+   "dependency_paths": [],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "file",
+     "path": ".github/workflows/ci.yml",
+     "line": 16,
+     "snippet": "ref: ${{ github.event.pull_request.head.sha }}"
+    },
+    {
+     "type": "fact",
+     "detail": "triggers: pull_request_target, push"
+    }
+   ],
+   "why_it_matters": "pull_request_target runs with repository secrets; checking out the PR's code runs untrusted code with them.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": true,
+   "introduced_in": "8cad42e (+ uncommitted changes)",
+   "risk": {
+    "score": 10.0,
+    "level": "Critical",
+    "factors": {
+     "rule_level": "Critical",
+     "introduced_in_latest_change": 1.0
+    },
+    "reasons": [
+     "R14_CI_PWN_REQUEST default level Critical",
+     "introduced in the latest change"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-002",
+   "category": "anomaly",
+   "type": "Unsafe CI/CD component",
+   "rule": "R15_CI_UNPINNED_ACTION",
+   "title": ".github/workflows/ci.yml: third-party action 'fastbuilds42/cache-helper@main' is not pinned to a commit SHA",
+   "component": {
+    "id": "pkg:github/fastbuilds42/cache-helper@main",
+    "purl": "pkg:github/fastbuilds42/cache-helper@main",
+    "name": "fastbuilds42/cache-helper",
+    "version": "main",
+    "ecosystem": "github-actions",
+    "label": "fastbuilds42/cache-helper@main",
+    "scope": "ci",
+    "direct": true,
+    "resolution": "workflow",
+    "origin": "https://github.com/fastbuilds42/cache-helper"
+   },
+   "is_direct": true,
+   "location": ".github/workflows/ci.yml:20",
+   "dependency_paths": [
+    [
+     "ci",
+     "fastbuilds42/cache-helper@main"
+    ]
+   ],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "file",
+     "path": ".github/workflows/ci.yml",
+     "line": 20,
+     "snippet": "- uses: fastbuilds42/cache-helper@main"
+    }
+   ],
+   "why_it_matters": "A third-party action referenced by tag/branch can be changed by its owner at any time.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": true,
+   "introduced_in": "8cad42e (+ uncommitted changes)",
+   "risk": {
+    "score": 9.0,
+    "level": "Critical",
+    "factors": {
+     "rule_level": "High",
+     "introduced_in_latest_change": 1.0
+    },
+    "reasons": [
+     "R15_CI_UNPINNED_ACTION default level High",
+     "introduced in the latest change"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-003",
+   "category": "anomaly",
+   "type": "Suspicious package update",
+   "rule": "R18_NEW_AUTHOR_SENSITIVE_CHANGE",
+   "title": "first-time contributor fastbuilds42 changed 7 build/dependency files in 8cad42e (\"chore: routine dependency refresh\")",
+   "component": null,
+   "is_direct": null,
+   "location": "commit 8cad42e",
+   "dependency_paths": [],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "commit",
+     "sha": "8cad42e",
+     "author": "fastbuilds42",
+     "email": "fastbuilds42@users.example.invalid",
+     "date": "2026-11-23T13:19:53+05:30",
+     "message": "chore: routine dependency refresh",
+     "first_time_author": true
+    },
+    {
+     "type": "fact",
+     "detail": "changed: M .github/workflows/ci.yml, M Dockerfile, M notifier/pom.xml, M package-lock.json, M package.json, A scripts/setup.js, M worker/requirements.txt"
+    }
+   ],
+   "why_it_matters": "A first-time contributor changed files that control what gets built and installed.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": true,
+   "introduced_in": "8cad42e (+ uncommitted changes)",
+   "risk": {
+    "score": 9.0,
+    "level": "Critical",
+    "factors": {
+     "rule_level": "High",
+     "introduced_in_latest_change": 1.0
+    },
+    "reasons": [
+     "R18_NEW_AUTHOR_SENSITIVE_CHANGE default level High",
+     "introduced in the latest change"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-004",
+   "category": "vulnerability",
+   "type": "Vulnerable direct dependency",
+   "rule": "VULN",
+   "title": "node-fetch@2.6.0: 2 known vulnerabilities (highest HIGH, CVSS 8.8)",
+   "component": {
+    "id": "pkg:npm/node-fetch@2.6.0",
+    "purl": "pkg:npm/node-fetch@2.6.0",
+    "name": "node-fetch",
+    "version": "2.6.0",
+    "ecosystem": "npm",
+    "label": "node-fetch@2.6.0",
+    "scope": "prod",
+    "direct": true,
+    "resolution": "lockfile",
+    "origin": "https://registry.npmjs.org/node-fetch/-/node-fetch-2.6.0.tgz"
+   },
+   "is_direct": true,
+   "location": "package-lock.json",
+   "dependency_paths": [
+    [
+     "acme-orders@1.0.0",
+     "node-fetch@2.6.0"
+    ]
+   ],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-r683-j2x4-v87g",
+     "cves": [
+      "CVE-2022-0235"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 8.8,
+     "cvss_vector": "CVSS:3.0/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+     "fixed_in": "2.6.7",
+     "summary": "node-fetch forwards secure headers to untrusted sites",
+     "url": "https://osv.dev/vulnerability/GHSA-r683-j2x4-v87g"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-w7rc-rwvf-8q5r",
+     "cves": [
+      "CVE-2020-15168"
+     ],
+     "severity": "LOW",
+     "cvss_score": 2.6,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:R/S:U/C:N/I:N/A:L",
+     "fixed_in": "2.6.1",
+     "summary": "The `size` option isn't honored after following a redirect in node-fetch",
+     "url": "https://osv.dev/vulnerability/GHSA-w7rc-rwvf-8q5r"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "HIGH",
+    "cvss": 8.8,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-r683-j2x4-v87g": "2.6.7",
+     "GHSA-w7rc-rwvf-8q5r": "2.6.1"
+    },
+    "upgrade_to_at_least": "2.6.7",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 8.8,
+    "level": "High",
+    "factors": {
+     "severity": 8.8
+    },
+    "reasons": [
+     "highest advisory severity HIGH (CVSS 8.8)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-005",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "org.apache.commons:commons-lang3@3.12.0: 1 known vulnerability (highest MEDIUM, CVSS 6.5)",
+   "component": {
+    "id": "pkg:maven/org.apache.commons/commons-lang3@3.12.0",
+    "purl": "pkg:maven/org.apache.commons/commons-lang3@3.12.0",
+    "name": "org.apache.commons:commons-lang3",
+    "version": "3.12.0",
+    "ecosystem": "maven",
+    "label": "org.apache.commons:commons-lang3@3.12.0",
+    "scope": "prod",
+    "direct": false,
+    "resolution": "deps.dev",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "notifier/pom.xml",
+   "dependency_paths": [
+    [
+     "com.acme:notifier@1.0.0",
+     "org.apache.commons:commons-text@1.10.0",
+     "org.apache.commons:commons-lang3@3.12.0"
+    ]
+   ],
+   "introduced_by": [
+    "org.apache.commons:commons-text@1.10.0"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-j288-q9x7-2f5v",
+     "cves": [
+      "CVE-2025-48924"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 6.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
+     "fixed_in": "3.18.0",
+     "summary": "Apache Commons Lang is vulnerable to Uncontrolled Recursion when processing long inputs",
+     "url": "https://osv.dev/vulnerability/GHSA-j288-q9x7-2f5v"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": true,
+   "introduced_in": "8cad42e (+ uncommitted changes)",
+   "severity": {
+    "label": "MEDIUM",
+    "cvss": 6.5,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-j288-q9x7-2f5v": "3.18.0"
+    },
+    "upgrade_to_at_least": "3.18.0",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 7.5,
+    "level": "High",
+    "factors": {
+     "severity": 6.5,
+     "introduced_in_latest_change": 1.0
+    },
+    "reasons": [
+     "highest advisory severity MEDIUM (CVSS 6.5)",
+     "introduced in the latest change"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-006",
+   "category": "vulnerability",
+   "type": "Vulnerable direct dependency",
+   "rule": "VULN",
+   "title": "requests@2.19.1: 5 known vulnerabilities (highest HIGH, CVSS 7.5)",
+   "component": {
+    "id": "pkg:pypi/requests@2.19.1",
+    "purl": "pkg:pypi/requests@2.19.1",
+    "name": "requests",
+    "version": "2.19.1",
+    "ecosystem": "pypi",
+    "label": "requests@2.19.1",
+    "scope": "prod",
+    "direct": true,
+    "resolution": "deps.dev",
+    "origin": null
+   },
+   "is_direct": true,
+   "location": "worker/requirements.txt:1",
+   "dependency_paths": [
+    [
+     "worker",
+     "requests@2.19.1"
+    ]
+   ],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-x84v-xcm2-53pg",
+     "cves": [
+      "CVE-2018-18074"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+     "fixed_in": "2.20.0",
+     "summary": "Insufficiently Protected Credentials in Requests",
+     "url": "https://osv.dev/vulnerability/GHSA-x84v-xcm2-53pg"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-j8r2-6x86-q33q",
+     "cves": [
+      "CVE-2023-32681"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 6.1,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:H/I:N/A:N",
+     "fixed_in": "2.31.0",
+     "summary": "Unintended leak of Proxy-Authorization header in requests",
+     "url": "https://osv.dev/vulnerability/GHSA-j8r2-6x86-q33q"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-9wx4-h78v-vm56",
+     "cves": [
+      "CVE-2024-35195"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 5.6,
+     "cvss_vector": "CVSS:3.1/AV:L/AC:H/PR:H/UI:R/S:U/C:H/I:H/A:N",
+     "fixed_in": "2.32.0",
+     "summary": "Requests `Session` object does not verify requests after making first request with verify=False",
+     "url": "https://osv.dev/vulnerability/GHSA-9wx4-h78v-vm56"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-9hjg-9r4m-mvj7",
+     "cves": [
+      "CVE-2024-47081"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:N/A:N",
+     "fixed_in": "2.32.4",
+     "summary": "Requests vulnerable to .netrc credentials leak via malicious URLs",
+     "url": "https://osv.dev/vulnerability/GHSA-9hjg-9r4m-mvj7"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-gc5v-m9x4-r6x2",
+     "cves": [
+      "CVE-2026-25645"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 4.4,
+     "cvss_vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:R/S:U/C:N/I:H/A:N",
+     "fixed_in": "2.33.0",
+     "summary": "Requests has Insecure Temp File Reuse in its extract_zipped_paths() utility function",
+     "url": "https://osv.dev/vulnerability/GHSA-gc5v-m9x4-r6x2"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "HIGH",
+    "cvss": 7.5,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-9hjg-9r4m-mvj7": "2.32.4",
+     "GHSA-9wx4-h78v-vm56": "2.32.0",
+     "GHSA-gc5v-m9x4-r6x2": "2.33.0",
+     "GHSA-j8r2-6x86-q33q": "2.31.0",
+     "GHSA-x84v-xcm2-53pg": "2.20.0"
+    },
+    "upgrade_to_at_least": "2.33.0",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 7.5,
+    "level": "High",
+    "factors": {
+     "severity": 7.5
+    },
+    "reasons": [
+     "highest advisory severity HIGH (CVSS 7.5)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-007",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "urllib3@1.23.0: 12 known vulnerabilities (highest HIGH, CVSS 7.5)",
+   "component": {
+    "id": "pkg:pypi/urllib3@1.23.0",
+    "purl": "pkg:pypi/urllib3@1.23.0",
+    "name": "urllib3",
+    "version": "1.23.0",
+    "ecosystem": "pypi",
+    "label": "urllib3@1.23.0",
+    "scope": "prod",
+    "direct": false,
+    "resolution": "deps.dev",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "worker/requirements.txt:1",
+   "dependency_paths": [
+    [
+     "worker",
+     "requests@2.19.1",
+     "urllib3@1.23.0"
+    ]
+   ],
+   "introduced_by": [
+    "requests@2.19.1"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-2xpw-w6gg-jr37",
+     "cves": [
+      "CVE-2025-66471"
+     ],
+     "severity": "HIGH",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:H",
+     "fixed_in": "2.6.0",
+     "summary": "urllib3 streaming API improperly handles highly compressed data",
+     "url": "https://osv.dev/vulnerability/GHSA-2xpw-w6gg-jr37"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-vxq7-64xx-v4gw",
+     "cves": [
+      "CVE-2026-97689"
+     ],
+     "severity": "HIGH",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:H",
+     "fixed_in": "2.8.0",
+     "summary": "urllib3: HTTPResponse.stream()/read_chunked() buffers an unbounded chunk-size line into memory",
+     "url": "https://osv.dev/vulnerability/GHSA-vxq7-64xx-v4gw"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-38jv-5279-wg99",
+     "cves": [
+      "CVE-2026-21441"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "2.6.3",
+     "summary": "Decompression-bomb safeguards bypassed when following HTTP redirects (streaming API)",
+     "url": "https://osv.dev/vulnerability/GHSA-38jv-5279-wg99"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-mh33-7rrq-662w",
+     "cves": [
+      "CVE-2019-11324"
+     ],
+     "severity": "HIGH",
+     "cvss_score": 7.5,
+     "cvss_vector": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+     "fixed_in": "1.24.2",
+     "summary": "Improper Certificate Validation in urllib3",
+     "url": "https://osv.dev/vulnerability/GHSA-mh33-7rrq-662w"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-wqvq-5m8c-6g24",
+     "cves": [
+      "CVE-2020-26137"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 6.5,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
+     "fixed_in": "1.25.9",
+     "summary": "CRLF injection in urllib3",
+     "url": "https://osv.dev/vulnerability/GHSA-wqvq-5m8c-6g24"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-gwvm-45gx-3cf8",
+     "cves": [
+      "CVE-2018-25091"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 6.1,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+     "fixed_in": "1.24.2",
+     "summary": "Authorization Header forwarded on redirect",
+     "url": "https://osv.dev/vulnerability/GHSA-gwvm-45gx-3cf8"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-r64q-w8jr-g9qp",
+     "cves": [
+      "CVE-2019-11236"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 6.1,
+     "cvss_vector": "CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+     "fixed_in": "1.24.3",
+     "summary": "Improper Neutralization of CRLF Sequences in urllib3 library for Python",
+     "url": "https://osv.dev/vulnerability/GHSA-r64q-w8jr-g9qp"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-v845-jxx5-vc9f",
+     "cves": [
+      "CVE-2023-43804"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 5.9,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:H/UI:N/S:U/C:H/I:H/A:N",
+     "fixed_in": "1.26.17",
+     "summary": "`Cookie` HTTP header isn't stripped on cross-origin redirects",
+     "url": "https://osv.dev/vulnerability/GHSA-v845-jxx5-vc9f"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-pq67-6m6q-mj2v",
+     "cves": [
+      "CVE-2025-50181"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:H/I:N/A:N",
+     "fixed_in": "2.5.0",
+     "summary": "urllib3 redirects are not disabled when retries are disabled on PoolManager instantiation",
+     "url": "https://osv.dev/vulnerability/GHSA-pq67-6m6q-mj2v"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-qccp-gfcp-xxvc",
+     "cves": [
+      "CVE-2026-44431"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+     "fixed_in": "2.7.0",
+     "summary": "urllib3: Sensitive headers forwarded across origins in proxied low-level redirects",
+     "url": "https://osv.dev/vulnerability/GHSA-qccp-gfcp-xxvc"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-34jh-p97f-mpxf",
+     "cves": [
+      "CVE-2024-37891"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 4.4,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:H/UI:N/S:U/C:H/I:N/A:N",
+     "fixed_in": "1.26.19",
+     "summary": "urllib3's Proxy-Authorization request header isn't stripped during cross-origin redirects",
+     "url": "https://osv.dev/vulnerability/GHSA-34jh-p97f-mpxf"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-g4mx-q9vg-27p4",
+     "cves": [
+      "CVE-2023-45803"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 4.2,
+     "cvss_vector": "CVSS:3.1/AV:A/AC:H/PR:H/UI:N/S:U/C:H/I:N/A:N",
+     "fixed_in": "1.26.18",
+     "summary": "urllib3's request body not stripped after redirect from 303 status changes request method to GET",
+     "url": "https://osv.dev/vulnerability/GHSA-g4mx-q9vg-27p4"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "HIGH",
+    "cvss": 7.5,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-34jh-p97f-mpxf": "1.26.19",
+     "GHSA-38jv-5279-wg99": "2.6.3",
+     "GHSA-g4mx-q9vg-27p4": "1.26.18",
+     "GHSA-gwvm-45gx-3cf8": "1.24.2",
+     "GHSA-mh33-7rrq-662w": "1.24.2",
+     "GHSA-pq67-6m6q-mj2v": "2.5.0",
+     "GHSA-qccp-gfcp-xxvc": "2.7.0",
+     "GHSA-r64q-w8jr-g9qp": "1.24.3",
+     "GHSA-v845-jxx5-vc9f": "1.26.17",
+     "GHSA-wqvq-5m8c-6g24": "1.25.9",
+     "GHSA-2xpw-w6gg-jr37": "2.6.0",
+     "GHSA-vxq7-64xx-v4gw": "2.8.0"
+    },
+    "upgrade_to_at_least": "2.8.0",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 7.5,
+    "level": "High",
+    "factors": {
+     "severity": 7.5
+    },
+    "reasons": [
+     "highest advisory severity HIGH (CVSS 7.5)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-008",
+   "category": "anomaly",
+   "type": "Untrusted image",
+   "rule": "R13_CONTAINER_HARDENING",
+   "title": "Dockerfile runs 'npm install' with install scripts enabled",
+   "component": null,
+   "is_direct": null,
+   "location": "Dockerfile:6",
+   "dependency_paths": [],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "file",
+     "path": "Dockerfile",
+     "line": 6,
+     "snippet": "RUN npm install"
+    }
+   ],
+   "why_it_matters": "The container build or runtime is less isolated than it could be.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": true,
+   "introduced_in": "8cad42e (+ uncommitted changes)",
+   "risk": {
+    "score": 6.5,
+    "level": "Medium",
+    "factors": {
+     "rule_level": "Medium",
+     "introduced_in_latest_change": 1.0
+    },
+    "reasons": [
+     "R13_CONTAINER_HARDENING default level Medium",
+     "introduced in the latest change"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-009",
+   "category": "anomaly",
+   "type": "Unexpected dependency",
+   "rule": "R08_UNEXPECTED_DEPENDENCY",
+   "title": "new dev dependency cross-env@10.1.0 added in package.json",
+   "component": {
+    "id": "pkg:npm/cross-env@10.1.0",
+    "purl": "pkg:npm/cross-env@10.1.0",
+    "name": "cross-env",
+    "version": "10.1.0",
+    "ecosystem": "npm",
+    "label": "cross-env@10.1.0",
+    "scope": "dev",
+    "direct": true,
+    "resolution": "lockfile",
+    "origin": "https://registry.npmjs.org/cross-env/-/cross-env-10.1.0.tgz"
+   },
+   "is_direct": true,
+   "location": "package.json:17",
+   "dependency_paths": [
+    [
+     "acme-orders@1.0.0",
+     "cross-env@10.1.0"
+    ]
+   ],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "file",
+     "path": "package.json",
+     "line": 17,
+     "snippet": "\"cross-env\": \"^10.1.0\""
+    },
+    {
+     "type": "commit",
+     "sha": "8cad42e",
+     "author": "fastbuilds42",
+     "email": "fastbuilds42@users.example.invalid",
+     "date": "2026-11-23T13:19:53+05:30",
+     "message": "chore: routine dependency refresh"
+    }
+   ],
+   "why_it_matters": "A new direct dependency enters the application and should be reviewed.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": true,
+   "introduced_in": "8cad42e (+ uncommitted changes)",
+   "risk": {
+    "score": 6.5,
+    "level": "Medium",
+    "factors": {
+     "rule_level": "Medium",
+     "introduced_in_latest_change": 1.0
+    },
+    "reasons": [
+     "R08_UNEXPECTED_DEPENDENCY default level Medium",
+     "introduced in the latest change"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-010",
+   "category": "anomaly",
+   "type": "Unexpected dependency",
+   "rule": "R08_UNEXPECTED_DEPENDENCY",
+   "title": "new prod dependency python-dateutil@4.0.0 added in worker/requirements.txt",
+   "component": {
+    "id": "pkg:pypi/python-dateutil@4.0.0",
+    "purl": "pkg:pypi/python-dateutil@4.0.0",
+    "name": "python-dateutil",
+    "version": "4.0.0",
+    "ecosystem": "pypi",
+    "label": "python-dateutil@4.0.0",
+    "scope": "prod",
+    "direct": true,
+    "resolution": "deps.dev",
+    "origin": null
+   },
+   "is_direct": true,
+   "location": "worker/requirements.txt:4",
+   "dependency_paths": [
+    [
+     "worker",
+     "python-dateutil@4.0.0"
+    ]
+   ],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "file",
+     "path": "worker/requirements.txt",
+     "line": 4,
+     "snippet": "python-dateutil==4.0.0"
+    },
+    {
+     "type": "commit",
+     "sha": "8cad42e",
+     "author": "fastbuilds42",
+     "email": "fastbuilds42@users.example.invalid",
+     "date": "2026-11-23T13:19:53+05:30",
+     "message": "chore: routine dependency refresh"
+    }
+   ],
+   "why_it_matters": "A new direct dependency enters the application and should be reviewed.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": true,
+   "introduced_in": "8cad42e (+ uncommitted changes)",
+   "risk": {
+    "score": 6.5,
+    "level": "Medium",
+    "factors": {
+     "rule_level": "Medium",
+     "introduced_in_latest_change": 1.0
+    },
+    "reasons": [
+     "R08_UNEXPECTED_DEPENDENCY default level Medium",
+     "introduced in the latest change"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-011",
+   "category": "anomaly",
+   "type": "Unexpected dependency",
+   "rule": "R08_UNEXPECTED_DEPENDENCY",
+   "title": "new prod dependency urllib3@2.8.0 added in worker/requirements.txt",
+   "component": {
+    "id": "pkg:pypi/urllib3@2.8.0",
+    "purl": "pkg:pypi/urllib3@2.8.0",
+    "name": "urllib3",
+    "version": "2.8.0",
+    "ecosystem": "pypi",
+    "label": "urllib3@2.8.0",
+    "scope": "prod",
+    "direct": true,
+    "resolution": "deps.dev-approx",
+    "origin": null
+   },
+   "is_direct": true,
+   "location": "worker/requirements.txt:5",
+   "dependency_paths": [
+    [
+     "worker",
+     "urllib3@2.8.0"
+    ]
+   ],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "file",
+     "path": "worker/requirements.txt",
+     "line": 5,
+     "snippet": "urllib3"
+    },
+    {
+     "type": "commit",
+     "sha": "8cad42e",
+     "author": "fastbuilds42",
+     "email": "fastbuilds42@users.example.invalid",
+     "date": "2026-11-23T13:19:53+05:30",
+     "message": "chore: routine dependency refresh"
+    }
+   ],
+   "why_it_matters": "A new direct dependency enters the application and should be reviewed.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": true,
+   "introduced_in": "8cad42e (+ uncommitted changes)",
+   "risk": {
+    "score": 6.5,
+    "level": "Medium",
+    "factors": {
+     "rule_level": "Medium",
+     "introduced_in_latest_change": 1.0
+    },
+    "reasons": [
+     "R08_UNEXPECTED_DEPENDENCY default level Medium",
+     "introduced in the latest change"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-012",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "org.apache.logging.log4j:log4j-api@2.25.4: 1 known vulnerability (highest MEDIUM)",
+   "component": {
+    "id": "pkg:maven/org.apache.logging.log4j/log4j-api@2.25.4",
+    "purl": "pkg:maven/org.apache.logging.log4j/log4j-api@2.25.4",
+    "name": "org.apache.logging.log4j:log4j-api",
+    "version": "2.25.4",
+    "ecosystem": "maven",
+    "label": "org.apache.logging.log4j:log4j-api@2.25.4",
+    "scope": "prod",
+    "direct": false,
+    "resolution": "deps.dev",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "notifier/pom.xml",
+   "dependency_paths": [
+    [
+     "com.acme:notifier@1.0.0",
+     "org.apache.logging.log4j:log4j-core@2.25.4",
+     "org.apache.logging.log4j:log4j-api@2.25.4"
+    ]
+   ],
+   "introduced_by": [
+    "org.apache.logging.log4j:log4j-core@2.25.4"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-qv9r-c865-cp47",
+     "cves": [
+      "CVE-2026-49844"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": null,
+     "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:N/SC:N/SI:L/SA:N",
+     "fixed_in": "2.25.5",
+     "summary": "Apache Log4j API: Improper encoding of non-finite floating-point values during MapMessage JSON serialization",
+     "url": "https://osv.dev/vulnerability/GHSA-qv9r-c865-cp47"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": true,
+   "introduced_in": "8cad42e (+ uncommitted changes)",
+   "severity": {
+    "label": "MEDIUM",
+    "cvss": null,
+    "source": "advisory severity label (OSV)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-qv9r-c865-cp47": "2.25.5"
+    },
+    "upgrade_to_at_least": "2.25.5",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 6.5,
+    "level": "Medium",
+    "factors": {
+     "severity": 5.5,
+     "introduced_in_latest_change": 1.0
+    },
+    "reasons": [
+     "highest advisory severity MEDIUM",
+     "introduced in the latest change"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-013",
+   "category": "vulnerability",
+   "type": "Vulnerable transitive dependency",
+   "rule": "VULN",
+   "title": "idna@2.7.0: 2 known vulnerabilities (highest MEDIUM, CVSS 6.2)",
+   "component": {
+    "id": "pkg:pypi/idna@2.7.0",
+    "purl": "pkg:pypi/idna@2.7.0",
+    "name": "idna",
+    "version": "2.7.0",
+    "ecosystem": "pypi",
+    "label": "idna@2.7.0",
+    "scope": "prod",
+    "direct": false,
+    "resolution": "deps.dev",
+    "origin": null
+   },
+   "is_direct": false,
+   "location": "worker/requirements.txt:1",
+   "dependency_paths": [
+    [
+     "worker",
+     "requests@2.19.1",
+     "idna@2.7.0"
+    ]
+   ],
+   "introduced_by": [
+    "requests@2.19.1"
+   ],
+   "evidence": [
+    {
+     "type": "advisory",
+     "id": "GHSA-jjg7-2v4v-x38h",
+     "cves": [
+      "CVE-2024-3651"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 6.2,
+     "cvss_vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+     "fixed_in": "3.7",
+     "summary": "Internationalized Domain Names in Applications (IDNA) vulnerable to denial of service from specially crafted inputs to idna.encode",
+     "url": "https://osv.dev/vulnerability/GHSA-jjg7-2v4v-x38h"
+    },
+    {
+     "type": "advisory",
+     "id": "GHSA-65pc-fj4g-8rjx",
+     "cves": [
+      "CVE-2026-45409"
+     ],
+     "severity": "MEDIUM",
+     "cvss_score": 5.3,
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+     "fixed_in": "3.15",
+     "summary": "Internationalized Domain Names in Applications (IDNA): Specially crafted inputs to idna.encode() can bypass CVE-2024-3651 fix",
+     "url": "https://osv.dev/vulnerability/GHSA-65pc-fj4g-8rjx"
+    }
+   ],
+   "why_it_matters": "Published advisories affect this exact version.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": false,
+   "introduced_in": null,
+   "severity": {
+    "label": "MEDIUM",
+    "cvss": 6.2,
+    "source": "OSV CVSS v3 vector (score computed)"
+   },
+   "fixes": {
+    "per_advisory": {
+     "GHSA-65pc-fj4g-8rjx": "3.15",
+     "GHSA-jjg7-2v4v-x38h": "3.7"
+    },
+    "upgrade_to_at_least": "3.15",
+    "advisories_without_fix": []
+   },
+   "risk": {
+    "score": 6.2,
+    "level": "Medium",
+    "factors": {
+     "severity": 6.2
+    },
+    "reasons": [
+     "highest advisory severity MEDIUM (CVSS 6.2)"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-014",
+   "category": "anomaly",
+   "type": "Suspicious package update",
+   "rule": "R09_UNPINNED_DEPENDENCY",
+   "title": "'urllib3' has no exact version in worker/requirements.txt (any version)",
+   "component": null,
+   "is_direct": null,
+   "location": "worker/requirements.txt:5",
+   "dependency_paths": [],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "file",
+     "path": "worker/requirements.txt",
+     "line": 5,
+     "snippet": "urllib3"
+    }
+   ],
+   "why_it_matters": "Without an exact version, a future (possibly compromised) release is installed silently.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": true,
+   "introduced_in": "8cad42e (+ uncommitted changes)",
+   "risk": {
+    "score": 4.0,
+    "level": "Medium",
+    "factors": {
+     "rule_level": "Low",
+     "introduced_in_latest_change": 1.0
+    },
+    "reasons": [
+     "R09_UNPINNED_DEPENDENCY default level Low",
+     "introduced in the latest change"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  },
+  {
+   "finding_id": "F-015",
+   "category": "anomaly",
+   "type": "Untrusted image",
+   "rule": "R13_CONTAINER_HARDENING",
+   "title": "Dockerfile sets no USER: the container runs as the base image's default user (usually root)",
+   "component": null,
+   "is_direct": null,
+   "location": "Dockerfile",
+   "dependency_paths": [],
+   "introduced_by": [],
+   "evidence": [
+    {
+     "type": "fact",
+     "detail": "no USER instruction in the final stage chain of Dockerfile"
+    }
+   ],
+   "why_it_matters": "The container build or runtime is less isolated than it could be.",
+   "classification": "verified_fact",
+   "confidence": "high",
+   "new_in_change": true,
+   "introduced_in": "8cad42e (+ uncommitted changes)",
+   "risk": {
+    "score": 4.0,
+    "level": "Medium",
+    "factors": {
+     "rule_level": "Low",
+     "introduced_in_latest_change": 1.0
+    },
+    "reasons": [
+     "R13_CONTAINER_HARDENING default level Low",
+     "introduced in the latest change"
+    ],
+    "label": "Guardian initial risk (heuristic, 0-10); not a CVSS score"
+   }
+  }
+ ]
+}

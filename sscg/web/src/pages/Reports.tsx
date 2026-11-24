@@ -10,7 +10,11 @@ const DESCRIBE: Record<string, string> = {
   "report.html": "Evidence report (web page)", "report.pdf": "Evidence report (PDF)", "agentic.json": "AI triage, tool evidence, audit trail",
   "remediation/remediation.json": "Priorities, proposals, approvals, validation (machine-readable)", "remediation/pending.json": "Run waiting for approval",
   "remediation/remediation_report.md": "Remediation report (Markdown)", "remediation/remediation_report.html": "Remediation report (web page)",
-  "remediation/remediation_report.pdf": "Remediation report (PDF)", "remediation/remediation.patch": "Every approved change as one patch",
+  "remediation/remediation_report.pdf": "Remediation report (PDF)", "remediation/remediation.patch": "The validated patch: every approved change incl. regenerated lockfiles",
+  "remediation/after/findings.json": "After the change: all findings of the rescan (machine-readable)",
+  "remediation/after/sbom.cdx.json": "After the change: CycloneDX SBOM of the remediated copy",
+  "remediation/after/image-scan-after.json": "After the change: Trivy scan of the built container image",
+  "remediation/image-scan-before.json": "Before the change: Trivy scan of the original container image",
 };
 
 export function Reports({ p }: { p: Project }) {

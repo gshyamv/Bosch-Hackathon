@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
-import { ArrowRight, CheckCircle2, ChevronDown, ChevronRight, Download, FileText, FlaskConical, Hourglass, Send, ShieldCheck, Sparkles, Wrench, XCircle } from "lucide-react";
+import { ArrowRight, CheckCircle2, ChevronDown, ChevronRight, Download, FileText, FlaskConical, Hourglass, RotateCcw, Send, ShieldCheck, Sparkles, Wrench, XCircle } from "lucide-react";
 import { api, RemediationRun, fileUrl, Finding, Pending, Project, Proposal, Step } from "../api";
 import { FindingDrawer } from "../components/FindingDetail";
-import { Badge, Button, Callout, Card, Code, cx, DataTable, DetailRow, Diff, Drawer, Empty, Field, inputCls, LinkButton, PageHeader, Pre, PriorityBadge, Stat, StatusBadge, Tabs } from "../components/ui";
+import { Badge, Button, Callout, Card, Code, cx, DataTable, DetailRow, Diff, Drawer, Empty, Field, inputCls, LinkButton, PageHeader, Pre, PriorityBadge, SeverityBadge, Stat, StatusBadge, Tabs } from "../components/ui";
 
 const DECISIONS = [
   { id: "defer", label: "Defer", on: "bg-slate-700 text-white" },
@@ -20,9 +20,9 @@ const ACTION_LABEL: Record<string, string> = {
 export function Remediation({ p, onJob }: { p: Project; onJob: (jobId: string) => void }) {
   return (
     <div>
-      <PageHeader title="Remediation" description="Prioritised risk → recommended fix → human approval → build & test in a sandbox → rescan → verified remediation. The original repository is never modified." />
+      <PageHeader title="Remediation" description="Prioritised risk → recommended fix → human approval → install, build & test in a temporary copy → rescan → verified remediation. The original repository is never modified." />
       {p.pending ? <Approval p={p} pend={p.pending} onJob={onJob} />
-        : p.remediation ? <Results p={p} rem={p.remediation} />
+        : p.remediation ? <Results p={p} rem={p.remediation} onJob={onJob} />
         : <Empty icon={<Wrench className="h-8 w-8" />} title="No remediation run yet">Start a <b>Full: detect → remediate</b> run. It prioritises the findings, proposes exact fixes, and pauses here for your approval.</Empty>}
     </div>
   );
@@ -40,8 +40,11 @@ function ProposalBody({ pr }: { pr: Proposal }) {
         {pr.rollback && <DetailRow label="Rollback">{pr.rollback}</DetailRow>}
         <DetailRow label="Findings">{pr.finding_ids.map((f) => <Code key={f}>{f}</Code>).reduce((a: any[], c, i) => (i ? [...a, " ", c] : [c]), [])}</DetailRow>
         {pr.files_affected?.length > 0 && <DetailRow label="Files">{pr.files_affected.map((f) => <Code key={f}>{f}</Code>)}</DetailRow>}
-        {pr.residual_advisories?.length > 0 && <DetailRow label="Residual advisories"><span className="text-amber-700">{pr.residual_advisories.join(", ")}</span></DetailRow>}
-        {pr.notes && <DetailRow label="Notes">{pr.notes}</DetailRow>}
+        {pr.residual_status === "unknown"
+          ? <DetailRow label="Target advisories"><span className="font-medium text-amber-700">unknown: OSV could not be queried, check before approving</span></DetailRow>
+          : pr.residual_advisories?.length > 0 && <DetailRow label="Residual advisories"><span className="text-amber-700">{pr.residual_advisories.join(", ")}</span></DetailRow>}
+        {(Array.isArray(pr.notes) ? pr.notes.filter(Boolean).length > 0 : !!pr.notes) &&
+          <DetailRow label="Notes">{Array.isArray(pr.notes) ? pr.notes.filter(Boolean).join("; ") : pr.notes}</DetailRow>}
       </dl>
       {(pr.ai_rationale || checklist.length > 0) && (
         <div className="rounded-lg border border-violet-200 bg-violet-50/50 p-3.5 text-sm">
@@ -92,7 +95,7 @@ function Approval({ p, pend, onJob }: { p: Project; pend: Pending; onJob: (id: s
     <div className="pb-40">
       <Callout tone="warn" icon={<Hourglass className="mt-0.5 h-4 w-4 shrink-0" />}>
         <b>Waiting for your approval.</b> Run <Code>{pend.run_id}</Code> paused at the human-approval step ({new Date(pend.created).toLocaleString()}).
-        Only <b>approved proposals with a patch</b> are applied, in a sandbox copy, then built, tested and rescanned. Manual proposals can be risk-accepted or sent back.
+        Only <b>approved proposals with a patch</b> are applied, in a temporary copy (local processes, secrets removed), then installed, built, tested and rescanned. If the reviewed files change before you submit, the approval is refused. Manual proposals can be risk-accepted or sent back.
       </Callout>
       <div className="my-4 flex flex-wrap items-center gap-2">
         <Button onClick={() => setAll((x) => (x.patchable ? "approve" : null))}><CheckCircle2 className="h-4 w-4 text-emerald-600" /> Approve all patchable</Button>
@@ -148,7 +151,15 @@ function Approval({ p, pend, onJob }: { p: Project; pend: Pending; onJob: (id: s
 
 // ------------------------------------------------------------------ results of the last remediation run
 type RTab = "prio" | "props" | "val" | "report";
-function Results({ p, rem }: { p: Project; rem: RemediationRun }) {
+function Results({ p, rem, onJob }: { p: Project; rem: RemediationRun; onJob: (id: string) => void }) {
+  const [rerunErr, setRerunErr] = useState<string | null>(null);
+  const repoArg = p.agentic?.plan?.repo;
+  async function rerun() {
+    if (!repoArg) return;
+    setRerunErr(null);
+    try { onJob((await api.run({ repo: repoArg, agentic: true, remediate: true, llm: "auto" })).id); }
+    catch (e: any) { setRerunErr(e.message); }
+  }
   const val = rem.validations?.[rem.validations.length - 1];
   const verdict = val?.verdict || "not_run";
   const [tab, setTab] = useState<RTab>("prio");
@@ -166,6 +177,7 @@ function Results({ p, rem }: { p: Project; rem: RemediationRun }) {
 
   return (
     <div>
+      {rerunErr && <div className="mb-3"><Callout tone="error">{rerunErr}</Callout></div>}
       <div className={cx("mb-6 flex flex-wrap items-center gap-5 rounded-xl border p-5 shadow-card", hero.tone)}>
         {hero.icon}
         <div className="min-w-0 flex-1">
@@ -175,6 +187,7 @@ function Results({ p, rem }: { p: Project; rem: RemediationRun }) {
         <div className="flex flex-wrap gap-2">
           {p.files.includes("remediation/remediation_report.html") && <LinkButton href={fileUrl(p.name, "remediation/remediation_report.html")}><FileText className="h-4 w-4" /> Report</LinkButton>}
           {p.files.includes("remediation/remediation_report.pdf") && <LinkButton href={fileUrl(p.name, "remediation/remediation_report.pdf", true)} download><Download className="h-4 w-4" /> PDF</LinkButton>}
+          {repoArg && <Button onClick={rerun} title="A finished run cannot be approved again: start a new run and decide again"><RotateCcw className="h-4 w-4" /> New remediation run</Button>}
         </div>
       </div>
       <div className="mb-6 grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-6">
@@ -214,11 +227,12 @@ function Results({ p, rem }: { p: Project; rem: RemediationRun }) {
             { key: "cmp", label: "Compat.", render: (x) => x.compatibility_level },
             { key: "d", label: "Decision", render: (x) => appr[x.proposal_id] ? <span><StatusBadge status={appr[x.proposal_id].decision} /> <span className="text-xs text-slate-500">{appr[x.proposal_id].approver}</span></span> : <StatusBadge status={x.status} /> },
             { key: "val", label: "Validation", render: (x) => val?.per_proposal?.[x.proposal_id] ? <StatusBadge status={val.per_proposal[x.proposal_id].status} /> : <span className="text-slate-400">-</span> },
+            { key: "cov", label: "Executed", render: (x) => { const c = val?.per_proposal?.[x.proposal_id]?.coverage; return c ? <Badge className={COVERAGE_STYLE[c]}>{COVERAGE_LABEL[c] || c}</Badge> : <span className="text-slate-400">-</span>; } },
           ]} />
         </Card>
       )}
 
-      {tab === "val" && (verdict === "not_run" || !val ? <Empty title="No approved proposal with a patch was validated" /> : <ValidationView val={val} />)}
+      {tab === "val" && (verdict === "not_run" || !val ? <Empty title="No approved proposal with a patch was validated" /> : <ValidationView val={val} projectName={p.name} />)}
 
       {tab === "report" && (
         <div className="space-y-4">
@@ -244,7 +258,11 @@ function Results({ p, rem }: { p: Project; rem: RemediationRun }) {
   );
 }
 
-function ValidationView({ val }: { val: NonNullable<RemediationRun["validations"]>[number] }) {
+const COVERAGE_LABEL: Record<string, string> = { tested: "tested", started: "built + started", built: "built", installed: "installed only", rescan_only: "not executed", not_applicable: "rescan only (CI)" };
+const COVERAGE_STYLE: Record<string, string> = { tested: "bg-emerald-50 text-emerald-700 ring-emerald-600/20", started: "bg-emerald-50 text-emerald-700 ring-emerald-600/20", built: "bg-emerald-50 text-emerald-700 ring-emerald-600/20",
+  installed: "bg-sky-50 text-sky-700 ring-sky-600/20", rescan_only: "bg-amber-50 text-amber-800 ring-amber-600/20", not_applicable: "bg-slate-50 text-slate-600 ring-slate-500/20" };
+
+function ValidationView({ val, projectName }: { val: NonNullable<RemediationRun["validations"]>[number]; projectName: string }) {
   const name = (s: Step) => s.step.split(": ").slice(1).join(": ");
   const before = Object.fromEntries(val.steps_before.map((s) => [name(s), s]));
   const after = Object.fromEntries(val.steps_after.map((s) => [name(s), s]));
@@ -252,11 +270,42 @@ function ValidationView({ val }: { val: NonNullable<RemediationRun["validations"
   const failed = [...val.steps_after, ...val.steps_before].filter((s) => s.status === "failed" || s.status === "timeout");
   const sd = val.sbom_diff || {};
   const KIND: Record<string, string> = { introduced: "bg-red-50 text-red-700 ring-red-600/20", still_vulnerable: "bg-amber-50 text-amber-800 ring-amber-600/20", expected: "bg-slate-50 text-slate-600 ring-slate-500/20" };
+  const relation = (s: string) => {
+    const a = after[s], b = before[s];
+    if (!a) return null;
+    if (a.status === "failed" || a.status === "timeout")
+      return b?.status === "ok" ? <Badge className="bg-red-600 text-white ring-red-700">regression</Badge>
+        : b && (b.status === "failed" || b.status === "timeout") ? <Badge>failed before too</Badge>
+        : <Badge className="bg-amber-50 text-amber-800 ring-amber-600/20">no baseline: cannot tell</Badge>;
+    if (a.status === "ok" && b && (b.status === "failed" || b.status === "timeout")) return <Badge className="bg-emerald-50 text-emerald-700 ring-emerald-600/20">fixed by the change</Badge>;
+    return null;
+  };
+  const scan = val.scan || {};
+  const af = val.after_files || {};
+  const rl = val.risk_levels;
   return (
     <div className="space-y-4">
-      <Card pad={false} title="Build, test and rescan" subtitle="The unchanged repository is built the same way as a baseline, so a failure that already existed is not blamed on the fix">
+      <Callout tone={scan.vulns_checked === false ? "error" : "info"}>
+        <div><b>What was rescanned:</b> {scan.scope || "the remediated copy (source)"}</div>
+        <div className="mt-1"><b>Vulnerability lookup in the rescan:</b> {scan.vulns_checked === false ? "UNAVAILABLE (OSV): vulnerability fixes are not proven" : "complete"}</div>
+        <div className="mt-1 text-xs">Builds and tests ran in a temporary copy as local processes (secrets removed, npm install scripts off). This is not an isolated sandbox.</div>
+      </Callout>
+      {rl && (
+        <Card title="Measured risk before → after (rescan)">
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+            {["Critical", "High", "Medium", "Low"].map((k) => (
+              <div key={k} className="rounded-lg bg-slate-50 px-3 py-2 text-center">
+                <div className="text-xs text-slate-500">{k}</div>
+                <div className="text-lg font-semibold tabular-nums">{rl.before[k] ?? 0} → {rl.after[k] ?? 0}</div>
+              </div>))}
+          </div>
+        </Card>
+      )}
+      <Card pad={false} title="Build, test and rescan" subtitle="The unchanged repository is built the same way as a baseline; each failing step is compared with the same step before the change">
         <DataTable rows={all} rowKey={(s) => s} cols={[
           { key: "s", label: "Step", render: (s) => <span className="font-medium">{s}</span> },
+          { key: "k", label: "Kind", render: (s) => <Badge>{(after[s] || before[s])?.kind || "-"}</Badge> },
+          { key: "r", label: "Compared with baseline", render: (s) => relation(s) },
           { key: "b", label: "Before (unchanged)", render: (s) => before[s] ? <StatusBadge status={before[s].status} /> : <span className="text-slate-400">-</span> },
           { key: "a", label: "After (remediated)", render: (s) => after[s] ? <StatusBadge status={after[s].status} /> : <span className="text-slate-400">-</span> },
           { key: "t", label: "Seconds", render: (s) => after[s]?.seconds ?? before[s]?.seconds ?? "-", className: "text-right tabular-nums" },
@@ -285,6 +334,51 @@ function ValidationView({ val }: { val: NonNullable<RemediationRun["validations"
           ))}</ul> : <p className="text-sm text-emerald-700">None.</p>}
         </Card>
       </div>
+      {(val.persisting || []).length > 0 && (
+        <Card title="Vulnerabilities NOT resolved by the version change">
+          <p className="mb-2 text-sm text-slate-600">The package moved to a new version that still has the same advisories.</p>
+          <ul className="space-y-1 text-sm">{val.persisting!.map((x) => <li key={x.finding_id}><Code>{x.finding_id}</Code> {x.component}: <span className="text-red-700">{x.advisories.join(", ")}</span></li>)}</ul>
+        </Card>
+      )}
+      {(val.image_scans || []).length > 0 && (
+        <Card title="Built container image scan" subtitle="The resulting artifact itself: the image is saved with docker save and scanned with Trivy (OS and language packages)">
+          <div className="grid gap-3 md:grid-cols-2">
+            {val.image_scans!.map((sc) => (
+              <div key={sc.label + sc.dockerfile} className="rounded-lg border border-slate-200 p-3 text-sm">
+                <div className="mb-1 flex items-center gap-2 font-medium"><Badge>{sc.label}</Badge> {sc.dockerfile}/Dockerfile <StatusBadge status={sc.status} /></div>
+                {sc.status === "ok" ? (
+                  <>
+                    <div className="text-slate-600">{sc.os} · {sc.packages} packages · {sc.tool}</div>
+                    <div className="mt-2 flex flex-wrap gap-1.5">
+                      {["CRITICAL", "HIGH", "MEDIUM", "LOW"].map((k) => <span key={k} className="inline-flex items-center gap-1"><SeverityBadge label={k} /><b className="tabular-nums">{sc.by_severity?.[k] ?? 0}</b></span>)}
+                    </div>
+                    {(sc.top || []).length > 0 && <ul className="mt-2 space-y-0.5 text-xs text-slate-600">{sc.top!.slice(0, 5).map((v) => (
+                      <li key={v.id + v.package}><b>{v.severity}</b> {v.id} in {v.package} {v.installed}{v.fixed ? ` (fixed in ${v.fixed})` : " (no fix)"}</li>))}</ul>}
+                  </>
+                ) : <div className="text-xs text-slate-500">{sc.log}</div>}
+              </div>
+            ))}
+          </div>
+        </Card>
+      )}
+      {val.branch && val.branch.status && (
+        <Card title="Controlled branch" subtitle="The validated change as a git branch in the temporary copy; nothing is pushed or merged">
+          {val.branch.status === "ok" ? (
+            <div className="space-y-1 text-sm">
+              <div><Code>{val.branch.branch}</Code> · commit <Code>{val.branch.commit?.slice(0, 12)}</Code> on <Code>{val.branch.base?.slice(0, 12)}</Code> · {val.branch.files?.length} file(s)</div>
+              {val.branch.bundle && <div className="text-slate-600">Fetch it into your clone: <Code>git fetch remediation.bundle {val.branch.branch}</Code></div>}
+            </div>
+          ) : <p className="text-sm text-slate-500">{val.branch.status}: {val.branch.note}</p>}
+        </Card>
+      )}
+      <Card title="Evidence files" subtitle="Reproduce every before / after claim from these machine-readable files">
+        <div className="flex flex-wrap gap-2">
+          {[["Before: findings", af.baseline_findings || "findings.json"], ["Before: SBOM", af.baseline_sbom || "sbom.cdx.json"],
+            ["After: findings", af.findings], ["After: SBOM", af.sbom], ["After: image scan", af.image_scan_after], ["Validated patch", "remediation/remediation.patch"], ["Branch bundle", af.bundle]]
+            .filter(([, f]) => f).map(([l, f]) => <LinkButton key={l} href={fileUrl(projectName, f!, true)} download><Download className="h-4 w-4" /> {l}</LinkButton>)}
+        </div>
+        {val.patch_sha256 && <p className="mt-3 font-mono text-xs text-slate-500">validated patch sha256 {val.patch_sha256} · {val.validated_at}</p>}
+      </Card>
       <Card title="Resolved and remaining">
         <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Resolved ({val.resolved.length})</div>
         <div className="mb-4 flex flex-wrap gap-1.5">{val.resolved.map((f) => <Badge key={f} className="bg-emerald-50 text-emerald-700 ring-emerald-600/20">{f}</Badge>)}</div>

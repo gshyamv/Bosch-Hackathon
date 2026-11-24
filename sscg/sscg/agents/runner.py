@@ -120,7 +120,7 @@ def run(args) -> int:
     if getattr(args, "list_models", False):
         return _list_models(settings)
     client, settings = _select_llm(settings)
-    repo = args.repo.resolve()
+    repo = _repo(args, update=True)
     out = args.out or cache.ROOT / "out" / repo.name
     out.mkdir(parents=True, exist_ok=True)
     run_id = uuid.uuid4().hex[:12]
@@ -166,11 +166,21 @@ def _ids(spec: str | None, props: list) -> list[str]:
     return [x.strip().upper() for x in spec.split(",") if x.strip()]
 
 
+def _repo(args, update: bool):
+    """Repository argument -> local folder; a URL is cloned / updated into repos/ (not updated when resuming)."""
+    from .. import source
+    try:
+        return source.resolve(args.repo, update=update, offline=args.offline)
+    except source.SourceError as e:
+        print(f"error: {e}")
+        raise SystemExit(2)
+
+
 def resume(args) -> int:
     """`python -m sscg approve <repo> ...`: record the human decisions and resume the paused run."""
     config.load_env()
     cache.OFFLINE = args.offline
-    repo = args.repo.resolve()
+    repo = _repo(args, update=False)
     out = args.out or cache.ROOT / "out" / repo.name
     pend_file = out / "remediation" / "pending.json"
     pending = json.loads(pend_file.read_text(encoding="utf-8")) if pend_file.exists() else {}
@@ -199,8 +209,29 @@ def resume(args) -> int:
         cfg = {"configurable": {"thread_id": run_id}, "recursion_limit": 80}
         snap = graph.get_state(cfg)
         if "human_approval" not in (snap.next or ()):
-            print(f"Run {run_id} is not waiting for approval (next: {snap.next or 'finished'}).")
+            print(f"Run {run_id} is not waiting for approval (next: {snap.next or 'finished'}). A finished run cannot "
+                  f"be approved again: start a new one with `python -m sscg agent {args.repo} --remediate`.")
             return 1
+        # the approval must cover exactly what was reviewed: refuse if manifests, lockfiles, Dockerfiles, workflows
+        # or any file a proposal edits changed since the run paused (sscg/snapshot.py)
+        from .. import snapshot
+        request = next((i.value for t in snap.tasks for i in t.interrupts), None) or {}
+        source = request.get("source")
+        if source:
+            drift = snapshot.changes(source, snapshot.fingerprint(repo, list(source.get("files", {}))))
+            if drift:
+                print(f"The repository changed since run {run_id} paused for approval, so the reviewed proposals no "
+                      f"longer describe what would be applied:")
+                for d in drift[:15]:
+                    print(f"    {d}")
+                print(f"  Nothing was applied. Start a new run: python -m sscg agent {args.repo} --remediate")
+                return 1
+        # keep the engine that actually produced the AI output (resuming itself needs no LLM)
+        engine = ((snap.values.get("plan") or {}).get("llm") or {}).get("engine") or ""
+        if ":" in engine:
+            prov, model = engine.split(":", 1)
+            rt.settings = dataclasses.replace(rt.settings, provider=prov, model=model,
+                                              reason=f"{engine} (resumed for approval: validation and report use no LLM)")
         print(f"\n=== Guardian: resuming run {run_id} for {repo.name} ===")
         print("  decisions: " + (", ".join(f"{d['proposal_id']} {d['decision']}" for d in decisions
                                            if d["decision"] != "defer") or "none (all deferred)") + f" (by {who})")

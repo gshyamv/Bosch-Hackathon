@@ -154,9 +154,13 @@ def triage_one(payload: dict) -> dict:
                known_ids(packet) | {fid}, rt.labels)
     g["dropped_patterns"] = bad_patterns
     a.cited_evidence = g.pop("cited")
-    if g["unknown_ids"]:
+    if g["unknown_ids"] or (g["dropped_citations"] and not a.cited_evidence):
+        # unknown identifiers, or every citation invalid: the verdict has no verified support
         g["original_verdict"], g["original_confidence"] = a.verdict, a.confidence
         a.verdict, a.confidence = "needs_human_review", "low"
+    elif g["dropped_citations"] and a.confidence != "low":
+        # some citations were invalid: keep the verdict but it may not rest on confident evidence
+        g["original_confidence"], a.confidence = a.confidence, "low"
     a.grounding = g
     rt.log("Triage", f"{fid} round {rnd + 1}: {a.verdict} ({a.confidence})"
                      + (" -> wants " + ", ".join(r.tool for r in a.evidence_requests) if a.needs_more_evidence else "")

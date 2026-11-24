@@ -22,13 +22,16 @@ import argparse
 import sys
 from pathlib import Path
 
-from . import cache
+from . import cache, source
 from .pipeline import build, detect, emit, print_console  # noqa: F401  (kept importable from here)
 
 
 def scan(args):
     cache.OFFLINE = args.offline
-    repo = args.repo.resolve()
+    try:
+        repo = source.resolve(args.repo, offline=args.offline)
+    except source.SourceError as e:
+        sys.exit(f"error: {e}")
     out = args.out or cache.ROOT / "out" / repo.name
 
     dg = build(repo, args.sbom, not args.no_vulns)
@@ -38,7 +41,7 @@ def scan(args):
 
 
 def _scan_args(sc):
-    sc.add_argument("repo", type=Path, help="repository folder to scan (read only; nothing is installed or run)")
+    sc.add_argument("repo", help="https URL of a git repository (e.g. https://github.com/owner/repo, optionally /tree/<branch|tag|commit>), fetched into repos/<name>; or a local folder. Read only: nothing is installed or run")
     sc.add_argument("--out", type=Path, help="output folder (default: out/<repo name>)")
     sc.add_argument("--base", default="HEAD~1", help="commit to compare against for 'what changed' (default HEAD~1)")
     sc.add_argument("--no-diff", action="store_true", help="skip the base-commit comparison")
@@ -83,7 +86,7 @@ def main(argv=None):
 
     apv = sub.add_parser("approve", help="record human decisions for a paused run and resume it "
                                          "(validation in a sandbox + remediation report)")
-    apv.add_argument("repo", type=Path, help="the repository the paused run scanned")
+    apv.add_argument("repo", help="the repository URL or folder the paused run scanned (a URL is not re-fetched)")
     apv.add_argument("--out", type=Path, help="output folder used by the run (default: out/<repo name>)")
     apv.add_argument("--run", help="run id (default: the paused run in out/<repo>/remediation/pending.json)")
     for flag in ("approve", "reject", "accept-risk", "request-changes"):

@@ -1,0 +1,1006 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="sscg report_export">
+<title>Guardian remediation report: nodegoat</title>
+<style>
+:root{--bg:#fcfcfb;--fg:#1b1b19;--muted:#5f5e58;--line:#dedcd4;--head:#f1f0ec;--zebra:#f7f6f3;
+--code:#f1f0ec;--link:#1f5fbf;--accent:#2a78d6}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161615;--fg:#ecebe6;--muted:#a3a19a;
+--line:#3a3935;--head:#22221f;--zebra:#1c1c1a;--code:#2a2a27;--link:#7fb0f5;--accent:#6aa6ef}}
+:root[data-theme="dark"]{--bg:#161615;--fg:#ecebe6;--muted:#a3a19a;--line:#3a3935;--head:#22221f;--zebra:#1c1c1a;
+--code:#2a2a27;--link:#7fb0f5;--accent:#6aa6ef}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);
+font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+main{max-width:1180px;margin:0 auto;padding:32px 16px 64px}
+h1{font-size:1.9rem;line-height:1.2;margin:0 0 .4rem}
+h2{font-size:1.35rem;margin:2.2rem 0 .8rem;padding-bottom:.3rem;border-bottom:2px solid var(--accent)}
+h3{font-size:1.05rem;margin:1.8rem 0 .5rem}
+p,li{max-width:110ch}
+em{color:var(--muted)}
+a{color:var(--link);overflow-wrap:anywhere}
+code{font:.86em/1.4 ui-monospace,SFMono-Regular,Consolas,"DejaVu Sans Mono",monospace;background:var(--code);
+padding:.1em .35em;border-radius:4px;overflow-wrap:anywhere}
+pre{background:var(--code);padding:12px;border-radius:6px;overflow-x:auto}
+pre code{padding:0;background:none}
+table{display:block;overflow-x:auto;border-collapse:collapse;margin:.8rem 0 1.2rem;font-size:13px;max-width:100%}
+th,td{border:1px solid var(--line);padding:5px 8px;text-align:left;vertical-align:top}
+th{background:var(--head);font-weight:600}
+tbody tr:nth-child(even){background:var(--zebra)}
+ul{padding-left:1.4rem}
+li{margin:.15rem 0}
+footer{margin-top:3rem;color:var(--muted);font-size:12px}
+@media print{:root{--bg:#fff;--fg:#000;--zebra:#f6f6f6}main{max-width:none;padding:0}
+table{display:table;font-size:10px}h2,h3{break-after:avoid}tr{break-inside:avoid}a{color:inherit}}
+</style>
+</head>
+<body>
+<main>
+<h1>Guardian remediation report: nodegoat</h1>
+<p><em>Run <code>ec853aa0ea2f</code> · 2026-11-24T06:04:58+00:00 · AI engine deepseek:deepseek-flash</em></p>
+<p><strong>Prioritized risk → Recommended fix → Human approval → Build &amp; test → Rescan → Verification: partially verified</strong></p>
+<h2>1. Summary</h2>
+<ul>
+<li><strong>Verdict:</strong> <strong>PARTIALLY VERIFIED</strong> (confidence medium)
+<ul>
+<li>6 targeted vulnerability finding(s) NOT resolved: the same advisories remain on the new version: F-071 qs@5.2.1 (GHSA-4mjr-xmp4-gh2g, GHSA-6rw7-vpxm-498p, GHSA-gqgv-6jq5-jjj9); F-008 minimist@0.0.10 (GHSA-vh95-rmgr-6w4m, GHSA-xvch-5gv4-984h); F-011 minimist@1.2.5 (GHSA-xvch-5gv4-984h); F-074 qs@6.5.2 (GHSA-4mjr-xmp4-gh2g, GHSA-6rw7-vpxm-498p, GHSA-hrpp-h998-j3pp)</li>
+<li>7/22 targeted finding(s) still present: F-009, F-010, F-025, F-026, F-092, F-031</li>
+</ul>
+</li>
+<li><strong>Measured (rescan):</strong> 141 findings before → 127 after · resolved 9 · new 1 · by level before/after: Critical 22→13, High 72→66, Medium 32→33, Low 15→15</li>
+<li><strong>Proposals:</strong> 14 · pending 2 · approved 12</li>
+<li><strong>Validated patch:</strong> <code>remediation.patch</code> (sha256 <code>8c7cf199a525acd8…</code>, validated 2026-11-24T11:34:58+0530): the exact change that was built and rescanned, including regenerated lockfiles</li>
+</ul>
+<h2>2. Prioritized risks</h2>
+<p><em>Initial risk + signed points for exploitability (CISA KEV, EPSS), static reachability, exposure indicators and the triage verdict. Deterministic: the same input gives the same order. Confidence drops for every missing or weak signal.</em></p>
+<table>
+<thead>
+<tr>
+<th>Priority</th>
+<th>Score</th>
+<th>Finding</th>
+<th>Component</th>
+<th>Why</th>
+<th>Confidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P0 URGENT</td>
+<td>10.0</td>
+<td>F-001 fsevents@1.2.9 is a documented malicious package</td>
+<td>fsevents@1.2.9</td>
+<td>install-time risk: runs on every install, whether or not code imports it</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P0</td>
+<td>10.8</td>
+<td>F-016 underscore@1.9.1: 2 known vulnerabilities (highest CRITICAL, CVSS 9.8)</td>
+<td>underscore@1.9.1</td>
+<td>EPSS 0.042 for CVE-2021-23358 (91% percentile); imported by application code: potentially reachable (config/config.js:1) (+0.5); production dependency; network-service indicators in the app (server.js:15 (Node HTTP server), Dockerfile:…</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>10.3</td>
+<td>F-002 bson@1.0.9: 2 known vulnerabilities (highest CRITICAL, CVSS 9.8)</td>
+<td>bson@1.0.9</td>
+<td>EPSS 0.023 for CVE-2020-7610 (84% percentile); pulled in by an imported dependency: potentially reachable; production dependency; network-service indicators in the app (server.js:15 (Node HTTP server), Dockerfile: EXPOSE 4000) (+0.5)</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>10.3</td>
+<td>F-008 minimist@0.0.10: 2 known vulnerabilities (highest CRITICAL, CVSS 9.8)</td>
+<td>minimist@0.0.10</td>
+<td>EPSS 0.046 for CVE-2021-44906 (92% percentile); pulled in by an imported dependency: potentially reachable; production dependency; network-service indicators in the app (server.js:15 (Node HTTP server), Dockerfile: EXPOSE 4000) (+0.5)</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>10.3</td>
+<td>F-009 minimist@0.0.8: 2 known vulnerabilities (highest CRITICAL, CVSS 9.8)</td>
+<td>minimist@0.0.8</td>
+<td>EPSS 0.046 for CVE-2021-44906 (92% percentile); pulled in by an imported dependency: potentially reachable; production dependency; network-service indicators in the app (server.js:15 (Node HTTP server), Dockerfile: EXPOSE 4000) (+0.5)</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>10.3</td>
+<td>F-013 set-value@0.4.3: 2 known vulnerabilities (highest CRITICAL, CVSS 9.8)</td>
+<td>set-value@0.4.3</td>
+<td>EPSS 0.025 for CVE-2019-10747 (85% percentile); pulled in by an imported dependency: potentially reachable; production dependency; network-service indicators in the app (server.js:15 (Node HTTP server), Dockerfile: EXPOSE 4000) (+0.5)</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>10.3</td>
+<td>F-014 set-value@2.0.0: 2 known vulnerabilities (highest CRITICAL, CVSS 9.8)</td>
+<td>set-value@2.0.0</td>
+<td>EPSS 0.025 for CVE-2019-10747 (85% percentile); pulled in by an imported dependency: potentially reachable; production dependency; network-service indicators in the app (server.js:15 (Node HTTP server), Dockerfile: EXPOSE 4000) (+0.5)</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>9.3</td>
+<td>F-003 fsevents@1.2.9: 1 known vulnerability (highest CRITICAL, CVSS 9.8)</td>
+<td>fsevents@1.2.9</td>
+<td>EPSS 0.017 for CVE-2023-45311 (78% percentile); no import found in application code (static check; it may still be loaded dynamically or by build tools) (-1); production dependency; network-service indicators in the app (server.js:15…</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>9.3</td>
+<td>F-011 minimist@1.2.5: 1 known vulnerability (highest CRITICAL, CVSS 9.8)</td>
+<td>minimist@1.2.5</td>
+<td>EPSS 0.046 for CVE-2021-44906 (92% percentile); no import found in application code (static check; it may still be loaded dynamically or by build tools) (-1); production dependency; network-service indicators in the app (server.js:15…</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>9.3</td>
+<td>F-012 mixin-deep@1.3.1: 1 known vulnerability (highest CRITICAL, CVSS 9.8)</td>
+<td>mixin-deep@1.3.1</td>
+<td>EPSS 0.037 for CVE-2019-10746 (90% percentile); no import found in application code (static check; it may still be loaded dynamically or by build tools) (-1); production dependency; network-service indicators in the app (server.js:15…</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>9.1</td>
+<td>F-022 proxy-addr@2.0.4: 1 known vulnerability (highest CRITICAL, CVSS 9.1)</td>
+<td>proxy-addr@2.0.4</td>
+<td>EPSS 0.003 for CVE-2026-90711 (18% percentile) (-0.5); pulled in by an imported dependency: potentially reachable; production dependency; network-service indicators in the app (server.js:15 (Node HTTP server), Dockerfile: EXPOSE 4000)…</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>9.0</td>
+<td>F-033 mongodb@2.2.36: 1 known vulnerability (highest HIGH)</td>
+<td>mongodb@2.2.36</td>
+<td>no CVE alias: exploitability data not available; imported by application code: potentially reachable (server.js:11, artifacts/db-reset.js:9) (+0.5); production dependency; network-service indicators in the app (server.js:15 (Node HTTP…</td>
+<td>medium (no CVE)</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>8.8</td>
+<td>F-015 underscore@1.8.3: 2 known vulnerabilities (highest CRITICAL, CVSS 9.8)</td>
+<td>underscore@1.8.3</td>
+<td>EPSS 0.042 for CVE-2021-23358 (91% percentile); imported by application code: potentially reachable (config/config.js:1) (+0.5); dev-only dependency: not shipped, but it runs on developer / CI machines (-1.5)</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>8.8</td>
+<td>F-026 tar@4.4.8: 18 known vulnerabilities (highest HIGH, CVSS 8.8)</td>
+<td>tar@4.4.8</td>
+<td>EPSS 0.151 for CVE-2021-32804 (97% percentile) (+0.5); no import found in application code (static check; it may still be loaded dynamically or by build tools) (-1); production dependency; network-service indicators in the app…</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>8.8</td>
+<td>F-092 y18n@3.2.1: 1 known vulnerability (highest HIGH, CVSS 7.3)</td>
+<td>y18n@3.2.1</td>
+<td>EPSS 0.696 for CVE-2020-7774 (99% percentile) (+1); pulled in by an imported dependency: potentially reachable; production dependency; network-service indicators in the app (server.js:15 (Node HTTP server), Dockerfile: EXPOSE 4000) (+0.5)</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>8.5</td>
+<td>F-031 grunt-if@0.2.0 is downloaded from github.com, not the npm registry</td>
+<td>grunt-if@0.2.0</td>
+<td>install-time risk: runs on every install, whether or not code imports it; triage: suspicious, medium confidence (AI inference) (+0.5)</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>8.5</td>
+<td>F-061 marked@0.3.5: 6 known vulnerabilities (highest HIGH, CVSS 7.5)</td>
+<td>marked@0.3.5</td>
+<td>EPSS 0.030 for CVE-2022-21680 (88% percentile); imported by application code: potentially reachable (server.js:13) (+0.5); production dependency; network-service indicators in the app (server.js:15 (Node HTTP server), Dockerfile: EXPOSE…</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>8.5</td>
+<td>F-074 qs@6.5.2: 3 known vulnerabilities (highest HIGH, CVSS 7.5)</td>
+<td>qs@6.5.2</td>
+<td>EPSS 0.200 for CVE-2022-24999 (98% percentile) (+0.5); pulled in by an imported dependency: potentially reachable; production dependency; network-service indicators in the app (server.js:15 (Node HTTP server), Dockerfile: EXPOSE 4000)…</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>8.5</td>
+<td>F-079 swig@1.4.2: 1 known vulnerability (highest HIGH, CVSS 7.5)</td>
+<td>swig@1.4.2</td>
+<td>EPSS 0.011 for CVE-2023-25345 (65% percentile); imported by application code: potentially reachable (server.js:9) (+0.5); production dependency; network-service indicators in the app (server.js:15 (Node HTTP server), Dockerfile: EXPOSE…</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>8.3</td>
+<td>F-006 handlebars@4.0.5: 20 known vulnerabilities (highest CRITICAL, CVSS 9.8)</td>
+<td>handlebars@4.0.5</td>
+<td>EPSS 0.071 for CVE-2019-19919 (94% percentile); pulled in by an imported dependency: potentially reachable; dev-only dependency: not shipped, but it runs on developer / CI machines (-1.5)</td>
+<td>high</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td><em>121 more in remediation.json</em></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>3. Recommended fixes and decisions</h2>
+<p><em>The diff under each proposal is what the reviewer approved (manifest and file edits). Lockfiles are regenerated from the official registry during validation; the validated patch (section 4) contains them.</em></p>
+<h3>P-001 · PENDING · remove · fsevents@1.2.9</h3>
+<ul>
+<li><strong>Findings:</strong> F-001 fsevents@1.2.9 is a documented malicious package; F-003 fsevents@1.2.9: 1 known vulnerability (highest CRITICAL, CVSS 9.8); F-135 fsevents@1.2.9 runs an install script (code not inspected)</li>
+<li><strong>Change:</strong> 1.2.9 → - in <code>package.json</code></li>
+<li><strong>Why (verified facts):</strong> fsevents@1.2.9 is a documented malicious package; remove it.</li>
+<li><strong>Advisor (AI inference):</strong> P-001 removes fsevents@1.2.9 because F-001 documents it as a malicious package, F-003 reports a critical vulnerability, and F-135 flags an uninspected install script. The packet rates compatibility as low since fsevents is not imported by application code, and residual_status is checked with no residual advisories listed. The trade-off is that rollback must never restore the removed package, so any build break should be handled without reintroducing fsevents@1.2.9.</li>
+<li><strong>Reviewer checklist (AI inference):</strong> Confirm no application code imports or requires fsevents and that the build succeeds without it. · Verify fsevents@1.2.9 is absent from package.json and the regenerated package-lock.json, and that no install script from it remains. · Ensure any rollback follows the packet guidance and never restores fsevents@1.2.9.</li>
+<li><strong>Expected risk reduction (estimate before validation):</strong> removes the malicious / typosquatted package and its install-time code; resolves 3 finding(s)</li>
+<li><strong>Compatibility:</strong> low: fsevents is not imported by application code</li>
+<li><strong>Rollback:</strong> do NOT roll back to the removed package; revert only if the replacement breaks the build</li>
+<li><strong>Decision:</strong> defer by user1 at 2026-11-24T06:03:40+00:00: not decided (proposal sha256 <code>6ec873523d12…</code>)</li>
+</ul>
+<pre><code class="language-diff"># + package-lock.json regenerated from the registry during validation (npm --package-lock-only)
+</code></pre>
+<h3>P-002 · APPROVED · upgrade · underscore@1.8.3, 1.9.1</h3>
+<ul>
+<li><strong>Findings:</strong> F-015 underscore@1.8.3: 2 known vulnerabilities (highest CRITICAL, CVSS 9.8); F-016 underscore@1.9.1: 2 known vulnerabilities (highest CRITICAL, CVSS 9.8)</li>
+<li><strong>Change:</strong> 1.8.3, 1.9.1 → 1.13.8 in <code>package.json</code></li>
+<li><strong>Why (verified facts):</strong> Upgrade and make the transitive copies use the direct dependency's version underscore 1.8.3, 1.9.1 -&gt; 1.13.8: fixes the 2 published advisories on 1.8.3, 1.9.1; no known advisories remain on the target.</li>
+<li><strong>Advisor (AI inference):</strong> P-002 upgrades underscore from 1.8.3 and 1.9.1 to 1.13.8, addressing F-015 on the transitive copy and F-016 on the direct dependency. The packet rates compatibility as medium for the minor version change and states residual_status is checked with no residual advisories on the target. The main trade-off is validating that both the direct dependency and overridden transitive copies behave correctly at 1.13.8.</li>
+<li><strong>Reviewer checklist (AI inference):</strong> Run the test suite with attention to code paths that use underscore, since this is a medium-compatibility minor upgrade. · Verify package.json pins underscore to 1.13.8 with the &quot;$underscore&quot; override and that the regenerated lockfile resolves both former versions to 1.13.8. · Confirm no known residual advisories remain after the lockfile regeneration, per the packet's checked residual_status.</li>
+<li><strong>Expected risk reduction (estimate before validation):</strong> expected: the 2 advisories of 1.8.3, 1.9.1 are fixed in 1.13.8; 0 other advisory(ies) on 1.13.8 · targets 2 finding(s)</li>
+<li><strong>Compatibility:</strong> medium: minor version change (1.8.3, 1.9.1 -&gt; 1.13.8)</li>
+<li><strong>Rollback:</strong> restore underscore 1.8.3, 1.9.1 in package.json (and the lockfile) by reverting the remediation commit</li>
+<li><strong>Decision:</strong> approve by user1 at 2026-11-24T06:03:40+00:00: decided in the dashboard (proposal sha256 <code>619296ad5ea8…</code>)</li>
+<li><strong>Validation (measured):</strong> resolved (2/2 targeted findings resolved) · execution: tested</li>
+</ul>
+<pre><code class="language-diff">--- a/package.json
++++ b/package.json
+@@ -20,7 +20,7 @@
+     &quot;node-esapi&quot;: &quot;0.0.1&quot;,
+     &quot;serve-favicon&quot;: &quot;^2.3.0&quot;,
+     &quot;swig&quot;: &quot;^1.4.2&quot;,
+-    &quot;underscore&quot;: &quot;^1.8.3&quot;
++    &quot;underscore&quot;: &quot;1.13.8&quot;
+   },
+   &quot;comments&quot;: {
+     &quot;//&quot;: &quot;a9 insecure components&quot;
+@@ -61,5 +61,8 @@
+     &quot;zaproxy&quot;: &quot;^0.2.0&quot;
+   },
+   &quot;repository&quot;: &quot;https://github.com/OWASP/NodejsGoat&quot;,
+-  &quot;license&quot;: &quot;Apache 2.0&quot;
++  &quot;license&quot;: &quot;Apache 2.0&quot;,
++  &quot;overrides&quot;: {
++    &quot;underscore&quot;: &quot;$underscore&quot;
++  }
+ }
+# + package-lock.json regenerated from the registry during validation (npm --package-lock-only)
+</code></pre>
+<h3>P-003 · APPROVED · upgrade · bson@1.0.9</h3>
+<ul>
+<li><strong>Findings:</strong> F-002 bson@1.0.9: 2 known vulnerabilities (highest CRITICAL, CVSS 9.8)</li>
+<li><strong>Change:</strong> 1.0.9 → 1.1.4 in <code>package.json</code></li>
+<li><strong>Why (verified facts):</strong> Override the transitive copies bson 1.0.9 -&gt; 1.1.4: fixes the 2 published advisories on 1.0.9; no known advisories remain on the target.</li>
+<li><strong>Advisor (AI inference):</strong> P-003 upgrades bson from 1.0.9 to 1.1.4 to address F-002, which reports two known vulnerabilities with a critical CVSS of 9.8. The packet rates compatibility as medium for the minor version change and records residual_status as checked with no residual advisories. The trade-off is that callers consuming bson must be exercised to catch any minor-version behavior changes.</li>
+<li><strong>Reviewer checklist (AI inference):</strong> Run tests covering code paths that consume bson, especially serialization and deserialization behavior. · Verify the override pins bson to 1.1.4 and that the regenerated lockfile no longer contains bson@1.0.9. · Confirm the post-upgrade lockfile shows no known residual advisories for bson, consistent with the packet's checked residual_status.</li>
+<li><strong>Expected risk reduction (estimate before validation):</strong> expected: the 2 advisories of 1.0.9 are fixed in 1.1.4; 0 other advisory(ies) on 1.1.4 · targets 1 finding(s)</li>
+<li><strong>Compatibility:</strong> medium: minor version change (1.0.9 -&gt; 1.1.4)</li>
+<li><strong>Rollback:</strong> restore bson 1.0.9 in package.json (and the lockfile) by reverting the remediation commit</li>
+<li><strong>Decision:</strong> approve by user1 at 2026-11-24T06:03:40+00:00: decided in the dashboard (proposal sha256 <code>3f392c92a902…</code>)</li>
+<li><strong>Validation (measured):</strong> resolved (1/1 targeted findings resolved) · execution: tested</li>
+</ul>
+<pre><code class="language-diff">--- a/package.json
++++ b/package.json
+@@ -61,5 +61,8 @@
+     &quot;zaproxy&quot;: &quot;^0.2.0&quot;
+   },
+   &quot;repository&quot;: &quot;https://github.com/OWASP/NodejsGoat&quot;,
+-  &quot;license&quot;: &quot;Apache 2.0&quot;
++  &quot;license&quot;: &quot;Apache 2.0&quot;,
++  &quot;overrides&quot;: {
++    &quot;bson&quot;: &quot;1.1.4&quot;
++  }
+ }
+# + package-lock.json regenerated from the registry during validation (npm --package-lock-only)
+</code></pre>
+<h3>P-004 · APPROVED · upgrade · minimist@0.0.8, 0.0.10, 1.2.0, 1.2.5</h3>
+<ul>
+<li><strong>Findings:</strong> F-008 minimist@0.0.10: 2 known vulnerabilities (highest CRITICAL, CVSS 9.8); F-009 minimist@0.0.8: 2 known vulnerabilities (highest CRITICAL, CVSS 9.8); F-010 minimist@1.2.0: 2 known vulnerabilities (highest CRITICAL, CVSS 9.8); F-011 minimist@1.2.5: 1 known vulnerability (highest CRITICAL, CVSS 9.8)</li>
+<li><strong>Change:</strong> 0.0.8, 0.0.10, 1.2.0, 1.2.5 → 1.2.6 in <code>package.json</code></li>
+<li><strong>Why (verified facts):</strong> Override the transitive copies minimist 0.0.8, 0.0.10, 1.2.0, 1.2.5 -&gt; 1.2.6: fixes the 2 published advisories on 0.0.8, 0.0.10, 1.2.0, 1.2.5; no known advisories remain on the target.</li>
+<li><strong>Advisor (AI inference):</strong> P-004 overrides minimist 0.0.8, 0.0.10, 1.2.0, and 1.2.5 to 1.2.6, addressing F-008, F-009, F-010, and F-011. The packet flags this as high compatibility risk because it spans major versions, while residual_status is checked with no residual advisories listed on the target. The trade-off is accepting possible breaking API behavior in exchange for removing the vulnerable copies.</li>
+<li><strong>Reviewer checklist (AI inference):</strong> Run the full test suite and specifically exercise code paths that consume minimist, because the packet rates compatibility as high with possible breaking API changes. · Verify the override pins minimist to 1.2.6 and that the regenerated lockfile resolves all four former versions to 1.2.6. · Confirm no known residual advisories remain after regeneration, per the packet's checked residual_status.</li>
+<li><strong>Expected risk reduction (estimate before validation):</strong> expected: the 2 advisories of 0.0.8, 0.0.10, 1.2.0, 1.2.5 are fixed in 1.2.6; 0 other advisory(ies) on 1.2.6 · targets 4 finding(s)</li>
+<li><strong>Compatibility:</strong> high: major version change (0.0.8, 0.0.10, 1.2.0, 1.2.5 -&gt; 1.2.6): breaking API changes are possible, run the tests</li>
+<li><strong>Rollback:</strong> restore minimist 0.0.8, 0.0.10, 1.2.0, 1.2.5 in package.json (and the lockfile) by reverting the remediation commit</li>
+<li><strong>Notes:</strong> some copies of minimist are bundled inside fsevents, rc, mkdirp (bundleDependencies): npm overrides cannot change them; upgrade fsevents (or the package that pulls it in)</li>
+<li><strong>Decision:</strong> approve by user1 at 2026-11-24T06:03:40+00:00: decided in the dashboard (proposal sha256 <code>7cda233a8666…</code>)</li>
+<li><strong>Validation (measured):</strong> not resolved (0/4 targeted findings resolved) · execution: tested; advisories still present on the new version: F-008 GHSA-vh95-rmgr-6w4m, GHSA-xvch-5gv4-984h; F-011 GHSA-xvch-5gv4-984h</li>
+</ul>
+<pre><code class="language-diff">--- a/package.json
++++ b/package.json
+@@ -61,5 +61,8 @@
+     &quot;zaproxy&quot;: &quot;^0.2.0&quot;
+   },
+   &quot;repository&quot;: &quot;https://github.com/OWASP/NodejsGoat&quot;,
+-  &quot;license&quot;: &quot;Apache 2.0&quot;
++  &quot;license&quot;: &quot;Apache 2.0&quot;,
++  &quot;overrides&quot;: {
++    &quot;minimist&quot;: &quot;1.2.6&quot;
++  }
+ }
+# + package-lock.json regenerated from the registry during validation (npm --package-lock-only)
+</code></pre>
+<h3>P-005 · APPROVED · upgrade · set-value@0.4.3, 2.0.0</h3>
+<ul>
+<li><strong>Findings:</strong> F-013 set-value@0.4.3: 2 known vulnerabilities (highest CRITICAL, CVSS 9.8); F-014 set-value@2.0.0: 2 known vulnerabilities (highest CRITICAL, CVSS 9.8)</li>
+<li><strong>Change:</strong> 0.4.3, 2.0.0 → 2.0.1 in <code>package.json</code></li>
+<li><strong>Why (verified facts):</strong> Override the transitive copies set-value 0.4.3, 2.0.0 -&gt; 2.0.1: fixes the 2 published advisories on 0.4.3, 2.0.0; no known advisories remain on the target.</li>
+<li><strong>Advisor (AI inference):</strong> P-005 upgrades set-value from 0.4.3 and 2.0.0 to 2.0.1, addressing F-013 and F-014. The packet rates compatibility as high because 0.4.3 moves across major versions to 2.0.1 and residual_status is checked with no residual advisories listed. The trade-off is that breaking API changes are possible and must be covered by testing.</li>
+<li><strong>Reviewer checklist (AI inference):</strong> Run tests for code paths that consume set-value, with extra attention to behavior changed by the major-version jump from 0.4.3 to 2.0.1. · Verify the override pins set-value to 2.0.1 and that the regenerated lockfile no longer contains 0.4.3 or 2.0.0. · Confirm no known residual advisories remain after regeneration, per the packet's checked residual_status.</li>
+<li><strong>Expected risk reduction (estimate before validation):</strong> expected: the 2 advisories of 0.4.3, 2.0.0 are fixed in 2.0.1; 0 other advisory(ies) on 2.0.1 · targets 2 finding(s)</li>
+<li><strong>Compatibility:</strong> high: major version change (0.4.3, 2.0.0 -&gt; 2.0.1): breaking API changes are possible, run the tests</li>
+<li><strong>Rollback:</strong> restore set-value 0.4.3, 2.0.0 in package.json (and the lockfile) by reverting the remediation commit</li>
+<li><strong>Decision:</strong> approve by user1 at 2026-11-24T06:03:40+00:00: decided in the dashboard (proposal sha256 <code>cbeb33a7070b…</code>)</li>
+<li><strong>Validation (measured):</strong> resolved (2/2 targeted findings resolved) · execution: tested</li>
+</ul>
+<pre><code class="language-diff">--- a/package.json
++++ b/package.json
+@@ -61,5 +61,8 @@
+     &quot;zaproxy&quot;: &quot;^0.2.0&quot;
+   },
+   &quot;repository&quot;: &quot;https://github.com/OWASP/NodejsGoat&quot;,
+-  &quot;license&quot;: &quot;Apache 2.0&quot;
++  &quot;license&quot;: &quot;Apache 2.0&quot;,
++  &quot;overrides&quot;: {
++    &quot;set-value&quot;: &quot;2.0.1&quot;
++  }
+ }
+# + package-lock.json regenerated from the registry during validation (npm --package-lock-only)
+</code></pre>
+<h3>P-006 · APPROVED · upgrade · mixin-deep@1.3.1</h3>
+<ul>
+<li><strong>Findings:</strong> F-012 mixin-deep@1.3.1: 1 known vulnerability (highest CRITICAL, CVSS 9.8)</li>
+<li><strong>Change:</strong> 1.3.1 → 1.3.2 in <code>package.json</code></li>
+<li><strong>Why (verified facts):</strong> Override the transitive copies mixin-deep 1.3.1 -&gt; 1.3.2: fixes the 1 published advisories on 1.3.1; no known advisories remain on the target.</li>
+<li><strong>Advisor (AI inference):</strong> P-006 upgrades mixin-deep from 1.3.1 to 1.3.2 to address F-012. The packet rates compatibility as low for this patch version change and records residual_status as checked with no residual advisories on the target. The trade-off is minimal, but the override and regenerated lockfile should still be validated.</li>
+<li><strong>Reviewer checklist (AI inference):</strong> Run the test suite, focusing on code paths that consume mixin-deep, even though this is a low-risk patch upgrade. · Verify the override pins mixin-deep to 1.3.2 and that the regenerated lockfile no longer contains mixin-deep@1.3.1. · Confirm no known residual advisories remain after regeneration, per the packet's checked residual_status.</li>
+<li><strong>Expected risk reduction (estimate before validation):</strong> expected: the 1 advisories of 1.3.1 are fixed in 1.3.2; 0 other advisory(ies) on 1.3.2 · targets 1 finding(s)</li>
+<li><strong>Compatibility:</strong> low: patch version change (1.3.1 -&gt; 1.3.2)</li>
+<li><strong>Rollback:</strong> restore mixin-deep 1.3.1 in package.json (and the lockfile) by reverting the remediation commit</li>
+<li><strong>Decision:</strong> approve by user1 at 2026-11-24T06:03:40+00:00: decided in the dashboard (proposal sha256 <code>501f2b49aa67…</code>)</li>
+<li><strong>Validation (measured):</strong> resolved (1/1 targeted findings resolved) · execution: tested</li>
+</ul>
+<pre><code class="language-diff">--- a/package.json
++++ b/package.json
+@@ -61,5 +61,8 @@
+     &quot;zaproxy&quot;: &quot;^0.2.0&quot;
+   },
+   &quot;repository&quot;: &quot;https://github.com/OWASP/NodejsGoat&quot;,
+-  &quot;license&quot;: &quot;Apache 2.0&quot;
++  &quot;license&quot;: &quot;Apache 2.0&quot;,
++  &quot;overrides&quot;: {
++    &quot;mixin-deep&quot;: &quot;1.3.2&quot;
++  }
+ }
+# + package-lock.json regenerated from the registry during validation (npm --package-lock-only)
+</code></pre>
+<h3>P-007 · APPROVED · upgrade · proxy-addr@2.0.4</h3>
+<ul>
+<li><strong>Findings:</strong> F-022 proxy-addr@2.0.4: 1 known vulnerability (highest CRITICAL, CVSS 9.1)</li>
+<li><strong>Change:</strong> 2.0.4 → 2.0.8 in <code>package.json</code></li>
+<li><strong>Why (verified facts):</strong> Override the transitive copies proxy-addr 2.0.4 -&gt; 2.0.8: fixes the 1 published advisories on 2.0.4; no known advisories remain on the target.</li>
+<li><strong>Advisor (AI inference):</strong> P-007 upgrades the transitive copy of proxy-addr 2.0.4 to 2.0.8 via a package.json override, addressing the one critical advisory on 2.0.4 reported in F-022 (CVSS 9.1). The change is a patch-level bump with low compatibility risk and the planner reports no residual advisories on 2.0.8 (residual_status checked). The trade-off is minimal, though the override pins all transitive consumers of proxy-addr to 2.0.8 regardless of their declared ranges.</li>
+<li><strong>Reviewer checklist (AI inference):</strong> Confirm the regenerated package-lock.json resolves proxy-addr to 2.0.8 for every dependent path, not just the top-level entry. · Run the test suite and smoke-test HTTP request handling through Express, since proxy-addr parses forwarded headers. · Verify no other override or dependency expects a proxy-addr version incompatible with the 2.0.x line.</li>
+<li><strong>Expected risk reduction (estimate before validation):</strong> expected: the 1 advisories of 2.0.4 are fixed in 2.0.8; 0 other advisory(ies) on 2.0.8 · targets 1 finding(s)</li>
+<li><strong>Compatibility:</strong> low: patch version change (2.0.4 -&gt; 2.0.8)</li>
+<li><strong>Rollback:</strong> restore proxy-addr 2.0.4 in package.json (and the lockfile) by reverting the remediation commit</li>
+<li><strong>Decision:</strong> approve by user1 at 2026-11-24T06:03:40+00:00: decided in the dashboard (proposal sha256 <code>9049b53c8942…</code>)</li>
+<li><strong>Validation (measured):</strong> resolved (1/1 targeted findings resolved) · execution: tested</li>
+</ul>
+<pre><code class="language-diff">--- a/package.json
++++ b/package.json
+@@ -61,5 +61,8 @@
+     &quot;zaproxy&quot;: &quot;^0.2.0&quot;
+   },
+   &quot;repository&quot;: &quot;https://github.com/OWASP/NodejsGoat&quot;,
+-  &quot;license&quot;: &quot;Apache 2.0&quot;
++  &quot;license&quot;: &quot;Apache 2.0&quot;,
++  &quot;overrides&quot;: {
++    &quot;proxy-addr&quot;: &quot;2.0.8&quot;
++  }
+ }
+# + package-lock.json regenerated from the registry during validation (npm --package-lock-only)
+</code></pre>
+<h3>P-008 · APPROVED · upgrade · mongodb@2.2.36</h3>
+<ul>
+<li><strong>Findings:</strong> F-033 mongodb@2.2.36: 1 known vulnerability (highest HIGH)</li>
+<li><strong>Change:</strong> 2.2.36 → 3.1.13 in <code>package.json</code></li>
+<li><strong>Why (verified facts):</strong> Upgrade mongodb 2.2.36 -&gt; 3.1.13: fixes the 1 published advisories on 2.2.36; no known advisories remain on the target.</li>
+<li><strong>Advisor (AI inference):</strong> P-008 upgrades the direct dependency mongodb 2.2.36 to 3.1.13 to clear the single HIGH advisory cited in F-033, with no known residual advisories on the target. This is a major version jump flagged as high compatibility risk, so breaking driver API changes are plausible and test coverage is the main safeguard. The trade-off is accepting migration work in exchange for removing the known vulnerability from a directly used library.</li>
+<li><strong>Reviewer checklist (AI inference):</strong> Run the full test suite and exercise all database connection, query and write paths used by the application against the 3.x driver. · Check application code for driver 2.x API usage (e.g. connection options, collection/cursor APIs) that changed in 3.x. · Verify the application still connects to the deployed MongoDB server version with the 3.1.13 driver in a staging environment.</li>
+<li><strong>Expected risk reduction (estimate before validation):</strong> expected: the 1 advisories of 2.2.36 are fixed in 3.1.13; 0 other advisory(ies) on 3.1.13 · targets 1 finding(s)</li>
+<li><strong>Compatibility:</strong> high: major version change (2.2.36 -&gt; 3.1.13): breaking API changes are possible, run the tests</li>
+<li><strong>Rollback:</strong> restore mongodb 2.2.36 in package.json (and the lockfile) by reverting the remediation commit</li>
+<li><strong>Decision:</strong> approve by user1 at 2026-11-24T06:03:40+00:00: decided in the dashboard (proposal sha256 <code>608da7cc28ee…</code>)</li>
+<li><strong>Validation (measured):</strong> resolved (1/1 targeted findings resolved) · execution: tested</li>
+</ul>
+<pre><code class="language-diff">--- a/package.json
++++ b/package.json
+@@ -15,7 +15,7 @@
+     &quot;forever&quot;: &quot;^2.0.0&quot;,
+     &quot;helmet&quot;: &quot;^2.0.0&quot;,
+     &quot;marked&quot;: &quot;0.3.5&quot;,
+-    &quot;mongodb&quot;: &quot;^2.1.18&quot;,
++    &quot;mongodb&quot;: &quot;3.1.13&quot;,
+     &quot;needle&quot;: &quot;2.2.4&quot;,
+     &quot;node-esapi&quot;: &quot;0.0.1&quot;,
+     &quot;serve-favicon&quot;: &quot;^2.3.0&quot;,
+# + package-lock.json regenerated from the registry during validation (npm --package-lock-only)
+</code></pre>
+<h3>P-009 · APPROVED · upgrade · tar@2.2.1, 4.4.8</h3>
+<ul>
+<li><strong>Findings:</strong> F-025 tar@2.2.1: 16 known vulnerabilities (highest HIGH, CVSS 8.8); F-026 tar@4.4.8: 18 known vulnerabilities (highest HIGH, CVSS 8.8)</li>
+<li><strong>Change:</strong> 2.2.1, 4.4.8 → 7.5.21 in <code>package.json</code></li>
+<li><strong>Why (verified facts):</strong> Override the transitive copies tar 2.2.1, 4.4.8 -&gt; 7.5.21: fixes the 19 published advisories on 2.2.1, 4.4.8; no known advisories remain on the target.</li>
+<li><strong>Advisor (AI inference):</strong> P-009 resolves both transitive tar copies (2.2.1 and 4.4.8) to 7.5.21 through an override, clearing the numerous advisories in F-025 and F-026 (highest HIGH, CVSS 8.8) with no known residual advisories on the target. This is a multi-major jump flagged as high compatibility risk, and tar is typically consumed by build/install tooling, so the trade-off is possible breakage in packaging-related scripts. The override forces all transitive consumers onto 7.5.21 regardless of their declared ranges.</li>
+<li><strong>Reviewer checklist (AI inference):</strong> Confirm the regenerated lockfile no longer contains tar 2.2.1 or 4.4.8 anywhere in the dependency tree. · Exercise any build, archive or packaging scripts that depend on tar (including npm install behavior) to confirm they still work with 7.x. · Verify no dependent package's code relies on tar APIs removed between 2.x/4.x and 7.x.</li>
+<li><strong>Expected risk reduction (estimate before validation):</strong> expected: the 19 advisories of 2.2.1, 4.4.8 are fixed in 7.5.21; 0 other advisory(ies) on 7.5.21 · targets 2 finding(s)</li>
+<li><strong>Compatibility:</strong> high: major version change (2.2.1, 4.4.8 -&gt; 7.5.21): breaking API changes are possible, run the tests</li>
+<li><strong>Rollback:</strong> restore tar 2.2.1, 4.4.8 in package.json (and the lockfile) by reverting the remediation commit</li>
+<li><strong>Notes:</strong> some copies of tar are bundled inside fsevents, npm (bundleDependencies): npm overrides cannot change them; upgrade fsevents (or the package that pulls it in)</li>
+<li><strong>Decision:</strong> approve by user1 at 2026-11-24T06:03:40+00:00: decided in the dashboard (proposal sha256 <code>dd295433c9a7…</code>)</li>
+<li><strong>Validation (measured):</strong> not resolved (0/2 targeted findings resolved) · execution: tested</li>
+</ul>
+<pre><code class="language-diff">--- a/package.json
++++ b/package.json
+@@ -61,5 +61,8 @@
+     &quot;zaproxy&quot;: &quot;^0.2.0&quot;
+   },
+   &quot;repository&quot;: &quot;https://github.com/OWASP/NodejsGoat&quot;,
+-  &quot;license&quot;: &quot;Apache 2.0&quot;
++  &quot;license&quot;: &quot;Apache 2.0&quot;,
++  &quot;overrides&quot;: {
++    &quot;tar&quot;: &quot;7.5.21&quot;
++  }
+ }
+# + package-lock.json regenerated from the registry during validation (npm --package-lock-only)
+</code></pre>
+<h3>P-010 · APPROVED · upgrade · y18n@3.2.1</h3>
+<ul>
+<li><strong>Findings:</strong> F-092 y18n@3.2.1: 1 known vulnerability (highest HIGH, CVSS 7.3)</li>
+<li><strong>Change:</strong> 3.2.1 → 3.2.2 in <code>package.json</code></li>
+<li><strong>Why (verified facts):</strong> Override the transitive copies y18n 3.2.1 -&gt; 3.2.2: fixes the 1 published advisories on 3.2.1; no known advisories remain on the target.</li>
+<li><strong>Advisor (AI inference):</strong> P-010 overrides the transitive y18n 3.2.1 to 3.2.2, a patch-level change that fixes the single HIGH advisory in F-092 (CVSS 7.3), and the planner reports no known residual advisories on the target. Compatibility risk is low because the API surface is unchanged across the patch, and y18n is typically pulled in via CLI tooling rather than application runtime code. The trade-off is limited to pinning transitive consumers to 3.2.2.</li>
+<li><strong>Reviewer checklist (AI inference):</strong> Confirm the regenerated lockfile resolves y18n to 3.2.2 for all dependents and no 3.2.1 copy remains. · Run the test suite and any CLI tooling that uses y18n to confirm output and locale handling are unaffected. · Check that no dependent requires a y18n version outside the 3.2.x line that the override would conflict with.</li>
+<li><strong>Expected risk reduction (estimate before validation):</strong> expected: the 1 advisories of 3.2.1 are fixed in 3.2.2; 0 other advisory(ies) on 3.2.2 · targets 1 finding(s)</li>
+<li><strong>Compatibility:</strong> low: patch version change (3.2.1 -&gt; 3.2.2)</li>
+<li><strong>Rollback:</strong> restore y18n 3.2.1 in package.json (and the lockfile) by reverting the remediation commit</li>
+<li><strong>Notes:</strong> some copies of y18n are bundled inside nyc (bundleDependencies): npm overrides cannot change them; upgrade nyc (or the package that pulls it in)</li>
+<li><strong>Decision:</strong> approve by user1 at 2026-11-24T06:03:40+00:00: decided in the dashboard (proposal sha256 <code>7dd4f2dde036…</code>)</li>
+<li><strong>Validation (measured):</strong> not resolved (0/1 targeted findings resolved) · execution: tested</li>
+</ul>
+<pre><code class="language-diff">--- a/package.json
++++ b/package.json
+@@ -61,5 +61,8 @@
+     &quot;zaproxy&quot;: &quot;^0.2.0&quot;
+   },
+   &quot;repository&quot;: &quot;https://github.com/OWASP/NodejsGoat&quot;,
+-  &quot;license&quot;: &quot;Apache 2.0&quot;
++  &quot;license&quot;: &quot;Apache 2.0&quot;,
++  &quot;overrides&quot;: {
++    &quot;y18n&quot;: &quot;3.2.2&quot;
++  }
+ }
+# + package-lock.json regenerated from the registry during validation (npm --package-lock-only)
+</code></pre>
+<h3>P-011 · APPROVED · pin · grunt-if@0.2.0</h3>
+<ul>
+<li><strong>Findings:</strong> F-031 grunt-if@0.2.0 is downloaded from github.com, not the npm registry</li>
+<li><strong>Change:</strong> 0.2.0 → 0.2.0 in <code>package-lock.json</code></li>
+<li><strong>Why (verified facts):</strong> grunt-if@0.2.0: restore the base commit's lockfile entry (https://github.com/binarymist/grunt-if/tarball/master), so the verified tarball is installed again.</li>
+<li><strong>Advisor (AI inference):</strong> P-011 is a pin rather than a version change: it restores the base-commit lockfile entry for grunt-if 0.2.0 so the verified tarball from github.com is installed again, addressing the modified-lockfile finding F-031. Because the version is unchanged, there is no code change and no residual advisories are recorded (residual_status checked). The trade-off is that the dependency continues to be sourced from GitHub rather than the npm registry, which the approver should be aware of.</li>
+<li><strong>Reviewer checklist (AI inference):</strong> Confirm the lockfile entry for grunt-if again points to https://github.com/binarymist/grunt-if/tarball/master and matches the base commit. · Verify a clean install (npm ci) fetches the expected tarball and that the resolved integrity hash is stable. · Note for the approver: this package is still sourced from GitHub, not the npm registry, so future lockfile drift should be monitored.</li>
+<li><strong>Expected risk reduction (estimate before validation):</strong> resolves 1 finding(s)</li>
+<li><strong>Compatibility:</strong> low: same version, verified source: no code change</li>
+<li><strong>Rollback:</strong> none needed (same version)</li>
+<li><strong>Decision:</strong> approve by user1 at 2026-11-24T06:03:40+00:00: decided in the dashboard (proposal sha256 <code>5eae328e2868…</code>)</li>
+<li><strong>Validation (measured):</strong> not resolved (0/1 targeted findings resolved) · execution: tested</li>
+</ul>
+<h3>P-012 · APPROVED · upgrade · marked@0.3.5</h3>
+<ul>
+<li><strong>Findings:</strong> F-061 marked@0.3.5: 6 known vulnerabilities (highest HIGH, CVSS 7.5)</li>
+<li><strong>Change:</strong> 0.3.5 → 4.0.10 in <code>package.json</code></li>
+<li><strong>Why (verified facts):</strong> Upgrade marked 0.3.5 -&gt; 4.0.10: fixes the 6 published advisories on 0.3.5; no known advisories remain on the target.</li>
+<li><strong>Advisor (AI inference):</strong> P-012 upgrades the direct dependency marked 0.3.5 to 4.0.10, clearing the six advisories reported in F-061 (highest HIGH, CVSS 7.5); the planner reports no known residual advisories on the target. This is a major version change with high compatibility risk, since marked's API and rendering behavior changed substantially across versions. The trade-off is potential rendering differences or code changes in exchange for removing the known vulnerabilities.</li>
+<li><strong>Reviewer checklist (AI inference):</strong> Run the test suite and exercise every place the application renders Markdown with marked, checking output for API or formatting changes. · Review application code for marked 0.x API usage (options, renderer callbacks) that changed in 4.x. · Sanity-check that any user-supplied Markdown rendering paths still behave correctly and securely after the upgrade.</li>
+<li><strong>Expected risk reduction (estimate before validation):</strong> expected: the 6 advisories of 0.3.5 are fixed in 4.0.10; 0 other advisory(ies) on 4.0.10 · targets 1 finding(s)</li>
+<li><strong>Compatibility:</strong> high: major version change (0.3.5 -&gt; 4.0.10): breaking API changes are possible, run the tests</li>
+<li><strong>Rollback:</strong> restore marked 0.3.5 in package.json (and the lockfile) by reverting the remediation commit</li>
+<li><strong>Decision:</strong> approve by user1 at 2026-11-24T06:03:40+00:00: decided in the dashboard (proposal sha256 <code>ddbf59e2f403…</code>)</li>
+<li><strong>Validation (measured):</strong> resolved (1/1 targeted findings resolved) · execution: tested</li>
+</ul>
+<pre><code class="language-diff">--- a/package.json
++++ b/package.json
+@@ -14,7 +14,7 @@
+     &quot;express-session&quot;: &quot;^1.13.0&quot;,
+     &quot;forever&quot;: &quot;^2.0.0&quot;,
+     &quot;helmet&quot;: &quot;^2.0.0&quot;,
+-    &quot;marked&quot;: &quot;0.3.5&quot;,
++    &quot;marked&quot;: &quot;4.0.10&quot;,
+     &quot;mongodb&quot;: &quot;^2.1.18&quot;,
+     &quot;needle&quot;: &quot;2.2.4&quot;,
+     &quot;node-esapi&quot;: &quot;0.0.1&quot;,
+# + package-lock.json regenerated from the registry during validation (npm --package-lock-only)
+</code></pre>
+<h3>P-013 · APPROVED · upgrade · qs@0.6.6, 5.2.1, 6.2.1, 6.3.2, 6.5.2</h3>
+<ul>
+<li><strong>Findings:</strong> F-070 qs@0.6.6: 5 known vulnerabilities (highest HIGH, CVSS 7.5); F-071 qs@5.2.1: 4 known vulnerabilities (highest HIGH, CVSS 7.5); F-072 qs@6.2.1: 4 known vulnerabilities (highest HIGH, CVSS 7.5); F-073 qs@6.3.2: 3 known vulnerabilities (highest HIGH, CVSS 7.5); F-074 qs@6.5.2: 3 known vulnerabilities (highest HIGH, CVSS 7.5)</li>
+<li><strong>Change:</strong> 0.6.6, 5.2.1, 6.2.1, 6.3.2, 6.5.2 → 6.16.1 in <code>package.json</code></li>
+<li><strong>Why (verified facts):</strong> Override the transitive copies qs 0.6.6, 5.2.1, 6.2.1, 6.3.2, 6.5.2 -&gt; 6.16.1: fixes the 6 published advisories on 0.6.6, 5.2.1, 6.2.1, 6.3.2, 6.5.2; no known advisories remain on the target.</li>
+<li><strong>Advisor (AI inference):</strong> P-013 consolidates five vulnerable transitive copies of qs (0.6.6, 5.2.1, 6.2.1, 6.3.2, 6.5.2) to a single 6.16.1 via a package.json overrides entry; this directly addresses findings F-070 through F-074, each reporting HIGH-severity advisories (CVSS 7.5) on those copies. The planner records residual_advisories as empty with residual_status &quot;checked&quot;, so no known advisories remain on the target. The trade-off is a major-version jump for several of these copies, so breaking API changes are possible and the existing test suite must confirm behavior before merge.</li>
+<li><strong>Reviewer checklist (AI inference):</strong> Run the full test suite (and any integration tests exercising libraries that consumed qs 0.6.6/5.2.1/6.2.1/6.3.2/6.5.2) to catch breaking API changes from the major-version jump described in the compa · Verify the regenerated package-lock.json actually resolves every former copy to 6.16.1 and that no nested qs@0.6.6/5.2.1/6.2.1/6.3.2/6.5.2 remains installed (npm ls qs). · Confirm the override does not break other direct or transitive consumers of qs, and confirm the rollback path (reverting the remediation commit to restore the prior qs versions in package.json and the</li>
+<li><strong>Expected risk reduction (estimate before validation):</strong> expected: the 6 advisories of 0.6.6, 5.2.1, 6.2.1, 6.3.2, 6.5.2 are fixed in 6.16.1; 0 other advisory(ies) on 6.16.1 · targets 5 finding(s)</li>
+<li><strong>Compatibility:</strong> high: major version change (0.6.6, 5.2.1, 6.2.1, 6.3.2, 6.5.2 -&gt; 6.16.1): breaking API changes are possible, run the tests</li>
+<li><strong>Rollback:</strong> restore qs 0.6.6, 5.2.1, 6.2.1, 6.3.2, 6.5.2 in package.json (and the lockfile) by reverting the remediation commit</li>
+<li><strong>Notes:</strong> some copies of qs are bundled inside request (bundleDependencies): npm overrides cannot change them; upgrade request (or the package that pulls it in)</li>
+<li><strong>Decision:</strong> approve by user1 at 2026-11-24T06:03:40+00:00: decided in the dashboard (proposal sha256 <code>6ed6513ca165…</code>)</li>
+<li><strong>Validation (measured):</strong> not resolved (0/5 targeted findings resolved) · execution: tested; advisories still present on the new version: F-071 GHSA-4mjr-xmp4-gh2g, GHSA-6rw7-vpxm-498p, GHSA-gqgv-6jq5-jjj9; F-074 GHSA-4mjr-xmp4-gh2g, GHSA-6rw7-vpxm-498p, GHSA-hrpp-h998-j3pp; F-070 GHSA-6rw7-vpxm-498p, GHSA-gqgv-6jq5-jjj9, GHSA-hrpp-h998-j3pp; F-073 GHSA-4mjr-xmp4-gh2g, GHSA-6rw7-vpxm-498p, GHSA-hrpp-h998-j3pp</li>
+</ul>
+<pre><code class="language-diff">--- a/package.json
++++ b/package.json
+@@ -61,5 +61,8 @@
+     &quot;zaproxy&quot;: &quot;^0.2.0&quot;
+   },
+   &quot;repository&quot;: &quot;https://github.com/OWASP/NodejsGoat&quot;,
+-  &quot;license&quot;: &quot;Apache 2.0&quot;
++  &quot;license&quot;: &quot;Apache 2.0&quot;,
++  &quot;overrides&quot;: {
++    &quot;qs&quot;: &quot;6.16.1&quot;
++  }
+ }
+# + package-lock.json regenerated from the registry during validation (npm --package-lock-only)
+</code></pre>
+<h3>P-014 · PENDING · escalate review · swig@1.4.2</h3>
+<ul>
+<li><strong>Findings:</strong> F-079 swig@1.4.2: 1 known vulnerability (highest HIGH, CVSS 7.5)</li>
+<li><strong>Change:</strong> 1.4.2 → - in <code>package.json</code></li>
+<li><strong>Why (verified facts):</strong> No safe version of swig could be determined (no version list from the npm registry (offline or unknown package)): mitigate in code or replace the library.</li>
+<li><strong>Expected risk reduction (estimate before validation):</strong> -</li>
+<li><strong>Compatibility:</strong> low: -</li>
+<li><strong>Rollback:</strong> -</li>
+<li><strong>Notes:</strong> no version list from the npm registry (offline or unknown package)</li>
+<li><strong>Decision:</strong> defer by user1 at 2026-11-24T06:03:40+00:00: not decided (proposal sha256 <code>70569f466618…</code>)</li>
+</ul>
+<h2>4. Validation: build, test and rescan</h2>
+<ul>
+<li><strong>Where:</strong> a temporary copy <code>C:\Users\VICTUS\AppData\Local\Temp\sscg-validate-ec853aa0ea2f</code> of the repository with the approved edits. Commands run as local processes with secrets removed from the environment and npm install scripts disabled; this is not an isolated sandbox.</li>
+<li><strong>Docker:</strong> engine running: images were built (and removed afterwards)</li>
+<li><strong>What was rescanned:</strong> source of the remediated copy: manifests, lockfiles, Dockerfiles and CI workflows, with the same detection pipeline as the original scan. The built container image itself is not scanned.</li>
+<li><strong>Vulnerability lookup in the rescan:</strong> complete</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Kind</th>
+<th>Before (unchanged)</th>
+<th>After (remediated)</th>
+<th>Compared with the baseline</th>
+<th>Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>regenerate lockfile (.)</td>
+<td>relock</td>
+<td>-</td>
+<td>ok</td>
+<td>ok</td>
+<td>4.2s</td>
+</tr>
+<tr>
+<td>docker build (./Dockerfile)</td>
+<td>image</td>
+<td>ok</td>
+<td>ok</td>
+<td>ok</td>
+<td>21.2s</td>
+</tr>
+<tr>
+<td>npm ci (.)</td>
+<td>install</td>
+<td>ok</td>
+<td>ok</td>
+<td>ok</td>
+<td>16.9s</td>
+</tr>
+<tr>
+<td>npm test (.)</td>
+<td>test</td>
+<td>ok</td>
+<td>ok</td>
+<td>ok</td>
+<td>2.0s</td>
+</tr>
+</tbody>
+</table>
+<p><strong>SBOM before → after:</strong> 19 changed · 17 added · 1 removed</p>
+<ul>
+<li>changed: npm:bson 1.0.9 -&gt; 1.1.4</li>
+<li>changed: npm:forwarded 0.1.2 -&gt; 0.2.0</li>
+<li>changed: npm:function-bind 1.1.1 -&gt; 1.1.2</li>
+<li>changed: npm:has-symbols 1.0.1 -&gt; 1.1.0</li>
+<li>changed: npm:ipaddr.js 1.8.0 -&gt; 1.9.1</li>
+<li>changed: npm:marked 0.3.5 -&gt; 4.0.10</li>
+<li>changed: npm:minimist 0.0.10/0.0.8/1.2.0/1.2.5 -&gt; 0.0.8/1.2.0/1.2.6</li>
+<li>changed: npm:mixin-deep 1.3.1 -&gt; 1.3.2</li>
+<li>changed: npm:mongodb 2.2.36 -&gt; 3.1.13</li>
+<li>changed: npm:mongodb-core 2.1.20 -&gt; 3.1.11</li>
+<li>changed: npm:object-inspect 1.7.0 -&gt; 1.14.0</li>
+<li>changed: npm:proxy-addr 2.0.4 -&gt; 2.0.8</li>
+<li>changed: npm:qs 0.6.6/5.2.1/6.2.1/6.3.2/6.5.2 -&gt; 6.16.1/6.2.1</li>
+<li>changed: npm:readable-stream 1.1.14/2.0.6/2.1.5/2.2.7/2.3.6 -&gt; 1.1.14/2.0.6/2.1.5/2.3.6</li>
+<li>changed: npm:set-value 0.4.3/2.0.0 -&gt; 2.0.1</li>
+<li>changed: npm:side-channel 1.0.2 -&gt; 1.1.1</li>
+<li>changed: npm:string_decoder 0.10.31/1.0.3/1.1.1 -&gt; 0.10.31/1.1.1</li>
+<li>changed: npm:underscore 1.8.3/1.9.1 -&gt; 1.13.8</li>
+<li>changed: npm:y18n 3.2.1 -&gt; 3.2.1/3.2.2</li>
+<li>added: npm:call-bind-apply-helpers@1.0.2</li>
+<li>added: npm:call-bound@1.0.4</li>
+<li>added: npm:dunder-proto@1.0.1</li>
+<li>added: npm:es-define-property@1.0.1</li>
+<li>added: npm:es-errors@1.3.0</li>
+<li>added: npm:es-object-atoms@1.1.2</li>
+<li>added: npm:get-intrinsic@1.3.0</li>
+<li>added: npm:get-proto@1.0.1</li>
+<li>added: npm:gopd@1.2.0</li>
+<li>added: npm:hasown@2.0.4</li>
+<li>added: npm:math-intrinsics@1.1.0</li>
+<li>added: npm:memory-pager@1.5.0</li>
+<li>added: npm:saslprep@1.0.3</li>
+<li>added: npm:side-channel-list@1.0.1</li>
+<li>added: npm:side-channel-map@1.0.1</li>
+<li>removed: npm:es6-promise@3.2.1</li>
+</ul>
+<p><strong>Resolved findings:</strong> F-002, F-012, F-013, F-014, F-015, F-016, F-022, F-033, F-061</p>
+<p><strong>Vulnerabilities NOT resolved: the package moved to a new version that keeps the same advisories:</strong></p>
+<ul>
+<li>F-071 qs@5.2.1: GHSA-4mjr-xmp4-gh2g, GHSA-6rw7-vpxm-498p, GHSA-gqgv-6jq5-jjj9, GHSA-hrpp-h998-j3pp</li>
+<li>F-008 minimist@0.0.10: GHSA-vh95-rmgr-6w4m, GHSA-xvch-5gv4-984h</li>
+<li>F-011 minimist@1.2.5: GHSA-xvch-5gv4-984h</li>
+<li>F-074 qs@6.5.2: GHSA-4mjr-xmp4-gh2g, GHSA-6rw7-vpxm-498p, GHSA-hrpp-h998-j3pp</li>
+<li>F-070 qs@0.6.6: GHSA-6rw7-vpxm-498p, GHSA-gqgv-6jq5-jjj9, GHSA-hrpp-h998-j3pp</li>
+<li>F-073 qs@6.3.2: GHSA-4mjr-xmp4-gh2g, GHSA-6rw7-vpxm-498p, GHSA-hrpp-h998-j3pp</li>
+</ul>
+<p><strong>Findings that exist only after the change:</strong></p>
+<ul>
+<li>expected (e.g. the replacement package) · Medium: new prod dependency underscore@1.13.8 added in package.json (R08_UNEXPECTED_DEPENDENCY)</li>
+</ul>
+<p><strong>Machine-readable evidence:</strong> before: <code>findings.json</code>, <code>sbom.cdx.json</code> · after: <code>remediation/after/findings.json</code>, <code>remediation/after/sbom.cdx.json</code> · validation details: <code>remediation/remediation.json</code></p>
+<h2>5. Remaining and accepted risk</h2>
+<p>Measured after the change: <strong>127 finding(s)</strong> = 132 original finding(s) still present + 1 finding(s) that only exist after the change (section 4). Highest remaining: F-001 (P0), F-008 (P1), F-009 (P1), F-003 (P1), F-011 (P1), F-026 (P1), F-092 (P1), F-031 (P1).</p>
+<ul>
+<li>pending: P-001 remove fsevents@1.2.9 (not decided)</li>
+<li>pending: P-014 escalate review swig@1.4.2 (not decided)</li>
+</ul>
+<p><strong>Next step (retry):</strong> a finished run cannot be approved again. Start a new run and decide again:</p>
+<pre><code>python -m sscg agent C:\Users\VICTUS\Desktop\Bosch Hack\sscg\repos\nodegoat --remediate --decisions later
+python -m sscg approve C:\Users\VICTUS\Desktop\Bosch Hack\sscg\repos\nodegoat --approve &lt;ids&gt; --by &quot;&lt;name&gt;&quot;
+</code></pre>
+<h2>6. Audit trail</h2>
+<ul>
+<li>Knowledge base <code>7f4bce14289a</code> · AI engine deepseek:deepseek-flash · nothing was merged, deployed or released; the original repository was not modified.</li>
+<li>Approvals are bound to a fingerprint of the reviewed files (manifests, lockfiles, Dockerfiles, workflows, edited files): a changed repository is refused at resume. Source fingerprint <code>8f99a1c14c969abd…</code>.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Agent / step</th>
+<th>Kind</th>
+<th>Status</th>
+<th>Seconds</th>
+<th>Tokens in/out</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Orchestrator</td>
+<td>deterministic</td>
+<td>ok</td>
+<td>0.08</td>
+<td>0/0</td>
+</tr>
+<tr>
+<td>Discovery</td>
+<td>deterministic</td>
+<td>ok</td>
+<td>0.1</td>
+<td>0/0</td>
+</tr>
+<tr>
+<td>Vulnerability Intel</td>
+<td>deterministic</td>
+<td>ok</td>
+<td>0.1</td>
+<td>0/0</td>
+</tr>
+<tr>
+<td>Detection</td>
+<td>deterministic</td>
+<td>ok</td>
+<td>0.69</td>
+<td>0/0</td>
+</tr>
+<tr>
+<td>Evidence Gatherer</td>
+<td>deterministic</td>
+<td>ok</td>
+<td>0.08</td>
+<td>0/0</td>
+</tr>
+<tr>
+<td>Triage</td>
+<td>llm</td>
+<td>ok</td>
+<td>10.25</td>
+<td>2390/1628</td>
+</tr>
+<tr>
+<td>Triage</td>
+<td>llm</td>
+<td>ok</td>
+<td>5.38</td>
+<td>1815/911</td>
+</tr>
+<tr>
+<td>Triage</td>
+<td>llm</td>
+<td>ok</td>
+<td>8.78</td>
+<td>1841/891</td>
+</tr>
+<tr>
+<td>Triage</td>
+<td>llm</td>
+<td>ok</td>
+<td>14.29</td>
+<td>2406/1416</td>
+</tr>
+<tr>
+<td>Triage</td>
+<td>llm</td>
+<td>ok</td>
+<td>18.29</td>
+<td>2722/3320</td>
+</tr>
+<tr>
+<td>Triage</td>
+<td>llm</td>
+<td>ok</td>
+<td>4.78</td>
+<td>2399/783</td>
+</tr>
+<tr>
+<td>Triage</td>
+<td>deterministic</td>
+<td>ok</td>
+<td>0.0</td>
+<td>0/0</td>
+</tr>
+<tr>
+<td>Evidence Gatherer</td>
+<td>deterministic</td>
+<td>ok</td>
+<td>0.01</td>
+<td>0/0</td>
+</tr>
+<tr>
+<td>Triage</td>
+<td>llm</td>
+<td>ok</td>
+<td>18.07</td>
+<td>2807/1688</td>
+</tr>
+<tr>
+<td>Triage</td>
+<td>llm</td>
+<td>ok</td>
+<td>5.97</td>
+<td>2093/968</td>
+</tr>
+<tr>
+<td>Triage</td>
+<td>llm</td>
+<td>ok</td>
+<td>8.89</td>
+<td>2119/1282</td>
+</tr>
+<tr>
+<td>Triage</td>
+<td>deterministic</td>
+<td>ok</td>
+<td>0.0</td>
+<td>0/0</td>
+</tr>
+<tr>
+<td>Narrator</td>
+<td>llm</td>
+<td>ok</td>
+<td>11.54</td>
+<td>4123/1394</td>
+</tr>
+<tr>
+<td>Reporter</td>
+<td>deterministic</td>
+<td>ok</td>
+<td>1.74</td>
+<td>0/0</td>
+</tr>
+<tr>
+<td>Exploit Intel</td>
+<td>deterministic</td>
+<td>ok</td>
+<td>0.01</td>
+<td>0/0</td>
+</tr>
+<tr>
+<td>Reachability</td>
+<td>deterministic</td>
+<td>ok</td>
+<td>0.39</td>
+<td>0/0</td>
+</tr>
+<tr>
+<td>Prioritizer</td>
+<td>deterministic</td>
+<td>ok</td>
+<td>0.0</td>
+<td>0/0</td>
+</tr>
+<tr>
+<td>Remediation</td>
+<td>deterministic</td>
+<td>ok</td>
+<td>2.02</td>
+<td>0/0</td>
+</tr>
+<tr>
+<td>Remediation Advisor</td>
+<td>llm</td>
+<td>ok</td>
+<td>24.89</td>
+<td>7595/3758</td>
+</tr>
+<tr>
+<td>Human Approval</td>
+<td>human</td>
+<td>ok</td>
+<td>0.06</td>
+<td>0/0</td>
+</tr>
+<tr>
+<td>Validation</td>
+<td>deterministic</td>
+<td>ok</td>
+<td>77.66</td>
+<td>0/0</td>
+</tr>
+<tr>
+<td>Human approval</td>
+<td>human</td>
+<td>approve P-002 by user1</td>
+<td>2026-11-24T06:03:40+00:00</td>
+<td></td>
+</tr>
+<tr>
+<td>Human approval</td>
+<td>human</td>
+<td>approve P-003 by user1</td>
+<td>2026-11-24T06:03:40+00:00</td>
+<td></td>
+</tr>
+<tr>
+<td>Human approval</td>
+<td>human</td>
+<td>approve P-004 by user1</td>
+<td>2026-11-24T06:03:40+00:00</td>
+<td></td>
+</tr>
+<tr>
+<td>Human approval</td>
+<td>human</td>
+<td>approve P-005 by user1</td>
+<td>2026-11-24T06:03:40+00:00</td>
+<td></td>
+</tr>
+<tr>
+<td>Human approval</td>
+<td>human</td>
+<td>approve P-006 by user1</td>
+<td>2026-11-24T06:03:40+00:00</td>
+<td></td>
+</tr>
+<tr>
+<td>Human approval</td>
+<td>human</td>
+<td>approve P-007 by user1</td>
+<td>2026-11-24T06:03:40+00:00</td>
+<td></td>
+</tr>
+<tr>
+<td>Human approval</td>
+<td>human</td>
+<td>approve P-008 by user1</td>
+<td>2026-11-24T06:03:40+00:00</td>
+<td></td>
+</tr>
+<tr>
+<td>Human approval</td>
+<td>human</td>
+<td>approve P-009 by user1</td>
+<td>2026-11-24T06:03:40+00:00</td>
+<td></td>
+</tr>
+<tr>
+<td>Human approval</td>
+<td>human</td>
+<td>approve P-010 by user1</td>
+<td>2026-11-24T06:03:40+00:00</td>
+<td></td>
+</tr>
+<tr>
+<td>Human approval</td>
+<td>human</td>
+<td>approve P-011 by user1</td>
+<td>2026-11-24T06:03:40+00:00</td>
+<td></td>
+</tr>
+<tr>
+<td>Human approval</td>
+<td>human</td>
+<td>approve P-012 by user1</td>
+<td>2026-11-24T06:03:40+00:00</td>
+<td></td>
+</tr>
+<tr>
+<td>Human approval</td>
+<td>human</td>
+<td>approve P-013 by user1</td>
+<td>2026-11-24T06:03:40+00:00</td>
+<td></td>
+</tr>
+<tr>
+<td>Human approval</td>
+<td>human</td>
+<td>defer P-001 by user1</td>
+<td>2026-11-24T06:03:40+00:00</td>
+<td></td>
+</tr>
+<tr>
+<td>Human approval</td>
+<td>human</td>
+<td>defer P-014 by user1</td>
+<td>2026-11-24T06:03:40+00:00</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<footer>Generated from report.md by sscg. All findings with full evidence are in findings.json.</footer>
+</main>
+</body>
+</html>

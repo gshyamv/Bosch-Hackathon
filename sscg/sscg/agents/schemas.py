@@ -100,6 +100,7 @@ class RemediationProposal(BaseModel):
     compatibility_level: Literal["low", "medium", "high"] = "low"
     compatibility_impact: str = ""
     residual_advisories: list[str] = Field(default_factory=list)
+    residual_status: Literal["checked", "unknown"] = "checked"   # unknown: OSV could not be queried for the target
     rollback: str = ""
     validation_plan: list[str] = Field(default_factory=list)
     notes: list[str] = Field(default_factory=list)
@@ -127,6 +128,8 @@ class ApprovalRecord(BaseModel):
     reason: str = ""
     decided_at: str
     expires_at: str | None = None
+    proposal_sha256: str | None = None    # the exact proposal (edits, diff) that was decided on
+    source_sha256: str | None = None      # fingerprint of the reviewed repository files (sscg/snapshot.py)
 
 
 class ValidationReport(BaseModel):
@@ -146,5 +149,14 @@ class ValidationReport(BaseModel):
     sbom_diff: dict = Field(default_factory=dict)
     applied_files: list[str] = Field(default_factory=list)
     patch_file: str | None = None
+    patch_sha256: str | None = None                          # hash of the exact patch that was built and rescanned
+    validated_at: str | None = None
     workdir: str | None = None
     docker: bool = False
+    scan: dict = Field(default_factory=dict)                 # rescan scope + whether vulnerabilities could be checked
+    persisting: list[dict] = Field(default_factory=list)     # targeted advisories still present on the new version
+    unverified: list[str] = Field(default_factory=list)      # vulnerability findings the after-scan could not check
+    after_files: dict = Field(default_factory=dict)          # saved after-state evidence (findings, SBOM)
+    risk_levels: dict = Field(default_factory=dict)          # measured: findings per risk level before / after
+    image_scans: list[dict] = Field(default_factory=list)    # Trivy scans of the built images (summary; full list in files)
+    branch: dict = Field(default_factory=dict)               # controlled git branch + bundle with the validated change

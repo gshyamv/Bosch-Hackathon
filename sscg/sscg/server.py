@@ -24,6 +24,7 @@ from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
+from . import source
 from .cache import ROOT
 from .export import render_html
 from .model import NON_LIBRARY
@@ -114,6 +115,12 @@ def meta():
 @app.get("/api/targets")
 def targets():
     presets = [{"name": d.name, "path": str(d)} for d in sorted(TARGETS.iterdir()) if d.is_dir()] if TARGETS.is_dir() else []
+    fetched = []                                        # repositories already fetched from a URL (sscg/repos/)
+    if source.REPOS.is_dir():
+        for d in sorted(source.REPOS.iterdir()):
+            url = source._origin(d) if (d / ".git").is_dir() else None
+            if url:
+                fetched.append({"name": d.name, "url": url})
     projects = []
     if OUT.is_dir():
         for d in sorted(OUT.iterdir()):
@@ -124,7 +131,7 @@ def targets():
                                  "has_agentic": (d / "agentic.json").is_file(),
                                  "remediation": "pending" if pend else ("done" if (d / "remediation" / "remediation.json").is_file() else None),
                                  "repo": (pend or {}).get("repo")})
-    return {"presets": presets, "projects": projects}
+    return {"presets": presets, "fetched": fetched, "projects": projects}
 
 
 # ------------------------------------------------------------------ project data
@@ -278,17 +285,24 @@ class RunRequest(BaseModel):
 
 @app.post("/api/runs")
 def run(req: RunRequest):
-    repo = Path(req.repo).expanduser()
-    if not repo.is_absolute():
-        repo = (ROOT / repo).resolve()
-    if not repo.is_dir():
-        raise HTTPException(400, f"folder not found: {repo}")
     if req.llm not in LLM_CHOICES:
         raise HTTPException(400, "unknown LLM provider")
-    name = repo.name
+    target = req.repo.strip()
+    try:
+        if source.is_remote(target):                   # a git URL: the CLI clones / updates it into repos/<name>
+            source.parse(target)
+            name = source.target_name(target)
+        else:
+            repo = Path(target).expanduser()
+            repo = repo.resolve() if repo.is_absolute() else (ROOT / repo).resolve()
+            if not repo.is_dir():
+                raise HTTPException(400, f"folder not found: {repo}")
+            target, name = str(repo), repo.name
+    except source.SourceError as e:
+        raise HTTPException(400, str(e)) from None
     if not NAME.match(name):
-        raise HTTPException(400, "unsupported folder name")
-    cmd = [sys.executable, "-m", "sscg", "agent" if req.agentic else "scan", str(repo), "--out", str(OUT / name),
+        raise HTTPException(400, "unsupported repository name")
+    cmd = [sys.executable, "-m", "sscg", "agent" if req.agentic else "scan", target, "--out", str(OUT / name),
            "--top", "0"]
     cmd += ["--base", req.base.strip()] if req.base.strip() else ["--no-diff"]
     cmd += [] if req.osv else ["--no-vulns"]

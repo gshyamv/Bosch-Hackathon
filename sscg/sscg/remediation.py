@@ -378,7 +378,11 @@ class Planner:
         if malicious or "R01_TYPOSQUAT" in rules:
             if eco not in ("npm", "pypi"):
                 return {**out, "action": "block", "rationale": f"Remove {comp['label']} from {man} (manual for {eco})."}
-            to = registry.safe_version(eco, target, None, None).get("version") if target else None
+            rsv = registry.safe_version(eco, target, None, None) if target else {}
+            to = rsv.get("version")
+            if to:      # advisories on the replacement itself: a list, or None when OSV could not be asked
+                out.update(residual_advisories=rsv.get("remaining") or [],
+                           residual_status="unknown" if rsv.get("remaining") is None else "checked")
             if eco == "npm":
                 edits = [{"file": man, "op": "npm_remove", "name": name}]
                 if to:
@@ -431,7 +435,8 @@ class Planner:
                                   "version": f"${name}" if spec else to})
                     if spec and not direct:      # the direct copy is not vulnerable: copies move to its version
                         to = re.sub(r"^[\^~>=<\s]+", "", spec)
-                        sv = {**sv, "remaining": registry.remaining_advisories(eco, name, [to]).get(to, [])}
+                        rm = registry.remaining_advisories(eco, name, [to])
+                        sv = {**sv, "remaining": rm.get(to, []) if rm else None}
                 edits.append({"file": man, "op": "npm_relock"})
                 how = " and ".join(x for x in ("upgrade" if direct else "",
                                                 ("make the transitive copies use the direct dependency's version"
@@ -452,20 +457,26 @@ class Planner:
             bumps = [_bump(v, to) for v in now]
             bump = next((b for b in ("major", "minor", "patch") if b in bumps), "unknown")
             version = ", ".join(now)
+            known = sv.get("remaining") is not None     # None: OSV could not be queried for the target versions
             rem = sv.get("remaining") or []
             lock_rules = rules & {"R05_LOCKFILE_UNTRUSTED_SOURCE", "R06_LOCKFILE_INTEGRITY_CHANGED", "R07_LOCKFILE_DRIFT"}
+            residual = (f"; {len(rem)} advisory(ies) remain on {to} (no cleaner release)" if rem else
+                        "; no known advisories remain on the target" if known else
+                        f"; advisories on {to} itself are UNKNOWN (OSV could not be queried): check before approving")
             return {**out, "edits": edits, "action": "upgrade", "to_version": to, "residual_advisories": rem,
+                    "residual_status": "checked" if known else "unknown",
                     "rationale": f"{how.capitalize()} {name} {version} -> {to}: fixes the {n_adv} published advisories "
-                                 f"on {version}" + (f"; {len(rem)} advisory(ies) remain on {to} (no cleaner release)" if rem else
-                                                    "; no known advisories remain on the target") +
+                                 f"on {version}" + residual +
                                  (". Regenerating the lockfile from the official registry also undoes the lockfile "
                                   "tampering" if lock_rules else "") + ".",
                     "compatibility_level": {"major": "high", "minor": "medium"}.get(bump, "low"),
                     "compatibility_impact": f"{bump} version change ({version} -> {to})" +
                                             (": breaking API changes are possible, run the tests" if bump == "major" else ""),
                     "rollback": f"restore {name} {version} in {man} (and the lockfile) by reverting the remediation commit",
-                    "expected_risk_reduction": f"{n_adv - len(rem)} of {n_adv} advisories fixed; resolves "
-                                               f"{len(fs)} finding(s)"}
+                    "expected_risk_reduction": (f"expected: the {n_adv} advisories of {version} are fixed in {to}; "
+                                                f"{len(rem)} other advisory(ies) on {to}" if known else
+                                                f"expected: the {n_adv} advisories of {version} are fixed in {to}; "
+                                                f"advisories on {to} unknown") + f" · targets {len(fs)} finding(s)"}
 
         # 3. tampered lockfile entry without a CVE: restore the last known-good entry (or regenerate)
         if rules & {"R05_LOCKFILE_UNTRUSTED_SOURCE", "R06_LOCKFILE_INTEGRITY_CHANGED", "R07_LOCKFILE_DRIFT",
@@ -488,6 +499,8 @@ class Planner:
             sv = registry.safe_version(eco, name, None, None)
             if sv.get("version"):
                 return {**out, "action": "pin", "to_version": sv["version"],
+                        "residual_advisories": sv.get("remaining") or [],
+                        "residual_status": "unknown" if sv.get("remaining") is None else "checked",
                         "edits": [{"file": man, "op": "req_set", "name": name, "version": sv["version"]}],
                         "rationale": f"Pin {name}=={sv['version']} so a future (possibly compromised) release is not "
                                      f"installed silently.", "compatibility_impact": "pins the version pip installs today",

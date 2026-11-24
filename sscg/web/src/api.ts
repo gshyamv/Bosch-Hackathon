@@ -51,7 +51,7 @@ export interface Triage {
   recommended_next_step?: string; matched_patterns?: string[];
 }
 export interface Agentic {
-  run_id: string; generated_at: string; engine: string; kb_version: string; stale: boolean;
+  run_id: string; generated_at: string; engine: string; kb_version: string; stale: boolean; plan?: { repo?: string };
   narrative?: { headline: string; what_is_in_the_app: string; what_changed: string; what_appears_risky: string;
                 top_concerns: { finding_id: string; why: string }[]; caveats: string[] };
   triage: Record<string, Triage>;
@@ -63,7 +63,7 @@ export interface Proposal {
   proposal_id: string; finding_ids: string[]; action: string; component: string | null; from_version: string | null;
   to_version: string | null; files_affected: string[]; diff: string; patchable: boolean; priority: string; urgent: boolean;
   rationale: string; expected_risk_reduction?: string; compatibility_level: string; compatibility_impact?: string;
-  residual_advisories: string[]; rollback?: string; notes?: string; ai_rationale?: string;
+  residual_advisories: string[]; residual_status?: "checked" | "unknown"; rollback?: string; notes?: string[] | string; ai_rationale?: string;
   ai_reviewer_checklist?: string[] | string; status: string;
 }
 export interface Priority {
@@ -71,13 +71,21 @@ export interface Priority {
   category: string; component: string | null; reasons: string[]; confidence: string;
   factors?: Record<string, { value: any; points: number }>;
 }
-export interface Step { step: string; cmd: string; cwd: string; status: string; exit: number | null; seconds: number; log: string }
+export interface Step { step: string; kind?: string; cmd: string; cwd: string; status: string; exit: number | null; seconds: number; log: string }
 export interface Validation {
   proposal_ids: string[]; verdict: string; confidence: string; reasons: string[];
   steps_before: Step[]; steps_after: Step[]; findings_before: number; findings_after: number;
   resolved: string[]; remaining: string[];
   new: { title: string; kind: string; severity?: string; level?: string; component?: string }[];
-  per_proposal: Record<string, { targeted: string[]; resolved: string[]; status: string }>;
+  per_proposal: Record<string, { targeted: string[]; resolved: string[]; status: string; coverage?: string;
+                                 persisting?: { finding_id: string; component: string; advisories: string[] }[]; unverified?: string[] }>;
+  scan?: { scope?: string; vulns_checked?: boolean; notes?: string[] };
+  persisting?: { finding_id: string; component: string; advisories: string[] }[]; unverified?: string[];
+  after_files?: Record<string, string>; patch_sha256?: string; validated_at?: string;
+  risk_levels?: { before: Record<string, number>; after: Record<string, number> };
+  image_scans?: { label: string; dockerfile: string; tool: string; status: string; os?: string; packages?: number; log?: string;
+                  by_severity?: Record<string, number>; top?: { id: string; package: string; installed: string; fixed: string; severity: string }[] }[];
+  branch?: { status: string; branch?: string; base?: string; commit?: string; files?: string[]; bundle?: string | null; note?: string | null };
   sbom_diff: { added?: string[]; removed?: string[]; changed?: string[] };
   docker?: any;
 }
@@ -97,7 +105,7 @@ export interface Project {
   agentic: Agentic | null; pending: Pending | null; remediation: RemediationRun | null; files: string[];
 }
 export interface ProjectInfo { name: string; scanned_at: number; has_findings: boolean; has_agentic: boolean; remediation: string | null }
-export interface Targets { presets: { name: string; path: string }[]; projects: ProjectInfo[] }
+export interface Targets { presets: { name: string; path: string }[]; fetched: { name: string; url: string }[]; projects: ProjectInfo[] }
 export interface Meta { llm_choices: string[]; llm_default: string; llm_keys: Record<string, boolean> }
 export interface Job {
   id: string; kind: string; project: string; status: "running" | "ok" | "failed"; returncode: number | null;

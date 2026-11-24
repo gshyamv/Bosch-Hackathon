@@ -86,7 +86,7 @@ export default function App() {
 
   const go = (p: Page) => { setPage(p); setNavOpen(false); };
   const info = targets?.projects.find((p) => p.name === name);
-  const presetPath = targets?.presets.find((p) => p.name === name)?.path;
+  const presetPath = targets?.fetched?.find((p) => p.name === name)?.url || targets?.presets.find((p) => p.name === name)?.path;
 
   const sidebar = (
     <nav className="flex h-full flex-col bg-ink-950 text-slate-300">
@@ -126,7 +126,7 @@ export default function App() {
       </div>
       <div className="border-t border-ink-800 px-5 py-4 text-[11px] text-slate-500">
         <div className="flex items-center gap-1.5"><Bot className="h-3.5 w-3.5" /> Human approval required for every fix</div>
-        <div className="mt-1">Repositories are read-only · sandbox validation</div>
+        <div className="mt-1">Repositories are never modified · fixes validated in a temporary copy</div>
       </div>
     </nav>
   );
