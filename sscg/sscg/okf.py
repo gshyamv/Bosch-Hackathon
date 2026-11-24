@@ -237,7 +237,7 @@ def materialize(st: Store, scan: str, kind: str, d: dict) -> None:
         rel = " · ".join(f"[{c}](/{base}/clusters/{c}.md)" for c in d["cluster_ids"])
         st.write(f"{base}/remediations/{d['proposal_id']}", _meta(
             "remediation-plan", f"{d['action']} {_q(d['component'])}", _q(d["rationale"])[:200],
-            vv={k: d[k] for k in ("proposal_id", "action", "to_version", "finding_ids")}),
+            vv={k: d[k] for k in ("proposal_id", "action", "component", "to_version", "finding_ids")}),
             f"{_q(d['rationale'])}\n\n- Risk reduction: {_q(d['risk_reduction'])}\n- Compatibility: {_q(d['compatibility'])}\n"
             f"- Rollback: {_q(d['rollback'])}\n\n## Related\n{rel}\n")
     elif kind == "ApprovalNote":
@@ -260,18 +260,88 @@ def materialize(st: Store, scan: str, kind: str, d: dict) -> None:
     st.index()
 
 
-def pack(st: Store, findings: list[dict], budget: int = 2500) -> list[dict]:
-    """Deterministic context pack: the playbooks of these findings plus earlier human decisions, within a budget."""
+PKG_RE = re.compile(r"^\s*(@?[^@\s,]+)")
+
+
+def package_name(label) -> str | None:
+    """'qs@6.5.2' / '@scope/x@1.0, 2.0' / 'node:18' -> 'qs' / '@scope/x' / 'node:18' (lower case)."""
+    m = PKG_RE.match(str(label or ""))
+    return m.group(1).lower() if m else None
+
+
+def _components(findings: list[dict]) -> set[str]:
+    return {n for f in findings if (n := package_name((f.get("component") or {}).get("label")))}
+
+
+def _decided_at(meta: dict) -> str:
+    return max((str(v.get("at", "")) for v in meta.get("verified") or [] if str(v.get("by", "")).startswith("human:")),
+               default="")
+
+
+def decisions_for(st: Store, components: set[str], k: int = 3, exclude_scan: str | None = None) -> list[dict]:
+    """Earlier human decisions on the same packages (any version), most recent first.
+
+    A decision concept links to its remediation plan; the plan carries the component (vv.component, or the title
+    'action component' for plans written before vv.component existed)."""
+    if not components:
+        return []
+    hits = []
+    for cid in st.ids("scans/"):
+        if "/decisions/" not in cid or (exclude_scan and cid.startswith(f"scans/{exclude_scan}/")):
+            continue
+        try:
+            dm, _ = st.read(cid)
+            plan_id = cid.replace("/decisions/", "/remediations/")
+            pm, _ = st.read(plan_id)
+        except KeyError:
+            continue
+        vv = pm.get("vv") or {}
+        comp = vv.get("component") or str(pm.get("title", "")).split(" ", 1)[-1]
+        if package_name(comp) not in components or not _decided_at(dm):
+            continue
+        hits.append({"concept": cid, "plan": plan_id, "component": comp, "action": vv.get("action"),
+                     "to_version": vv.get("to_version"), "decision": str(dm.get("title", "")).split(": ", 1)[-1],
+                     "comment": dm.get("description", ""), "decided_at": _decided_at(dm), "trust": trust(dm)})
+    hits.sort(key=lambda h: (h["decided_at"], h["concept"]), reverse=True)
+    return hits[:k]
+
+
+def related(st: Store, finding: dict, rule_patterns: list[str] = (), exclude_scan: str | None = None,
+            k: int = 10) -> list[dict]:
+    """Concept cards an agent may open with okf_read / okf_neighbors for this finding: its playbook, the attack
+    patterns for its rule, its own advisories and earlier human decisions on the same package. Deterministic."""
+    ids = [f"knowledge/playbooks/{finding['rule']}", *(f"knowledge/patterns/{p}" for p in rule_patterns)]
+    ids += [f"advisories/{slug(e['id'])}" for e in finding.get("evidence", []) if e.get("type") == "advisory"]
+    ids += [d["concept"] for d in decisions_for(st, _components([finding]), exclude_scan=exclude_scan)]
+    out = []
+    for cid in dict.fromkeys(ids):
+        try:
+            out.append({k2: v for k2, v in st.card(cid).items() if k2 in ("id", "type", "title", "trust", "stale")})
+        except KeyError:
+            continue
+    return out[:k]
+
+
+def pack(st: Store, findings: list[dict], budget: int = 2500, exclude_scan: str | None = None) -> list[dict]:
+    """Deterministic context pack: the playbooks of these findings plus the most recent human decisions on the
+    same packages, within a character budget."""
     out, left = [], budget
-    ids = [f"knowledge/playbooks/{r}" for r in sorted({f["rule"] for f in findings})]
-    for cid in ids + [c for c in st.ids("scans/") if "/decisions/" in c][-3:]:
+    for cid in [f"knowledge/playbooks/{r}" for r in sorted({f["rule"] for f in findings})]:
         try:
             m, body = st.read(cid)
         except KeyError:
             continue
         text = body[:min(700, left)]
         if not text:
-            break
+            return out
         left -= len(text)
         out.append({"concept": cid, "trust": trust(m), "text": text})
+    for d in decisions_for(st, _components(findings), exclude_scan=exclude_scan):
+        text = _q(f"Earlier human decision on {d['component']}: {d['decision']} the proposal to {d['action']}"
+                  f"{' -> ' + str(d['to_version']) if d['to_version'] else ''} ({d['decided_at'][:10]})"
+                  f"{'. Reason: ' + d['comment'] if d['comment'] else ''}")[:min(400, left)]
+        if not text:
+            break
+        left -= len(text)
+        out.append({"concept": d["concept"], "trust": d["trust"], "text": text})
     return out

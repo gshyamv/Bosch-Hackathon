@@ -15,7 +15,7 @@ from ..pipeline import build, detect, emit
 from .. import relevance
 from .guard import redact
 from .runtime import get, now, traced
-from .tools import run_tool
+from .tools import OKF_TOOLS, REPEATABLE, run_tool
 
 MANIFEST_GLOBS = {"npm": ["package.json"], "pypi": ["requirements*.txt", "pyproject.toml", "setup.py"],
                   "maven": ["pom.xml"], "container": ["Dockerfile*", "Containerfile", "docker-compose*.y*ml"],
@@ -129,24 +129,30 @@ def gather_evidence(state: dict) -> dict:
     rnd = state.get("triage_round", 0)
     by_id = {f["finding_id"]: f for f in state["findings"]}
     have = state.get("tool_evidence", {})
-    jobs, queries = [], {}
+    jobs = []                                    # (finding_id, tool, query)
     for fid in state["triage_queue"]:
         f = by_id[fid]
-        done = {e["tool"] for e in have.get(fid, [])}
+        done = {(e["tool"], e.get("query", "")) for e in have.get(fid, [])}
         if rnd == 0:
-            wanted = rt.kb.playbook(f["rule"]).get("default_tools", [])
+            # the playbook's tools, plus an OKF lookup for every triaged finding whenever the context store is open
+            wanted = [(t, "") for t in rt.kb.playbook(f["rule"]).get("default_tools", [])]
+            if rt.ctx:
+                wanted.append(("okf_search", ""))
         else:
             reqs = state.get("triage", {}).get(fid, {}).get("evidence_requests", [])
-            wanted = [r["tool"] for r in reqs]
-            queries.update({(fid, r["tool"]): r.get("query", "") for r in reqs})
-        for tool in dict.fromkeys(t for t in wanted if t not in done):
-            jobs.append((fid, tool))
+            wanted = [(r["tool"], (r.get("query") or "").strip() if r["tool"] in OKF_TOOLS else "") for r in reqs]
+        ran_tools = {t for t, _ in done}
+        for tool, q in dict.fromkeys(wanted):
+            if (tool, q) in done or (tool in ran_tools and tool not in REPEATABLE):
+                continue
+            jobs.append((fid, tool, q))
     with ThreadPoolExecutor(max_workers=6) as ex:
-        results = list(ex.map(lambda j: run_tool(j[1], rt, by_id[j[0]], state, queries.get(j, "")), jobs))
+        results = list(ex.map(lambda j: run_tool(j[1], rt, by_id[j[0]], state, j[2]), jobs))
     new: dict = {}
-    for (fid, tool), res in zip(jobs, results):
+    for (fid, tool, q), res in zip(jobs, results):
         n = len(have.get(fid, [])) + len(new.get(fid, [])) + 1
         new.setdefault(fid, []).append({"id": f"{fid}/T{n}", "tool": tool, "round": rnd, "at": now(),
+                                        **({"query": q} if q else {}),
                                         "result": redact(res)[0]})  # stored redacted: it ends up in agentic.json
     rt.log("Evidence Gatherer", f"round {rnd}: ran {len(jobs)} read-only tool calls for {len(state['triage_queue'])} findings")
     return {"tool_evidence": new, "_run": {"round": rnd, "tool_calls": len(jobs)}}

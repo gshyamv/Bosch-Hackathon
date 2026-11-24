@@ -136,6 +136,59 @@ def test_triage_with_invented_evidence_is_replaced(ctx):
     assert [x["valid"] for x in n] == [False, True] and n[1]["payload"]["verdict"] == "needs_human_review"
 
 
+def _decide(store, scan, pid, component, decision, at, comment=""):
+    c = context.Context(scan, store.root.parent / f"{scan}.db", store)
+    c.add_facts({"F-001": {"kind": "finding"}})
+    assert c.write("RemediationPlan", {"proposal_id": pid, "finding_ids": ["F-001"], "action": "upgrade",
+                                       "component": component, "to_version": "9.9.9"}) == []
+    assert c.write("ApprovalNote", {"proposal_id": pid, "decision": decision, "reviewer": "human:v",
+                                    "comment": comment, "decided_at": at}) == []
+    c.close()
+
+
+def test_okf_past_decisions_match_the_package_most_recent_first(tmp_path):
+    st = okf.Store(tmp_path / "okf")
+    _decide(st, "aaaaaaaaaaaa", "P-001", "qs@6.5.2", "reject", "2026-11-01T00:00:00+00:00", "breaks parser")
+    _decide(st, "bbbbbbbbbbbb", "P-002", "lodash@4.17.4", "approve", "2026-11-20T00:00:00+00:00")
+    _decide(st, "cccccccccccc", "P-003", "qs@6.7.0, 6.9.1", "accept_risk", "2026-11-10T00:00:00+00:00")
+    assert okf.package_name("@scope/x@1.0, 2.0") == "@scope/x" and okf.package_name("qs@6.5.2") == "qs"
+    got = okf.decisions_for(st, {"qs"})
+    assert [d["concept"] for d in got] == ["scans/cccccccccccc/decisions/P-003", "scans/aaaaaaaaaaaa/decisions/P-001"]
+    assert okf.decisions_for(st, {"qs"}, exclude_scan="cccccccccccc")[0]["decision"] == "reject"
+    f = {"finding_id": "F-009", "rule": "R03_INSTALL_SCRIPT", "component": {"label": "qs@6.10.0"}, "evidence": []}
+    pk = okf.pack(st, [f])
+    assert pk[0]["concept"] == "knowledge/playbooks/R03_INSTALL_SCRIPT"
+    assert "reject" in pk[-1]["text"] and "breaks parser" in pk[-1]["text"] and "lodash" not in json.dumps(pk)
+    ids = [c["id"] for c in okf.related(st, f, ["AP-03"])]
+    assert ids[:2] == ["knowledge/playbooks/R03_INSTALL_SCRIPT", "knowledge/patterns/AP-03"]
+    assert "scans/aaaaaaaaaaaa/decisions/P-001" in ids and st.lint() == []
+
+
+def test_evidence_gatherer_always_searches_okf_and_triage_may_only_open_shown_concepts(tmp_path, monkeypatch):
+    from types import SimpleNamespace
+
+    from sscg.agents import runtime, tools, triage, workers
+    st = okf.Store(tmp_path / "okf")
+    f = {"finding_id": "F-001", "rule": "R03_INSTALL_SCRIPT", "type": "install_script", "category": "anomaly",
+         "title": "t", "component": {"id": "n", "label": "evil-pkg@1.0.0"}, "evidence": []}
+    rt = SimpleNamespace(ctx=SimpleNamespace(store=st, scan_id="s"), kb=kb.load(), log=lambda *a: None)
+    monkeypatch.setitem(runtime._RUNTIMES, "r", rt)
+    monkeypatch.setattr(workers, "run_tool", lambda tool, rt, f, state, q="": {"tool": tool, "q": q})
+    state = {"run_id": "r", "triage_round": 0, "triage_queue": ["F-001"], "findings": [f], "tool_evidence": {}}
+    ran = workers.gather_evidence(state)["tool_evidence"]["F-001"]
+    assert "okf_search" in [e["tool"] for e in ran]
+    assert tools.default_okf_query(f) == "R03_INSTALL_SCRIPT install script evil-pkg"
+    # round 1: okf_read may run again for another concept; a non-OKF tool that already ran does not
+    state.update(triage_round=1, tool_evidence={"F-001": ran + [{"id": "F-001/T9", "tool": "okf_read", "query": "a"}]},
+                 triage={"F-001": {"evidence_requests": [{"tool": "okf_read", "query": "b"}, {"tool": "okf_read", "query": "a"},
+                                                         {"tool": ran[0]["tool"], "query": ""}]}})
+    again = workers.gather_evidence(state)["tool_evidence"]["F-001"]
+    assert [(e["tool"], e.get("query")) for e in again] == [("okf_read", "b")]
+    pkt = {"okf_concepts": [{"id": "knowledge/playbooks/R03_INSTALL_SCRIPT"}],
+           "tool_evidence": [{"result": {"results": [{"id": "advisories/x"}], "playbook": "knowledge/playbooks/R03_INSTALL_SCRIPT"}}]}
+    assert triage.shown_concepts(pkt) == {"knowledge/playbooks/R03_INSTALL_SCRIPT", "advisories/x"}
+
+
 # ---------------- analysis / remediation / validation
 def test_reachability_and_priority(tmp_path):
     mkrepo(tmp_path, {"package.json": PKG, "package-lock.json": lock(), "a.js": "require('left-pad')"})

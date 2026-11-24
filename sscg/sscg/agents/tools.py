@@ -156,10 +156,19 @@ def graph_context(rt, f: dict, state: dict) -> dict:
             "other_findings_on_this_component": related}
 
 
+def default_okf_query(f: dict) -> str:
+    """Rule + finding type + package name: finds the playbook, patterns and concepts on the same package."""
+    pkg = okf.package_name((f.get("component") or {}).get("label")) or ""
+    return " ".join(x for x in (f["rule"], f["type"].replace("_", " "), pkg) if x)
+
+
 def okf_search(rt, f: dict, state: dict, query: str = "") -> dict:
-    hits = rt.ctx.store.search(query or f"{f['rule']} {f['type']}", min_trust="process") if rt.ctx else []
-    pb = f"knowledge/playbooks/{f['rule']}"
-    return {"results": hits, "playbook": pb}
+    if not rt.ctx:
+        return {"found": None, "note": "OKF context store unavailable for this run"}
+    q = query or default_okf_query(f)
+    hits = rt.ctx.store.search(q, min_trust="process", k=6)
+    return {"query": q, "results": hits, "playbook": f"knowledge/playbooks/{f['rule']}",
+            "note": "results are OKF concept cards; open one with okf_read (query = its id)"}
 
 
 def okf_read(rt, f: dict, state: dict, query: str = "") -> dict:
@@ -177,6 +186,7 @@ TOOLS = {"registry_metadata": registry_metadata, "repo_file_context": repo_file_
          "commit_history": commit_history, "graph_context": graph_context,
          "okf_search": okf_search, "okf_read": okf_read, "okf_neighbors": okf_neighbors}
 OKF_TOOLS = {"okf_search", "okf_read", "okf_neighbors"}
+REPEATABLE = {"okf_read", "okf_neighbors"}   # take a concept id: may run again for a different concept
 
 
 def run_tool(name: str, rt, f: dict, state: dict, query: str = "") -> dict:
