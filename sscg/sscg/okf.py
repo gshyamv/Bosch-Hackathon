@@ -44,7 +44,7 @@ def dump(meta: dict, body: str) -> str:
 
 
 def trust(meta: dict) -> str:
-    by = [str(v.get("by", "")) for v in meta.get("verified") or []]
+    by = [str(v.get("by", "")) for v in [*(meta.get("verified") or []), meta.get("generated") or {}]]
     return "human" if any(b.startswith("human:") for b in by) else "process" if any(b.startswith("process:") for b in by) else "unverified"
 
 
