@@ -31,6 +31,7 @@ class GuardianState(TypedDict, total=False):
     inventory: dict                  # Discovery: component counts, ecosystems, images, CI
     vuln_summary: dict               # Vulnerability Intel
     findings: list                   # Detection: findings (JSON-safe), F-001 ...
+    clusters: list                   # Detection: root-cause clusters (relevance.clusters)
     change: dict | None              # Detection: "what changed" (diff.Change.as_dict)
     # ---- detect: agentic triage loop
     triage_queue: list               # finding IDs to (re)triage this round

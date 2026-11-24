@@ -15,6 +15,7 @@ export interface Finding {
   why_it_matters: string; classification: string; confidence: string; new_in_change: boolean;
   severity?: { label: string; cvss: number | null; source: string };
   fixes?: { upgrade_to_at_least: string | null; advisories_without_fix: string[] };
+  permalink?: string;
   risk: { level: Level; score: number; reasons: string[]; label: string };
 }
 export interface Commit { sha: string; short: string; author: string; email: string; date: string; message: string }
@@ -63,7 +64,7 @@ export interface Proposal {
   proposal_id: string; finding_ids: string[]; action: string; component: string | null; from_version: string | null;
   to_version: string | null; files_affected: string[]; diff: string; patchable: boolean; priority: string; urgent: boolean;
   rationale: string; expected_risk_reduction?: string; compatibility_level: string; compatibility_impact?: string;
-  residual_advisories: string[]; rollback?: string; notes?: string; ai_rationale?: string;
+  residual_advisories: string[]; rollback?: string; notes?: string; ai_rationale?: string; cluster_ids?: string[];
   ai_reviewer_checklist?: string[] | string; status: string;
 }
 export interface Priority {

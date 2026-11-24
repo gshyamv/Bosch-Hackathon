@@ -213,6 +213,7 @@ class GeminiLLM(LLM):
 class OpenAICompatLLM(LLM):
     """Any OpenAI-compatible chat-completions API (Groq, DeepSeek, Grok). Subclasses set provider + base URL."""
     base_url = ""
+    extra: dict = {}
 
     def __init__(self, s: AgentSettings):
         super().__init__(s)
@@ -225,6 +226,7 @@ class OpenAICompatLLM(LLM):
     def complete(self, system: str, user: str) -> LLMResult:
         t = time.perf_counter()
         kw = {"temperature": self.temperature} if self.temperature is not None else {}
+        kw |= self.extra
         r = self.client.chat.completions.create(model=self.model, max_tokens=self.max_tokens, **kw,
                                                 messages=[{"role": "system", "content": system},
                                                           {"role": "user", "content": user}])
@@ -257,7 +259,16 @@ class DeepSeekLLM(OpenAICompatLLM):
         return DEEPSEEK_BASE_URL
 
 
-IMPLEMENTATIONS = {"claude": ClaudeLLM, "gemini": GeminiLLM, "groq": GroqLLM, "deepseek": DeepSeekLLM, "grok": GrokLLM}
+class OllamaLLM(OpenAICompatLLM):
+    """Local models (ollama.com): no key, no data leaves the machine."""
+    provider = "ollama"
+    extra = {"response_format": {"type": "json_object"}}
+
+    def endpoint(self) -> str:
+        return os.getenv("OLLAMA_BASE_URL", "http://localhost:11434").rstrip("/") + "/v1"
+
+
+IMPLEMENTATIONS = {"ollama": OllamaLLM, "claude": ClaudeLLM, "gemini": GeminiLLM, "groq": GroqLLM, "deepseek": DeepSeekLLM, "grok": GrokLLM}
 
 
 def list_models(s: AgentSettings) -> list[str]:
@@ -305,7 +316,7 @@ def preflight(s: AgentSettings) -> tuple[LLM | None, AgentSettings, list[str]]:
 
 
 def _extract_json(text: str) -> dict:
-    t = text.strip()
+    t = re.sub(r"<think>.*?</think>", "", text, flags=re.S).strip()
     m = re.search(r"```(?:json)?\s*(\{.*\})\s*```", t, re.S)
     if m:
         t = m.group(1)
@@ -314,7 +325,15 @@ def _extract_json(text: str) -> dict:
         if a < 0 or b <= a:
             raise ValueError("no JSON object in the reply")
         t = t[a:b + 1]
-    return json.loads(t)
+    d = json.loads(t)
+    # small models often wrap the answer as a tool call written in text
+    if isinstance(d, dict) and set(d) <= {"name", "arguments", "parameters", "type", "function"}:
+        inner = d.get("function") if isinstance(d.get("function"), dict) else d
+        args = inner.get("arguments", inner.get("parameters"))
+        args = json.loads(args) if isinstance(args, str) else args
+        if isinstance(args, dict):
+            return args
+    return d
 
 
 def complete_json(llm: LLM, system: str, packet: dict, model: type[BaseModel]) -> tuple[BaseModel, dict]:

@@ -20,13 +20,15 @@ from pathlib import Path
 
 import networkx as nx
 from fastapi import FastAPI, HTTPException, Query
-from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, Response
+from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, Response, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
+from . import okf, safety
 from .cache import ROOT
 from .export import render_html
 from .model import NON_LIBRARY
+from .target import LiveTarget
 
 OUT = ROOT / "out"
 TARGETS = ROOT.parent / "targets"
@@ -34,7 +36,7 @@ WEB = ROOT / "web" / "dist"
 NAME = re.compile(r"^[\w.-]+$")
 FILE_TYPES = {".json": "application/json", ".html": "text/html; charset=utf-8", ".md": "text/markdown; charset=utf-8",
               ".pdf": "application/pdf", ".patch": "text/x-diff; charset=utf-8", ".mmd": "text/plain; charset=utf-8"}
-LLM_CHOICES = ("auto", "claude", "gemini", "groq", "deepseek", "grok", "none")
+LLM_CHOICES = ("auto", "claude", "gemini", "groq", "deepseek", "grok", "ollama", "none")
 DECISIONS = ("approve", "reject", "accept_risk", "request_changes")
 GRAPH_VIEWS = ("levels", "direct", "subtree", "full")
 LAYERED_MAX = 300
@@ -272,26 +274,49 @@ class RunRequest(BaseModel):
     remediate: bool = False
     osv: bool = True
     offline: bool = False
+    resolve_npm: bool = False
     base: str = Field("HEAD~1", max_length=200)
     focus: str = Field("", max_length=200)
 
 
 @app.post("/api/runs")
 def run(req: RunRequest):
-    repo = Path(req.repo).expanduser()
-    if not repo.is_absolute():
-        repo = (ROOT / repo).resolve()
-    if not repo.is_dir():
-        raise HTTPException(400, f"folder not found: {repo}")
+    raw = req.repo.strip()
+    if re.match(r"^(https?://|github\.com/)", raw):
+        try:
+            if "github.com/" in raw.split("//")[-1][:11]:
+                o, n, _, sub = safety.parse_github_target(raw)
+                repo = Path(f"{o}__{n}" + ("__" + re.sub(r"[^\w.-]", "_", sub) if sub else ""))
+            else:
+                safety.check_target(raw)
+                repo = Path(LiveTarget(raw).name)
+        except safety.SafetyError as e:
+            raise HTTPException(400, str(e)) from None
+        arg = raw
+    elif raw.startswith("-"):
+        raise HTTPException(400, "invalid target")
+    else:
+        repo = Path(raw).expanduser()
+        if not repo.is_absolute():
+            repo = (ROOT / repo).resolve()
+        if not repo.is_dir():
+            raise HTTPException(400, f"folder not found: {repo}")
+        arg = str(repo)
+    if req.base.strip():
+        try:
+            safety.check_rev(req.base.strip())
+        except safety.SafetyError as e:
+            raise HTTPException(400, str(e)) from None
     if req.llm not in LLM_CHOICES:
         raise HTTPException(400, "unknown LLM provider")
     name = repo.name
     if not NAME.match(name):
         raise HTTPException(400, "unsupported folder name")
-    cmd = [sys.executable, "-m", "sscg", "agent" if req.agentic else "scan", str(repo), "--out", str(OUT / name),
+    cmd = [sys.executable, "-m", "sscg", "agent" if req.agentic else "scan", arg, "--out", str(OUT / name),
            "--top", "0"]
     cmd += ["--base", req.base.strip()] if req.base.strip() else ["--no-diff"]
     cmd += [] if req.osv else ["--no-vulns"]
+    cmd += ["--resolve-npm"] if req.resolve_npm else []
     cmd += ["--offline"] if req.offline else []
     cmd += ["--focus", req.focus.strip()] if req.focus.strip() else []
     if req.agentic:
@@ -332,6 +357,83 @@ def job(job_id: str, since: int = Query(0, ge=0)):
     if not j:
         raise HTTPException(404, "unknown job")
     return job_view(j, since)
+
+
+@app.get("/api/jobs/{job_id}/events")
+async def job_events(job_id: str, since: int = Query(0, ge=0)):
+    """Server-sent events: the job's new console lines as they appear, then one final status."""
+    import asyncio
+    if job_id not in JOBS:
+        raise HTTPException(404, "unknown job")
+
+    async def stream():
+        pos = since
+        while True:
+            v = job_view(JOBS[job_id], pos)
+            pos = v["line_count"]
+            yield f"data: {json.dumps(v)}\n\n"
+            if v["status"] != "running":
+                return
+            await asyncio.sleep(0.4)
+    return StreamingResponse(stream(), media_type="text/event-stream", headers={"Cache-Control": "no-cache"})
+
+
+# ------------------------------------------------------------------ OKF context bundle
+def _concept(cid: str) -> tuple[dict, str]:
+    try:
+        return okf.Store().read(cid)
+    except KeyError:
+        raise HTTPException(404, "unknown concept") from None
+
+
+@app.get("/api/okf/index")
+def okf_index(dir: str = ""):
+    st = okf.Store()
+    return [st.card(c) for c in st.ids(dir.strip("/") + "/" if dir.strip("/") else "")]
+
+
+@app.get("/api/okf/search")
+def okf_search(q: str = Query(..., max_length=200), type: str | None = None, min_trust: str = "unverified", k: int = Query(10, ge=1, le=50)):
+    return okf.Store().search(q, [type] if type else None, min_trust, k)
+
+
+@app.get("/api/okf/lint")
+def okf_lint():
+    return {"problems": okf.Store().lint()}
+
+
+@app.get("/api/okf/neighbors/{cid:path}")
+def okf_neighbors(cid: str):
+    _concept(cid)
+    return okf.Store().neighbors(cid)
+
+
+class VerifyRequest(BaseModel):
+    by: str = Field(..., min_length=1, max_length=100, pattern=r"^[\w .@-]+$")
+
+
+@app.post("/api/okf/concepts/{cid:path}/verify")
+def okf_verify(cid: str, req: VerifyRequest):
+    _concept(cid)
+    okf.Store().verify(cid, req.by.strip())
+    return okf.Store().card(cid)
+
+
+@app.get("/api/okf/concepts/{cid:path}")
+def okf_concept(cid: str):
+    meta, body = _concept(cid)
+    return {"id": cid, "meta": json.loads(json.dumps(meta, default=str)), "body": body, "trust": okf.trust(meta), "stale": okf.stale(meta)}
+
+
+@app.get("/api/runs/{run_id}/okf.zip")
+def okf_zip(run_id: str):
+    if not re.fullmatch(r"[0-9a-f]{12}", run_id):
+        raise HTTPException(400, "invalid run id")
+    st = okf.Store()
+    if not st.ids(f"scans/{run_id}/"):
+        raise HTTPException(404, "unknown run")
+    return Response(st.export(run_id), media_type="application/zip",
+                    headers={"Content-Disposition": f'attachment; filename="okf-{run_id}.zip"'})
 
 
 # ------------------------------------------------------------------ the built React app (npm run build in sscg/web)

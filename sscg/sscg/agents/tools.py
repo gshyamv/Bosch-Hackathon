@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from .. import cache, gitutil
+from .. import cache, gitutil, okf
 from ..rules.common import read
 
 CONTEXT_LINES = 4
@@ -129,6 +129,8 @@ def commit_history(rt, f: dict, state: dict) -> dict:
            "files_changed_in_change": [f"{x['status']} {x['path']}" for x in ch["files"]][:25],
            "components_added": [a["label"] for a in ch["added"]][:25],
            "components_changed": [f"{x['base']} -> {x['head']} ({', '.join(x['fields'])})" for x in ch["changed"]][:25]}
+    if not getattr(rt.target, "is_git", False):     # fetched files are not a git checkout
+        return res
     emails = gitutil.git(rt.repo, "log", "--format=%ae") or ""
     res["author_commit_count"] = sum(1 for e in emails.splitlines() if e.lower() == h["email"].lower())
     paths = [p for p, _ in _locations(f)]
@@ -154,15 +156,34 @@ def graph_context(rt, f: dict, state: dict) -> dict:
             "other_findings_on_this_component": related}
 
 
+def okf_search(rt, f: dict, state: dict, query: str = "") -> dict:
+    hits = rt.ctx.store.search(query or f"{f['rule']} {f['type']}", min_trust="process") if rt.ctx else []
+    pb = f"knowledge/playbooks/{f['rule']}"
+    return {"results": hits, "playbook": pb}
+
+
+def okf_read(rt, f: dict, state: dict, query: str = "") -> dict:
+    cid = (query or f"knowledge/playbooks/{f['rule']}").strip().removeprefix("/").removesuffix(".md")
+    meta, body = rt.ctx.store.read(cid)
+    return {"id": cid, "trust": okf.trust(meta), "stale": okf.stale(meta), "text": body[:1500]}
+
+
+def okf_neighbors(rt, f: dict, state: dict, query: str = "") -> dict:
+    cid = (query or f"knowledge/playbooks/{f['rule']}").strip().removeprefix("/").removesuffix(".md")
+    return {"id": cid, "linked": rt.ctx.store.neighbors(cid)[:10]}
+
+
 TOOLS = {"registry_metadata": registry_metadata, "repo_file_context": repo_file_context,
-         "commit_history": commit_history, "graph_context": graph_context}
+         "commit_history": commit_history, "graph_context": graph_context,
+         "okf_search": okf_search, "okf_read": okf_read, "okf_neighbors": okf_neighbors}
+OKF_TOOLS = {"okf_search", "okf_read", "okf_neighbors"}
 
 
-def run_tool(name: str, rt, f: dict, state: dict) -> dict:
+def run_tool(name: str, rt, f: dict, state: dict, query: str = "") -> dict:
     fn = TOOLS.get(name)
     if fn is None:
         return {"found": None, "note": f"unknown tool '{name}'"}
     try:
-        return fn(rt, f, state)
+        return fn(rt, f, state, query) if name in OKF_TOOLS else fn(rt, f, state)
     except Exception as e:  # a failing tool must never break the run: it becomes "no evidence"
         return {"found": None, "note": f"tool failed: {type(e).__name__}: {str(e)[:200]}"}

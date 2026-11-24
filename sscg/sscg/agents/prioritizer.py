@@ -137,6 +137,8 @@ def prioritize(state: dict) -> dict:
     tri = state.get("triage", {})
     items = [score_finding(f, ex, reach, tri.get(f["finding_id"]), exposure) for f in state["findings"]]
     items.sort(key=lambda i: (-int(i.urgent), -i.score, i.finding_id))
+    for i in items:
+        rt.note(lambda c, d=i.model_dump(): c.write("PriorityNote", d))
     n = {p: sum(i.priority == p for i in items) for p in ("P0", "P1", "P2", "P3")}
     rt.log("Prioritizer", " · ".join(f"{p} {c}" for p, c in n.items())
            + f" · urgent {sum(i.urgent for i in items)}")

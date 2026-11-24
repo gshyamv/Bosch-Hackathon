@@ -26,7 +26,7 @@ def approval_request(props: list) -> dict:
     return {"type": "approval_request", "proposals": [
         {k: p.get(k) for k in ("proposal_id", "action", "component", "from_version", "to_version", "priority",
                                "urgent", "patchable", "compatibility_level", "compatibility_impact", "rationale",
-                               "ai_rationale", "residual_advisories", "finding_ids", "files_affected", "diff", "status")}
+                               "ai_rationale", "residual_advisories", "finding_ids", "files_affected", "diff", "status", "cluster_ids")}
         for p in props]}
 
 
@@ -41,6 +41,9 @@ def human_approval(state: dict) -> dict:
                               approver=a.get("approver") or "unknown", reason=a.get("reason", ""),
                               decided_at=now(), expires_at=a.get("expires_at")).model_dump()
                for a in (answer or []) if a.get("proposal_id") in ids and a.get("decision") in STATUS]
+    rt = get(state["run_id"])
+    for r in records:
+        rt.note(lambda c, r=r: c.write("ApprovalNote", {**r, "reviewer": f"human:{r['approver']}", "comment": r["reason"]}))
     dec = {r["proposal_id"]: r["decision"] for r in records}
     updated = [{**p, "status": STATUS[dec[p["proposal_id"]]] if p["proposal_id"] in dec else "pending"} for p in props]
     n = {s: sum(p["status"] == s for p in updated) for s in ("approved", "rejected", "risk_accepted", "pending")}
@@ -59,7 +62,7 @@ def validate(state: dict) -> dict:
         return {"validations": [rep.model_dump()]}
     base = ((state.get("change") or {}).get("base") or {}).get("sha")
     work = Path(os.getenv("SSCG_SANDBOX_DIR") or (Path(os.getenv("TEMP", "/tmp")) / f"sscg-validate-{state['run_id']}"))
-    res = validation.validate(rt.repo, state["findings"], rt.dg, props, base, workdir=work,
+    res = validation.validate(rt.target, state["findings"], rt.dg, props, base, workdir=work,
                               baseline=not state["options"].get("no_baseline"),
                               log=lambda m: rt.log("Validation", m))
     v, conf, reasons = validation.verdict(res)
@@ -71,6 +74,9 @@ def validate(state: dict) -> dict:
                            reasons=reasons, patch_file=str(patch), **{k: res[k] for k in (
                                "steps_before", "steps_after", "findings_before", "findings_after", "resolved",
                                "remaining", "new", "per_proposal", "sbom_diff", "applied_files", "workdir", "docker")})
+    rt.note(lambda c: c.write("ValidationResult", {
+        "validation_id": "val-1", **{k: getattr(rep, k) for k in ("proposal_ids", "verdict", "confidence", "reasons", "resolved", "new",
+                                                              "sbom_diff")}, "steps": rep.steps_before + rep.steps_after}))
     rt.log("Validation", f"{v.upper()} ({conf} confidence): resolved {len(res['resolved'])}, remaining "
                          f"{len(res['remaining'])}, new {len(res['new'])} · patch: {patch}")
     return {"validations": [rep.model_dump()], "_run": {"verdict": v, "resolved": len(res["resolved"]),
@@ -88,7 +94,7 @@ def remediation_report(state: dict) -> dict:
     out = rt.out / "remediation"
     out.mkdir(parents=True, exist_ok=True)
     s = {**state, "generated_at": now(), "engine": rt.settings.engine, "kb_version": rt.kb.version}
-    md = render_mod.render(s, rt.repo.name)
+    md = render_mod.render(s, rt.target.name)
     (out / "remediation_report.md").write_text(md, encoding="utf-8")
     files = ["remediation_report.md"]
     (out / "remediation_report.html").write_text(to_html(md), encoding="utf-8")
@@ -98,7 +104,7 @@ def remediation_report(state: dict) -> dict:
         files.append("remediation_report.pdf")
     except Exception as e:  # noqa: BLE001  (a PDF problem never breaks the run)
         rt.log("Remediation Reporter", f"PDF not written: {type(e).__name__}: {e}")
-    doc = {"run_id": state["run_id"], "application": rt.repo.name, "generated_at": s["generated_at"],
+    doc = {"run_id": state["run_id"], "application": rt.target.name, "generated_at": s["generated_at"],
            "exploitability_sources": (state.get("exploitability") or {}).get("sources"),
            "exposure": (state.get("reachability") or {}).get("exposure"),
            "reachability_summary": (state.get("reachability") or {}).get("summary"),

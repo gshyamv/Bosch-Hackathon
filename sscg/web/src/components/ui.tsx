@@ -371,7 +371,7 @@ export function DepPath({ path }: { path: string[] }) {
 export function EvidenceLine({ e }: { e: Evidence }) {
   switch (e.type) {
     case "file":
-      return <span><Code>{e.path}:{e.line}</Code> <span className="font-mono text-xs text-slate-600">{e.snippet}</span>{e.indicator && <span className="text-slate-500"> ({e.indicator})</span>}</span>;
+      return <span><Code>{e.path}:{e.line}</Code> {e.permalink && <a className="text-brand-700 hover:underline" href={e.permalink} target="_blank" rel="noreferrer">link</a>} <span className="font-mono text-xs text-slate-600">{e.snippet}</span>{e.indicator && <span className="text-slate-500"> ({e.indicator})</span>}</span>;
     case "advisory":
       return (
         <span>

@@ -1,0 +1,10 @@
+[tool.poetry]
+name = "p"
+version = "0.1.0"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+requests = "^2.25"
+
+[tool.poetry.group.dev.dependencies]
+black = "^22"

@@ -11,12 +11,14 @@ from pydantic import BaseModel, Field
 
 Verdict = Literal["likely_malicious", "suspicious", "likely_benign", "needs_human_review"]
 Confidence = Literal["low", "medium", "high"]
-ToolName = Literal["registry_metadata", "repo_file_context", "commit_history", "graph_context"]
+ToolName = Literal["registry_metadata", "repo_file_context", "commit_history", "graph_context",
+                   "okf_search", "okf_read", "okf_neighbors"]
 
 
 class EvidenceRequest(BaseModel):
     tool: ToolName
     reason: str = Field("")
+    query: str = Field("", description="okf_search: words; okf_read / okf_neighbors: concept id")
 
 
 class TriageAssessment(BaseModel):
@@ -85,6 +87,7 @@ class RemediationProposal(BaseModel):
     """One remediation, built by the deterministic planner (sscg/remediation.py). `ai_*` fields are LLM inference."""
     proposal_id: str
     finding_ids: list[str]
+    cluster_ids: list[str] = Field(default_factory=list)  # root causes (relevance.py)
     action: Action
     component: str | None = None
     from_version: str | None = None

@@ -16,7 +16,8 @@ from .model import DepGraph
 from .versions import fixed_for, sort_versions
 
 OSV = "https://api.osv.dev/v1"
-OSV_ECO = {"npm": "npm", "pypi": "PyPI", "maven": "Maven"}
+OSV_ECO = {"npm": "npm", "pypi": "PyPI", "maven": "Maven", "rubygems": "RubyGems", "cargo": "crates.io",
+           "go": "Go", "nuget": "NuGet"}
 LABELS = {"LOW": "LOW", "MODERATE": "MEDIUM", "MEDIUM": "MEDIUM", "HIGH": "HIGH", "CRITICAL": "CRITICAL"}
 
 
@@ -24,15 +25,19 @@ def _norm(eco: str, name: str) -> str:
     return re.sub(r"[-_.]+", "-", name).lower() if eco == "pypi" else name.lower()
 
 
+def _ver(eco: str, version: str) -> str:
+    return version.removeprefix("v") if eco == "go" else version      # OSV writes Go versions without the v
+
+
 def osv_overlay(dg: DepGraph) -> bool:
     """Step 1: advisory IDs per package version (node attribute `vulns`). False if OSV is unreachable."""
     G = dg.G
     pk = [(n, a) for n, a in G.nodes(data=True) if a["kind"] == "package"
-          and a["ecosystem"] in OSV_ECO and re.match(r"\d", str(a.get("version", "")))]
+          and a["ecosystem"] in OSV_ECO and re.match(r"\d", _ver(a["ecosystem"], str(a.get("version", ""))))]
     for i in range(0, len(pk), 500):
         batch = pk[i:i + 500]
         q = {"queries": [{"package": {"ecosystem": OSV_ECO[a["ecosystem"]], "name": a["name"]},
-                          "version": a["version"]} for _, a in batch]}
+                          "version": _ver(a["ecosystem"], a["version"])} for _, a in batch]}
         res = http_json("POST", f"{OSV}/querybatch", q)
         if not res:
             dg.notes.append("OSV unavailable (offline / network): vulnerabilities not checked")
@@ -109,6 +114,6 @@ def enrich(dg: DepGraph) -> int:
     for n, a in G.nodes(data=True):
         if not a.get("vulns"):
             continue
-        advs = [_advisory(details[i], a["ecosystem"], a["name"], a["version"]) for i in a["vulns"] if details.get(i)]
+        advs = [_advisory(details[i], a["ecosystem"], a["name"], _ver(a["ecosystem"], a["version"])) for i in a["vulns"] if details.get(i)]
         a["advisories"] = _dedupe(advs)
     return len(ids)

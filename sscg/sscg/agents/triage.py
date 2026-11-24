@@ -172,6 +172,9 @@ def triage_join(state: dict) -> dict:
     """Barrier after the parallel triage tasks: who needs another evidence round?"""
     rt = get(state["run_id"])
     rnd = state.get("triage_round", 0) + 1
+    for fid in state["triage_queue"]:
+        rt.note(lambda c, t=state["triage"][fid]: c.on_triage(
+            t, [e["id"] for e in state.get("tool_evidence", {}).get(t["finding_id"], [])]))
     again = [fid for fid in state["triage_queue"] if state["triage"].get(fid, {}).get("needs_more_evidence")] \
         if rnd < rt.settings.max_rounds else []
     if again:

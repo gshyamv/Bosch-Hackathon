@@ -158,7 +158,7 @@ def read_cyclonedx(dg: DepGraph, path: Path):
             ref2id[ref] = ref
             continue
         p = c.get("purl") or ""
-        eco = props.get("sscg:ecosystem") or (p[4:].split("/")[0] if p.startswith("pkg:") else "generic")
+        eco = props.get("sscg:ecosystem") or ({"gem": "rubygems", "golang": "go"}.get(p[4:].split("/")[0], p[4:].split("/")[0]) if p.startswith("pkg:") else "generic")
         nid = ref if "sscg:kind" in props else (p.split("?")[0] if p else ref)
         urls = [r["url"] for r in c.get("externalReferences", []) if r.get("type") in ("distribution", "vcs")]
         scope = props.get("sscg:scope") or {"required": "prod", "optional": "optional",

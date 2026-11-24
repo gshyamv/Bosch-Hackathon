@@ -17,6 +17,7 @@ def purl(eco: str, name: str, version: str) -> str:
     if eco == "maven":
         g, _, a = name.partition(":")
         return f"pkg:maven/{g}/{a}@{version}"
+    eco = {"rubygems": "gem", "go": "golang"}.get(eco, eco)
     return f"pkg:{eco}/{name}@{version}"
 
 

@@ -22,7 +22,7 @@ export function Reports({ p }: { p: Project }) {
     <div>
       <PageHeader title="Reports" description="The Guardian report in human-readable (Markdown, HTML, PDF) and machine-readable (JSON, CycloneDX, patch) form." />
       <div className="grid gap-4 xl:grid-cols-[420px_1fr]">
-        <Card title="Output files" subtitle={`out/${p.name}/`} pad={false}>
+        <Card title="Output files" actions={p.agentic?.run_id ? <LinkButton href={`/api/runs/${p.agentic.run_id}/okf.zip`}><Download className="h-4 w-4" /> OKF context</LinkButton> : undefined} subtitle={`out/${p.name}/`} pad={false}>
           <DataTable rows={files} rowKey={(f) => f} cols={[
             { key: "f", label: "File", render: (f) => (
               <div className="flex items-start gap-2">

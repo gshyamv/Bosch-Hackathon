@@ -17,26 +17,36 @@ from .graph import compute_depth, summarize, view, why
 from .model import DepGraph
 from .rules import Ctx, run_all
 from .sbom import read_cyclonedx, write_cyclonedx
+from .target import as_target
 
 
-def build(repo: Path, sbom: Path | None = None, check_vulns: bool = True) -> DepGraph:
-    dg = DepGraph(repo.name)
+def build(target, sbom: Path | None = None, check_vulns: bool = True) -> DepGraph:
+    """target: a Target, a folder, a GitHub URL or a page URL (target.as_target)."""
+    target = as_target(target)
+    dg = DepGraph(target.name)
     if sbom:
         read_cyclonedx(dg, sbom)  # consume
+    elif target.kind == "live":
+        from .discover.livepage import add_page
+        target.head_dir()
+        add_page(dg, target.page)
     else:
-        found = discover(repo, dg)
+        found = discover(target.head_dir(), dg)
         if not found:
             dg.notes.append("no supported manifests found")
     if check_vulns and vulns.osv_overlay(dg):
         vulns.enrich(dg)
+    dg.notes += [n for n in target.notes if n not in dg.notes]
     compute_depth(dg)
     return dg
 
 
-def detect(repo: Path, dg: DepGraph, base_rev: str | None) -> tuple[list, object]:
+def detect(target, dg: DepGraph, base_rev: str | None) -> tuple[list, object]:
     """Vulnerability findings + rule findings, marked 'new' if absent in the base commit."""
+    target = as_target(target)
+    repo = target.head_dir()
     with tempfile.TemporaryDirectory(prefix="sscg-base-") as tmp:
-        change = diff.compute(repo, dg, base_rev, Path(tmp)) if base_rev else None
+        change = diff.compute(target, dg, base_rev, Path(tmp)) if base_rev else None
         raws = findings.vulnerability_raws(dg) + run_all(Ctx(repo, dg, change))
         base_keys = None
         if change:
@@ -44,15 +54,18 @@ def detect(repo: Path, dg: DepGraph, base_rev: str | None) -> tuple[list, object
             base_keys = {r["key"] for r in base_raws} | {
                 ("VULN", a["ecosystem"], a["name"], a["version"])
                 for _, a in change.base_dg.G.nodes(data=True) if a["kind"] == "package"}
-        return findings.build(dg, raws, change, base_keys), change
+        fs = findings.build(dg, raws, change, base_keys)
+        findings.add_permalinks(fs, target)
+        return fs, change
 
 
-def emit(repo: Path, out: Path, dg: DepGraph, fs: list, change, *, focus: str | None = None,
+def emit(target, out: Path, dg: DepGraph, fs: list, change, *, focus: str | None = None,
          max_depth: int | None = None, why_q=(), agentic: dict | None = None) -> dict:
     """Write every detection artifact. `agentic` (optional) adds the clearly separated AI section to the report.
 
     Shared by the plain `scan` command and the agent graph's Reporter node, so both produce identical evidence.
     """
+    target = as_target(target)
     out.mkdir(parents=True, exist_ok=True)
     s = summarize(dg)
     H = view(dg, focus, max_depth)
@@ -64,7 +77,8 @@ def emit(repo: Path, out: Path, dg: DepGraph, fs: list, change, *, focus: str | 
     s["sbom"] = {"file": "sbom.cdx.json", "format": "CycloneDX 1.5 JSON",
                  "components": len(bom["components"]), "dependency_entries": len(bom["dependencies"])}
     s["why"] = {q: why(dg, q) for q in why_q}
-    doc = findings.document(repo.name, dg, fs, change, __version__)
+    doc = findings.document(target.name, dg, fs, change, __version__)
+    doc["scan"]["target"] = {"kind": target.kind, "display": target.display, "sha": target.sha}
     s["findings"] = doc["counts"]
     (out / "summary.json").write_text(json.dumps(s, indent=2), encoding="utf-8")
     (out / "findings.json").write_text(json.dumps(doc, indent=1, default=str), encoding="utf-8")
@@ -76,10 +90,10 @@ def emit(repo: Path, out: Path, dg: DepGraph, fs: list, change, *, focus: str | 
     return {"summary": s, "doc": doc, "files": files}
 
 
-def print_console(repo: Path, out: Path, dg: DepGraph, fs: list, change, res: dict, top: int):
+def print_console(target, out: Path, dg: DepGraph, fs: list, change, res: dict, top: int):
     s, doc = res["summary"], res["doc"]
     c = doc["counts"]
-    print(f"\n=== Guardian scan: {repo.name} ===")
+    print(f"\n=== Guardian scan: {as_target(target).display if not isinstance(target, Path) else target.name} ===")
     print(f"  ① components      : {s['components_total']} ({s['packages']} libraries: {s['direct']} direct, "
           f"{s['transitive']} transitive, depth {s['max_depth']}) · {len(s['container_images'])} images · "
           f"{s['by_ecosystem'].get('github-actions', 0)} CI actions")

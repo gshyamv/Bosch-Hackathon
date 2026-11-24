@@ -192,6 +192,10 @@ def diff_for(root: Path, edits: list[dict]) -> str:
 
 
 # ------------------------------------------------------------------------------------------------ planner
+ECO_CMD = {"rubygems": "bundle update {name} --conservative", "cargo": "cargo update -p {name} --precise {to}",
+           "go": "go get {name}@v{to}", "nuget": "dotnet add package {name} --version {to}"}
+
+
 def _file_of(loc: str | None) -> str | None:
     if not loc or loc.startswith("commit"):
         return None
@@ -247,12 +251,16 @@ def _bump(old: str | None, new: str | None) -> str:
     return "minor" if o[1] != n[1] else "patch"
 
 
-def _lock_entry(repo: Path, change: dict | None, lock: str, name: str) -> tuple[str, dict] | None:
+def _lock_entry(repo: Path, target, change: dict | None, lock: str, name: str) -> tuple[str, dict] | None:
     """Last known-good lockfile fields of `name` from the base commit."""
     sha = ((change or {}).get("base") or {}).get("sha")
     if not sha:
         return None
-    text = gitutil.git(repo, "show", f"{sha}:{lock}")
+    if target is not None and target.kind == "github":
+        base = target.base_dir(sha, repo)
+        text = (base / lock).read_text(encoding="utf-8") if base and (base / lock).is_file() else None
+    else:
+        text = gitutil.git(repo, "show", f"{sha}:{lock}")
     try:
         data = json.loads(text or "")
     except ValueError:
@@ -266,7 +274,8 @@ def _lock_entry(repo: Path, change: dict | None, lock: str, name: str) -> tuple[
 
 class Planner:
     def __init__(self, repo: Path, dg, findings: list, priorities: list, reach: dict, change: dict | None, kb,
-                 triage: dict | None = None):
+                 triage: dict | None = None, target=None):
+        self.target = target
         self.repo, self.dg, self.change, self.kb = repo, dg, change, kb
         self.by_id = {f["finding_id"]: f for f in findings}
         self.prio = {p["finding_id"]: p for p in priorities}
@@ -276,7 +285,7 @@ class Planner:
     # -- grouping
     def key(self, f: dict):
         c = f.get("component") or {}
-        if c.get("ecosystem") in ("npm", "pypi", "maven"):
+        if c.get("ecosystem") in ("npm", "pypi", "maven", "rubygems", "cargo", "go", "nuget"):
             return ("pkg", c["ecosystem"], c["name"])      # all versions of a package: one coherent fix
         if c.get("ecosystem") == "docker":
             return ("image", _file_of(f.get("location")) or c["id"])
@@ -373,6 +382,14 @@ class Planner:
         if not man:
             return {**out, "action": "escalate_review", "rationale": f"{comp['label']}: the declaring manifest could not be "
                     "located, so no automatic edit is proposed.", "notes": ["manual change needed"]}
+
+        if eco in ECO_CMD:      # no verified patch writer for these ecosystems: exact guidance, human edit
+            fx = [x for f in vulns if (x := (f.get("fixes") or {}).get("upgrade_to_at_least"))]
+            to = sort_versions(fx)[-1] if fx else None
+            return {**out, "action": "escalate_review", "to_version": to,
+                    "rationale": f"{comp['label']} in {man}: " + (f"upgrade to at least {to} (OSV fixed version)"
+                                 if to else "no fixed version published, or not a vulnerability; review it") + ".",
+                    "notes": [ECO_CMD[eco].format(name=name, to=to)] if to else []}
 
         # 1. malicious / typosquatted package: remove it, add the package that was probably intended
         if malicious or "R01_TYPOSQUAT" in rules:
@@ -471,7 +488,7 @@ class Planner:
         if rules & {"R05_LOCKFILE_UNTRUSTED_SOURCE", "R06_LOCKFILE_INTEGRITY_CHANGED", "R07_LOCKFILE_DRIFT",
                     "R19_SUSPICIOUS_UPDATE"} and eco == "npm":
             lock = str(PurePosixPath(man).parent / "package-lock.json")
-            good = _lock_entry(self.repo, self.change, lock, name)
+            good = _lock_entry(self.repo, self.target, self.change, lock, name)
             if good:
                 edits = [{"file": lock, "op": "lock_restore", "key": good[0], "name": name, "fields": good[1]}]
                 why = f"restore the base commit's lockfile entry ({good[1].get('resolved', '')})"

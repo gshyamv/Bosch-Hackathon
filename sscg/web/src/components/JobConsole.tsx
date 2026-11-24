@@ -29,8 +29,16 @@ export function JobConsole({ jobId, onDone, onClose }: { jobId: string; onDone: 
       } catch { /* server restarting: keep polling */ }
       if (!stop) setTimeout(tick, 900);
     }
-    tick();
-    return () => { stop = true; };
+    const apply = (j: Job) => {
+      since.current = j.line_count;
+      if (j.lines.length) setLines((l) => [...l, ...j.lines].slice(-3000));
+      setJob(j);
+      if (j.status !== "running" && !done.current) { done.current = true; onDone(j); }
+    };
+    const es = new EventSource(`/api/jobs/${jobId}/events`);
+    es.onmessage = (m) => { const j = JSON.parse(m.data); apply(j); if (j.status !== "running") es.close(); };
+    es.onerror = () => { es.close(); if (!stop && !done.current) tick(); };   // fall back to polling
+    return () => { stop = true; es.close(); };
   }, [jobId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => { if (box.current) box.current.scrollTop = box.current.scrollHeight; }, [lines, open]);

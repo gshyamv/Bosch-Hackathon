@@ -5,7 +5,7 @@ import collections
 import re
 from pathlib import Path
 
-from . import docker, gha, maven, npm, pypi
+from . import docker, ecosystems, gha, maven, npm, pypi
 
 SKIP_DIRS = {"node_modules", ".git", "venv", ".venv", "env", "target", "dist", "build",
              "__pycache__", "bower_components", "vendor", ".tox", "site-packages"}
@@ -20,6 +20,8 @@ def discover(repo: Path, dg) -> collections.Counter:
         try:
             if p.name == "package.json":
                 npm.scan(dg, repo, p); found["npm"] += 1
+            elif ecosystems.handles(p):
+                ecosystems.scan(dg, repo, p); found[p.name] += 1
             elif p.name == "poetry.lock":
                 pypi.scan_poetry(dg, repo, p); found["poetry"] += 1
             elif re.fullmatch(r"requirements[\w.-]*\.txt", p.name) and not (p.parent / "poetry.lock").exists():

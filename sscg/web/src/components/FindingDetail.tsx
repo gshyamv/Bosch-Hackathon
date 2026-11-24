@@ -22,7 +22,7 @@ export function FindingDrawer({ f, triage, priority, onClose }:
             {c.purl && <div className="mt-1 font-mono text-xs text-slate-500">{c.purl}</div>}
           </DetailRow>
         )}
-        {f.location && <DetailRow label="Where"><Code>{f.location}</Code></DetailRow>}
+        {f.location && <DetailRow label="Where"><Code>{f.location}</Code>{f.permalink && <a className="ml-2 text-brand-700 hover:underline" href={f.permalink} target="_blank" rel="noreferrer">open at this commit</a>}</DetailRow>}
         {f.dependency_paths.length > 0 && (
           <DetailRow label="Dependency path">
             <div className="space-y-1.5">{f.dependency_paths.map((p, i) => <DepPath key={i} path={p} />)}</div>

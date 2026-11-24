@@ -24,6 +24,7 @@ class Runtime:
     out: Path
     settings: AgentSettings
     kb: KnowledgeBase
+    target: object = None         # target.Target (repo = target.head_dir())
     llm: object = None            # llm.LLM or None (rules-only fallback)
     dg: object = None             # model.DepGraph, set by the Discovery agent
     fs: list = field(default_factory=list)   # findings with internal keys, set by the Detection agent
@@ -31,6 +32,7 @@ class Runtime:
     labels: set = field(default_factory=set)  # every component label (for the grounding check)
     emitted: dict | None = None   # pipeline.emit() result, set by the Reporter
     llm_disabled: str | None = None   # circuit breaker: set after a fatal LLM error (bad model / key / quota)
+    ctx: object = None            # context.Context (notes + OKF) or None
     quiet: bool = False
     lock: threading.Lock = field(default_factory=threading.Lock)
 
@@ -38,6 +40,16 @@ class Runtime:
         if not self.quiet:
             with self.lock:
                 print(f"  [{agent}] {msg}", flush=True)
+
+    def note(self, fn) -> None:
+        """Context-store writes must never break a run."""
+        if self.ctx is None:
+            return
+        try:
+            with self.lock:
+                fn(self.ctx)
+        except Exception as e:  # noqa: BLE001
+            self.log("Context", f"note not stored: {type(e).__name__}: {str(e)[:120]}")
 
     def usable_llm(self):
         """The LLM client, or None when there is none or the circuit breaker tripped."""
@@ -93,4 +105,6 @@ def get(run_id: str) -> Runtime:
 
 
 def release(run_id: str) -> None:
-    _RUNTIMES.pop(run_id, None)
+    rt = _RUNTIMES.pop(run_id, None)
+    if rt and rt.ctx:
+        rt.ctx.close()

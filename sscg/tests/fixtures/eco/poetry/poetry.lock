@@ -1,0 +1,23 @@
+[[package]]
+name = "requests"
+version = "2.25.1"
+description = "HTTP"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+urllib3 = ">=1.21.1,<1.27"
+
+[[package]]
+name = "urllib3"
+version = "1.26.4"
+description = "HTTP"
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "black"
+version = "22.1.0"
+description = "fmt"
+optional = false
+python-versions = "*"

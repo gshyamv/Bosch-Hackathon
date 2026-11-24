@@ -64,6 +64,8 @@ continues with `Prioritized risk → Recommended fix → Human approval → Buil
 
 ---
 
+> **New:** scan any GitHub URL, live pages, Ruby/Rust/Go/.NET, container sandbox, OKF context: [docs/vv_merge.md](docs/vv_merge.md)
+
 ## 2. Quick start
 
 **Requirements:** Python **3.11.4+** (developed and tested on Windows 11 with Python 3.12.4; the code is portable but macOS/Linux are untested). Node, npm, Maven and Docker are **not** needed to scan. **Node.js 18+** is needed once, to build the web dashboard; npm, Maven and Docker are used by sandbox validation when installed.
@@ -481,7 +483,7 @@ What a "routine dependency refresh" really did, and what SSCG found:
 ```
 Bosch-Hackathon/
 ├── README.md                     ← this file
-├── Amrita_BD Hackathon_Problem_Statement (1).pdf
+├── docs/Amrita_BD Hackathon_Problem_Statement (1).pdf
 ├── sscg/                         ← the solution
 │   ├── README.md                 short quick-start
 │   ├── requirements.txt
