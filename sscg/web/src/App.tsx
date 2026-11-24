@@ -65,7 +65,7 @@ export default function App() {
     api.meta().then(setMeta).catch(() => undefined);
     loadTargets().then((t) => {
       if (!t.projects.length) return;
-      const keep = name && t.projects.some((p) => p.name === name) ? name : (t.projects.find((p) => p.name === "sscg-demo-target") || t.projects[0]).name;
+      const keep = name && t.projects.some((p) => p.name === name) ? name : (t.projects.find((p) => p.name === "sscg-demo-app") || t.projects[0]).name;
       setName(keep);
     }).catch((e) => setErr(`Cannot reach the API (${e.message}). Start it with: python -m sscg serve`));
   }, []); // eslint-disable-line react-hooks/exhaustive-deps

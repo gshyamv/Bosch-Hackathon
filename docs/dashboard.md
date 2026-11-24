@@ -136,7 +136,7 @@ and the remediation report.
 
 ## 10. A five-minute demo
 
-1. **New run** → `sscg-demo-target` → **Full: detect → remediate** → Start. Show the live console: discovery, OSV,
+1. **New run** → `sscg-demo-app` → **Full: detect → remediate** → Start. Show the live console: discovery, OSV,
    detection, triage, prioritisation, "PAUSED for human approval".
 2. **Overview:** *"31 components, 41 findings, 25 introduced by one commit from a first-time contributor."*
 3. **Supply chain → graph:** hover a red-outlined node. **Why is this package here?** `minimist` → `acme-orders → mkdirp → minimist`.

@@ -1,1 +1,0 @@
-{"nodes": [{"versionKey": {"system": "PYPI", "name": "cffi", "version": "2.0.0"}, "bundled": false, "relation": "SELF", "errors": []}, {"versionKey": {"system": "PYPI", "name": "pycparser", "version": "3.12.0"}, "bundled": false, "relation": "DIRECT", "errors": []}], "edges": [{"fromNode": 0, "toNode": 1, "requirement": ""}], "error": ""}

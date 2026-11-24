@@ -18,15 +18,15 @@ Prioritized risk  ->  Recommended fix  ->  Human approval  ->  Build & test  -> 
 ```powershell
 cd sscg
 # 1. detect, prioritise and propose fixes up to the approval gate; the run pauses and is saved to disk
-python -m sscg agent ..\targets\sscg-demo-target --remediate --decisions later
+python -m sscg agent ..\targets\sscg-demo-app --remediate --decisions later
 # 2. a human decides, in another process or the dashboard; the run resumes: sandbox build, test, rescan, report
-python -m sscg approve ..\targets\sscg-demo-target --approve all-patchable --by "Your Name"
+python -m sscg approve ..\targets\sscg-demo-app --approve all-patchable --by "Your Name"
 # or interactively in one go
-python -m sscg agent ..\targets\sscg-demo-target --remediate           # asks per proposal on the console
+python -m sscg agent ..\targets\sscg-demo-app --remediate           # asks per proposal on the console
 python -m sscg serve                                             # dashboard: New run -> "Full: detect -> remediate", approve on the Remediation page
 ```
 
-Outputs are in `out/<repo>/remediation/`: `remediation_report.md/.html/.pdf`, `remediation.json` (machine-readable),
+Outputs: one report `out/<repo>/report.md/.html/.pdf` (before → after), and in `out/<repo>/remediation/`: `remediation.json` (machine-readable),
 `remediation.patch` (everything that changed, including regenerated lockfiles) and, while paused, `pending.json`.
 **The original repository is never modified.** All changes happen in a sandbox copy.
 
@@ -60,7 +60,7 @@ flowchart TD
 | `advise_remediation` | **LLM** (optional) | `agents/remediator.py` |
 | `human_approval` | **human** (interrupt) | `agents/remediation_flow.py` |
 | `validate` | deterministic | `agents/remediation_flow.py` + `sscg/validation.py` |
-| `remediation_report` | deterministic | `agents/remediation_flow.py` + `sscg/remediation_report.py` |
+| `remediation_report` | deterministic | `agents/remediation_flow.py` + `sscg/report.py` |
 
 ---
 
@@ -227,7 +227,7 @@ repository is found automatically.
 
 ## 7. Verify & report: "show the complete story"
 
-`remediation/remediation_report.md` (plus `.html` and `.pdf`) follows the slide's checklist:
+The single report `report.md` (plus `.html` and `.pdf`) follows the slide's checklist:
 
 1. **Summary:** verdict, confidence, reasons, findings before → after, decisions.
 2. **Prioritized risks:** score, urgent flag, the reason for every point, confidence.
@@ -246,7 +246,7 @@ The dashboard's **Remediation** page shows:
 
 ## 8. Results
 
-**`targets/sscg-demo-target`** (our poisoned fixture), approving all 16 patchable proposals:
+**`targets/sscg-demo-app`** (our poisoned fixture), approving all 16 patchable proposals:
 
 | Step | Before (unchanged) | After (remediated) |
 |---|---|---|

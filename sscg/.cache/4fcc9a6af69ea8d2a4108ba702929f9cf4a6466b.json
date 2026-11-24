@@ -1,1 +1,0 @@
-{"nodes": [{"versionKey": {"system": "NPM", "name": "@types/node", "version": "26.0.1"}, "bundled": false, "relation": "SELF", "errors": []}, {"versionKey": {"system": "NPM", "name": "undici-types", "version": "8.3.0"}, "bundled": false, "relation": "DIRECT", "errors": []}], "edges": [{"fromNode": 0, "toNode": 1, "requirement": "~8.3.0"}], "error": ""}

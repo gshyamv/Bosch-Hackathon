@@ -26,8 +26,8 @@
 cd sscg
 pip install -r requirements.txt
 copy .env.example .env                     # put ONE real key in .env (or none: rules-only fallback)
-python -m sscg agent ..\targets\sscg-demo-target
-python -m sscg agent ..\targets\sscg-demo-target --llm claude --remediate     # docs/remediation.md
+python -m sscg agent ..\targets\sscg-demo-app
+python -m sscg agent ..\targets\sscg-demo-app --llm claude --remediate     # docs/remediation.md
 python -m sscg serve                       # dashboard: New run → "Detect + AI agents" → AI triage page
 ```
 
@@ -330,7 +330,7 @@ See **[docs/remediation.md](remediation.md)** for the full description. In short
 * **Recommend:** `agents/remediator.py` + `sscg/remediation.py`, with exact patches and an LLM rationale.
 * **Approve:** a LangGraph interrupt with a SQLite checkpoint, then `python -m sscg approve` or the dashboard.
 * **Validate:** `sscg/validation.py`, a sandbox build/test before and after, then a rescan.
-* **Report:** `sscg/remediation_report.py`.
+* **Report:** `sscg/report.py` (one report, before → after).
 
 **Recipe: adding an agent node**
 

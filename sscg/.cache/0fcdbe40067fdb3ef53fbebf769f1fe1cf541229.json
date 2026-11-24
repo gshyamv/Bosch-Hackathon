@@ -1,1 +1,0 @@
-{"nodes": [{"versionKey": {"system": "MAVEN", "name": "org.zeroturnaround:zt-zip", "version": "1.12"}, "bundled": false, "relation": "SELF", "errors": []}, {"versionKey": {"system": "MAVEN", "name": "org.slf4j:slf4j-api", "version": "1.6.6"}, "bundled": false, "relation": "DIRECT", "errors": []}], "edges": [{"fromNode": 0, "toNode": 1, "requirement": "1.6.6"}], "error": ""}

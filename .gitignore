@@ -20,6 +20,15 @@ sscg/.work/
 sscg/.context/
 sscg/.okf/
 
-# scan results: only the demo snapshot is kept in git
-sscg/out/*
-!sscg/out/sscg-demo-target/
+
+# local caches, run outputs and editor/build files (rebuilt locally)
+sscg/.cache/
+sscg/out/
+*.tsbuildinfo
+.vscode/
+.idea/
+*.log
+
+# sample apps are cloned locally (see README); only the demo app is a submodule
+targets/*
+!targets/sscg-demo-app

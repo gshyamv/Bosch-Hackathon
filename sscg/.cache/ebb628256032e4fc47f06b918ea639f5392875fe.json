@@ -1,1 +1,0 @@
-{"nodes": [{"versionKey": {"system": "PYPI", "name": "gunicorn", "version": "23.0.0"}, "bundled": false, "relation": "SELF", "errors": []}, {"versionKey": {"system": "PYPI", "name": "packaging", "version": "26.3.0"}, "bundled": false, "relation": "DIRECT", "errors": []}], "edges": [{"fromNode": 0, "toNode": 1, "requirement": ""}], "error": ""}

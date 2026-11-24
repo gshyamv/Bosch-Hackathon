@@ -15,6 +15,10 @@ SSCG takes a repository from **discovery to verified remediation**. It scans **w
 
 > **Agentic AI layer:** `python -m sscg agent <repo>` runs the same pipeline as a **LangGraph multi-agent workflow**: deterministic agents wrap the modules below, a **Triage agent** (Claude, Gemini, Groq, DeepSeek or Grok) judges the suspicious changes rules cannot decide on their own, gathering more evidence when it needs it, and a **Narrator agent** writes the summary. AI output is kept apart from the evidence, grounding-checked, and falls back to rules when no API key is set. With `--remediate` the same run continues: prioritise → remediate → human approval → sandbox validation → report (**[docs/remediation.md](docs/remediation.md)**). Agent details: **[docs/agentic.md](docs/agentic.md)**.
 
+![Supply Chain Guardian: end-to-end workflow](docs/images/architecture.jpeg)
+
+Step-by-step walkthrough of every agent, the sandbox and the loop: **[docs/workflow_architecture.md](docs/workflow_architecture.md)**.
+
 ---
 
 ## Table of contents
@@ -57,14 +61,14 @@ SSCG takes a repository from **discovery to verified remediation**. It scans **w
 | **4 · Remediate** | Upgrade · replace · remove · pin · update base image · block · escalate, with risk reduction, compatibility and rollback | ✅ | `remediation.py`, `registry.py`, `agents/remediator.py` |
 | | No change without human approval | ✅ | LangGraph interrupt, `python -m sscg approve`, dashboard approval board |
 | **5 · Validate & report** | Apply in a sandbox; build, test, rescan; compare SBOMs; detect newly introduced problems | ✅ | `validation.py` |
-| | Report: finding, approved action, build/test results, before/after risk, remaining risk, audit trail | ✅ | `remediation_report.py` |
+| | Report: finding, approved action, build/test results, before/after risk, remaining risk, audit trail | ✅ | `report.py` |
 
 Every scan produces `Repository → SBOM → Dependency graph → Risk detection → Evidence`. `python -m sscg agent --remediate`
 continues with `Prioritized risk → Recommended fix → Human approval → Build & test → Rescan → Verified remediation`.
 
 ---
 
-> **New:** scan any GitHub URL, live pages, Ruby/Rust/Go/.NET, container sandbox, OKF context: [docs/vv_merge.md](docs/vv_merge.md)
+> **New:** scan any GitHub URL, live pages, Ruby/Rust/Go/.NET, container sandbox, OKF context: [docs/workflow_architecture.md](docs/workflow_architecture.md)
 
 ## 2. Quick start
 
@@ -81,11 +85,11 @@ python -m venv .venv
 pip install -r requirements.txt
 
 # 3. scan a sample application (discover, detect, evidence)
-python -m sscg scan ..\targets\sscg-demo-target
+python -m sscg scan ..\targets\sscg-demo-app
 
 # 4. look at the results
-start out\sscg-demo-target\report.md  # evidence report (also report.html, report.pdf)
-start out\sscg-demo-target\graph.html # interactive graph
+start out\sscg-demo-app\report.md  # evidence report (also report.html, report.pdf)
+start out\sscg-demo-app\graph.html # interactive graph
 
 # 5. the web dashboard (React + FastAPI): build the UI once, then serve it
 cd web; npm install; npm run build; cd ..
@@ -93,18 +97,23 @@ python -m sscg serve                  # dashboard at http://127.0.0.1:8000
 
 # 6. optional: the agentic version (LangGraph agents + LLM triage; see docs/agentic.md)
 copy .env.example .env                # then put ONE real API key (Claude, Gemini, Groq, DeepSeek or Grok) into .env
-python -m sscg agent ..\targets\sscg-demo-target            # no key = rules-only fallback, still works
-python -m sscg agent ..\targets\sscg-demo-target --remediate      # + prioritise, remediate, approve, validate (docs/remediation.md)
+python -m sscg agent ..\targets\sscg-demo-app            # no key = rules-only fallback, still works
+python -m sscg agent ..\targets\sscg-demo-app --remediate      # + prioritise, remediate, approve, validate (docs/remediation.md)
 ```
 
 The repository ships with cached API responses (`sscg/.cache/`), so `--offline` works for all three sample apps without internet.
 
-**Getting the sample applications.** `targets/sscg-demo-target` is our own test fixture. `nodejs-goof` (Snyk) and `juice-shop` (OWASP) are public, deliberately vulnerable apps. If they are missing:
+**Getting the sample applications.** `targets/sscg-demo-app` is our own demo repository, included as a git submodule
+([vishnstad/Vulnerable-Demo-Repo-for-testing-](https://github.com/vishnstad/Vulnerable-Demo-Repo-for-testing-)).
+`nodejs-goof` (Snyk) and `juice-shop` (OWASP) are public, deliberately vulnerable apps cloned locally:
+
 ```powershell
+git submodule update --init targets/sscg-demo-app                                     # our demo app (3 commits)
 git clone --depth 1 https://github.com/snyk-labs/nodejs-goof.git targets\nodejs-goof   # scanned at commit add14ba
 git clone --depth 1 https://github.com/juice-shop/juice-shop.git targets\juice-shop    # scanned at commit c9f9922
 ```
-> All three sample apps are git repositories of their own. `sscg-demo-target` **needs its 2-commit history** for "what changed". Commit them as submodules or as plain files (keeping the demo target's `.git`), otherwise a fresh clone of this repo has empty `targets/` folders. Shallow clones (`--depth 1`) have no previous commit, so "what changed" is skipped for them.
+
+GitHub targets can also be scanned by URL without cloning, e.g. `python -m sscg scan https://github.com/juice-shop/juice-shop`.
 
 ---
 
@@ -187,30 +196,30 @@ Run from inside the `sscg/` folder.
 | `--top N` | How many top findings to print (default 15). |
 
 ```powershell
-python -m sscg scan ..\targets\sscg-demo-target                       # everything, compares with HEAD~1
-python -m sscg scan ..\targets\sscg-demo-target --base bf0e651        # compare with a specific commit
+python -m sscg scan ..\targets\sscg-demo-app                       # everything, compares with HEAD~1
+python -m sscg scan ..\targets\sscg-demo-app --base d3ccc24        # compare with a specific commit
 python -m sscg scan ..\targets\nodejs-goof --why qs --focus qs        # trace qs
 python -m sscg scan ..\targets\juice-shop --offline                   # no network
 ```
 
 <details>
-<summary><b>Sample terminal output</b> (sscg-demo-target)</summary>
+<summary><b>Sample terminal output</b> (sscg-demo-app)</summary>
 
 ```
-=== Guardian scan: sscg-demo-target ===
-  ① components      : 31 (25 libraries: 13 direct, 12 transitive, depth 2) · 1 images · 3 CI actions
-  ② SBOM            : 36 components (CycloneDX 1.5)
-  what changed      : bf0e651 -> 8cad42e by fastbuilds42 (FIRST-TIME contributor): "chore: routine dependency refresh"; 6 files, +7 / -1 / ~1 components
-  ③ vulnerabilities : 16 vulnerable components (141 advisories)
-  ④ anomalies       : 25  (R08_UNEXPECTED_DEPENDENCY 3, R03_INSTALL_SCRIPT 2, R13_CONTAINER_HARDENING 2, R01_TYPOSQUAT 2, ...)
-  ⑤ findings        : 41 · Critical 21 · High 8 · Medium 12 · Low 0 · Info 0 · new in change 25
-    F-001 Critical 10.0  NEW 'postinstall' script scripts/setup.js runs shell commands / child processes, reads secrets from the environment, ...
-    F-002 Critical 10.0  NEW .github/workflows/ci.yml: 'pull_request_target' workflow checks out the pull request's own code
-    F-003 Critical 10.0  NEW .github/workflows/ci.yml: secret(s) NPM_TOKEN are passed to a downloaded script
-    F-004 Critical 10.0  NEW crossenv@7.0.3 is a documented malicious package
-    F-005 Critical 10.0  NEW lodash@4.17.15: same version, different content hash (and source) in package-lock.json
-    F-006 Critical 10.0  NEW python3-dateutil@2.8.1 is a documented malicious package
-    F-007 Critical 10.0      org.apache.logging.log4j:log4j-core@2.14.1: 8 known vulnerabilities (highest CRITICAL, CVSS 10.0)
+=== Guardian scan: sscg-demo-app ===
+  ① components      : 89 (84 libraries: 12 direct, 72 transitive, depth 4) · 1 images · 2 CI actions
+  ② SBOM            : 93 components (CycloneDX 1.5)
+  what changed      : 6438162 -> 3e4c4dd by dep-updater (FIRST-TIME contributor): "Use crossenv for cross-platform env vars in scripts"
+  ③ vulnerabilities : 18 vulnerable components (101 advisories)
+  ④ anomalies       : 13  (R13_CONTAINER_HARDENING 2, R12_REMOTE_SCRIPT_EXEC 2, R01_TYPOSQUAT 1, R02_KNOWN_MALICIOUS 1, R14_CI_PWN_REQUEST 1, ...)
+  ⑤ findings        : 31 · Critical 7 · High 14 · Medium 8 · Low 2 · Info 0 · new in change 4
+    F-001 Critical 10.0  NEW crossenv@6.1.1 is a documented malicious package
+    F-002 Critical  9.8      handlebars@4.7.6: 13 known vulnerabilities (highest CRITICAL, CVSS 9.8)
+    F-003 Critical  9.8      minimist@1.2.5: 1 known vulnerability (highest CRITICAL, CVSS 9.8)
+    F-004 Critical  9.8      pyyaml@5.3.0: 2 known vulnerabilities (highest CRITICAL, CVSS 9.8)
+    F-005 Critical  9.5      .github/workflows/ci.yml: 'pull_request_target' workflow checks out the pull request's own code
+    F-006 Critical  9.0  NEW 'crossenv' looks like the popular package 'cross-env'
+    F-007 Critical  9.0  NEW first-time contributor dep-updater changed 2 build/dependency files in 3e4c4dd
     ...
 ```
 </details>
@@ -233,7 +242,7 @@ Every scan writes to `out/<repo name>/`:
 | `graph.mmd` | discover | Mermaid diagram (graphs ≤ 80 nodes) |
 | `agentic.json` | analyze | `agent` command: AI triage, tool evidence, summary, agent runs and audit trail |
 | `remediation/pending.json` | remediate | `--remediate`: the proposals of a run waiting for human approval |
-| `remediation/remediation_report.{md,html,pdf}` | validate & report | finding → approved action → build/test → before/after risk → remaining risk → audit trail |
+| `report.{md,html,pdf}` (rewritten after validation) | validate & report | finding → approved action → build/test → before/after risk → remaining risk → audit trail |
 | `remediation/remediation.json` · `remediation.patch` | validate & report | the same, machine-readable, and every approved change as one patch |
 
 ---
@@ -283,16 +292,6 @@ Triggers, token `permissions`, every `uses:` action with its ref and whether it 
 | **Fix** | Per advisory `fixed_in`, plus the lowest version that fixes all of them (`upgrade_to_at_least`), and the list of advisories without a published fix. |
 
 One finding is created **per vulnerable component** (not per advisory). Its type is *Vulnerable direct dependency* or *Vulnerable transitive dependency*, the two categories from the slide.
-
-Example (sscg-demo-target):
-```
-F-007  org.apache.logging.log4j:log4j-core@2.14.1: 8 known vulnerabilities (highest CRITICAL, CVSS 10.0)
-       path: com.acme:notifier@1.0.0 → log4j-core@2.14.1
-       GHSA-jfh8-c2jp-5v3q  CVE-2021-44228 (Log4Shell)  CRITICAL  CVSS 10.0  fixed in 2.15.0
-       GHSA-7rjr-3q55-vv33  CVE-2021-45046              CRITICAL  CVSS 9.0   fixed in 2.16.0
-       ...                                              → upgrade to ≥ 2.25.4 fixes all 8
-F-009  minimist@0.0.8 (transitive): acme-orders → mkdirp@0.5.1 → minimist@0.0.8   introduced via mkdirp
-```
 
 **OSV `MAL-*` records** (known malicious packages) are not treated as vulnerabilities; they become rule R02 (suspicious changes).
 
@@ -411,30 +410,20 @@ The server listens on `127.0.0.1` only. It reads `out/<repo>/` and starts the sa
 
 ## 11. Results on the sample applications
 
-### 11.1 `targets/sscg-demo-target`: our multi-ecosystem fixture (with history)
+### 11.1 `targets/sscg-demo-app`: our multi-ecosystem demo (with history)
 
-A small "orders" service (npm + Python worker + Java notifier + Dockerfile + CI) with two commits. The second, by a new contributor, is titled *"chore: routine dependency refresh"*.
+A small Express service with a Python helper, a Dockerfile and a CI workflow, in three commits: a baseline by the
+maintainer, then two changes by **first-time contributors** (`new-contributor`, `dep-updater`). Deliberately insecure,
+never malicious: nothing in it sends data anywhere.
 
 | | |
 |---|---|
-| Inventory | 31 components: 25 libraries (npm 7, PyPI 10, Maven 8; 13 direct / 12 transitive), 1 image, 3 CI actions, 2 downloads · SBOM 36 components |
-| What changed | `bf0e651` → `8cad42e` by **fastbuilds42 (first-time contributor)** · 6 files · +7 / −1 / ~1 components |
-| Vulnerabilities | **16 vulnerable components, 141 advisories**, incl. Log4Shell (CVE-2021-44228, CVSS 10.0), jackson-databind (60 advisories), minimist via mkdirp (CVSS 9.8) |
-| Anomalies | **25, all new in the change** |
-| Findings | **41**: 21 Critical · 8 High · 12 Medium · **25 new** |
-
-What a "routine dependency refresh" really did, and what SSCG found:
-
-| Planted in `8cad42e` | Found as |
-|---|---|
-| `crossenv` (typosquat of `cross-env`, real 2017 malicious package) | R01 + R02 + R08 + R03 |
-| `postinstall` → `scripts/setup.js` with `child_process`, token names, a base64-hidden URL | R03 + **R04 Critical**, endpoint decoded: `http://telemetry.example.invalid/c` |
-| lodash moved to `npm-mirror.example.invalid`, **same version, new hash** | R05 + **R06 Critical** + R07 |
-| `python3-dateutil` (typosquat of `python-dateutil`, real 2019 malicious package) | R01 + R02 + R08 |
-| `urllib3` without a version | R08 + R09 |
-| base image → `fastbuilds42/node:latest`, `curl … \| sh`, `USER` removed, `npm install` with scripts | R10 + R11 + R12 + R13 ×2 |
-| CI → `pull_request_target` + PR checkout, `write-all`, `fastbuilds42/cache-helper@main`, `NPM_TOKEN` to `curl … \| bash` | **R14 + R16 + R15 + R12 + R17** |
-| all of it by a first-time author | R18 |
+| Inventory | 93 components: npm + PyPI libraries (12 direct / 72 transitive), 1 image (`node:latest`), 2 CI actions |
+| What changed | `6438162` → `3e4c4dd` by **dep-updater (first-time contributor)**: adds `crossenv` |
+| Vulnerabilities | **18 vulnerable components, 101 advisories**: handlebars, minimist, PyYAML (CVSS 9.8), axios, lodash, jsonwebtoken, Jinja2, requests, urllib3, qs … |
+| Suspicious changes | `crossenv` (real 2017 typosquat of `cross-env`, known malicious), new `postinstall` script, `pull_request_target` + PR checkout, `write-all`, unpinned action, `curl \| bash` in CI and Dockerfile, mutable image tag, root container |
+| Findings | **31**: 7 Critical · 14 High · 8 Medium · 2 Low |
+| Priorities (agent run) | **P0 3** (1 urgent: `crossenv`) · P1 9 · P2 15 · P3 4 → top proposal: replace `crossenv` with `cross-env` |
 
 ### 11.2 `targets/nodejs-goof`: Snyk's deliberately vulnerable Node.js app (shallow clone)
 
@@ -444,6 +433,10 @@ What a "routine dependency refresh" really did, and what SSCG found:
 | Vulnerabilities | **139 vulnerable components, 315 advisories**. `qs` ships in 3 versions via 3 parents: `express@4.12.4`, `body-parser@1.9.0`, `tap → coveralls → request` |
 | Anomalies | 15: 4 third-party install scripts, 4 workflows without `permissions:`, `snyk/actions/setup@master` unpinned (×2), Dockerfile runs `npm update`/`npm install` with scripts and as root, `morgan`/`method-override` requested as `latest` |
 | Findings | **154**: 24 Critical · 73 High · 37 Medium · 20 Low |
+
+| Full dependency graph | Focus on `qs` (`--why qs --focus qs`) |
+|---|---|
+| ![nodejs-goof full graph](docs/images/goof_full_graph.png) | ![qs focus](docs/images/goof_focus_qs.png) |
 
 ### 11.3 `targets/juice-shop`: OWASP Juice Shop (large, no lockfile, shallow clone)
 
@@ -462,15 +455,12 @@ What a "routine dependency refresh" really did, and what SSCG found:
 
 | Check | How | Result |
 |---|---|---|
-| **Ground truth (detect, evidence)** | the 9 planted anomalies and the vulnerability list in `docs/blueprint.md` §7.2–7.3 | ✅ all 9 anomalies, all listed vulnerable components (Log4Shell, Text4Shell, minimist, follow-redirects, …) |
-| **Ground truth (discover)** | expected components in `docs/blueprint.md` §7.1 | ✅ npm 7, image, 3 actions |
 | **CVSS calculator** | 7 reference CVSS 3.0/3.1 vectors (incl. 10.0, 9.8, 0.0, scope-changed cases) | ✅ 7/7 |
 | **Fix-version logic** | multiple ranges, `last_affected`, open ranges, pre-releases, 4-part / qualifier versions | ✅ |
 | **"New in change" logic** | compare HEAD with itself | ✅ 0 new findings, change-only rules silent |
 | **Typosquat false positives** | all 190 direct dependencies of nodejs-goof and juice-shop | ✅ 0 flagged |
 | **SBOM validity** | official CycloneDX 1.5 JSON schema, all 3 targets | ✅ 0 errors |
 | **Generate → consume round-trip** | write SBOM, read back with `--sbom`, compare graphs | ✅ identical on all 3 |
-| **Regression** | graph vs. the first builder (`archive/depgraph-v0`) | ✅ 0 diffs |
 | **Cross-check with npm** | nodejs-goof vs `npm ls` | ✅ 980 packages, 35 direct, depth 10 |
 | **Container / CI parser edge cases** | hand-written fixture (ARG in FROM, multi-stage chains, inherited USER, digest-only images, reusable workflows, SHA pins, `docker://`, `${{ }}` URLs …) | ✅ 16/16 |
 | **Offline mode** | rerun with `--offline` | ✅ identical findings |
@@ -483,7 +473,6 @@ What a "routine dependency refresh" really did, and what SSCG found:
 ```
 Bosch-Hackathon/
 ├── README.md                     ← this file
-├── docs/Amrita_BD Hackathon_Problem_Statement (1).pdf
 ├── sscg/                         ← the solution
 │   ├── README.md                 short quick-start
 │   ├── requirements.txt
@@ -510,12 +499,11 @@ Bosch-Hackathon/
 │   │                             · tools · guard · kb + knowledge/ (playbooks, attack patterns, policy) · llm · config
 │   ├── .env.example              LLM keys template (copy to .env, which is git-ignored)
 │   ├── web/                      React dashboard (Vite + TypeScript + Tailwind): src/pages · src/components
-│   ├── .cache/                   cached API responses
-│   └── out/<repo>/               scan results
+│   ├── .cache/                   cached API responses (local, git-ignored)
+│   └── out/<repo>/               scan results (local, git-ignored)
 ├── targets/                      sample applications (scanned, never run)
-│   ├── sscg-demo-target/  ·  nodejs-goof/  ·  juice-shop/
-├── docs/                         agentic.md · blueprint.md · graph_blueprint.md · dashboard.md · report.md · screenshots/
-└── archive/                      earlier prototypes (depgraph-v0, npm-ls-prototype, streamlit-ui)
+│   └── sscg-demo-app/            our demo repo (submodule); nodejs-goof/ and juice-shop/ are cloned locally
+└── docs/                         workflow_architecture.md · agentic.md · remediation.md · dashboard.md · images/
 ```
 
 ---
@@ -583,11 +571,11 @@ See **[docs/remediation.md](docs/remediation.md)**. One LangGraph run takes find
    `python -m sscg approve` or in the dashboard.
 5. **Validate:** in a sandbox copy, build and test before and after (npm/pip/Maven/Docker, install scripts off,
    secrets scrubbed), rescan, then compare.
-6. **Report:** `out/<repo>/remediation/remediation_report.{md,html,pdf}`, `remediation.json`, `remediation.patch`.
+6. **Report:** one report `out/<repo>/report.{md,html,pdf}` (before → after), plus `remediation/remediation.json` and `remediation/remediation.patch`.
 
 ```powershell
-python -m sscg agent ..\targets\sscg-demo-target --remediate --decisions later
-python -m sscg approve ..\targets\sscg-demo-target --approve all-patchable --by "Your Name"
+python -m sscg agent ..\targets\sscg-demo-app --remediate --decisions later
+python -m sscg approve ..\targets\sscg-demo-app --approve all-patchable --by "Your Name"
 ```
 
 ---

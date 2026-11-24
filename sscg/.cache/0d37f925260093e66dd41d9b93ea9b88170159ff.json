@@ -1,1 +1,0 @@
-{"nodes": [{"versionKey": {"system": "NPM", "name": "@angular/compiler", "version": "22.0.1"}, "bundled": false, "relation": "SELF", "errors": []}, {"versionKey": {"system": "NPM", "name": "tslib", "version": "2.9.1"}, "bundled": false, "relation": "DIRECT", "errors": []}], "edges": [{"fromNode": 0, "toNode": 1, "requirement": "^2.3.0"}], "error": ""}
