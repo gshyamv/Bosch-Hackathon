@@ -1,6 +1,7 @@
 """Live page rules: R20 missing SRI, R21 http script on an https page, R22 outdated / vulnerable JS library."""
 from __future__ import annotations
 
+from pathlib import Path
 from urllib.parse import urlsplit
 
 from .. import registry
@@ -9,7 +10,9 @@ from .common import Ctx, file_ev, mk, read
 
 def page(ctx: Ctx) -> list:
     out, G = [], ctx.dg.G
-    text = read(ctx.repo, "page.html") if any(a.get("ecosystem") == "live-page" for _, a in G.nodes(data=True)) else None
+    pages = [a for _, a in G.nodes(data=True) if a.get("ecosystem") == "live-page"]
+    # a live page linked to its source repo keeps page.html in the live fetch folder, not in the scanned repo
+    text = read(Path(pages[0]["page_dir"]) if pages[0].get("page_dir") else ctx.repo, "page.html") if pages else None
     if text is None:
         return out
     ev = lambda line: file_ev("page.html", line, text)  # noqa: E731

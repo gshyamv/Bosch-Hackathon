@@ -86,6 +86,14 @@ def traced(agent: str, kind: str):
             rec = {"agent": agent, "kind": kind, "node": fn.__name__, "started": started,
                    "seconds": round(time.perf_counter() - t, 2), "status": "ok", **extra}
             update["agent_runs"] = update.get("agent_runs", []) + [rec]
+            if isinstance(state, dict) and state.get("run_id"):
+                from . import bus
+                if fn.__name__ == "plan":
+                    bus.reset(state["run_id"])
+                kind_ = "decision" if fn.__name__ in ("triage_one", "human_approval") else "handoff"
+                bus.post(state["run_id"], agent, bus.NEXT.get(fn.__name__, "Triage join"), kind_,
+                         bus.summary(update, extra), refs=[extra["finding_id"]] if extra.get("finding_id") else [],
+                         iteration=int((state.get("options") or {}).get("iteration") or 0))
             return update
         return wrapper
     return deco

@@ -21,7 +21,7 @@ WORK = Path(os.getenv("SSCG_WORK_DIR") or ROOT / ".work")
 
 
 class Target(Protocol):
-    kind: Literal["local", "github", "live"]
+    kind: Literal["local", "github", "live"]   # LinkedTarget (live page + its source repo) is "github"
     name: str                # folder-safe name used for out/<name>/
     display: str             # github.com/o/r@c9f9922
     source: str              # pass this to the CLI to get exactly this target again
@@ -262,6 +262,59 @@ class LiveTarget:
 
     def checkout_url(self):
         return None
+
+
+class LinkedTarget:
+    """A live page plus the GitHub repository that builds it (e.g. a deployed Juice Shop + its source repo).
+
+    Everything a Target does (files, commits, permalinks, sandbox checkout) is the source repository's, so the
+    remediation loop can patch, build and rescan it; the live page is added to the same graph by pipeline.build.
+    """
+    kind = "github"
+
+    def __init__(self, live_url: str, source_url: str, client=None, work: Path | None = None, transport=None):
+        if not re.match(r"^https?://", live_url) or re.match(r"^https?://github\.com/", live_url):
+            raise SafetyError("a linked source repository needs a live page URL (http(s), not github.com) as the target")
+        self.src = GitHubTarget("https://" + source_url.strip().split("://")[-1], client, work)
+        self.live = LiveTarget(live_url, work, transport)
+        self.name, self.source, self.notes = self.src.name, self.src.source, self.src.notes
+        self.display = f"{self.src.display} + live {live_url}"
+
+    def __getattr__(self, attr):          # owner, repo, sub, gh, ... of the source repository
+        if attr in ("src", "live"):
+            raise AttributeError(attr)
+        return getattr(self.src, attr)
+
+    @property
+    def sha(self) -> str | None:
+        return self.src.sha
+
+    def head_dir(self) -> Path:
+        return self.src.head_dir()
+
+    def resolve(self, rev: str) -> str | None:
+        return self.src.resolve(rev)
+
+    def base_dir(self, rev: str, dest: Path) -> Path | None:
+        return self.src.base_dir(rev, dest)
+
+    def commit_info(self, rev: str) -> dict | None:
+        return self.src.commit_info(rev)
+
+    def changed_files(self, base: str) -> list[tuple[str, str]]:
+        return self.src.changed_files(base)
+
+    def first_time_author(self, sha: str, email: str) -> bool | None:
+        return self.src.first_time_author(sha, email)
+
+    def is_dirty(self) -> bool:
+        return False
+
+    def permalink(self, rel: str, line: int | None = None) -> str | None:
+        return self.src.permalink(rel, line) or self.live.permalink(rel, line)
+
+    def checkout_url(self) -> tuple[str, str] | None:
+        return self.src.checkout_url()
 
 
 def as_target(x) -> Target:

@@ -1,17 +1,20 @@
 import { useCallback, useEffect, useState } from "react";
-import { Bot, Boxes, Bug, FileText, GitPullRequestArrow, LayoutDashboard, Menu, Plus, RefreshCw, ShieldCheck, Sparkles, Wrench } from "lucide-react";
+import { Bot, Boxes, Bug, FileText, GitPullRequestArrow, LayoutDashboard, Library, Menu, MessagesSquare, Plus, RefreshCw, ScrollText, ShieldCheck, Sparkles, Wrench } from "lucide-react";
 import { api, Job, Meta, Project, Targets } from "./api";
 import { JobConsole } from "./components/JobConsole";
 import { RunPanel } from "./components/RunPanel";
 import { Button, Callout, cx, Drawer, Empty, fmtTime, Spinner } from "./components/ui";
+import { Agents } from "./pages/Agents";
 import { AiTriage } from "./pages/AiTriage";
+import { Knowledge } from "./pages/Knowledge";
+import { Logs } from "./pages/Logs";
 import { Changes, Evidence, Vulnerabilities } from "./pages/Findings";
 import { Overview } from "./pages/Overview";
 import { Remediation } from "./pages/Remediation";
 import { Reports } from "./pages/Reports";
 import { SupplyChain } from "./pages/SupplyChain";
 
-export type Page = "overview" | "supply" | "vulns" | "changes" | "evidence" | "ai" | "remediation" | "reports";
+export type Page = "overview" | "supply" | "vulns" | "changes" | "evidence" | "ai" | "remediation" | "agents" | "knowledge" | "reports" | "logs";
 
 const NAV: { id: Page; label: string; icon: any; group: string }[] = [
   { id: "overview", label: "Overview", icon: LayoutDashboard, group: "" },
@@ -21,7 +24,10 @@ const NAV: { id: Page; label: string; icon: any; group: string }[] = [
   { id: "evidence", label: "Evidence", icon: FileText, group: "Discover & detect" },
   { id: "ai", label: "AI triage", icon: Sparkles, group: "Analyze & remediate" },
   { id: "remediation", label: "Remediation", icon: Wrench, group: "Analyze & remediate" },
+  { id: "agents", label: "Agents & loop", icon: MessagesSquare, group: "Analyze & remediate" },
+  { id: "knowledge", label: "Knowledge (OKF)", icon: Library, group: "Analyze & remediate" },
   { id: "reports", label: "Reports", icon: FileText, group: "Report" },
+  { id: "logs", label: "Logs", icon: ScrollText, group: "Report" },
 ];
 
 const store = {
@@ -152,7 +158,7 @@ export default function App() {
         </header>
         <main className="mx-auto max-w-[1500px] px-4 py-6 sm:px-6">
           {err && <div className="mb-4"><Callout tone="error">{err}</Callout></div>}
-          {!project ? (
+          {page === "logs" ? <Logs current={name} /> : !project ? (
             loading ? <div className="flex items-center justify-center gap-2 py-24 text-slate-500"><Spinner /> Loading results…</div>
               : <Empty icon={<ShieldCheck className="h-10 w-10" />} title="No scan results yet">
                   Click <b>New run</b> and pick a repository: the Guardian discovers its components, builds the SBOM and dependency graph, and detects risks.
@@ -168,6 +174,8 @@ export default function App() {
               {page === "ai" && <AiTriage p={project} />}
               {page === "remediation" && <Remediation p={project} onJob={setJobId} />}
               {page === "reports" && <Reports p={project} />}
+              {page === "agents" && <Agents p={project} go={(n) => setName(n)} />}
+              {page === "knowledge" && <Knowledge />}
             </>
           )}
         </main>
@@ -176,7 +184,7 @@ export default function App() {
         <RunPanel meta={meta} targets={targets} initialRepo={presetPath || (info as any)?.repo || undefined}
           onStarted={(id) => { setJobId(id); setRunOpen(false); }} />
       </Drawer>
-      {jobId && <JobConsole jobId={jobId} onDone={onJobDone} onClose={() => setJobId(null)} />}
+      {jobId && <JobConsole jobId={jobId} onDone={onJobDone} onClose={() => setJobId(null)} onGo={go} />}
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Bar, BarChart, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { Container, Download, ExternalLink, Globe, Search, Workflow } from "lucide-react";
-import { api, fileUrl, GraphMeta, graphUrl, Project, WhyHit } from "../api";
+import { api, fileUrl, GraphEcosystem, GraphMeta, graphUrl, Project, WhyHit } from "../api";
 import { Badge, Button, Callout, Card, Code, DataTable, DepPath, Empty, inputCls, LinkButton, PageHeader, SearchInput, Segmented, Spinner, Stat, Tabs, Toggle } from "../components/ui";
 
 type Tab = "graph" | "sbom" | "infra" | "origins";
@@ -43,15 +43,30 @@ function GraphTab({ p }: { p: Project }) {
   const maxd = meta?.max_depth || s.max_depth || 1;
   const [levels, setLevels] = useState(Math.min(maxd, s.packages > 300 ? 3 : maxd));
   const [loading, setLoading] = useState(true);
+  // ecosystems the user switched off (empty = show all; an ecosystem new to a rescan is shown by default)
+  const [ecoOff, setEcoOff] = useState<Set<string>>(new Set());
+  const metaLibs = view === "full" ? false : libsOnly;   // the full graph also draws images / CI / downloads
 
-  useEffect(() => { api.graphMeta(p.name, libsOnly).then(setMeta).catch(() => setMeta(null)); }, [p.name, p.scanned_at, libsOnly]);
+  useEffect(() => { api.graphMeta(p.name, metaLibs).then(setMeta).catch(() => setMeta(null)); }, [p.name, p.scanned_at, metaLibs]);
+  useEffect(() => setEcoOff(new Set()), [p.name]);
+  const ecos = meta?.ecosystems || [];
+  const ecoOn = ecos.filter((e) => !ecoOff.has(e.id)).map((e) => e.id);
+  const ecoParam = ecoOn.length < ecos.length && ecoOn.length > 0 ? ecoOn.join(",") : "";
+  const toggleEco = (id: string) => setEcoOff((prev) => {
+    const next = new Set(prev);
+    if (next.has(id)) next.delete(id);
+    else if (ecos.some((e) => e.id !== id && !next.has(e.id))) next.add(id);   // never hide the last one
+    return next;
+  });
+  const onlyEco = (id: string) => setEcoOff(new Set(ecos.filter((e) => e.id !== id).map((e) => e.id)));
   useEffect(() => { setLevels(Math.min(maxd, s.packages > 300 ? 3 : maxd)); }, [maxd, s.packages]);
   useEffect(() => { if (view === "subtree" && !root && meta?.directs.length) setRoot(meta.directs[0].id); }, [view, meta, root]);
   const rootInfo = meta?.directs.find((d) => d.id === root);
   const lvMax = view === "subtree" ? Math.max(rootInfo?.depth_below || 1, 1) : maxd;
   const effLevels = Math.min(levels, lvMax);
-  const src = useMemo(() => graphUrl(p.name, { mode: view, levels: effLevels, libsOnly, root: view === "subtree" ? root : null }) + `&t=${p.scanned_at}`,
-    [p.name, p.scanned_at, view, effLevels, libsOnly, root]);
+  const src = useMemo(() => graphUrl(p.name, { mode: view, levels: effLevels, libsOnly, root: view === "subtree" ? root : null })
+    + (ecoParam ? `&ecosystems=${encodeURIComponent(ecoParam)}` : "") + `&t=${p.scanned_at}`,
+    [p.name, p.scanned_at, view, effLevels, libsOnly, root, ecoParam]);
   useEffect(() => setLoading(true), [src]);
 
   const hist = Object.entries(s.depth_histogram).map(([k, v]) => ({ level: Number(k), kind: Number(k) === 1 ? "Direct" : "Transitive", libraries: v })).sort((a, b) => a.level - b.level);
@@ -79,6 +94,27 @@ function GraphTab({ p }: { p: Project }) {
             )}
             <div className="ml-auto"><LinkButton href={fileUrl(p.name, "graph.html")}><ExternalLink className="h-4 w-4" /> Open full screen</LinkButton></div>
           </div>
+          {ecos.length > 0 && (
+            <div className="flex flex-wrap items-center gap-1.5 border-b border-slate-100 px-4 py-2" role="group" aria-label="Filter by ecosystem">
+              <span className="mr-1 text-xs font-medium text-slate-500">Ecosystems</span>
+              {ecos.map((e) => {
+                const on = !ecoOff.has(e.id);
+                return (
+                  <button key={e.id} type="button" aria-pressed={on} onClick={() => toggleEco(e.id)}
+                    onDoubleClick={() => onlyEco(e.id)}
+                    title={`${e.label}: ${e.count} component${e.count === 1 ? "" : "s"}${e.vulnerable ? `, ${e.vulnerable} with advisories` : ""}. Click to ${on ? "hide" : "show"}, double-click to show only this.`}
+                    className={"inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ring-1 ring-inset transition "
+                      + (on ? "bg-white text-slate-800 ring-slate-300 hover:bg-slate-50" : "bg-slate-50 text-slate-400 ring-slate-200 line-through")}>
+                    <EcoGlyph e={e} muted={!on} />
+                    {e.label}
+                    <span className="tabular-nums text-slate-500">{e.count}</span>
+                    {e.vulnerable > 0 && <span className="tabular-nums text-red-700">· {e.vulnerable} vuln</span>}
+                  </button>
+                );
+              })}
+              {ecoOff.size > 0 && <button type="button" onClick={() => setEcoOff(new Set())} className="ml-1 text-xs font-medium text-brand-700 hover:underline">Show all</button>}
+            </div>
+          )}
           <div className="relative h-[820px] bg-[#fcfcfb]">
             {loading && <div className="absolute inset-0 z-10 flex items-center justify-center gap-2 text-sm text-slate-500"><Spinner /> Drawing graph…</div>}
             <iframe key={src} src={src} title="Dependency graph" onLoad={() => setLoading(false)} sandbox="allow-scripts" className="h-full w-full border-0" />
@@ -93,7 +129,8 @@ function GraphTab({ p }: { p: Project }) {
                   <YAxis tick={{ fontSize: 11, fill: "#94a3b8" }} axisLine={false} tickLine={false} allowDecimals={false} />
                   <Tooltip cursor={{ fill: "#f1f5f9" }} />
                   <Bar isAnimationActive={false} dataKey="libraries" radius={[4, 4, 0, 0]} barSize={24}>
-                    {hist.map((h) => <Cell key={h.level} fill={h.level === 1 ? "#1d63db" : "#f59e0b"} />)}
+                    {/* neutral inks: blue / orange now mean npm / PyPI in the graph */}
+                    {hist.map((h) => <Cell key={h.level} fill={h.level === 1 ? "#52514e" : "#b4b2a9"} />)}
                   </Bar>
                 </BarChart>
               </ResponsiveContainer>
@@ -101,10 +138,15 @@ function GraphTab({ p }: { p: Project }) {
           </Card>
           <Card title="Legend">
             <ul className="space-y-1.5 text-xs text-slate-600">
-              <li><span className="mr-1.5 inline-block h-2.5 w-2.5 rounded-full bg-[#1d63db]" />Direct dependency (big)</li>
-              <li><span className="mr-1.5 inline-block h-2.5 w-2.5 rounded-full bg-[#f59e0b]" />Transitive dependency (small)</li>
+              <li>Colour + shape = ecosystem{ecos.length > 0 && ":"}</li>
+              {ecos.length > 0 && (
+                <li className="flex flex-wrap gap-x-3 gap-y-1 pl-1">
+                  {ecos.map((e) => <span key={e.id} className="inline-flex items-center gap-1"><EcoGlyph e={e} />{e.label}</span>)}
+                </li>
+              )}
+              <li>Big / dark outline = direct dependency · small = transitive</li>
               <li>★ repository · dark box = manifest / Dockerfile / workflow</li>
-              <li><span className="text-red-600">red outline</span> = published advisories · ◆ = suspicious</li>
+              <li><span className="mr-1 inline-block h-2.5 w-2.5 rounded-full border-[2.5px] border-[#d03b3b] align-[-1px] shadow-[0_0_4px_rgba(208,59,59,.6)]" /><span className="text-red-700">red ring</span> = published advisories · ◆ = suspicious</li>
               <li>Hover a node for version, path, advisories and finding IDs.</li>
             </ul>
           </Card>
@@ -124,6 +166,22 @@ function GraphTab({ p }: { p: Project }) {
       </div>
       <WhyCard name={p.name} duplicates={s.duplicates} />
     </div>
+  );
+}
+
+/** The ecosystem's node shape and colour, as drawn in the graph (vis shape names from graph/meta). */
+function EcoGlyph({ e, muted }: { e: Pick<GraphEcosystem, "shape" | "color">; muted?: boolean }) {
+  const fill = muted ? "#cbd5e1" : e.color;
+  const pts: Record<string, string> = {
+    triangle: "6,1 11,11 1,11", triangleDown: "1,1 11,1 6,11",
+    hexagon: "3,1 9,1 11.5,6 9,11 3,11 0.5,6", diamond: "6,0.5 11.5,6 6,11.5 0.5,6",
+  };
+  return (
+    <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" className="shrink-0">
+      {e.shape === "square" ? <rect x="1.5" y="1.5" width="9" height="9" rx="1" fill={fill} />
+        : pts[e.shape] ? <polygon points={pts[e.shape]} fill={fill} />
+        : <circle cx="6" cy="6" r="5" fill={fill} />}
+    </svg>
   );
 }
 

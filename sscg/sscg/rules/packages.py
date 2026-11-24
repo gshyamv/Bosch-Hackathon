@@ -9,6 +9,7 @@ from pathlib import PurePosixPath
 from rapidfuzz.distance import Levenshtein
 
 from ..discover.pypi import read_requirements
+from .. import ossf_malicious
 from .common import Ctx, file_ev, line_of, load_json, load_lines, mk, read
 
 POPULAR = {"npm": load_lines("popular_npm.txt"), "pypi": load_lines("popular_pypi.txt")}
@@ -94,6 +95,12 @@ def known_malicious(ctx: Ctx) -> list:
         for adv in a.get("advisories", []):
             if adv["malicious"]:
                 ev.append({"type": "advisory", "id": adv["id"], "url": adv["url"], "summary": adv["summary"]})
+        seen = {e.get("id") for e in ev}
+        for r in ossf_malicious.lookup(a["ecosystem"], a["name"], a.get("version")):
+            if r["id"] not in seen:       # OSV usually carries the same MAL id online; the index covers offline
+                ev.append({"type": "advisory", "id": r["id"], "url": r["url"], "source": "OpenSSF Malicious Packages",
+                           "summary": r["summary"] or "reported as malicious by OpenSSF Malicious Packages"
+                           + ("" if r["version_checked"] else " (this version was not checked against the report)")})
         if ev:
             loc = _declared_at(ctx, n)[0] if a.get("direct") else a.get("source")
             out.append(mk("R02_KNOWN_MALICIOUS", f"{a['label']} is a documented malicious package", node=n,

@@ -83,11 +83,20 @@ def fetch_page(url: str, dest: Path, transport=None) -> dict:
     if cache.OFFLINE:
         raise SafetyError("offline: live pages need network access")
     with httpx.Client(timeout=httpx.Timeout(15, read=30), follow_redirects=False, transport=transport,
-                      headers={"User-Agent": "sscg-scanner (passive)"}) as http:
-        try:
-            resp, final, body = get(http, url, MAX_HTML)
-        except httpx.HTTPError as e:
-            raise SafetyError(f"cannot load {url}: {type(e).__name__}") from e
+                      headers={"User-Agent": "Mozilla/5.0 (compatible; sscg-scanner passive)", "Accept": "text/html,*/*"}) as http:
+        url = url.split("#", 1)[0]                     # SPA routes (#/search) are client side
+        resp = None
+        for attempt in range(3):                       # free demo hosts answer 503 while waking up
+            try:
+                resp, final, body = get(http, url, MAX_HTML)
+            except httpx.HTTPError as e:
+                if attempt == 2:
+                    raise SafetyError(f"cannot load {url}: {type(e).__name__}") from e
+                continue
+            if resp.status_code not in (502, 503, 504):
+                break
+            import time
+            time.sleep(4)
         if resp.status_code >= 400:
             raise SafetyError(f"page returned HTTP {resp.status_code}")
         html = body.decode(resp.encoding or "utf-8", errors="replace")
@@ -101,7 +110,7 @@ def fetch_page(url: str, dest: Path, transport=None) -> dict:
             head, err = "", None
             try:
                 sr, _, sbody = get(http, src, MAX_SCRIPT)
-                head = sbody[:4096].decode("utf-8", errors="replace") if sr.status_code == 200 else ""
+                head = sbody.decode("utf-8", errors="replace") if sr.status_code == 200 else ""   # bundles: banners anywhere
             except (SafetyError, httpx.HTTPError) as e:
                 err = str(e)[:120]
             scripts.append({"src": src, "sri": bool(s["integrity"]), "line": s["line"], "error": err,
@@ -114,9 +123,12 @@ def fetch_page(url: str, dest: Path, transport=None) -> dict:
             "truncated": max(0, len(parser.scripts) - MAX_SCRIPTS), "sha256": hashlib.sha256(body).hexdigest()}
 
 
-def add_page(dg, page: dict) -> None:
+def add_page(dg, page: dict, page_dir: Path | None = None) -> None:
+    """page_dir: where page.html is, when it is not the scanned folder (a live page linked to its source repo)."""
     app = dg.app("page.html", "live-page", page["url"])
     dg.G.nodes[app]["scripts"] = page["scripts"]
+    if page_dir is not None:
+        dg.G.nodes[app]["page_dir"] = str(page_dir)
     for s in page["scripts"]:
         for lib in s["libs"]:
             n = dg.pkg("npm", lib["name"], lib["version"], source=f"page.html:{s['line']}", script_url=s["src"],

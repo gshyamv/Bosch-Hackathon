@@ -21,10 +21,26 @@ STATUS = {"approve": "approved", "reject": "rejected", "request_changes": "needs
           "accept_risk": "risk_accepted", "defer": "pending"}
 
 
+def system_suggestion(p: dict) -> dict | None:
+    """The system's own call on low-priority risk. Shown with a 'System suggestion' tag; a human still decides."""
+    if p.get("urgent") or p.get("priority") not in ("P2", "P3"):
+        return None
+    if p.get("priority") == "P3":
+        return {"decision": "accept_risk", "confidence": "medium",
+                "reason": "Low priority: not urgent, no known exploitation (KEV) and low exploit probability (EPSS), "
+                          "or the package is not reachable from application code. Accepting the risk and re-checking "
+                          "on the next scan is reasonable."}
+    if p.get("patchable") and p.get("compatibility_level") in ("patch", "minor", None):
+        return {"decision": "approve", "confidence": "medium",
+                "reason": "Moderate priority with a low-impact upgrade available: approving is cheap and removes the risk."}
+    return {"decision": "defer", "confidence": "low",
+            "reason": "Moderate priority but the fix may break compatibility: defer to a planned upgrade."}
+
+
 def approval_request(props: list) -> dict:
     """What the human (CLI / dashboard) is asked to decide."""
     return {"type": "approval_request", "proposals": [
-        {k: p.get(k) for k in ("proposal_id", "action", "component", "from_version", "to_version", "priority",
+        {"system_suggestion": system_suggestion(p)} | {k: p.get(k) for k in ("proposal_id", "action", "component", "from_version", "to_version", "priority",
                                "urgent", "patchable", "compatibility_level", "compatibility_impact", "rationale",
                                "ai_rationale", "residual_advisories", "finding_ids", "files_affected", "diff", "status", "cluster_ids")}
         for p in props]}
@@ -35,6 +51,7 @@ def human_approval(state: dict) -> dict:
     props = state.get("proposals", [])
     if not props:
         return {}
+    _write_report(state, "Human Approval")             # the one report: before-state + "awaiting approval"
     answer = interrupt(approval_request(props))          # <- the graph stops here until a human answers
     ids = {p["proposal_id"] for p in props}
     records = [ApprovalRecord(proposal_id=a["proposal_id"], decision=a["decision"],
@@ -70,6 +87,25 @@ def validate(state: dict) -> dict:
     out.mkdir(parents=True, exist_ok=True)
     patch = out / "remediation.patch"
     patch.write_text(res["patch"], encoding="utf-8")
+    import json
+    (out / "sandbox_trace.json").write_text(json.dumps(res.get("sandbox_trace") or {}, indent=2), encoding="utf-8")
+
+    def lv(f):
+        return ((f.get("severity") or {}).get("label") if f.get("category") == "vulnerability" else None)             or (f.get("risk") or {}).get("level") or "unknown"
+
+    def by_level(fs):
+        c = {}
+        for f in fs:
+            c[str(lv(f)).capitalize()] = c.get(str(lv(f)).capitalize(), 0) + 1
+        return c
+    (out / "post_analysis.json").write_text(json.dumps({
+        "before": {"total": res["findings_before"], "by_level": by_level(state["findings"])},
+        "after": {"total": res["findings_after"], "by_level": by_level(res.get("after_findings") or [])},
+        "resolved": res["resolved"], "remaining": res["remaining"], "new": res["new"],
+        "sbom_diff": res.get("sbom_diff"), "docker": res["docker"], "verdict": v, "confidence": conf,
+        "reasons": reasons, "after_findings": [{k: f.get(k) for k in ("finding_id", "title", "rule", "category")}
+                                               | {"level": lv(f)} for f in res.get("after_findings") or []]},
+        indent=2, default=str), encoding="utf-8")
     rep = ValidationReport(proposal_ids=[p["proposal_id"] for p in approved], verdict=v, confidence=conf,
                            reasons=reasons, patch_file=str(patch), **{k: res[k] for k in (
                                "steps_before", "steps_after", "findings_before", "findings_after", "resolved",
@@ -83,28 +119,31 @@ def validate(state: dict) -> dict:
                                                         "new": len(res["new"])}}
 
 
+def _write_report(state: dict, agent: str) -> list[str]:
+    """Rewrite out/<repo>/report.md/.html/.pdf (the single report) with the current remediation state.
+    A report problem never breaks the run."""
+    from .. import report
+    rt = get(state["run_id"])
+    try:
+        return report.write(rt.out, rem=report.remediation_from(state, rt.out))
+    except Exception as e:  # noqa: BLE001
+        rt.log(agent, f"report not written: {type(e).__name__}: {e}")
+        return []
+
+
 @traced("Remediation Reporter", "deterministic")
 def remediation_report(state: dict) -> dict:
-    """remediation_report.md / .html / .pdf + machine-readable remediation.json in out/<repo>/remediation/."""
+    """Rewrites the single report (out/<repo>/report.md/.html/.pdf) with the after-state, and writes the
+    machine-readable remediation/remediation.json."""
     import json
 
-    from .. import remediation_report as render_mod
-    from ..report_export import to_html, to_pdf
     rt = get(state["run_id"])
     out = rt.out / "remediation"
     out.mkdir(parents=True, exist_ok=True)
-    s = {**state, "generated_at": now(), "engine": rt.settings.engine, "kb_version": rt.kb.version}
-    md = render_mod.render(s, rt.target.name)
-    (out / "remediation_report.md").write_text(md, encoding="utf-8")
-    files = ["remediation_report.md"]
-    (out / "remediation_report.html").write_text(to_html(md), encoding="utf-8")
-    files.append("remediation_report.html")
-    try:
-        (out / "remediation_report.pdf").write_bytes(to_pdf(md))
-        files.append("remediation_report.pdf")
-    except Exception as e:  # noqa: BLE001  (a PDF problem never breaks the run)
-        rt.log("Remediation Reporter", f"PDF not written: {type(e).__name__}: {e}")
-    doc = {"run_id": state["run_id"], "application": rt.target.name, "generated_at": s["generated_at"],
+    generated = now()
+    report_files = _write_report(state, "Remediation Reporter")
+    files = []
+    doc = {"run_id": state["run_id"], "application": rt.target.name, "generated_at": generated,
            "exploitability_sources": (state.get("exploitability") or {}).get("sources"),
            "exposure": (state.get("reachability") or {}).get("exposure"),
            "reachability_summary": (state.get("reachability") or {}).get("summary"),
@@ -113,5 +152,6 @@ def remediation_report(state: dict) -> dict:
     files.append("remediation.json")
     if (out / "remediation.patch").exists():
         files.append("remediation.patch")
-    rt.log("Remediation Reporter", f"wrote {', '.join(files)} to {out}")
-    return {"artifacts": {**(state.get("artifacts") or {}), "remediation": [str(out / f) for f in files]}}
+    rt.log("Remediation Reporter", f"wrote {', '.join(report_files)} to {rt.out} and {', '.join(files)} to {out}")
+    return {"artifacts": {**(state.get("artifacts") or {}),
+                          "remediation": [str(rt.out / f) for f in report_files] + [str(out / f) for f in files]}}

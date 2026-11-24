@@ -24,10 +24,11 @@ from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from . import okf, safety
+from . import joblog, okf, safety
 from .cache import ROOT
-from .export import render_html
-from .model import NON_LIBRARY
+from .export import LEGEND_MARK, eco_key, ecosystem_counts, render_html
+from .graph import view as graph_view_of
+from .model import NON_LIBRARY, DepGraph
 from .target import LiveTarget
 
 OUT = ROOT / "out"
@@ -68,14 +69,20 @@ JOBS: dict[str, dict] = {}
 JOBS_LOCK = threading.Lock()
 
 
-def _pump(job: dict, proc: subprocess.Popen) -> None:
+def _pump(job: dict, proc: subprocess.Popen, log: joblog.JobLog | None = None) -> None:
     for line in proc.stdout:   # type: ignore[union-attr]
-        job["lines"].append(line.rstrip("\n"))
+        line = line.rstrip("\n")
+        if log:
+            log.write(line)    # the full record in out/<project>/logs/ (the in-memory view keeps the last lines)
+        job["lines"].append(line)
         if len(job["lines"]) > MAX_LOG_LINES:
+            job["dropped"] = job.get("dropped", 0) + len(job["lines"]) - MAX_LOG_LINES
             del job["lines"][: len(job["lines"]) - MAX_LOG_LINES]
     job["returncode"] = proc.wait()
     job["status"] = "ok" if job["returncode"] == 0 else "failed"
     job["ended"] = time.time()
+    if log:
+        log.close(job)
 
 
 def start_job(kind: str, project: str, cmd: list[str]) -> dict:
@@ -89,7 +96,9 @@ def start_job(kind: str, project: str, cmd: list[str]) -> dict:
                "started": time.time(), "ended": None, "lines": [],
                "command": " ".join(["python", "-m", "sscg", *cmd[3:]])}
         JOBS[job["id"]] = job
-    threading.Thread(target=_pump, args=(job, proc), daemon=True).start()
+        log = joblog.open_log(OUT / project, job)
+        job |= {"dropped": 0, "log_file": f"{project}/{log.path.name}" if log else None}
+    threading.Thread(target=_pump, args=(job, proc, log), daemon=True).start()
     return job
 
 
@@ -126,6 +135,8 @@ def targets():
                                  "has_agentic": (d / "agentic.json").is_file(),
                                  "remediation": "pending" if pend else ("done" if (d / "remediation" / "remediation.json").is_file() else None),
                                  "repo": (pend or {}).get("repo")})
+    presets.insert(0, {"name": "Juice Shop (live + source)", "path": "http://localhost:3000",
+                       "source": "https://github.com/juice-shop/juice-shop"})
     return {"presets": presets, "projects": projects}
 
 
@@ -143,7 +154,43 @@ def project(name: str):
                    if p.is_file() and p.suffix in FILE_TYPES and ".sscg-state" not in p.parts)
     return {"name": name, "scanned_at": _mtime(d / "summary.json"), "summary": _read(d / "summary.json"),
             "findings": findings, "agentic": agentic, "pending": pending,
-            "remediation": None if pending else _read(d / "remediation" / "remediation.json"), "files": files}
+            "remediation": None if pending else _read(d / "remediation" / "remediation.json"), "files": files,
+            "post_analysis": _read(d / "remediation" / "post_analysis.json"),
+            "messages": _messages(d), "iteration": _read(d / "iteration.json"), "iterations": _iterations(name),
+            "sandbox_trace": _read(d / "remediation" / "sandbox_trace.json")}
+
+
+def _messages(d: Path) -> list:
+    f = d / "agent_messages.jsonl"
+    if not f.is_file():
+        return []
+    out = []
+    for line in f.read_text(encoding="utf-8").splitlines()[-400:]:
+        try:
+            out.append(json.loads(line))
+        except ValueError:
+            pass
+    return out
+
+
+def _iterations(name: str) -> list:
+    """The remediation loop: iteration 0 (the original scan) and every rescan of a fixed sandbox copy."""
+    root = name.split("__iter")[0]
+    rows = []
+    for d in sorted(OUT.glob(f"{root}*"), key=lambda x: int(x.name.split("__iter")[1]) if "__iter" in x.name else 0):
+        if d.name != root and not d.name.startswith(root + "__iter"):
+            continue
+        pa, fs = _read(d / "remediation" / "post_analysis.json"), _read(d / "findings.json")
+        n = len((fs or {}).get("findings", [])) if isinstance(fs, dict) else None
+        rows.append({"project": d.name, "iteration": int(d.name.split("__iter")[1]) if "__iter" in d.name else 0,
+                     "findings": n, "after_fix": (pa or {}).get("after", {}).get("total"),
+                     "verdict": (pa or {}).get("verdict")})
+    return rows
+
+
+@app.get("/api/projects/{name}/messages")
+def messages(name: str):
+    return _messages(project_dir(name))
 
 
 @app.get("/api/projects/{name}/sbom")
@@ -215,17 +262,47 @@ def graph_meta(name: str, libs_only: bool = True):
                      key=lambda x: -x["transitive"])
     depths = [G.nodes[n].get("depth") or 0 for n in G if _library(G, n, True)]
     return {"directs": directs, "max_depth": max(depths or [1]), "nodes": G.number_of_nodes(),
-            "edges": G.number_of_edges()}
+            "edges": G.number_of_edges(),
+            # colour / shape / count / vulnerable per ecosystem (same styling as the graph view), largest first
+            "ecosystems": ecosystem_counts(G, [n for n in G if _library(G, n, libs_only)])}
+
+
+def _eco_set(ecosystems: str | None) -> set[str] | None:
+    """'npm,pypi' -> {'npm', 'pypi'} (aliases such as golang/gem normalised); empty / missing = every ecosystem."""
+    s = {eco_key(e) for e in (ecosystems or "").split(",") if e.strip()}
+    return s or None
+
+
+def _eco_ok(G, n, eco: set[str] | None) -> bool:
+    return eco is None or G.nodes[n]["kind"] != "package" or eco_key(G.nodes[n].get("ecosystem")) in eco
+
+
+def _full_view(name: str, G: nx.DiGraph, eco: set[str] | None) -> str:
+    """graph.html as written by the scan; re-drawn from graph.json for an ecosystem filter or a pre-legend file."""
+    f = project_dir(name) / "graph.html"
+    if eco is None and f.is_file():
+        html = f.read_text(encoding="utf-8")
+        if LEGEND_MARK in html:
+            return html
+    dg = DepGraph.__new__(DepGraph)   # graph.view() only needs .G / .top / .notes
+    dg.G, dg.top, dg.notes = G, _top(G), []
+    V = graph_view_of(dg, None, None)
+    keep = {n for n in V if _eco_ok(V, n, eco)}
+    if eco is not None:   # manifests that no longer lead to a shown component are noise
+        keep = {n for n in keep if V.nodes[n]["kind"] != "app" or any(c in keep for c in V.successors(n))}
+    return render_html(V.subgraph(keep).copy())
 
 
 @app.get("/api/projects/{name}/graph/view", response_class=HTMLResponse)
 def graph_view(name: str, mode: str = Query("levels"), levels: int = Query(1, ge=1, le=50), libs_only: bool = True,
-               root: str | None = None):
-    """One interactive graph view as a standalone HTML page (shown in a sandboxed iframe)."""
+               root: str | None = None, ecosystems: str | None = Query(None, max_length=500)):
+    """One interactive graph view as a standalone HTML page (shown in a sandboxed iframe).
+    ecosystems=npm,pypi limits the components drawn to those ecosystems (default: all)."""
     if mode not in GRAPH_VIEWS:
         raise HTTPException(400, "unknown view")
+    eco = _eco_set(ecosystems)
     if mode == "full":
-        return HTMLResponse((project_dir(name) / "graph.html").read_text(encoding="utf-8"))
+        return HTMLResponse(_full_view(name, load_graph(name), eco))
     G = load_graph(name)
     top = _top(G)
     if mode == "subtree":
@@ -236,6 +313,7 @@ def graph_view(name: str, mode: str = Query("levels"), levels: int = Query(1, ge
     else:
         lim = 1 if mode == "direct" else levels
         pk = {n for n in G if _library(G, n, libs_only) and (G.nodes[n].get("depth") or 99) <= lim}
+    pk = {n for n in pk if _eco_ok(G, n, eco)}
     apps = {p for n in pk for p in G.predecessors(n) if G.nodes[p]["kind"] == "app"}
     H = G.subgraph({top} | apps | pk).copy()
     if mode == "subtree":
@@ -277,6 +355,7 @@ class RunRequest(BaseModel):
     resolve_npm: bool = False
     base: str = Field("HEAD~1", max_length=200)
     focus: str = Field("", max_length=200)
+    source: str = Field("", max_length=1000)   # with a live page URL: the GitHub repo the page is built from
 
 
 @app.post("/api/runs")
@@ -302,6 +381,16 @@ def run(req: RunRequest):
         if not repo.is_dir():
             raise HTTPException(400, f"folder not found: {repo}")
         arg = str(repo)
+    source = req.source.strip()
+    if source:                     # live page + its source repo: named after (and remediated on) the source
+        if not re.match(r"^https?://", raw) or "github.com/" in raw.split("//")[-1][:11]:
+            raise HTTPException(400, "a source repository can only be linked to a live page URL")
+        source = "https://" + source.split("://")[-1]
+        try:
+            o, n, _, sub = safety.parse_github_target(source)
+        except safety.SafetyError as e:
+            raise HTTPException(400, str(e)) from None
+        repo = Path(f"{o}__{n}" + ("__" + re.sub(r"[^\w.-]", "_", sub) if sub else ""))
     if req.base.strip():
         try:
             safety.check_rev(req.base.strip())
@@ -310,6 +399,14 @@ def run(req: RunRequest):
     if req.llm not in LLM_CHOICES:
         raise HTTPException(400, "unknown LLM provider")
     name = repo.name
+    iteration = None
+    if isinstance(repo, Path) and repo.name == "after" and repo.parent.name.startswith("sscg-validate-"):
+        run_id = repo.parent.name[len("sscg-validate-"):]
+        parent = next((d.name for d in OUT.glob("*") if (_read(d / "remediation" / "remediation.json") or {}).get("run_id") == run_id), None)
+        if parent:
+            root = parent.split("__iter")[0]
+            prev = int(parent.split("__iter")[1]) if "__iter" in parent else 0
+            name, iteration = f"{root}__iter{prev + 1}", {"parent": parent, "iteration": prev + 1, "source": str(repo)}
     if not NAME.match(name):
         raise HTTPException(400, "unsupported folder name")
     cmd = [sys.executable, "-m", "sscg", "agent" if req.agentic else "scan", arg, "--out", str(OUT / name),
@@ -319,8 +416,12 @@ def run(req: RunRequest):
     cmd += ["--resolve-npm"] if req.resolve_npm else []
     cmd += ["--offline"] if req.offline else []
     cmd += ["--focus", req.focus.strip()] if req.focus.strip() else []
+    cmd += ["--source", source] if source else []
     if req.agentic:
         cmd += ["--llm", req.llm] + (["--remediate", "--decisions", "later"] if req.remediate else [])
+    if iteration:
+        (OUT / name).mkdir(parents=True, exist_ok=True)
+        (OUT / name / "iteration.json").write_text(json.dumps(iteration), encoding="utf-8")
     return job_view(start_job("agent" if req.agentic else "scan", name, cmd))
 
 
@@ -378,6 +479,29 @@ async def job_events(job_id: str, since: int = Query(0, ge=0)):
     return StreamingResponse(stream(), media_type="text/event-stream", headers={"Cache-Control": "no-cache"})
 
 
+# ------------------------------------------------------------------ persisted job logs (Logs page)
+def _running_ids() -> set[str]:
+    return {j["id"] for j in JOBS.values() if j["status"] == "running"}
+
+
+@app.get("/api/logs")
+def logs():
+    """Every job log written to out/<project>/logs/, newest first (they survive server restarts)."""
+    return joblog.list_logs(OUT, _running_ids())
+
+
+@app.get("/api/logs/{name}/{file}")
+def log_file(name: str, file: str, raw: bool = False, download: bool = False):
+    d = (project_dir(name) / "logs").resolve()
+    f = (d / file).resolve()
+    if not joblog.LOG_NAME.match(file) or f.parent != d or not f.is_file():
+        raise HTTPException(404, "not found")
+    if raw or download:
+        return FileResponse(f, media_type="text/plain; charset=utf-8",
+                            headers=_disposition(name, f, True) if download else {})
+    return {"meta": joblog.log_row(f, _running_ids()), "lines": joblog.parse(joblog.read_lines(f))}
+
+
 # ------------------------------------------------------------------ OKF context bundle
 def _concept(cid: str) -> tuple[dict, str]:
     try:
@@ -395,6 +519,38 @@ def okf_index(dir: str = ""):
 @app.get("/api/okf/search")
 def okf_search(q: str = Query(..., max_length=200), type: str | None = None, min_trust: str = "unverified", k: int = Query(10, ge=1, le=50)):
     return okf.Store().search(q, [type] if type else None, min_trust, k)
+
+
+@app.get("/api/okf/graph")
+def okf_graph(type: str | None = None, limit: int = Query(400, ge=10, le=2000)):
+    """Concepts as nodes, markdown links as edges: the OKF knowledge graph for the Knowledge page."""
+    st = okf.Store()
+    ids = st.ids()
+    cards = {}
+    for c in ids:
+        try:
+            k = st.card(c)
+        except Exception:  # noqa: BLE001
+            continue
+        if not type or k.get("type") == type:
+            cards[c] = k
+    links = {}
+    for c in cards:
+        try:
+            links[c] = {t for t in st.links(c) if t in cards and t != c}
+        except Exception:  # noqa: BLE001
+            links[c] = set()
+    deg = {c: len(ts) for c, ts in links.items()}
+    for ts in links.values():
+        for t in ts:
+            deg[t] = deg.get(t, 0) + 1
+    order = sorted(cards, key=lambda c: (-deg.get(c, 0), c))       # best-connected concepts first
+    keep = {c: cards[c] for c in order[:limit]}
+    edges = [{"source": c, "target": t} for c in keep for t in links[c] if t in keep]
+    types: dict = {}
+    for k in cards.values():
+        types[k.get("type") or "?"] = types.get(k.get("type") or "?", 0) + 1
+    return {"nodes": list(keep.values()), "edges": edges, "types": types, "total": len(cards)}
 
 
 @app.get("/api/okf/lint")

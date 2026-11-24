@@ -250,7 +250,7 @@ def validate(target, before_findings: list, before_dg, proposals: list, base_rev
     steps_before, steps_after = [], []
     if use_docker:
         try:
-            with sandbox.Sandbox() as sb:
+            with sandbox.Sandbox(trace_dir=Path(workdir) if workdir else tmp) as sb:
                 log("sandbox: containers (non-root, no host mounts; registry-only network for installs, none for tests)")
                 if baseline:
                     _load(sb, target, repo, "before")
@@ -306,7 +306,13 @@ def validate(target, before_findings: list, before_dg, proposals: list, base_rev
             m = re.match(r"(@?[^@,\s]+)@", str(txt or ""))
             if m and len(m.group(1)) > 2:
                 names.setdefault(p["proposal_id"], set()).add(m.group(1))
-    return {"workdir": str(tmp), "docker": use_docker, "applied_files": changed_files,
+    trace = {}
+    tf = (Path(workdir) if workdir else tmp) / "sandbox_trace.json"
+    if tf.is_file():
+        trace = json.loads(tf.read_text(encoding="utf-8"))
+        ev = tf.with_name("docker_events.log")
+        trace["events"] = ev.read_text(encoding="utf-8").splitlines()[-200:] if ev.is_file() else []
+    return {"workdir": str(tmp), "docker": use_docker, "sandbox_trace": trace, "applied_files": changed_files,
             "proposal_packages": {k: sorted(v) for k, v in names.items()},
             "steps_before": steps_before, "steps_after": steps_after,
             "findings_before": len(before_findings), "findings_after": len(fs_after),
@@ -354,9 +360,13 @@ def verdict(res: dict) -> tuple[str, str, list[str]]:
         reasons.append(("some steps fail before and after the fix (not caused by it): " if res["steps_before"] else
                         "some steps fail after the fix (baseline skipped: cannot tell whether they failed before): ")
                        + failing)
-    if regress or new_bad or len(unresolved) == len(targeted):
+    improved = res.get("findings_after", 0) < res.get("findings_before", 0) and len(res.get("resolved", [])) > len(new_bad)
+    if new_bad and improved:
+        reasons.append(f"overall {res['findings_before']} -> {res['findings_after']} findings ({len(res['resolved'])} resolved): "
+                       "net improvement; run the next iteration to fix the newly introduced ones")
+    if regress or (new_bad and not improved) or len(unresolved) == len(targeted):
         v = "failed"
-    elif unresolved or after_fail:
+    elif unresolved or after_fail or new_bad:
         v = "partially_verified"
     else:
         v = "verified"

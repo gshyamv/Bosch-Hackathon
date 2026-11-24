@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { AlertTriangle, CheckCircle2, Download, FileText, GitCommit } from "lucide-react";
 import { fileUrl, Finding, Level, LEVELS, Project } from "../api";
-import { FindingDrawer } from "../components/FindingDetail";
+import { FindingDrawer, KindBadge, KindIntro, KindLegend, VerdictBadge } from "../components/FindingDetail";
 import { Badge, Callout, Card, Chips, Code, DataTable, Empty, LevelBadge, LinkButton, NewBadge, PageHeader, SearchInput, SeverityBadge, Stat, Toggle } from "../components/ui";
 
 function usePrio(p: Project) {
@@ -10,7 +10,8 @@ function usePrio(p: Project) {
 
 function Detail({ p, f, onClose }: { p: Project; f: Finding | null; onClose: () => void }) {
   const prio = usePrio(p);
-  return <FindingDrawer f={f} onClose={onClose} triage={f ? p.agentic?.triage[f.finding_id] : undefined} priority={f ? prio[f.finding_id] : undefined} />;
+  return <FindingDrawer f={f} onClose={onClose} triage={f ? p.agentic?.triage[f.finding_id] : undefined} priority={f ? prio[f.finding_id] : undefined}
+    basis={f ? p.agentic?.triage_basis?.[f.finding_id] : undefined} />;
 }
 
 const findingCols = [
@@ -34,7 +35,8 @@ export function Vulnerabilities({ p }: { p: Project }) {
   const cnt = (l: string) => vul.filter((f) => f.severity?.label === l).length;
   return (
     <div>
-      <PageHeader title="Vulnerabilities" description="Components with published advisories (OSV.dev), their severity, fixes, and the dependency path that pulls them in." />
+      <PageHeader title="Vulnerabilities" description="Components with published advisories, their severity, fixes, and the dependency path that pulls them in." />
+      <div className="mb-6"><KindIntro category="vulnerability" count={vul.length} /></div>
       <div className="mb-6 grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-6">
         <Stat label="Vulnerable components" value={vul.length} />
         <Stat label="Advisories" value={p.findings?.counts.advisories ?? vul.reduce((a, f) => a + f.evidence.length, 0)} />
@@ -81,6 +83,7 @@ export function Changes({ p }: { p: Project }) {
   return (
     <div>
       <PageHeader title="Suspicious changes" description="Supply-chain risks beyond known CVEs: typosquats, malicious packages, install scripts, lockfile tampering, untrusted images and unsafe CI/CD." />
+      <div className="mb-6"><KindIntro category="anomaly" count={ano.length} /></div>
       <Card className="mb-6" title={<span className="flex items-center gap-2"><GitCommit className="h-4 w-4" /> What changed</span>}>
         {ch ? (
           <div className="space-y-4">
@@ -110,8 +113,12 @@ export function Changes({ p }: { p: Project }) {
           </div>
         ) : <Callout tone="info">No base commit compared (shallow clone, first commit, or comparison turned off). Anomalies describe the current state only.</Callout>}
       </Card>
-      <Card pad={false} title={`Anomalies (${ano.length})`} subtitle={byType.map(([t, n]) => `${t}: ${n}`).join(" · ")}>
-        <DataTable rows={[...ano].sort((a, b) => b.risk.score - a.risk.score)} rowKey={(f) => f.finding_id} onRow={setOpen} cols={findingCols} empty="No supply-chain anomaly detected." />
+      <Card pad={false} title={`Suspicious changes (${ano.length})`} subtitle={byType.map(([t, n]) => `${t}: ${n}`).join(" · ")}>
+        <DataTable rows={[...ano].sort((a, b) => b.risk.score - a.risk.score)} rowKey={(f) => f.finding_id} onRow={setOpen} empty="No suspicious supply-chain change detected." cols={[
+          ...findingCols,
+          { key: "ai", label: "Agent verdict", render: (f: Finding) => { const t = p.agentic?.triage[f.finding_id];
+            return t ? <VerdictBadge verdict={t.verdict} /> : p.agentic ? <span className="text-xs text-slate-400">deterministic rule</span> : null; } },
+        ]} />
       </Card>
       <Detail p={p} f={open} onClose={() => setOpen(null)} />
     </div>
@@ -119,14 +126,16 @@ export function Changes({ p }: { p: Project }) {
 }
 
 // ------------------------------------------------------------------ ⑤ evidence (all findings)
+const CAT_LABEL: Record<string, string> = { vulnerability: "vulnerability", anomaly: "suspicious change" };
+const CATS = ["vulnerability", "suspicious change"];
 export function Evidence({ p }: { p: Project }) {
   const F = p.findings?.findings || [];
   const [lv, setLv] = useState<Level[]>(LEVELS);
-  const [cat, setCat] = useState<string[]>(["vulnerability", "anomaly"]);
+  const [cat, setCat] = useState<string[]>(CATS);
   const [onlyNew, setOnlyNew] = useState(false);
   const [q, setQ] = useState("");
   const [open, setOpen] = useState<Finding | null>(null);
-  const rows = F.filter((f) => lv.includes(f.risk.level) && cat.includes(f.category) && (!onlyNew || f.new_in_change)
+  const rows = F.filter((f) => lv.includes(f.risk.level) && cat.includes(CAT_LABEL[f.category] || f.category) && (!onlyNew || f.new_in_change)
     && (!q || `${f.finding_id} ${f.title} ${f.type}`.toLowerCase().includes(q.toLowerCase())));
   const has = (f: string) => p.files.includes(f);
   return (
@@ -137,12 +146,13 @@ export function Evidence({ p }: { p: Project }) {
           {has("report.md") && <LinkButton href={fileUrl(p.name, "report.html")}><FileText className="h-4 w-4" /> Report</LinkButton>}
           {has("report.md") && <LinkButton href={fileUrl(p.name, "report.pdf", true)} download><Download className="h-4 w-4" /> PDF</LinkButton>}
         </div>} />
+      <div className="mb-6"><KindLegend counts={{ vulnerability: F.filter((f) => f.category === "vulnerability").length, anomaly: F.filter((f) => f.category === "anomaly").length }} /></div>
       <Card pad={false} title={`Findings (${rows.length} of ${F.length})`}
-        actions={<><Chips options={LEVELS} value={lv} onChange={setLv} /><Chips options={["vulnerability", "anomaly"]} value={cat} onChange={setCat} />
+        actions={<><Chips options={LEVELS} value={lv} onChange={setLv} /><Chips options={CATS} value={cat} onChange={setCat} />
           <Toggle checked={onlyNew} onChange={setOnlyNew} label="Only new" /><SearchInput value={q} onChange={setQ} /></>}>
         <DataTable rows={rows} rowKey={(f) => f.finding_id} onRow={setOpen} maxHeight={680} cols={[
           ...findingCols.slice(0, 2),
-          { key: "cat", label: "Category", render: (f: Finding) => <Badge className={f.category === "anomaly" ? "bg-violet-50 text-violet-700 ring-violet-600/20" : undefined}>{f.category}</Badge> },
+          { key: "cat", label: "Kind", render: (f: Finding) => <KindBadge category={f.category} /> },
           ...findingCols.slice(2),
           { key: "basis", label: "Basis", render: (f: Finding) => <span className="text-xs text-slate-500">{f.classification.replace(/_/g, " ")}</span> },
         ]} />

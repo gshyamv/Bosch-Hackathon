@@ -50,12 +50,19 @@ export interface Triage {
   finding_id: string; rule: string; verdict: string; confidence: string; rationale: string; rounds: number;
   grounding: { ok?: boolean; [k: string]: any }; generated_by: string; benign_explanations?: string[];
   recommended_next_step?: string; matched_patterns?: string[];
+  // structured reasoning (newer agentic.json; older files only have rationale / recommended_next_step)
+  summary?: string; reasons?: TriageReason[]; recommended_action?: string; basis?: "ai_inference" | "rules_fallback" | string;
+}
+export interface TriageReason {
+  text: string; evidence: string; kind: "file" | "advisory" | "okf" | "registry" | "commit" | "graph" | "finding" | "rule" | "other";
+  label: string; permalink?: string | null; verified: boolean;
 }
 export interface Agentic {
   run_id: string; generated_at: string; engine: string; kb_version: string; stale: boolean;
   narrative?: { headline: string; what_is_in_the_app: string; what_changed: string; what_appears_risky: string;
                 top_concerns: { finding_id: string; why: string }[]; caveats: string[] };
   triage: Record<string, Triage>;
+  triage_basis?: Record<string, string>;   // finding_id -> "deterministic: verified advisory" | "ai_inference" | ...
   tool_evidence: Record<string, { id: string; tool: string; round: number; result: any }[]>;
   llm_usage: { calls: number; input_tokens: number; output_tokens: number; secrets_redacted: number };
   agent_runs: { agent: string; kind: string; seconds: number; status: string; input_tokens?: number; output_tokens?: number }[];
@@ -66,6 +73,17 @@ export interface Proposal {
   rationale: string; expected_risk_reduction?: string; compatibility_level: string; compatibility_impact?: string;
   residual_advisories: string[]; rollback?: string; notes?: string; ai_rationale?: string; cluster_ids?: string[];
   ai_reviewer_checklist?: string[] | string; status: string;
+  system_suggestion?: { decision: string; reason: string; confidence: string } | null;
+}
+export interface PostAnalysis {
+  before: { total: number; by_level: Record<string, number> }; after: { total: number; by_level: Record<string, number> };
+  resolved: string[]; remaining: string[]; new: { title: string; kind: string; level: string; component?: string }[];
+  docker: boolean; verdict: string; confidence: string; reasons: string[];
+  sbom_diff?: Record<string, any>; after_findings: { finding_id: string; title: string; rule: string; level: string }[];
+}
+export interface SandboxTrace {
+  sandbox?: string; docker_server?: string; volume?: string; network?: string; events?: string[];
+  containers?: { container: string; image: string; cmd: string; network: string; started: string; seconds: number; exit: number | null; status: string; log_tail: string }[];
 }
 export interface Priority {
   finding_id: string; priority: string; score: number; urgent: boolean; bucket: string; title: string;
@@ -96,9 +114,11 @@ export interface Pending { run_id: string; repo: string; created: string; propos
 export interface Project {
   name: string; scanned_at: number | null; summary: Summary | null; findings: FindingsDoc | null;
   agentic: Agentic | null; pending: Pending | null; remediation: RemediationRun | null; files: string[];
+  post_analysis?: PostAnalysis | null; sandbox_trace?: SandboxTrace | null;
+  messages?: AgentMessage[]; iteration?: { parent: string; iteration: number } | null; iterations?: IterationRow[];
 }
 export interface ProjectInfo { name: string; scanned_at: number; has_findings: boolean; has_agentic: boolean; remediation: string | null }
-export interface Targets { presets: { name: string; path: string }[]; projects: ProjectInfo[] }
+export interface Targets { presets: { name: string; path: string; source?: string }[]; projects: ProjectInfo[] }
 export interface Meta { llm_choices: string[]; llm_default: string; llm_keys: Record<string, boolean> }
 export interface Job {
   id: string; kind: string; project: string; status: "running" | "ok" | "failed"; returncode: number | null;
@@ -107,7 +127,10 @@ export interface Job {
 export interface GraphMeta {
   directs: { id: string; label: string; transitive: number; depth_below: number }[];
   max_depth: number; nodes: number; edges: number;
+  ecosystems?: GraphEcosystem[];
 }
+/** One ecosystem in the graph: same colour / vis shape the graph view draws it with. */
+export interface GraphEcosystem { id: string; label: string; color: string; shape: string; count: number; vulnerable: number }
 export interface WhyHit { id: string; label: string; ecosystem: string; scope: string; origin: string; findings: string[]; paths: string[][] }
 
 async function req<T>(url: string, init?: RequestInit): Promise<T> {
@@ -132,10 +155,43 @@ export const api = {
   approve: (name: string, body: Record<string, unknown>) =>
     req<Job>(`/api/projects/${enc(name)}/approve`, { method: "POST", body: JSON.stringify(body) }),
   job: (id: string, since: number) => req<Job>(`/api/jobs/${id}?since=${since}`),
+  messages: (name: string) => req<AgentMessage[]>(`/api/projects/${enc(name)}/messages`),
+  okfGraph: (type?: string) => req<OkfGraph>(`/api/okf/graph${type ? `?type=${enc(type)}` : ""}`),
+  okfConcept: (id: string) => req<{ id: string; meta: any; body: string; trust: string; stale: boolean }>(`/api/okf/concepts/${id}`),
 };
+
+export interface AgentMessage { at: string; run_id: string; iteration: number; sender: string; recipient: string; kind: string; content: string; refs: string[] }
+export interface OkfCard { id: string; type: string; title: string; description?: string; status?: string; trust: string; stale: boolean }
+export interface OkfGraph { nodes: OkfCard[]; edges: { source: string; target: string }[]; types: Record<string, number>; total: number }
+export interface IterationRow { project: string; iteration: number; findings: number | null; after_fix: number | null; verdict: string | null }
 
 export const fileUrl = (name: string, path: string, download = false) =>
   `/api/projects/${enc(name)}/files/${path}${download ? "?download=true" : ""}`;
 export const graphUrl = (name: string, p: { mode: string; levels: number; libsOnly: boolean; root?: string | null }) =>
   `/api/projects/${enc(name)}/graph/view?mode=${p.mode}&levels=${p.levels}&libs_only=${p.libsOnly}` +
   (p.root ? `&root=${enc(p.root)}` : "");
+
+// ------------------------------------------------------------------ persisted job logs (Logs page)
+export interface LogRun {
+  id: string; kind: string; project: string; command: string | null; started: number | null; ended: number | null;
+  returncode: number | null; status: "running" | "ok" | "failed" | "interrupted" | "unknown"; file: string; size: number; lines: number | null;
+}
+export interface LogLine {
+  n: number; ts: string | null; text: string; tag: string | null; stage: string | null; kind: string; message: string;
+  transition: boolean; from?: string; to?: string;
+}
+export const logApi = {
+  list: () => req<LogRun[]>("/api/logs"),
+  get: (project: string, file: string) => req<{ meta: LogRun; lines: LogLine[] }>(`/api/logs/${enc(project)}/${enc(file)}`),
+  job: (id: string) => req<Job & { dropped?: number }>(`/api/jobs/${id}?since=999999999`),
+};
+export const logUrl = (project: string, file: string, download = false) =>
+  `/api/logs/${enc(project)}/${enc(file)}${download ? "?download=true" : "?raw=true"}`;
+
+/** Follows a running job over the server-sent events stream (/api/jobs/{id}/events). Returns a stop function. */
+export function followJob(id: string, since: number, onUpdate: (j: Job) => void, onEnd: () => void): () => void {
+  const es = new EventSource(`/api/jobs/${id}/events?since=${since}`);
+  es.onmessage = (m) => { const j: Job = JSON.parse(m.data); onUpdate(j); if (j.status !== "running") { es.close(); onEnd(); } };
+  es.onerror = () => { es.close(); onEnd(); };
+  return () => es.close();
+}

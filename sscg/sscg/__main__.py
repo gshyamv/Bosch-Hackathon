@@ -19,6 +19,7 @@ Outputs (default folder: out/<repo name>/):
 from __future__ import annotations
 
 import argparse
+import json
 import sys
 from pathlib import Path
 
@@ -39,8 +40,18 @@ def scan(args):
     print_console(repo, out, dg, fs, change, res, args.top)
 
 
+def _link(args) -> None:
+    """--source: the target is a live page and this GitHub repo is its source (patched / built / rescanned)."""
+    if getattr(args, "source", None) and isinstance(args.repo, str):
+        from .target import LinkedTarget
+        cache.OFFLINE = args.offline
+        args.repo = LinkedTarget(args.repo, args.source)
+
+
 def _scan_args(sc):
     sc.add_argument("repo", help="folder, https://github.com/owner/repo[@ref] or page URL to scan (read only; nothing is run)")
+    sc.add_argument("--source", help="with a page URL: the https://github.com/owner/repo it is built from; the page "
+                                     "and the source are scanned together and remediation works on the source")
     sc.add_argument("--out", type=Path, help="output folder (default: out/<repo name>)")
     sc.add_argument("--base", default="HEAD~1", help="commit to compare against for 'what changed' (default HEAD~1)")
     sc.add_argument("--no-diff", action="store_true", help="skip the base-commit comparison")
@@ -97,6 +108,8 @@ def main(argv=None):
     apv.add_argument("--offline", action="store_true", help="answer API calls from .cache only")
 
     sub.add_parser("okf", help="lint the OKF context bundle and rebuild its indexes")
+    kn = sub.add_parser("knowledge", help="external knowledge sources for the agents")
+    kn.add_argument("action", choices=["update", "status"], help="update: rebuild the OpenSSF malicious-packages index")
     srv = sub.add_parser("serve", help="start the web dashboard (React UI + API) at http://127.0.0.1:8000")
     srv.add_argument("--host", default="127.0.0.1", help="interface to listen on (default 127.0.0.1: this machine only)")
     srv.add_argument("--port", type=int, default=8000)
@@ -113,9 +126,16 @@ def main(argv=None):
         errs = st.lint()
         print("\n".join(errs) or f"okf lint: {len(st.ids())} concepts, no problems")
         return 1 if errs else 0
+    if args.cmd == "knowledge":
+        from . import ossf_malicious
+        if args.action == "update":
+            ossf_malicious.update()
+        print(json.dumps(ossf_malicious.info() or {"index": "not built: run `python -m sscg knowledge update`"}, indent=2))
+        return 0
     if args.cmd == "serve":
         from .server import serve  # imported lazily: scan / agent never need FastAPI
         return serve(args.host, args.port)
+    _link(args)
     if args.cmd == "agent":
         from .agents.runner import run  # imported lazily: plain `scan` never needs LangGraph or an LLM SDK
         return run(args)
