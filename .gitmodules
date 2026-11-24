@@ -1,0 +1,3 @@
+[submodule "targets/sscg-demo-app"]
+	path = targets/sscg-demo-app
+	url = https://github.com/vishnstad/Vulnerable-Demo-Repo-for-testing-.git

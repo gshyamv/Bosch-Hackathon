@@ -22,7 +22,7 @@ export function Remediation({ p, onJob }: { p: Project; onJob: (jobId: string) =
     <div>
       <PageHeader title="Remediation" description="Prioritised risk → recommended fix → human approval → build & test in a sandbox → rescan → verified remediation. The original repository is never modified." />
       {p.pending ? <Approval p={p} pend={p.pending} onJob={onJob} />
-        : p.remediation ? <Results p={p} rem={p.remediation} />
+        : p.remediation ? <Results p={p} rem={p.remediation} onJob={onJob} />
         : <Empty icon={<Wrench className="h-8 w-8" />} title="No remediation run yet">Start a <b>Full: detect → remediate</b> run. It prioritises the findings, proposes exact fixes, and pauses here for your approval.</Empty>}
     </div>
   );
@@ -31,8 +31,10 @@ export function Remediation({ p, onJob }: { p: Project; onJob: (jobId: string) =
 // ------------------------------------------------------------------ proposal details (shared)
 function ProposalBody({ pr }: { pr: Proposal }) {
   const checklist = Array.isArray(pr.ai_reviewer_checklist) ? pr.ai_reviewer_checklist : pr.ai_reviewer_checklist ? [pr.ai_reviewer_checklist] : [];
+  const sg = pr.system_suggestion;
   return (
-    <div className="space-y-4">
+    <div className="grid gap-5 lg:grid-cols-2">
+    <div className="space-y-4 min-w-0">
       <dl className="divide-y divide-slate-100">
         <DetailRow label="Why (verified)">{pr.rationale}</DetailRow>
         {pr.expected_risk_reduction && <DetailRow label="Risk reduction">{pr.expected_risk_reduction}</DetailRow>}
@@ -44,6 +46,17 @@ function ProposalBody({ pr }: { pr: Proposal }) {
         {pr.residual_advisories?.length > 0 && <DetailRow label="Residual advisories"><span className="text-amber-700">{pr.residual_advisories.join(", ")}</span></DetailRow>}
         {pr.notes && <DetailRow label="Notes">{pr.notes}</DetailRow>}
       </dl>
+      {pr.diff ? <Diff text={pr.diff} /> : <p className="text-sm italic text-slate-500">No automatic patch: this needs a human change (guidance on the right).</p>}
+    </div>
+    <div className="space-y-3 min-w-0">
+      <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">Reasoning: read before you decide</div>
+      <div className="rounded-lg border border-slate-200 bg-slate-50 p-3.5 text-sm"><div className="mb-1 font-semibold text-slate-800">Why this fix (verified facts)</div><p className="text-slate-700">{pr.rationale}</p></div>
+      {sg && (
+        <div className="rounded-lg border border-teal-300 bg-teal-50 p-3.5 text-sm">
+          <div className="mb-1 flex items-center gap-2 font-semibold text-teal-900"><Badge className="bg-teal-600 text-white ring-teal-600">System suggestion</Badge> {DECISIONS.find((d) => d.id === sg.decision)?.label || sg.decision} <span className="text-xs font-normal text-teal-700">({sg.confidence} confidence)</span></div>
+          <p className="text-slate-700">{sg.reason}</p>
+        </div>
+      )}
       {(pr.ai_rationale || checklist.length > 0) && (
         <div className="rounded-lg border border-violet-200 bg-violet-50/50 p-3.5 text-sm">
           <div className="mb-1.5 flex items-center gap-1.5 font-semibold text-violet-900"><Sparkles className="h-4 w-4" /> Remediation advisor (AI inference)</div>
@@ -51,7 +64,8 @@ function ProposalBody({ pr }: { pr: Proposal }) {
           {checklist.length > 0 && <ul className="mt-2 list-disc space-y-1 pl-5 text-slate-700">{checklist.map((c, i) => <li key={i}>{c}</li>)}</ul>}
         </div>
       )}
-      {pr.diff ? <Diff text={pr.diff} /> : <p className="text-sm italic text-slate-500">No automatic patch: this needs a human change (guidance above).</p>}
+      {!pr.ai_rationale && <p className="text-xs italic text-slate-500">No AI advisor note (rules-only run or no LLM key).</p>}
+    </div>
     </div>
   );
 }
@@ -65,6 +79,7 @@ function ProposalTitle({ pr }: { pr: Proposal }) {
       <span className="truncate font-mono text-sm text-slate-900">{pr.component || pr.files_affected?.[0] || ""}</span>
       {pr.to_version && <span className="inline-flex items-center gap-1 font-mono text-xs text-slate-500">{pr.from_version} <ArrowRight className="h-3 w-3" /> <span className="text-emerald-700">{pr.to_version}</span></span>}
       {!pr.patchable && <Badge className="bg-sky-50 text-sky-700 ring-sky-600/20">manual</Badge>}
+      {pr.system_suggestion && <Badge className="bg-teal-50 text-teal-800 ring-teal-600/30">System suggestion: {DECISIONS.find((d) => d.id === pr.system_suggestion!.decision)?.label || pr.system_suggestion.decision}</Badge>}
     </div>
   );
 }
@@ -73,7 +88,7 @@ function ProposalTitle({ pr }: { pr: Proposal }) {
 function Approval({ p, pend, onJob }: { p: Project; pend: Pending; onJob: (id: string) => void }) {
   const props = pend.proposals;
   const [dec, setDec] = useState<Record<string, Decision>>(() => Object.fromEntries(props.map((x) => [x.proposal_id, "defer"])));
-  const [expanded, setExpanded] = useState<Record<string, boolean>>(() => Object.fromEntries(props.filter((x) => x.urgent).map((x) => [x.proposal_id, true])));
+  const [expanded, setExpanded] = useState<Record<string, boolean>>(() => Object.fromEntries(props.map((x) => [x.proposal_id, true])));
   const [by, setBy] = useState("");
   const [reason, setReason] = useState("");
   const [err, setErr] = useState<string | null>(null);
@@ -98,6 +113,7 @@ function Approval({ p, pend, onJob }: { p: Project; pend: Pending; onJob: (id: s
       <div className="my-4 flex flex-wrap items-center gap-2">
         <Button onClick={() => setAll((x) => (x.patchable ? "approve" : null))}><CheckCircle2 className="h-4 w-4 text-emerald-600" /> Approve all patchable</Button>
         <Button onClick={() => setAll((x) => (x.urgent && x.patchable ? "approve" : null))}>Approve urgent only</Button>
+        <Button onClick={() => setAll((x) => (x.system_suggestion && (x.system_suggestion.decision !== "approve" || x.patchable) ? x.system_suggestion.decision as Decision : null))}>Apply system suggestions (low priority)</Button>
         <Button onClick={() => setAll((x) => (!x.patchable ? "request_changes" : null))}>Escalate manual items</Button>
         <Button variant="ghost" onClick={() => setAll(() => "defer")}>Reset</Button>
         <Button variant="ghost" onClick={() => setExpanded(Object.fromEntries(props.map((x) => [x.proposal_id, !Object.values(expanded).some(Boolean)])))}>Expand / collapse all</Button>
@@ -148,11 +164,11 @@ function Approval({ p, pend, onJob }: { p: Project; pend: Pending; onJob: (id: s
 }
 
 // ------------------------------------------------------------------ results of the last remediation run
-type RTab = "prio" | "props" | "val" | "report";
-function Results({ p, rem }: { p: Project; rem: RemediationRun }) {
+type RTab = "post" | "proof" | "prio" | "props" | "val" | "report";
+function Results({ p, rem, onJob }: { p: Project; rem: RemediationRun; onJob: (id: string) => void }) {
   const val = rem.validations?.[rem.validations.length - 1];
   const verdict = val?.verdict || "not_run";
-  const [tab, setTab] = useState<RTab>("prio");
+  const [tab, setTab] = useState<RTab>(p.post_analysis ? "post" : "prio");
   const [openF, setOpenF] = useState<Finding | null>(null);
   const [openP, setOpenP] = useState<Proposal | null>(null);
   const fmap = useMemo(() => Object.fromEntries((p.findings?.findings || []).map((f) => [f.finding_id, f])), [p.findings]);
@@ -174,8 +190,8 @@ function Results({ p, rem }: { p: Project; rem: RemediationRun }) {
           <ul className="mt-1 space-y-0.5 text-sm text-slate-600">{(val?.reasons || []).map((r, i) => <li key={i}>• {r}</li>)}</ul>
         </div>
         <div className="flex flex-wrap gap-2">
-          {p.files.includes("remediation/remediation_report.html") && <LinkButton href={fileUrl(p.name, "remediation/remediation_report.html")}><FileText className="h-4 w-4" /> Report</LinkButton>}
-          {p.files.includes("remediation/remediation_report.pdf") && <LinkButton href={fileUrl(p.name, "remediation/remediation_report.pdf", true)} download><Download className="h-4 w-4" /> PDF</LinkButton>}
+          {p.files.includes("report.html") && <LinkButton href={fileUrl(p.name, "report.html")}><FileText className="h-4 w-4" /> Report</LinkButton>}
+          {p.files.includes("report.pdf") && <LinkButton href={fileUrl(p.name, "report.pdf", true)} download><Download className="h-4 w-4" /> PDF</LinkButton>}
         </div>
       </div>
       <div className="mb-6 grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-6">
@@ -187,9 +203,13 @@ function Results({ p, rem }: { p: Project; rem: RemediationRun }) {
         <Stat label="Network service" value={rem.exposure?.network_service ? "yes" : "no"} hint={rem.exposure?.evidence?.[0]} />
       </div>
       <Tabs value={tab} onChange={setTab} tabs={[
+        { id: "post", label: "Post-analysis (before → after)" }, { id: "proof", label: "Sandbox proof (Docker)" },
         { id: "prio", label: "Prioritised risks" }, { id: "props", label: "Proposals & decisions" },
         { id: "val", label: "Validation" }, { id: "report", label: "Report & patch" },
       ]} />
+
+      {tab === "post" && (p.post_analysis ? <PostAnalysisView pa={p.post_analysis} workdir={(val as any)?.workdir} onJob={onJob} /> : <Empty title="No post-analysis yet" />)}
+      {tab === "proof" && <SandboxProofView t={p.sandbox_trace} />}
 
       {tab === "prio" && (
         <Card pad={false} title="Prioritised risks" subtitle={`Initial risk + signed points for CISA KEV (${rem.exploitability_sources?.kev?.date?.slice(0, 10) || "n/a"}), EPSS (${rem.exploitability_sources?.epss?.date || "n/a"}), reachability (${Object.entries(rem.reachability_summary || {}).map(([k, v]) => `${k} ${v}`).join(", ")}) and exposure. Deterministic.`}>
@@ -224,12 +244,12 @@ function Results({ p, rem }: { p: Project; rem: RemediationRun }) {
       {tab === "report" && (
         <div className="space-y-4">
           <div className="flex flex-wrap gap-2">
-            {(["remediation/remediation_report.pdf", "remediation/remediation_report.html", "remediation/remediation_report.md", "remediation/remediation.patch", "remediation/remediation.json"]).filter((f) => p.files.includes(f)).map((f) => (
-              <LinkButton key={f} href={fileUrl(p.name, f, true)} download><Download className="h-4 w-4" /> {f.split("/")[1]}</LinkButton>
+            {(["report.pdf", "remediation/remediation.patch", "remediation/remediation.json"]).filter((f) => p.files.includes(f)).map((f) => (
+              <LinkButton key={f} href={fileUrl(p.name, f, true)} download><Download className="h-4 w-4" /> {f.split("/").pop()}</LinkButton>
             ))}
           </div>
-          {p.files.includes("remediation/remediation_report.html") && (
-            <Card pad={false}><iframe src={fileUrl(p.name, "remediation/remediation_report.html") + `?t=${p.scanned_at}`} title="Remediation report" sandbox="" className="h-[78vh] w-full rounded-xl border-0" /></Card>
+          {p.files.includes("report.html") && (
+            <Card pad={false}><iframe src={fileUrl(p.name, "report.html") + `?t=${p.scanned_at}`} title="Guardian report" sandbox="" className="h-[78vh] w-full rounded-xl border-0" /></Card>
           )}
         </div>
       )}
@@ -291,6 +311,92 @@ function ValidationView({ val }: { val: NonNullable<RemediationRun["validations"
         <div className="mb-4 flex flex-wrap gap-1.5">{val.resolved.map((f) => <Badge key={f} className="bg-emerald-50 text-emerald-700 ring-emerald-600/20">{f}</Badge>)}</div>
         <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Remaining ({val.remaining.length})</div>
         <div className="flex flex-wrap gap-1.5">{val.remaining.map((f) => <Badge key={f}>{f}</Badge>)}</div>
+      </Card>
+    </div>
+  );
+}
+
+// ------------------------------------------------------------------ post-analysis: the same view, after the fix
+const LEVELS = ["Critical", "High", "Medium", "Low", "Info", "Unknown"];
+const LEVEL_TONE: Record<string, string> = { Critical: "bg-red-600", High: "bg-orange-500", Medium: "bg-amber-400", Low: "bg-sky-400", Info: "bg-slate-300", Unknown: "bg-slate-300" };
+
+function PostAnalysisView({ pa, workdir, onJob }: { pa: NonNullable<Project["post_analysis"]>; workdir?: string; onJob: (id: string) => void }) {
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
+  const max = Math.max(1, ...LEVELS.flatMap((l) => [pa.before.by_level[l] || 0, pa.after.by_level[l] || 0]));
+  const delta = pa.before.total - pa.after.total;
+  async function again() {
+    if (!workdir) return;
+    setBusy(true); setErr(null);
+    try { onJob((await api.run({ repo: workdir.replace(/[\\/]$/, "") + "/after", agentic: true, remediate: true, llm: "auto", osv: true, base: "", focus: "" })).id); }
+    catch (e: any) { setErr(e.message); } finally { setBusy(false); }
+  }
+  return (
+    <div className="space-y-5">
+      <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+        <Stat label="Findings before" value={pa.before.total} />
+        <Stat label="Findings after (sandbox rescan)" value={pa.after.total} tone={pa.after.total ? undefined : "green"} />
+        <Stat label="Reduction" value={`${delta >= 0 ? "-" : "+"}${Math.abs(delta)} (${pa.before.total ? Math.round((100 * delta) / pa.before.total) : 0}%)`} tone={delta > 0 ? "green" : "red"} />
+        <Stat label="Built & tested in Docker" value={pa.docker ? "yes" : "no"} tone={pa.docker ? "green" : "red"} />
+      </div>
+      <Card title="Findings by level" subtitle="Initial scan vs. rescan of the patched copy inside the sandbox">
+        <div className="space-y-2">
+          {LEVELS.filter((l) => pa.before.by_level[l] || pa.after.by_level[l]).map((l) => (
+            <div key={l} className="grid grid-cols-[90px_1fr] items-center gap-3 text-sm">
+              <span className="text-slate-600">{l}</span>
+              <div className="space-y-1">
+                {(["before", "after"] as const).map((k) => (
+                  <div key={k} className="flex items-center gap-2">
+                    <div className={cx("h-3 rounded", k === "before" ? "bg-slate-300" : LEVEL_TONE[l])} style={{ width: `${(100 * (pa[k].by_level[l] || 0)) / max}%`, minWidth: 2 }} />
+                    <span className="text-xs tabular-nums text-slate-500">{k} {pa[k].by_level[l] || 0}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </Card>
+      <div className="grid gap-5 lg:grid-cols-2">
+        <Card title={`Resolved (${pa.resolved.length})`}><div className="flex flex-wrap gap-1">{pa.resolved.map((r) => <Code key={r}>{r}</Code>)}</div></Card>
+        <Card title={`Still open after the fix (${pa.after_findings.length})`}>
+          <ul className="max-h-72 space-y-1 overflow-auto text-sm">{pa.after_findings.map((f) => <li key={f.finding_id}><Badge className="bg-slate-100 text-slate-700 ring-slate-300">{f.level}</Badge> {f.title}</li>)}</ul>
+        </Card>
+      </div>
+      {pa.new.length > 0 && <Callout tone="warn">New after the fix: {pa.new.map((n) => `${n.title} (${n.kind})`).join("; ")}</Callout>}
+      <Card title="Next iteration" subtitle="Scan the patched copy again: the agents triage what is left and propose the next fixes, until findings reach zero or stop going down.">
+        <Button variant="primary" onClick={again} disabled={busy || !workdir || pa.after.total === 0}><Wrench className="h-4 w-4" /> Scan the fixed version again</Button>
+        {pa.after.total === 0 && <span className="ml-3 text-sm text-emerald-700">No findings left.</span>}
+        {err && <div className="mt-2"><Callout tone="error">{err}</Callout></div>}
+      </Card>
+    </div>
+  );
+}
+
+function SandboxProofView({ t }: { t?: Project["sandbox_trace"] }) {
+  if (!t || !t.containers?.length) return <Empty title="No sandbox trace">Docker is used only after you approve patchable fixes, and only when Docker is running.</Empty>;
+  return (
+    <div className="space-y-5">
+      <Card title="Temporary Docker sandbox" subtitle="Every container below was created on this machine's Docker engine for this run and removed afterwards.">
+        <dl className="divide-y divide-slate-100">
+          <DetailRow label="Sandbox id"><Code>{t.sandbox}</Code></DetailRow>
+          <DetailRow label="Docker engine">{t.docker_server}</DetailRow>
+          <DetailRow label="Volume / network"><Code>{t.volume}</Code> <Code>{t.network}</Code> (internal network, exit only via allow-list proxy)</DetailRow>
+          <DetailRow label="Verify yourself"><Code>{`docker events --since 24h --filter label=sscg.sandbox=${t.sandbox}`}</Code></DetailRow>
+        </dl>
+      </Card>
+      <Card pad={false} title={`Containers (${t.containers.length})`}>
+        <DataTable rows={t.containers} rowKey={(c) => c.container} cols={[
+          { key: "n", label: "Container", render: (c) => <span className="font-mono text-xs">{c.container}</span> },
+          { key: "s", label: "Started", render: (c) => <span className="whitespace-nowrap text-xs">{c.started}</span> },
+          { key: "c", label: "Command", render: (c) => <span className="font-mono text-xs">{c.cmd}</span> },
+          { key: "net", label: "Network", render: (c) => c.network },
+          { key: "e", label: "Exit", render: (c) => <StatusBadge status={c.status} /> },
+          { key: "t", label: "Seconds", render: (c) => c.seconds },
+          { key: "i", label: "Image (pinned digest)", render: (c) => <span className="break-all font-mono text-[10px] text-slate-500">{c.image}</span> },
+        ]} />
+      </Card>
+      <Card title={`docker events (${t.events?.length || 0})`} subtitle="Raw event stream from the Docker daemon, filtered by this sandbox's label">
+        <Pre text={(t.events || []).join("\n") || "no events captured"} maxHeight={320} />
       </Card>
     </div>
   );

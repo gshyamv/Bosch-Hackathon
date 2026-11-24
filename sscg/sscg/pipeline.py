@@ -10,7 +10,7 @@ import json
 import tempfile
 from pathlib import Path
 
-from . import __version__, diff, findings, report, report_export, vulns
+from . import __version__, diff, findings, report, vulns
 from .discover import discover
 from .export import export_html, export_json, export_mermaid
 from .graph import compute_depth, summarize, view, why
@@ -34,11 +34,27 @@ def build(target, sbom: Path | None = None, check_vulns: bool = True) -> DepGrap
         found = discover(target.head_dir(), dg)
         if not found:
             dg.notes.append("no supported manifests found")
+        if getattr(target, "live", None) is not None:      # LinkedTarget: the deployed page joins the same graph
+            _add_linked_page(dg, target.live)
     if check_vulns and vulns.osv_overlay(dg):
         vulns.enrich(dg)
     dg.notes += [n for n in target.notes if n not in dg.notes]
     compute_depth(dg)
     return dg
+
+
+def _add_linked_page(dg: DepGraph, live) -> None:
+    """A live page that cannot be loaded (503 while waking up, refused, offline) is a note; the source scan goes on."""
+    import httpx
+
+    from .discover.livepage import add_page
+    from .safety import SafetyError
+    try:
+        live.head_dir()
+    except (SafetyError, httpx.HTTPError, OSError) as e:
+        dg.notes.append(f"live page {live.url} not scanned: {e}")
+        return
+    add_page(dg, live.page, live.dir)
 
 
 def detect(target, dg: DepGraph, base_rev: str | None) -> tuple[list, object]:
@@ -79,13 +95,13 @@ def emit(target, out: Path, dg: DepGraph, fs: list, change, *, focus: str | None
     s["why"] = {q: why(dg, q) for q in why_q}
     doc = findings.document(target.name, dg, fs, change, __version__)
     doc["scan"]["target"] = {"kind": target.kind, "display": target.display, "sha": target.sha}
+    if getattr(target, "live", None) is not None:
+        doc["scan"]["target"]["live_url"] = target.live.url
     s["findings"] = doc["counts"]
     (out / "summary.json").write_text(json.dumps(s, indent=2), encoding="utf-8")
     (out / "findings.json").write_text(json.dumps(doc, indent=1, default=str), encoding="utf-8")
-    md = report.render(doc, s, agentic)
-    (out / "report.md").write_text(md, encoding="utf-8")
-    report_files = report_export.write_all(md, out)
-    files = ["sbom.cdx.json", "graph.json", "graph.html", "summary.json", "findings.json", "report.md",
+    report_files = report.write(out, doc, s, agentic)   # the one report (before-state; remediation rewrites it)
+    files = ["sbom.cdx.json", "graph.json", "graph.html", "summary.json", "findings.json",
              *report_files] + (["graph.mmd"] if has_mmd else [])
     return {"summary": s, "doc": doc, "files": files}
 

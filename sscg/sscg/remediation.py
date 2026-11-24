@@ -323,9 +323,9 @@ class Planner:
 
         chosen = [(k, fs) for k, fs in groups.items()
                   if any(self.prio.get(f["finding_id"], {}).get("priority") in levels for f in fs)]
-        chosen.sort(key=lambda kf: best(kf[1]))
+        from .agents.pqueue import PriorityQueue
         props = []
-        for k, fs in chosen[:max_proposals]:
+        for k, fs in PriorityQueue(chosen, key=lambda kf: best(kf[1])).take(max_proposals):
             p = self.propose(k, sorted(fs, key=lambda f: f["finding_id"]))
             pri = [self.prio.get(f["finding_id"], {}) for f in fs]
             top = min(pri, key=lambda x: (rank.get(x.get("priority"), 9), -x.get("score", 0)))
@@ -466,6 +466,10 @@ class Planner:
                     return {**out, "action": "escalate_review", "to_version": to,
                             "rationale": f"{comp['label']} is transitive: add {name}:{to} to <dependencyManagement> "
                                          f"or upgrade the parent that pulls it in."}
+            if now and all(v == to for v in now):     # no-op: the "fix" is the version already used
+                return {**out, "action": "escalate_review", "to_version": None,
+                        "rationale": f"{comp['label']}: no published release fixes its advisories yet "
+                                     f"({n_adv} on {to}); replace the package or accept the risk until one exists."}
             bumps = [_bump(v, to) for v in now]
             bump = next((b for b in ("major", "minor", "patch") if b in bumps), "unknown")
             version = ", ".join(now)

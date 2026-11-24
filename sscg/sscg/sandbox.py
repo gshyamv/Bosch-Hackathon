@@ -9,6 +9,7 @@ There is no host fallback: without Docker, callers must not run the step.
 from __future__ import annotations
 
 import io
+import json
 import os
 import subprocess
 import tarfile
@@ -78,9 +79,27 @@ def available() -> bool:
 class Sandbox:
     """with Sandbox() as sb: sb.put(dir); sb.run("npm", ["npm", "ci"], cwd, net=True); sb.read(path)"""
 
-    def __init__(self):
+    def __init__(self, trace_dir: Path | None = None, run_id: str = ""):
         self.id = "sscg-" + uuid.uuid4().hex[:10]
         self.vol, self.net, self.proxy = self.id, f"{self.id}-net", f"{self.id}-proxy"
+        self.labels = ["--label", f"sscg.sandbox={self.id}", "--label", f"sscg.run={run_id or self.id}"]
+        self.trace_dir, self.trace, self._events = trace_dir, [], None
+
+    def _record(self, name: str, image: str, cmd, res: dict, started: float) -> None:
+        """Proof for reviewers: what ran, in which pinned image, how it ended (sandbox_trace.json)."""
+        self.trace.append({"container": name, "image": IMAGES.get(image, image), "cmd": " ".join(map(str, cmd))[:300],
+                           "network": "registry proxy" if res.get("net") else "none",
+                           "started": time.strftime("%Y-%m-%dT%H:%M:%S", time.localtime(started)),
+                           "seconds": res.get("seconds"), "exit": res.get("exit"), "status": res.get("status"),
+                           "log_tail": (res.get("log") or "")[-400:]})
+        self._flush()
+
+    def _flush(self) -> None:
+        if self.trace_dir:
+            self.trace_dir.mkdir(parents=True, exist_ok=True)
+            (self.trace_dir / "sandbox_trace.json").write_text(json.dumps(
+                {"sandbox": self.id, "docker_server": self.server, "volume": self.vol, "network": self.net,
+                 "containers": self.trace}, indent=2), encoding="utf-8")
 
     def _must(self, *args, **kw):
         r = docker(*args, **kw)
@@ -89,10 +108,22 @@ class Sandbox:
         return r
 
     def __enter__(self):
+        self.server = docker("version", "--format", "{{.Server.Version}} {{.Server.Os}}/{{.Server.Arch}}",
+                             timeout=20).stdout.decode(errors="replace").strip()
+        if self.trace_dir:            # docker's own event log for everything this sandbox creates
+            self.trace_dir.mkdir(parents=True, exist_ok=True)
+            self._events_file = open(self.trace_dir / "docker_events.log", "w", encoding="utf-8")
+            try:
+                self._events = subprocess.Popen(
+                    ["docker", "events", "--filter", f"label=sscg.sandbox={self.id}", "--format",
+                     "{{.TimeNano}} {{.Type}} {{.Action}} {{.Actor.Attributes.name}} {{.Actor.Attributes.image}}"],
+                    stdout=self._events_file, stderr=subprocess.DEVNULL)
+            except OSError:
+                self._events = None
         try:
-            self._must("volume", "create", self.vol)
-            self._must("network", "create", "--internal", self.net)
-            self._must("run", "--rm", "--network", "none", "-v", f"{self.vol}:/work", "--entrypoint", "chown",
+            self._must("volume", "create", *self.labels, self.vol)
+            self._must("network", "create", *self.labels, "--internal", self.net)
+            self._must("run", "--rm", *self.labels, "--network", "none", "-v", f"{self.vol}:/work", "--entrypoint", "chown",
                        IMAGES["npm"], "1000:1000", "/work", timeout=600)
             self.open_proxy(REGISTRIES)
         except BaseException:
@@ -101,6 +132,11 @@ class Sandbox:
         return self
 
     def __exit__(self, *_):
+        self._flush()
+        if self._events:
+            time.sleep(1)
+            self._events.terminate()
+            self._events_file.close()
         for a in (("rm", "-f", self.proxy), ("volume", "rm", "-f", self.vol), ("network", "rm", self.net)):
             try:
                 docker(*a)
@@ -110,7 +146,7 @@ class Sandbox:
     def open_proxy(self, allow: list[str]) -> None:
         docker("rm", "-f", self.proxy)
         hard = [x for x in HARDEN if x != "--rm"]
-        self._must("run", "-d", "--name", self.proxy, *hard, "-e", "ALLOW=" + ",".join(allow), IMAGES["pypi"],
+        self._must("run", "-d", "--name", self.proxy, *self.labels, *hard, "-e", "ALLOW=" + ",".join(allow), IMAGES["pypi"],
                    "python", "-c", PROXY, timeout=600)
         self._must("network", "connect", self.net, self.proxy)
         for _ in range(40):
@@ -129,7 +165,7 @@ class Sandbox:
                     p = Path(root) / f
                     if not p.is_symlink():
                         tf.add(p, p.relative_to(src).as_posix(), recursive=False)
-        self._must("run", "-i", *HARDEN, "--network", "none", "-v", f"{self.vol}:/work", "--entrypoint", "sh",
+        self._must("run", "-i", *self.labels, *HARDEN, "--network", "none", "-v", f"{self.vol}:/work", "--entrypoint", "sh",
                    IMAGES["npm"], "-c", f"mkdir -p /work/{dest} && tar -xf - --no-same-owner --no-same-permissions -C /work/{dest}",
                    stdin=buf.getvalue(), timeout=600)
 
@@ -157,7 +193,7 @@ class Sandbox:
         shell = 'mkdir -p "$1" "$TMPDIR" && cd "$1" && shift && exec "$@"'
         t = time.perf_counter()
         try:
-            r = docker("run", "--name", name, *HARDEN, "--network", self.net if net else "none", *flags,
+            r = docker("run", "--name", name, *self.labels, "--label", f"sscg.step={cmd[0] if cmd else image}", *HARDEN, "--network", self.net if net else "none", *flags,
                        "-v", f"{self.vol}:/work", "--entrypoint", "sh", IMAGES[image], "-c", shell, "x",
                        f"/work/{cwd}", *cmd, timeout=timeout)
             out = (r.stdout + b"\n" + r.stderr).decode("utf-8", errors="replace")
@@ -165,9 +201,11 @@ class Sandbox:
         except subprocess.TimeoutExpired:
             docker("rm", "-f", name)
             res = {"status": "timeout", "exit": None, "log": f"stopped after {timeout}s"}
-        return {**res, "seconds": round(time.perf_counter() - t, 1)}
+        res = {**res, "seconds": round(time.perf_counter() - t, 1)}
+        self._record(name, image, cmd, {**res, "net": net}, time.time() - res["seconds"])
+        return res
 
     def read(self, path: str) -> str | None:
-        r = docker("run", *HARDEN, "--network", "none", "-v", f"{self.vol}:/work:ro", "--entrypoint", "cat",
+        r = docker("run", *self.labels, *HARDEN, "--network", "none", "-v", f"{self.vol}:/work:ro", "--entrypoint", "cat",
                    IMAGES["npm"], f"/work/{path}", timeout=120)
         return r.stdout.decode("utf-8", errors="replace") if r.returncode == 0 else None

@@ -14,6 +14,7 @@ from ..graph import compute_depth, summarize
 from ..pipeline import build, detect, emit
 from .. import relevance
 from .guard import redact
+from .pqueue import PriorityQueue
 from .runtime import get, now, traced
 from .tools import OKF_TOOLS, REPEATABLE, run_tool
 
@@ -112,9 +113,10 @@ def detection(state: dict) -> dict:
     cls = relevance.clusters(rt.dg, findings)
     rt.note(lambda c: c.on_detection(findings, cls))
     # Only findings whose rule needs judgement go to triage (knowledge base: playbook.triage), highest risk first.
-    queue = [f["finding_id"] for f in findings if f["category"] == "anomaly" and rt.kb.needs_triage(f["rule"])]
-    skipped = max(0, len(queue) - rt.settings.max_triage)
-    queue = queue[:rt.settings.max_triage]
+    pq = PriorityQueue([f for f in findings if f["category"] == "anomaly" and rt.kb.needs_triage(f["rule"])],
+                       key=lambda f: (-f["risk"]["score"], f["finding_id"]))
+    skipped = max(0, len(pq) - rt.settings.max_triage)
+    queue = [f["finding_id"] for f in pq.take(rt.settings.max_triage)]
     rt.log("Detection", f"{len(findings)} findings; {len(queue)} need judgement -> triage"
                         + (f" ({skipped} more over the SSCG_LLM_MAX_TRIAGE cap)" if skipped else ""))
     return {"findings": findings, "clusters": cls, "change": _json_safe(change.as_dict()) if change else None,
@@ -154,8 +156,21 @@ def gather_evidence(state: dict) -> dict:
         new.setdefault(fid, []).append({"id": f"{fid}/T{n}", "tool": tool, "round": rnd, "at": now(),
                                         **({"query": q} if q else {}),
                                         "result": redact(res)[0]})  # stored redacted: it ends up in agentic.json
+        if rnd:                                  # later rounds: the Triage agent asked, a specialist answered
+            from . import bus
+            owner = "OKF Knowledge" if tool.startswith("okf") else "Evidence Gatherer"
+            bus.post(state["run_id"], "Triage", owner, "question", f"{fid}: run {tool}" + (f" for '{q}'" if q else ""), [fid])
+            r0 = res if isinstance(res, dict) else {}
+            got = r0.get("results") or r0.get("error") or str(res)[:200]
+            bus.post(state["run_id"], owner, "Triage", "answer",
+                     f"{fid}: {tool} -> " + (f"{len(got)} result(s)" if isinstance(got, list) else str(got)[:200]), [fid])
     rt.log("Evidence Gatherer", f"round {rnd}: ran {len(jobs)} read-only tool calls for {len(state['triage_queue'])} findings")
     return {"tool_evidence": new, "_run": {"round": rnd, "tool_calls": len(jobs)}}
+
+
+def _triage_basis(state: dict, rt) -> dict:
+    from .triage import triage_basis
+    return triage_basis(state.get("findings", []), rt.kb, state.get("triage", {}))
 
 
 def agentic_payload(state: dict, rt) -> dict:
@@ -167,6 +182,8 @@ def agentic_payload(state: dict, rt) -> dict:
         "kb_version": rt.kb.version, "plan": state.get("plan"),
         "narrative": state.get("narrative"), "clusters": state.get("clusters", []), "triage": state.get("triage", {}),
         "tool_evidence": state.get("tool_evidence", {}),
+        # how each finding's verdict was reached: vulnerabilities are deterministic (never sent to the AI)
+        "triage_basis": _triage_basis(state, rt),
         "llm_usage": {"calls": sum(r.get("llm_calls", 0) for r in runs),
                       "input_tokens": sum(r.get("input_tokens", 0) for r in runs),
                       "output_tokens": sum(r.get("output_tokens", 0) for r in runs),

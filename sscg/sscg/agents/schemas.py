@@ -7,7 +7,7 @@ from __future__ import annotations
 
 from typing import Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 Verdict = Literal["likely_malicious", "suspicious", "likely_benign", "needs_human_review"]
 Confidence = Literal["low", "medium", "high"]
@@ -21,26 +21,60 @@ class EvidenceRequest(BaseModel):
     query: str = Field("", description="okf_search: words; okf_read / okf_neighbors: concept id")
 
 
+EvidenceKind = Literal["file", "advisory", "okf", "registry", "commit", "graph", "finding", "rule", "other"]
+MAX_REASONS = 3
+
+
+class TriageReason(BaseModel):
+    """One reason behind a verdict, tied to exactly one piece of evidence the reader can open."""
+    text: str = Field(description="one sentence: the observation and why it matters for the verdict")
+    evidence: str = Field("", description="ONE reference from the packet: an evidence ID (F-012/E1, F-012/T2), a "
+                                          "file:line from the evidence, an advisory ID, or an OKF concept id")
+    # set by the system (resolved against the evidence packet), never trusted from the model
+    kind: EvidenceKind = "other"
+    label: str = ""                    # what the evidence chip shows: file:line, tool name, advisory id, concept id
+    permalink: str | None = None       # exact-line link at the scanned commit, advisory URL ...
+    verified: bool = False             # the reference exists in the evidence packet
+
+
 class TriageAssessment(BaseModel):
-    """Triage agent output for one finding. Inference about the evidence, never a replacement for it."""
+    """Triage agent output for one suspicious-change finding. Inference about the evidence, never a replacement for it.
+
+    Same shape from the LLM and from the rules fallback: verdict, confidence, one-sentence `summary`, at most 3
+    `reasons` each tied to one evidence reference, `recommended_action`. `rationale` and `recommended_next_step` are
+    derived from those for older readers of agentic.json (report.py, narrator, OKF triage notes); old agentic.json
+    files without summary/reasons still validate. Verdict values stay likely_malicious / suspicious / likely_benign /
+    needs_human_review (prioritizer, planner, playbooks and OKF history key on them); the UI labels them
+    Malicious / Suspicious / Likely benign / Needs human.
+    """
     finding_id: str
     verdict: Verdict = Field(description="likely_malicious only if the evidence shows malicious behaviour or a "
                                          "documented malicious package; otherwise suspicious / needs_human_review / "
                                          "likely_benign")
     confidence: Confidence
-    rationale: str = Field(description="2-5 sentences that cite evidence IDs like F-012/E1, F-012/T2")
+    summary: str = Field("", description="ONE sentence (at most ~30 words): the verdict and its main reason")
+    reasons: list[TriageReason] = Field(default_factory=list,
+                                        description=f"1-{MAX_REASONS} reasons, strongest first, one evidence reference each")
+    recommended_action: str = Field("", description="ONE concrete action for the human reviewer")
+    rationale: str = Field("", description="leave empty (filled by the system from summary + reasons)")
     cited_evidence: list[str] = Field(default_factory=list, description="evidence IDs used, e.g. ['F-012/E1']")
     matched_patterns: list[str] = Field(default_factory=list, description="attack pattern IDs from the knowledge base")
     benign_explanations: list[str] = Field(default_factory=list,
                                            description="plausible innocent explanations that were considered")
-    recommended_next_step: str = Field("", description="what a human reviewer should check next")
+    recommended_next_step: str = Field("", description="leave empty (filled by the system from recommended_action)")
     needs_more_evidence: bool = False
     evidence_requests: list[EvidenceRequest] = Field(default_factory=list)
     # set by the system, not by the LLM
     rule: str = ""
     generated_by: str = ""
+    basis: str = ""                    # "ai_inference" (LLM) or "rules_fallback"
     rounds: int = 1
     grounding: dict = Field(default_factory=dict)
+
+    @field_validator("reasons", mode="before")
+    @classmethod
+    def _cap_reasons(cls, v):           # a 4th reason is trimmed, not a validation error (which would waste a retry)
+        return list(v)[:MAX_REASONS] if isinstance(v, (list, tuple)) else v
 
 
 class Concern(BaseModel):

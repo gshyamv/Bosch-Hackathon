@@ -1,26 +1,30 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { CheckCircle2, ChevronDown, ChevronUp, Terminal, X, XCircle } from "lucide-react";
 import { api, Job } from "../api";
+import type { Page } from "../App";
+import { emptyTrack, feedLog, PipelineStepper, stepsFromLog } from "./PipelineStepper";
 import { cx, Spinner } from "./ui";
 
 /** Follows one background job (scan / agent / approve) and streams its console output. */
-export function JobConsole({ jobId, onDone, onClose }: { jobId: string; onDone: (job: Job) => void; onClose: () => void }) {
+export function JobConsole({ jobId, onDone, onClose, onGo }:
+  { jobId: string; onDone: (job: Job) => void; onClose: () => void; onGo?: (p: Page) => void }) {
   const [job, setJob] = useState<Job | null>(null);
   const [lines, setLines] = useState<string[]>([]);
+  const [track, setTrack] = useState(emptyTrack);   // pipeline progress, fed once per chunk so console trimming is safe
   const [open, setOpen] = useState(true);
   const since = useRef(0);
   const box = useRef<HTMLDivElement>(null);
   const done = useRef(false);
 
   useEffect(() => {
-    since.current = 0; done.current = false; setLines([]); setJob(null);
+    since.current = 0; done.current = false; setLines([]); setJob(null); setTrack(emptyTrack());
     let stop = false;
     async function tick() {
       try {
         const j = await api.job(jobId, since.current);
         if (stop) return;
         since.current = j.line_count;
-        if (j.lines.length) setLines((l) => [...l, ...j.lines].slice(-3000));
+        if (j.lines.length) { setLines((l) => [...l, ...j.lines].slice(-3000)); setTrack((t) => feedLog(t, j.lines)); }
         setJob(j);
         if (j.status !== "running") {
           if (!done.current) { done.current = true; onDone(j); }
@@ -31,7 +35,7 @@ export function JobConsole({ jobId, onDone, onClose }: { jobId: string; onDone: 
     }
     const apply = (j: Job) => {
       since.current = j.line_count;
-      if (j.lines.length) setLines((l) => [...l, ...j.lines].slice(-3000));
+      if (j.lines.length) { setLines((l) => [...l, ...j.lines].slice(-3000)); setTrack((t) => feedLog(t, j.lines)); }
       setJob(j);
       if (j.status !== "running" && !done.current) { done.current = true; onDone(j); }
     };
@@ -46,6 +50,7 @@ export function JobConsole({ jobId, onDone, onClose }: { jobId: string; onDone: 
   const running = !job || job.status === "running";
   const elapsed = job ? Math.round(((job.ended || Date.now() / 1000) - job.started)) : 0;
   const last = [...lines].reverse().find((l) => l.trim()) || "starting…";
+  const steps = useMemo(() => stepsFromLog(track, job && { kind: job.kind, status: job.status }), [track, job?.kind, job?.status]); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <div className="fixed bottom-4 right-4 z-40 w-[min(720px,calc(100vw-2rem))] overflow-hidden rounded-xl border border-ink-700 bg-ink-950 text-slate-200 shadow-2xl">
       <div className="flex items-center gap-3 px-4 py-2.5">
@@ -62,6 +67,9 @@ export function JobConsole({ jobId, onDone, onClose }: { jobId: string; onDone: 
           {open ? <ChevronDown className="h-4 w-4" /> : <ChevronUp className="h-4 w-4" />}
         </button>
         {!running && <button onClick={onClose} className="rounded p-1 text-slate-400 hover:bg-ink-800 hover:text-white"><X className="h-4 w-4" /></button>}
+      </div>
+      <div className="border-t border-ink-800 px-3 pb-2 pt-3">
+        <PipelineStepper steps={steps} onGo={onGo} dark />
       </div>
       {open && (
         <>

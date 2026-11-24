@@ -1,12 +1,11 @@
 import { useMemo, useState } from "react";
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
-import { AlertTriangle, ArrowRight, Boxes, Bug, CheckCircle2, Circle, GitCommit, Hourglass, PackageSearch, ShieldAlert, Sparkles, Wrench } from "lucide-react";
+import { AlertTriangle, ArrowRight, Boxes, GitCommit, Hourglass, ShieldAlert, Sparkles } from "lucide-react";
 import { Finding, LEVELS, Project } from "../api";
 import { FindingDrawer } from "../components/FindingDetail";
-import { Button, Callout, Card, Code, cx, DataTable, LEVEL_HEX, LevelBadge, NewBadge, PageHeader, Stat, StatusBadge } from "../components/ui";
+import { PipelineStepper, stepsFromProject } from "../components/PipelineStepper";
+import { Button, Callout, Card, Code, DataTable, LEVEL_HEX, LevelBadge, NewBadge, PageHeader, Stat, StatusBadge } from "../components/ui";
 import type { Page } from "../App";
-
-type StageState = "done" | "active" | "todo";
 
 /** Labelled horizontal bars: every label stays readable, unlike an axis that drops ticks when space is short. */
 function BarList({ data, color }: { data: { name: string; value: number }[]; color: string }) {
@@ -33,15 +32,7 @@ export function Overview({ p, go }: { p: Project; go: (page: Page) => void }) {
   const val = p.remediation?.validations?.[p.remediation.validations.length - 1];
   const prio = useMemo(() => Object.fromEntries((p.remediation?.priorities || []).map((x) => [x.finding_id, x])), [p.remediation]);
 
-  const stages: { name: string; desc: string; state: StageState; icon: any; page: Page }[] = [
-    { name: "Discover", desc: `${s.components_total} components · SBOM`, state: "done", icon: PackageSearch, page: "supply" },
-    { name: "Detect", desc: doc ? `${doc.counts.total} findings` : "not run", state: doc ? "done" : "todo", icon: Bug, page: "evidence" },
-    { name: "Analyze", desc: p.remediation || p.pending ? "KEV · EPSS · reachability" : p.agentic ? "AI triage" : "run remediation",
-      state: p.remediation || p.pending ? "done" : p.agentic ? "active" : "todo", icon: Sparkles, page: p.remediation || p.pending ? "remediation" : "ai" },
-    { name: "Remediate", desc: p.pending ? "awaiting approval" : p.remediation ? `${p.remediation.proposals.length} proposals` : "-",
-      state: p.pending ? "active" : p.remediation ? "done" : "todo", icon: Wrench, page: "remediation" },
-    { name: "Validate", desc: val ? val.verdict.replace(/_/g, " ") : "-", state: val && val.verdict !== "not_run" ? "done" : "todo", icon: CheckCircle2, page: "remediation" },
-  ];
+  const steps = useMemo(() => stepsFromProject(p), [p]);
 
   const levelData = LEVELS.map((l) => ({ name: l, value: doc?.counts.by_level[l] || 0 })).filter((x) => x.value);
   const typeData = Object.entries(doc?.counts.by_type || {}).map(([name, value]) => ({ name, value })).sort((a, b) => b.value - a.value);
@@ -55,24 +46,13 @@ export function Overview({ p, go }: { p: Project; go: (page: Page) => void }) {
       <PageHeader title="Overview" description="What is in the application, what changed, what appears risky, and where remediation stands." />
 
       {/* pipeline */}
-      <div className="mb-6 grid grid-cols-2 gap-2 sm:grid-cols-5">
-        {stages.map((st, i) => (
-          <button key={st.name} onClick={() => go(st.page)}
-            className={cx("group relative flex items-center gap-3 rounded-xl border px-4 py-3 text-left transition hover:shadow-card",
-              st.state === "done" ? "border-emerald-200 bg-emerald-50/60" : st.state === "active" ? "border-amber-300 bg-amber-50" : "border-slate-200 bg-white")}>
-            <div className={cx("flex h-9 w-9 shrink-0 items-center justify-center rounded-lg",
-              st.state === "done" ? "bg-emerald-600 text-white" : st.state === "active" ? "bg-amber-500 text-white" : "bg-slate-100 text-slate-400")}>
-              <st.icon className="h-4 w-4" />
-            </div>
-            <div className="min-w-0">
-              <div className="flex items-center gap-1.5 text-sm font-semibold text-slate-900">
-                <span className="text-xs text-slate-400">{i + 1}</span>{st.name}
-                {st.state === "done" ? <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" /> : st.state === "active" ? <Hourglass className="h-3.5 w-3.5 text-amber-600" /> : <Circle className="h-3.5 w-3.5 text-slate-300" />}
-              </div>
-              <div className="truncate text-xs text-slate-500">{st.desc}</div>
-            </div>
-          </button>
-        ))}
+      <div className="mb-6 rounded-xl border border-slate-200 bg-white px-4 pb-3 pt-4 shadow-card">
+        <PipelineStepper steps={steps} onGo={go} />
+        <p className="mt-2 border-t border-slate-100 pt-2 text-xs text-slate-500">
+          <b className="text-slate-700">How it works:</b> map every dependency, flag known vulnerabilities and supply-chain red flags,
+          let AI explain the unclear ones, then rank them and propose fixes. Nothing changes until you approve; approved fixes are
+          built, tested and rescanned in a Docker sandbox. Click a finished step to open its results.
+        </p>
       </div>
 
       {p.pending && (

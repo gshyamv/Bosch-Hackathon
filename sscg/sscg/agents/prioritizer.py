@@ -11,6 +11,7 @@ Works for any scanned application: npm, PyPI, Maven code imports; containers / C
 from __future__ import annotations
 
 from .. import intel, reachability
+from .pqueue import PriorityQueue
 from .runtime import get, traced
 from .schemas import PriorityItem
 
@@ -136,7 +137,7 @@ def prioritize(state: dict) -> dict:
     reach, exposure = rc.get("per_node", {}), rc.get("exposure", {})
     tri = state.get("triage", {})
     items = [score_finding(f, ex, reach, tri.get(f["finding_id"]), exposure) for f in state["findings"]]
-    items.sort(key=lambda i: (-int(i.urgent), -i.score, i.finding_id))
+    items = PriorityQueue(items, key=lambda i: (-int(i.urgent), -i.score, i.finding_id)).take()   # heap: urgent, score
     for i in items:
         rt.note(lambda c, d=i.model_dump(): c.write("PriorityNote", d))
     n = {p: sum(i.priority == p for i in items) for p in ("P0", "P1", "P2", "P3")}
